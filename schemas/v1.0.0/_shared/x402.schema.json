@@ -1,0 +1,55 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "x402 envelope",
+  "description": "Minimal x402-style envelope describing verb, version, and routing metadata.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "verb": {
+      "description": "Canonical verb name (e.g., summarize, analyze, fetch).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "version": {
+      "description": "Semantic version of the verb contract implemented by this payload.",
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "entry": {
+      "description": "Optional x402 entry URI for this verb on a given agent (e.g., x402://summarizeagent.eth/summarize/v1).",
+      "type": "string",
+      "format": "uri"
+    },
+    "request_id": {
+      "description": "Idempotent client-assigned request identifier.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "reply_to": {
+      "description": "Optional address or URI where responses/receipts should be delivered.",
+      "type": "string",
+      "format": "uri"
+    },
+    "tenant": {
+      "description": "Optional tenant or account identifier in multi-tenant systems.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "network": {
+      "description": "Optional blockchain or network context (e.g., mainnet, base, optimism).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "extras": {
+      "description": "Optional extension bag for implementation-specific routing/metadata.",
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": ["verb", "version"]
+}
