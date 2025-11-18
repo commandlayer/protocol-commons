@@ -1,0 +1,56 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/_shared/trace.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "trace",
+  "description": "Trace metadata for correlating requests and receipts across agents, hops, and spans.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "trace_id": {
+      "description": "Logical trace identifier shared across related calls/spans.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "span_id": {
+      "description": "Identifier for this specific operation/span within the trace.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "parent_span_id": {
+      "description": "Optional parent span identifier if this span is delegated or nested.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "timestamp": {
+      "description": "RFC 3339 timestamp indicating when this span started.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "duration_ms": {
+      "description": "Duration of this span in milliseconds, if known.",
+      "type": "number",
+      "minimum": 0
+    },
+    "labels": {
+      "description": "Optional structured labels/tags for this span. Safe to log and forward.",
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 64
+      },
+      "additionalProperties": {
+        "type": [
+          "string",
+          "number",
+          "boolean",
+          "null"
+        ]
+      }
+    }
+  },
+  "required": ["trace_id", "span_id", "timestamp"]
+}
