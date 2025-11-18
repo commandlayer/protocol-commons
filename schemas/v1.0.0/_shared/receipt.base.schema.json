@@ -1,0 +1,77 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/_shared/receipt.base.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "receipt.base",
+  "description": "Base structure for all CommandLayer receipts, extended per-verb.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "x402": {
+      "description": "x402 envelope describing the verb, version, and routing metadata for this receipt.",
+      "allOf": [
+        { "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json" }
+      ]
+    },
+    "trace": {
+      "description": "Trace metadata for correlating this receipt with the originating request and spans.",
+      "allOf": [
+        { "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/trace.schema.json" }
+      ]
+    },
+    "status": {
+      "description": "Outcome status for this verb invocation.",
+      "type": "string",
+      "enum": ["ok", "error", "partial"]
+    },
+    "provider": {
+      "description": "Information about the provider or agent that produced this receipt.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "agent_ens": {
+          "description": "ENS name of the agent, if applicable.",
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 253
+        }
+      }
+    },
+    "error": {
+      "description": "Error details if status != ok.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024
+        },
+        "details": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "meta": {
+      "description": "Optional additional metadata, safe for logging.",
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": ["x402", "trace", "status"]
+}
