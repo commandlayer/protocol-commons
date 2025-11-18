@@ -10,7 +10,7 @@
       "description": "Human-friendly label or handle for this identity.",
       "type": "string",
       "minLength": 1,
-      "maxLength": 256"
+      "maxLength": 256
     },
     "wallet_address": {
       "description": "Optional EVM wallet address associated with this identity.",
