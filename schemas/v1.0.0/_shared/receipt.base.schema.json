@@ -2,20 +2,24 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/_shared/receipt.base.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "receipt.base",
-  "description": "Base structure for all CommandLayer receipts, extended per-verb.",
+  "description": "Base structure for all CommandLayer receipts, extended on a per-verb basis.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
     "x402": {
       "description": "x402 envelope describing the verb, version, and routing metadata for this receipt.",
       "allOf": [
-        { "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json" }
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+        }
       ]
     },
     "trace": {
       "description": "Trace metadata for correlating this receipt with the originating request and spans.",
       "allOf": [
-        { "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/trace.schema.json" }
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/trace.schema.json"
+        }
       ]
     },
     "status": {
@@ -47,7 +51,7 @@
       }
     },
     "error": {
-      "description": "Error details if status != ok.",
+      "description": "Error details if status is not ok.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
