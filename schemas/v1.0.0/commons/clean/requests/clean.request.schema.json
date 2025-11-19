@@ -1,0 +1,175 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/clean/requests/clean.request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "clean.request",
+  "description": "Request to clean or sanitize content (normalize, redact, strip noise) with explicit limits and context.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "x402": {
+      "description": "x402 envelope describing the verb, version, and routing metadata for this request.",
+      "allOf": [
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "verb": { "const": "clean" },
+            "version": { "const": "1.0.0" }
+          },
+          "required": ["verb", "version"]
+        }
+      ]
+    },
+    "trace": {
+      "description": "Trace metadata for correlating this request with downstream spans and receipts.",
+      "allOf": [
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/trace.schema.json"
+        }
+      ]
+    },
+    "actor": {
+      "description": "Identity of the logical initiator of this request (human, app, or agent).",
+      "allOf": [
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/identity.schema.json"
+        }
+      ]
+    },
+    "channel": {
+      "description": "How this request is being transported and invoked.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "description": "High-level channel type.",
+          "type": "string",
+          "enum": ["a2a", "http", "queue", "cli", "scheduler", "other"]
+        },
+        "endpoint": {
+          "description": "Optional endpoint or address for this channel (e.g., URL, topic, queue name).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        }
+      },
+      "required": ["type"]
+    },
+    "modalities": {
+      "description": "Modalities involved in this request (e.g., text, markdown, html).",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 64
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "auth": {
+      "description": "Authentication or authorization context for the request.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scheme": {
+          "description": "Auth scheme (e.g., bearer, api_key, wallet_signature).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "token_hint": {
+          "description": "Optional opaque hint or truncated token for audit/debug. Do not store secrets here.",
+          "type": "string",
+          "maxLength": 256
+        },
+        "actor_wallet": {
+          "description": "Optional EVM wallet address used for auth.",
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{40}$"
+        }
+      }
+    },
+    "limits": {
+      "description": "Execution and output limits for this cleaning request.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_chars": {
+          "description": "Maximum characters allowed in the cleaned content.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_cost": {
+          "description": "Optional maximum cost budget in abstract units (e.g., credits, USD cents).",
+          "type": "number",
+          "minimum": 0
+        },
+        "timeout_ms": {
+          "description": "Timeout for this request in milliseconds.",
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "input": {
+      "description": "Primary content to clean or sanitize.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "Raw text or markup to be cleaned.",
+          "type": "string",
+          "minLength": 1
+        },
+        "format": {
+          "description": "Format of the content.",
+          "type": "string",
+          "enum": ["text", "markdown", "html", "json", "other"]
+        },
+        "locale": {
+          "description": "IETF BCP 47 language tag for the input content.",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 32
+        }
+      },
+      "required": ["content"]
+    },
+    "policy": {
+      "description": "Cleaning policy describing what should be removed or normalized.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "redact_pii": {
+          "description": "Whether to attempt to redact sensitive personal information.",
+          "type": "boolean"
+        },
+        "strip_html": {
+          "description": "Whether to remove HTML tags.",
+          "type": "boolean"
+        },
+        "normalize_whitespace": {
+          "description": "Whether to normalize whitespace and line breaks.",
+          "type": "boolean"
+        },
+        "lowercase": {
+          "description": "Whether to transform content to lowercase.",
+          "type": "boolean"
+        },
+        "remove_urls": {
+          "description": "Whether to remove URLs.",
+          "type": "boolean"
+        }
+      }
+    },
+    "metadata": {
+      "description": "Optional additional metadata for routing, billing, or analytics. Safe to log.",
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": ["x402", "trace", "actor", "channel", "input"]
+}

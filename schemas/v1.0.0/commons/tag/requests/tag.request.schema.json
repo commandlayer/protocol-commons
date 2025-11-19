@@ -1,0 +1,169 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/tag/requests/tag.request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "tag.request",
+  "description": "Request to attach tags/labels/metadata to content with explicit limits and context.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "x402": {
+      "description": "x402 envelope describing the verb, version, and routing metadata for this request.",
+      "allOf": [
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "verb": { "const": "tag" },
+            "version": { "const": "1.0.0" }
+          },
+          "required": ["verb", "version"]
+        }
+      ]
+    },
+    "trace": {
+      "description": "Trace metadata for correlating this request with downstream spans and receipts.",
+      "allOf": [
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/trace.schema.json"
+        }
+      ]
+    },
+    "actor": {
+      "description": "Identity of the logical initiator of this request (human, app, or agent).",
+      "allOf": [
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/identity.schema.json"
+        }
+      ]
+    },
+    "channel": {
+      "description": "How this request is being transported and invoked.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "description": "High-level channel type.",
+          "type": "string",
+          "enum": ["a2a", "http", "queue", "cli", "scheduler", "other"]
+        },
+        "endpoint": {
+          "description": "Optional endpoint or address for this channel (e.g., URL, topic, queue name).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        }
+      },
+      "required": ["type"]
+    },
+    "modalities": {
+      "description": "Modalities involved in this request (e.g., text, json).",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 64
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "auth": {
+      "description": "Authentication or authorization context for the request.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scheme": {
+          "description": "Auth scheme (e.g., bearer, api_key, wallet_signature).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "token_hint": {
+          "description": "Optional opaque hint or truncated token for audit/debug. Do not store secrets here.",
+          "type": "string",
+          "maxLength": 256
+        },
+        "actor_wallet": {
+          "description": "Optional EVM wallet address used for auth.",
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{40}$"
+        }
+      }
+    },
+    "limits": {
+      "description": "Execution and output limits for this tagging request.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_tags": {
+          "description": "Maximum number of tags allowed.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_cost": {
+          "description": "Optional maximum cost budget in abstract units (e.g., credits, USD cents).",
+          "type": "number",
+          "minimum": 0
+        },
+        "timeout_ms": {
+          "description": "Timeout for this request in milliseconds.",
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "input": {
+      "description": "Primary content to tag.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "Raw text or serialized content to be tagged.",
+          "type": "string",
+          "minLength": 1
+        },
+        "format": {
+          "description": "Format of the content.",
+          "type": "string",
+          "enum": ["text", "markdown", "html", "json", "other"]
+        },
+        "locale": {
+          "description": "IETF BCP 47 language tag for the input content.",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 32
+        }
+      },
+      "required": ["content"]
+    },
+    "tagging_policy": {
+      "description": "Tagging policy describing what kind of tags to produce.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "taxonomy": {
+          "description": "Optional taxonomy identifier (e.g., custom label set name or version).",
+          "type": "string",
+          "maxLength": 128
+        },
+        "max_tags_per_item": {
+          "description": "Maximum number of tags per content item.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "allow_freeform": {
+          "description": "Whether new, freeform tags are allowed beyond a fixed taxonomy.",
+          "type": "boolean"
+        }
+      }
+    },
+    "metadata": {
+      "description": "Optional additional metadata for routing, billing, or analytics. Safe to log.",
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": ["x402", "trace", "actor", "channel", "input"]
+}

@@ -2,7 +2,7 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/commons/format/receipts/format.receipt.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "format.receipt",
-  "description": "Receipt for format requests, extending the CommandLayer base receipt structure with formatting-specific result and usage fields.",
+  "description": "Receipt for a format request, including the formatted output and format metadata.",
   "type": "object",
   "allOf": [
     {
@@ -13,7 +13,7 @@
       "additionalProperties": false,
       "properties": {
         "x402": {
-          "description": "x402 envelope describing the format verb and version for this receipt.",
+          "description": "x402 envelope describing the verb and version for this receipt.",
           "allOf": [
             {
               "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
@@ -30,78 +30,49 @@
           ]
         },
         "result": {
-          "description": "Formatting result payload when status = 'success'.",
+          "description": "Formatting result payload.",
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "formatted_content": {
-              "description": "The formatted output content in the requested target representation.",
+            "output": {
+              "description": "The formatted content.",
               "type": "string",
-              "minLength": 1,
-              "maxLength": 500000
+              "minLength": 1
             },
-            "target_format": {
-              "description": "Format of the formatted output.",
+            "input_format": {
+              "description": "Format of the input content.",
               "type": "string",
-              "enum": ["text", "markdown", "html", "json", "csv", "pdf", "docx", "other"]
+              "maxLength": 64
             },
-            "source_hash": {
-              "description": "Optional hash of the input content (e.g., sha256 hex).",
+            "output_format": {
+              "description": "Format of the output content.",
               "type": "string",
-              "minLength": 32,
-              "maxLength": 128
+              "maxLength": 64
             },
-            "template_id": {
-              "description": "Template identifier actually used, if applicable.",
-              "type": "string",
-              "maxLength": 128
-            },
-            "warnings": {
-              "description": "Non-fatal warnings about formatting (e.g., unsupported constructs dropped).",
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 1024
-              }
+            "changed": {
+              "description": "Whether the formatter materially changed the content.",
+              "type": "boolean"
             }
           },
-          "required": ["formatted_content"]
+          "required": ["output"]
         },
         "usage": {
           "description": "Optional resource usage metrics for this invocation.",
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "input_tokens": {
-              "description": "Number of input tokens consumed.",
-              "type": "integer",
-              "minimum": 0
-            },
-            "output_tokens": {
-              "description": "Number of output tokens produced.",
-              "type": "integer",
-              "minimum": 0
-            },
-            "total_tokens": {
-              "description": "Total tokens used (input + output), if available.",
-              "type": "integer",
-              "minimum": 0
-            },
-            "cost_usd": {
-              "description": "Optional cost for this call in USD (or equivalent fiat), if known.",
+            "input_tokens": { "type": "integer", "minimum": 0 },
+            "output_tokens": { "type": "integer", "minimum": 0 },
+            "total_tokens": { "type": "integer", "minimum": 0 },
+            "cost": {
+              "description": "Optional cost for this call in provider-defined units.",
               "type": "number",
-              "minimum": 0
-            },
-            "latency_ms": {
-              "description": "Observed end-to-end latency for this invocation in milliseconds.",
-              "type": "integer",
               "minimum": 0
             }
           }
         }
       },
-      "required": ["x402", "trace", "status", "result"]
+      "required": ["result"]
     }
   ]
 }

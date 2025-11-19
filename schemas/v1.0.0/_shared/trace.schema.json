@@ -1,0 +1,42 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/_shared/trace.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "trace",
+  "description": "Shared trace envelope for correlating requests and receipts across agents, hops, and spans.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "trace_id": {
+      "description": "Logical trace identifier for correlating all spans in a workflow.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "span_id": {
+      "description": "Identifier for this specific span within the trace.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "parent_span_id": {
+      "description": "Optional parent span identifier, if this span is a child of another.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "timestamp": {
+      "description": "ISO 8601 UTC timestamp for when this span was created.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "tags": {
+      "description": "Optional key-value tags for tracing and diagnostics.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "maxLength": 512
+      }
+    }
+  },
+  "required": ["trace_id"]
+}
