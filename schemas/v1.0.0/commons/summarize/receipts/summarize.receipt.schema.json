@@ -1,1 +1,54 @@
-{}
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "summarize.receipt",
+  "description": "Receipt for summarize requests, extending the CommandLayer base receipt structure.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/receipt.base.schema.json"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "x402": {
+          "allOf": [
+            { "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "verb": { "const": "summarize" },
+                "version": { "const": "1.0.0" }
+              },
+              "required": ["verb", "version"]
+            }
+          ]
+        },
+        "result": {
+          "description": "Summarization result payload.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "summary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 250000
+            },
+            "format": {
+              "type": "string",
+              "enum": ["text", "markdown", "html", "json", "other"]
+            },
+            "compression_ratio": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "required": ["summary"]
+        }
+      },
+      "required": ["x402", "trace", "status", "result"]
+    }
+  ]
+}
