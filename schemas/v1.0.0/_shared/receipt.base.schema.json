@@ -2,12 +2,12 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/_shared/receipt.base.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "receipt.base",
-  "description": "Base structure for all CommandLayer receipts, extended on a per-verb basis.",
+  "description": "Base structure for all CommandLayer receipts, extended on a per-verb basis. Designed for A2A, Swarm-style delegation, and x402 alignment.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
     "x402": {
-      "description": "x402 envelope describing the verb, version, and routing metadata for this receipt.",
+      "description": "x402 envelope describing the verb and version for this receipt.",
       "allOf": [
         {
           "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
@@ -15,43 +15,75 @@
       ]
     },
     "trace": {
-      "description": "Trace metadata for correlating this receipt with the originating request and spans.",
-      "allOf": [
-        {
-          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/trace.schema.json"
-        }
-      ]
-    },
-    "status": {
-      "description": "Outcome status for this verb invocation.",
-      "type": "string",
-      "enum": ["ok", "error", "partial"]
-    },
-    "provider": {
-      "description": "Information about the provider or agent that produced this receipt.",
+      "description": "Minimal execution trace for correlating this receipt with the originating request and downstream spans.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "name": {
+        "trace_id": {
+          "description": "Unique identifier for this execution trace within the provider or agent.",
           "type": "string",
           "minLength": 1,
           "maxLength": 128
         },
-        "version": {
+        "parent_trace_id": {
+          "description": "Optional parent trace identifier for delegated or chained calls.",
           "type": "string",
           "minLength": 1,
+          "maxLength": 128
+        },
+        "started_at": {
+          "description": "RFC 3339 timestamp when execution started.",
+          "type": "string",
+          "format": "date-time",
           "maxLength": 64
         },
-        "agent_ens": {
-          "description": "ENS name of the agent, if applicable.",
+        "completed_at": {
+          "description": "RFC 3339 timestamp when execution completed.",
           "type": "string",
-          "minLength": 3,
-          "maxLength": 253
+          "format": "date-time",
+          "maxLength": 64
+        },
+        "duration_ms": {
+          "description": "Observed execution duration in milliseconds.",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 86400000
+        },
+        "provider": {
+          "description": "Logical provider identifier (platform, runtime, or cluster).",
+          "type": "string",
+          "maxLength": 256
+        },
+        "region": {
+          "description": "Execution region or data residency hint (e.g., us-east-1).",
+          "type": "string",
+          "maxLength": 64
+        },
+        "model": {
+          "description": "Model or engine identifier, if applicable.",
+          "type": "string",
+          "maxLength": 256
+        },
+        "tags": {
+          "description": "Optional opaque tags for downstream correlation and observability.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "maxItems": 64
         }
-      }
+      },
+      "required": ["trace_id"]
+    },
+    "status": {
+      "description": "Outcome status for this verb invocation.",
+      "type": "string",
+      "enum": ["success", "error", "delegated"]
     },
     "error": {
-      "description": "Error details if status is not ok.",
+      "description": "Error details when status = 'error'.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -63,16 +95,47 @@
         "message": {
           "type": "string",
           "minLength": 1,
-          "maxLength": 1024
+          "maxLength": 2048
+        },
+        "retryable": {
+          "description": "Whether the caller may reasonably retry this request.",
+          "type": "boolean"
         },
         "details": {
+          "description": "Optional provider-specific error details. Non-normative.",
           "type": "object",
           "additionalProperties": true
         }
       }
     },
-    "meta": {
-      "description": "Optional additional metadata, safe for logging.",
+    "delegation_result": {
+      "description": "Swarm-style delegation outcome when another agent participated in fulfilling this request.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "performed": {
+          "description": "Whether any delegation or handoff actually occurred.",
+          "type": "boolean"
+        },
+        "target_agent": {
+          "description": "Identifier (e.g., ENS name) of the downstream agent that took over.",
+          "type": "string",
+          "maxLength": 256
+        },
+        "reason": {
+          "description": "Human-readable reason for delegation or handoff.",
+          "type": "string",
+          "maxLength": 1024
+        },
+        "handoff_trace_id": {
+          "description": "Trace or task identifier used by the downstream agent.",
+          "type": "string",
+          "maxLength": 128
+        }
+      }
+    },
+    "metadata": {
+      "description": "Optional additional metadata, safe for logging and analytics. Must not change core semantics.",
       "type": "object",
       "additionalProperties": true
     }
