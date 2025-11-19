@@ -1,0 +1,309 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/explain/requests/explain.request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "explain.request",
+  "description": "Request to produce an explanation of a concept, behavior, decision, or output with explicit limits, A2A-style channel metadata, optional auth, delegation, and context for multi-agent flows.",
+  "type": "object",
+  "additionalProperties": false,
+
+  "properties": {
+    "x402": {
+      "description": "x402 envelope describing the verb, version, and optional routing metadata.",
+      "allOf": [
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "verb": { "const": "explain" },
+            "version": { "const": "1.0.0" }
+          },
+          "required": ["verb", "version"]
+        }
+      ]
+    },
+
+    "actor": {
+      "description": "Logical caller (wallet, ENS name, application, or agent identifier).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+
+    "limits": {
+      "description": "Guardrails for explanation length and latency.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_output_tokens": {
+          "description": "Maximum tokens in the explanation.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32768
+        },
+        "max_chars": {
+          "description": "Maximum characters in the explanation.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500000
+        },
+        "max_latency_ms": {
+          "description": "Optional upper bound on end-to-end latency in milliseconds.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600000
+        }
+      },
+      "required": ["max_output_tokens"]
+    },
+
+    "question": {
+      "description": "The natural-language question or prompt asking for an explanation.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 5000
+    },
+
+    "subject": {
+      "description": "What is being explained: a concept, behavior, decision, or specific output.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "description": "Type of subject.",
+          "type": "string",
+          "enum": ["concept", "decision", "behavior", "output", "system", "process", "other"]
+        },
+        "label": {
+          "description": "Short label for the subject (e.g., 'fraud score 0.92').",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "reference_id": {
+          "description": "Optional reference ID or key used to retrieve more details (e.g., transaction ID, run ID).",
+          "type": "string",
+          "maxLength": 256
+        },
+        "source_uri": {
+          "description": "Optional URI pointing to the underlying artifact (e.g., API endpoint, log bundle, spec).",
+          "type": "string",
+          "maxLength": 2048
+        }
+      },
+      "required": ["type", "label"]
+    },
+
+    "evidence": {
+      "description": "Optional evidence or context the explanation should be grounded in.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "Raw text or serialized evidence (logs, traces, outputs).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 250000
+        },
+        "format_hint": {
+          "description": "Format of the evidence.",
+          "type": "string",
+          "enum": ["text", "markdown", "json", "log", "other"]
+        },
+        "source_hash": {
+          "description": "Optional hash of the evidence (e.g., sha256 hex).",
+          "type": "string",
+          "minLength": 32,
+          "maxLength": 128
+        }
+      }
+    },
+
+    "style": {
+      "description": "How the explanation should be framed.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "audience": {
+          "description": "Target audience (e.g., 'developer', 'executive', 'regulator', 'end_user').",
+          "type": "string",
+          "maxLength": 64
+        },
+        "depth": {
+          "description": "Depth of the explanation.",
+          "type": "string",
+          "enum": ["overview", "detailed", "deep_dive"]
+        },
+        "tone": {
+          "description": "Tone hint (e.g., 'neutral', 'reassuring', 'technical', 'educational').",
+          "type": "string",
+          "maxLength": 64
+        },
+        "structure": {
+          "description": "Preferred structure.",
+          "type": "string",
+          "enum": ["paragraphs", "bullet_points", "step_by_step", "faq", "mixed"]
+        },
+        "include_limitations": {
+          "description": "Whether the explanation should call out model/system limitations explicitly.",
+          "type": "boolean"
+        }
+      }
+    },
+
+    "requirements": {
+      "description": "Optional requirements on transparency/faithfulness (useful for XAI-style flows).",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "must_reference_evidence": {
+          "description": "If true, explanation MUST be grounded in evidence and reference it explicitly.",
+          "type": "boolean"
+        },
+        "show_confidence": {
+          "description": "If true, explanation SHOULD include confidence estimates or uncertainty markers.",
+          "type": "boolean"
+        },
+        "disallow_speculation": {
+          "description": "If true, agent MUST avoid unsupported speculation.",
+          "type": "boolean"
+        }
+      }
+    },
+
+    "channel": {
+      "description": "A2A-style channel configuration describing how this request is transported.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "protocol": {
+          "description": "Underlying transport protocol.",
+          "type": "string",
+          "enum": ["https", "http", "websocket", "sse", "json-rpc", "queue"]
+        },
+        "input_modalities": {
+          "description": "Modalities used for the request payload.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["json", "text"]
+          },
+          "minItems": 1
+        },
+        "output_modalities": {
+          "description": "Modalities expected in the response.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["text", "markdown", "json"]
+          },
+          "minItems": 1
+        },
+        "endpoint": {
+          "description": "Concrete endpoint URI for this invocation (e.g., HTTPS URL, JSON-RPC endpoint).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        }
+      },
+      "required": ["protocol", "input_modalities", "output_modalities"]
+    },
+
+    "auth": {
+      "description": "Authentication metadata. Concrete credentials are implementation-specific and MUST NOT be logged in full.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scheme": {
+          "description": "Auth scheme (e.g., none, api_key, oauth2, signed_message).",
+          "type": "string",
+          "enum": ["none", "api_key", "oauth2", "signed_message"]
+        },
+        "api_key_id": {
+          "description": "Optional opaque identifier for the API key used.",
+          "type": "string",
+          "maxLength": 256
+        },
+        "oauth2_client_id": {
+          "description": "Optional OAuth2 client identifier.",
+          "type": "string",
+          "maxLength": 256
+        },
+        "actor_wallet": {
+          "description": "Optional EVM wallet address associated with this request.",
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{40}$"
+        },
+        "signature": {
+          "description": "Optional detached signature (e.g., EIP-191) proving possession or intent.",
+          "type": "string",
+          "maxLength": 4096
+        }
+      }
+    },
+
+    "delegation": {
+      "description": "Swarm-style delegation policy for multi-agent flows (e.g., handoff to XAI agents, domain experts, or reviewers).",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowed": {
+          "description": "Whether the agent is allowed to hand off or delegate this request.",
+          "type": "boolean"
+        },
+        "targets": {
+          "description": "Preferred downstream agents (e.g., ENS names or canonical identifiers).",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        },
+        "policy": {
+          "description": "Delegation policy.",
+          "type": "string",
+          "enum": ["auto", "manual", "none"]
+        },
+        "reason": {
+          "description": "Human-readable reason or intent for allowing delegation.",
+          "type": "string",
+          "maxLength": 1024
+        }
+      }
+    },
+
+    "context": {
+      "description": "Optional conversation or workflow context for multi-step or multi-agent interactions.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "conversation_id": {
+          "description": "Logical conversation identifier.",
+          "type": "string",
+          "maxLength": 256
+        },
+        "parent_task_id": {
+          "description": "Identifier of the parent task, if this request is part of a larger workflow.",
+          "type": "string",
+          "maxLength": 256
+        },
+        "thread": {
+          "description": "Minimal structured history; format is intentionally implementation-defined.",
+          "type": "array",
+          "items": { "type": "object" }
+        }
+      }
+    },
+
+    "metadata": {
+      "description": "Non-normative metadata for routing, billing, or analytics. MUST NOT change the core semantics of the request.",
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+
+  "required": ["x402", "actor", "limits", "question", "subject", "channel"]
+}
