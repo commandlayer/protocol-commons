@@ -2,7 +2,7 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "summarize.receipt",
-  "description": "Receipt for summarize requests, extending the CommandLayer base receipt structure.",
+  "description": "Receipt for summarize requests, extending the CommandLayer base receipt structure with summarization-specific result and usage fields.",
   "type": "object",
   "allOf": [
     {
@@ -13,8 +13,11 @@
       "additionalProperties": false,
       "properties": {
         "x402": {
+          "description": "x402 envelope describing the summarize verb and version for this receipt.",
           "allOf": [
-            { "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json" },
+            {
+              "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+            },
             {
               "type": "object",
               "additionalProperties": false,
@@ -27,25 +30,66 @@
           ]
         },
         "result": {
-          "description": "Summarization result payload.",
+          "description": "Summarization result payload when status = 'success'.",
           "type": "object",
           "additionalProperties": false,
           "properties": {
             "summary": {
+              "description": "The generated summary text.",
               "type": "string",
               "minLength": 1,
               "maxLength": 250000
             },
             "format": {
+              "description": "Format of the summary.",
               "type": "string",
               "enum": ["text", "markdown", "html", "json", "other"]
             },
             "compression_ratio": {
+              "description": "Approximate compression ratio (input_length / output_length).",
               "type": "number",
               "minimum": 0
+            },
+            "source_hash": {
+              "description": "Optional hash of the input content (e.g., sha256 hex).",
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 128
             }
           },
           "required": ["summary"]
+        },
+        "usage": {
+          "description": "Optional resource usage metrics for this invocation.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "input_tokens": {
+              "description": "Number of input tokens consumed.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "output_tokens": {
+              "description": "Number of output tokens produced.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "total_tokens": {
+              "description": "Total tokens used (input + output), if available.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "cost_usd": {
+              "description": "Optional cost for this call in USD (or equivalent fiat), if known.",
+              "type": "number",
+              "minimum": 0
+            },
+            "latency_ms": {
+              "description": "Observed end-to-end latency for this invocation in milliseconds.",
+              "type": "integer",
+              "minimum": 0
+            }
+          }
         }
       },
       "required": ["x402", "trace", "status", "result"]
