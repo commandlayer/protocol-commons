@@ -1,0 +1,247 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/classify/requests/classify.request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "classify.request",
+  "description": "Request to classify content against a provided label set or taxonomy with explicit limits, A2A-style channel metadata, optional auth, delegation, and context for multi-agent flows.",
+  "type": "object",
+  "additionalProperties": false,
+
+  "properties": {
+    "x402": {
+      "description": "x402 envelope describing the verb, version, and optional routing metadata.",
+      "allOf": [
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "verb": { "const": "classify" },
+            "version": { "const": "1.0.0" }
+          },
+          "required": ["verb", "version"]
+        }
+      ]
+    },
+
+    "actor": {
+      "description": "Logical caller (wallet, ENS name, application, or agent identifier).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+
+    "limits": {
+      "description": "Guardrails for output size and latency.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_output_tokens": {
+          "description": "Maximum tokens in the classification explanation output, if applicable.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32768
+        },
+        "max_chars": {
+          "description": "Maximum characters in the classification explanation output.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500000
+        },
+        "max_latency_ms": {
+          "description": "Optional upper bound on end-to-end latency in milliseconds.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600000
+        }
+      },
+      "required": ["max_output_tokens"]
+    },
+
+    "input": {
+      "description": "Primary content to classify and the label space or taxonomy.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "Raw text or markup to classify.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 250000
+        },
+        "format": {
+          "description": "Format of the input content.",
+          "type": "string",
+          "enum": ["text", "markdown", "html", "json", "other"]
+        },
+        "locale": {
+          "description": "IETF BCP 47 language tag for the input content (e.g., en-US).",
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 32
+        },
+        "labels": {
+          "description": "Explicit label set to classify against.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "minItems": 1
+        },
+        "schema_uri": {
+          "description": "Optional URI of an external taxonomy or schema definition (e.g., JSON Schema, OpenAPI, ontology).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "multi_label": {
+          "description": "Whether multiple labels may be true simultaneously.",
+          "type": "boolean"
+        },
+        "allow_unseen_labels": {
+          "description": "Whether the classifier may emit labels that are not in the provided label set.",
+          "type": "boolean"
+        }
+      },
+      "required": ["content"]
+    },
+
+    "channel": {
+      "description": "A2A-style channel configuration describing how this request is transported.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "protocol": {
+          "description": "Underlying transport protocol.",
+          "type": "string",
+          "enum": ["https", "http", "websocket", "sse", "json-rpc", "queue"]
+        },
+        "input_modalities": {
+          "description": "Modalities used for the request payload.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["text", "markdown", "html", "json", "file"]
+          },
+          "minItems": 1
+        },
+        "output_modalities": {
+          "description": "Modalities expected in the response.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["text", "markdown", "html", "json"]
+          },
+          "minItems": 1
+        },
+        "endpoint": {
+          "description": "Concrete endpoint URI for this invocation (e.g., HTTPS URL, JSON-RPC endpoint).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        }
+      },
+      "required": ["protocol", "input_modalities", "output_modalities"]
+    },
+
+    "auth": {
+      "description": "Authentication metadata. Concrete credentials are implementation-specific and MUST NOT be logged in full.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scheme": {
+          "description": "Auth scheme (e.g., none, api_key, oauth2, signed_message).",
+          "type": "string",
+          "enum": ["none", "api_key", "oauth2", "signed_message"]
+        },
+        "api_key_id": {
+          "description": "Optional opaque identifier for the API key used.",
+          "type": "string",
+          "maxLength": 256
+        },
+        "oauth2_client_id": {
+          "description": "Optional OAuth2 client identifier.",
+          "type": "string",
+          "maxLength": 256
+        },
+        "actor_wallet": {
+          "description": "Optional EVM wallet address associated with this request.",
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{40}$"
+        },
+        "signature": {
+          "description": "Optional detached signature (e.g., EIP-191) proving possession or intent.",
+          "type": "string",
+          "maxLength": 4096
+        }
+      }
+    },
+
+    "delegation": {
+      "description": "Swarm-style delegation policy for multi-agent flows.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowed": {
+          "description": "Whether the agent is allowed to hand off or delegate this request.",
+          "type": "boolean"
+        },
+        "targets": {
+          "description": "Preferred downstream agents (e.g., ENS names or canonical identifiers).",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        },
+        "policy": {
+          "description": "Delegation policy.",
+          "type": "string",
+          "enum": ["auto", "manual", "none"]
+        },
+        "reason": {
+          "description": "Human-readable reason or intent for allowing delegation.",
+          "type": "string",
+          "maxLength": 1024
+        }
+      }
+    },
+
+    "context": {
+      "description": "Optional conversation or workflow context for multi-step or multi-agent interactions.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "conversation_id": {
+          "description": "Logical conversation identifier.",
+          "type": "string",
+          "maxLength": 256
+        },
+        "parent_task_id": {
+          "description": "Identifier of the parent task, if this request is part of a larger workflow.",
+          "type": "string",
+          "maxLength": 256
+        },
+        "thread": {
+          "description": "Minimal structured history; format is intentionally implementation-defined.",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+
+    "metadata": {
+      "description": "Non-normative metadata for routing, billing, or analytics. MUST NOT change the core semantics of the request.",
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+
+  "required": ["x402", "actor", "limits", "input", "channel"]
+}

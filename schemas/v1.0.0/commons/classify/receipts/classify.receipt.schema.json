@@ -1,0 +1,125 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/classify/receipts/classify.receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "classify.receipt",
+  "description": "Receipt for classify requests, extending the CommandLayer base receipt structure with classification-specific result and usage fields.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/receipt.base.schema.json"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "x402": {
+          "description": "x402 envelope describing the classify verb and version for this receipt.",
+          "allOf": [
+            {
+              "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "verb": { "const": "classify" },
+                "version": { "const": "1.0.0" }
+              },
+              "required": ["verb", "version"]
+            }
+          ]
+        },
+        "result": {
+          "description": "Classification result payload when status = 'success'.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "labels": {
+              "description": "Labels considered for this classification along with scores and explanations.",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "label": {
+                    "description": "Label or category name.",
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128
+                  },
+                  "selected": {
+                    "description": "Whether this label is considered true/active for the given input.",
+                    "type": "boolean"
+                  },
+                  "score": {
+                    "description": "Confidence score or probability associated with this label.",
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "explanation": {
+                    "description": "Optional natural-language explanation for why this label was assigned or not.",
+                    "type": "string",
+                    "maxLength": 2048
+                  }
+                },
+                "required": ["label"]
+              },
+              "minItems": 1
+            },
+            "top_label": {
+              "description": "Single best label chosen by the classifier, if applicable.",
+              "type": "string",
+              "maxLength": 128
+            },
+            "schema_uri": {
+              "description": "Optional URI of the taxonomy or schema actually used for classification.",
+              "type": "string",
+              "maxLength": 2048
+            },
+            "source_hash": {
+              "description": "Optional hash of the input content (e.g., sha256 hex).",
+              "type": "string",
+              "minLength": 32,
+              "maxLength": 128
+            }
+          },
+          "required": ["labels"]
+        },
+        "usage": {
+          "description": "Optional resource usage metrics for this invocation.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "input_tokens": {
+              "description": "Number of input tokens consumed.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "output_tokens": {
+              "description": "Number of output tokens produced.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "total_tokens": {
+              "description": "Total tokens used (input + output), if available.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "cost_usd": {
+              "description": "Optional cost for this call in USD (or equivalent fiat), if known.",
+              "type": "number",
+              "minimum": 0
+            },
+            "latency_ms": {
+              "description": "Observed end-to-end latency for this invocation in milliseconds.",
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "required": ["x402", "trace", "status", "result"]
+    }
+  ]
+}
