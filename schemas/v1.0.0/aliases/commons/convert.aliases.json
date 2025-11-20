@@ -1,0 +1,8 @@
+{
+  "$schema": "https://commandlayer.org/schemas/v1.0.0/_shared/verb.aliases.schema.json",
+  "canonical": "convert",
+  "aliases": [
+    "transform",
+    "cast"
+  ]
+}
