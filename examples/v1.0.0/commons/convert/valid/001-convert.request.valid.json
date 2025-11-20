@@ -1,0 +1,26 @@
+{
+  "x402": {
+    "verb": "convert",
+    "version": "1.0.0",
+    "request_id": "req-convert-2025-11-19-0001"
+  },
+  "actor": "did:example:caller-001",
+  "limits": {
+    "max_output_tokens": 2048,
+    "timeout_ms": 8000
+  },
+  "channel": {
+    "protocol": "https",
+    "input_modalities": ["text"],
+    "output_modalities": ["text"]
+  },
+  "input": {
+    "content": "<h1>CommandLayer</h1><p>Canonical verbs for agents.</p>",
+    "source_format": "html",
+    "target_format": "markdown",
+    "options": {
+      "preserve_headings": true,
+      "unwrap_single_paragraph": true
+    }
+  }
+}

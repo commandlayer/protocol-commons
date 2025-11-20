@@ -2,7 +2,7 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/commons/clean/receipts/clean.receipt.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "clean.receipt",
-  "description": "Receipt for a clean request, including cleaned content and policy outcome.",
+  "description": "Receipt for a clean request, including cleaned content and applied operations.",
   "type": "object",
   "allOf": [
     {
@@ -10,7 +10,6 @@
     },
     {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
         "x402": {
           "description": "x402 envelope describing the verb and version for this receipt.",
@@ -20,7 +19,6 @@
             },
             {
               "type": "object",
-              "additionalProperties": false,
               "properties": {
                 "verb": { "const": "clean" },
                 "version": { "const": "1.0.0" }
@@ -35,27 +33,39 @@
           "additionalProperties": false,
           "properties": {
             "cleaned_content": {
-              "description": "The cleaned/sanitized content.",
+              "description": "The cleaned/normalized content.",
               "type": "string",
               "minLength": 1
             },
-            "format": {
-              "description": "Format of the cleaned content.",
-              "type": "string",
-              "enum": ["text", "markdown", "html", "json", "other"]
-            },
-            "changes_applied": {
-              "description": "List of cleaning operations actually applied.",
+            "operations_applied": {
+              "description": "List of operations actually applied in order.",
               "type": "array",
               "items": {
                 "type": "string",
                 "minLength": 1,
-                "maxLength": 128
-              }
+                "maxLength": 64
+              },
+              "maxItems": 32
             },
-            "redacted": {
-              "description": "Whether any redaction occurred.",
-              "type": "boolean"
+            "issues_detected": {
+              "description": "Optional list of issues found (e.g., PII, malformed HTML).",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "maxItems": 128
+            },
+            "original_length": {
+              "description": "Length of the original content (characters or tokens).",
+              "type": "integer",
+              "minimum": 0
+            },
+            "cleaned_length": {
+              "description": "Length of the cleaned content.",
+              "type": "integer",
+              "minimum": 0
             }
           },
           "required": ["cleaned_content"]

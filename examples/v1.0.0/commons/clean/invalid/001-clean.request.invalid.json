@@ -1,0 +1,7 @@
+{
+  "x402": {
+    "verb": "summarize",
+    "version": "1.0.0"
+  },
+  "input": "This is intentionally wrong: no actor, no limits, no channel, and x402.verb is not 'clean'."
+}

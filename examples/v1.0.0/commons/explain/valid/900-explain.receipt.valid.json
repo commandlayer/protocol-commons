@@ -1,0 +1,42 @@
+{
+  "x402": {
+    "verb": "explain",
+    "version": "1.0.0",
+    "request_id": "req-explain-2025-11-19-0001"
+  },
+  "trace": {
+    "trace_id": "trace-explain-0001",
+    "started_at": "2025-11-19T23:10:00Z",
+    "completed_at": "2025-11-19T23:10:01Z",
+    "duration_ms": 680,
+    "provider": "commandlayer-demo",
+    "region": "us-east-1",
+    "model": "explain-medium-001",
+    "tags": [
+      "explain",
+      "example",
+      "v1.0.0"
+    ]
+  },
+  "status": "success",
+  "result": {
+    "explanation": "The CommandLayer commons repository defines a stable set of JSON Schemas for core agent verbs like summarize, analyze, classify, and fetch. These schemas act as contracts between agents so they can speak a shared language, regardless of which runtime or provider they run on.",
+    "steps": [
+      "First, it defines a minimal set of verbs that most agents need.",
+      "Second, each verb has strict request and receipt schemas using JSON Schema 2020-12.",
+      "Third, the schemas are aligned with x402 and ERC-8004 so agents can discover and invoke them over standard rails.",
+      "Finally, the repo is MIT-licensed and intended to remain stable as a canonical contract layer."
+    ],
+    "summary": "CommandLayer commons is the canonical contract layer that standardizes how agents express core actions.",
+    "references": [
+      "https://commandlayer.org/schemas/v1.0.0/commons",
+      "https://github.com/commandlayer/protocol-commons"
+    ]
+  },
+  "usage": {
+    "input_tokens": 260,
+    "output_tokens": 420,
+    "total_tokens": 680,
+    "cost": 0.0019
+  }
+}

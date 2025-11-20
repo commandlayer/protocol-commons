@@ -1,99 +1,128 @@
 // examples/v1.0.0/commons/summarize/ts/summarize.receipt.examples.ts
 
-export interface X402Envelope {
+export type ReceiptStatus = "success" | "error" | "delegated";
+
+export interface X402SummarizeReceiptEnvelope {
   verb: "summarize";
   version: "1.0.0";
-  idempotency_key: string;
+  request_id?: string;
+  entry?: string;
+  tenant?: string;
+  network?: string;
+  reply_to?: string;
 }
 
 export interface TraceMetadata {
   trace_id: string;
-  span_id: string;
-  parent_span_id?: string | null;
+  parent_trace_id?: string;
+  started_at?: string; // ISO 8601
+  completed_at?: string; // ISO 8601
+  duration_ms?: number;
+  provider?: string;
+  region?: string;
+  model?: string;
+  tags?: string[];
 }
 
-export interface ReceiptStatus {
-  code: "OK" | "ERROR";
-  http_status: number;
-  message: string;
-}
-
-export interface TokenUsage {
-  input: number;
-  output: number;
-  total: number;
-}
-
-export interface SummarizeResult {
+export interface SummarizeResultPayload {
   summary: string;
-  tokens_used: TokenUsage;
-  model: string;
-  provider: string;
-  format?: "plain_text" | "markdown" | "html";
+  format?: "text" | "markdown" | "html" | "json" | "other";
+  compression_ratio?: number;
+  source_hash?: string;
+}
+
+export interface UsageMetrics {
+  input_tokens?: number;
+  output_tokens?: number;
+  total_tokens?: number;
+  cost?: number;
 }
 
 export interface SummarizeReceipt {
-  x402: X402Envelope;
+  x402: X402SummarizeReceiptEnvelope;
   trace: TraceMetadata;
   status: ReceiptStatus;
-  result: SummarizeResult;
-  created_at: string; // ISO 8601
-  duration_ms?: number;
+  result: SummarizeResultPayload;
+  usage?: UsageMetrics;
+  error?: {
+    code?: string;
+    message?: string;
+    retryable?: boolean;
+    details?: Record<string, unknown>;
+  };
+  delegation_result?: {
+    performed?: boolean;
+    target_agent?: string;
+    reason?: string;
+    handoff_trace_id?: string;
+  };
+  metadata?: Record<string, unknown>;
 }
 
-// ✅ Valid summarize receipt example (should pass Ajv)
+// ✅ Valid summarize receipt example (should pass current schemas)
 export const validSummarizeReceiptExample: SummarizeReceipt = {
   x402: {
     verb: "summarize",
     version: "1.0.0",
-    idempotency_key: "summarize-2025-11-19-0001"
+    request_id: "req-summarize-2025-11-19-0001",
+    network: "mainnet",
+    tenant: "demo-tenant-001"
   },
   trace: {
     trace_id: "trace-summarize-0001",
-    span_id: "span-root-0001"
+    started_at: "2025-11-19T19:45:00Z",
+    completed_at: "2025-11-19T19:45:01Z",
+    duration_ms: 842,
+    provider: "commandlayer-demo",
+    region: "us-east-1",
+    model: "summarize-large-001",
+    tags: ["summarize", "example", "v1.0.0"]
   },
-  status: {
-    code: "OK",
-    http_status: 200,
-    message: "Summarization completed successfully."
-  },
+  status: "success",
   result: {
     summary:
-      "This document explains the CommandLayer commons, including canonical verbs, shared primitives, and the launch sequence for v1.0.0. The primary outcome is that the protocol-commons repo is ready for examples, checksums, IPFS pinning, ENS TXT anchoring, and public release.",
-    tokens_used: {
-      input: 1234,
-      output: 180,
-      total: 1414
-    },
-    model: "gpt-5.1",
-    provider: "openai",
-    format: "markdown"
+      "This document describes the current state of the CommandLayer protocol, including the canonical verbs, shared primitives, and launch checklist. The key outcome is that protocol-commons v1.0.0 is ready for examples, checksums, IPFS pinning, ENS TXT anchoring, and public release.",
+    format: "markdown",
+    compression_ratio: 4.5,
+    source_hash:
+      "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
-  created_at: "2025-11-19T19:45:00Z",
-  duration_ms: 842
+  usage: {
+    input_tokens: 1234,
+    output_tokens: 180,
+    total_tokens: 1414,
+    cost: 0.0023
+  },
+  metadata: {
+    project: "commandlayer",
+    verb_set: "commons",
+    version: "1.0.0"
+  }
 };
 
-// ❌ Invalid summarize receipt example (should fail Ajv)
+// ❌ Invalid summarize receipt example (should fail schema validation)
 // Reasons:
-// - x402.verb is wrong ("translate")
-// - result is missing
-// - extra `debug` property not allowed by additionalProperties:false
+// - status is not one of "success" | "error" | "delegated"
+// - result.summary is empty string
 export const invalidSummarizeReceiptExample: any = {
   x402: {
-    verb: "translate",
+    verb: "summarize",
     version: "1.0.0",
-    idempotency_key: "summarize-2025-11-19-0002"
+    request_id: "req-summarize-2025-11-19-0002"
   },
   trace: {
     trace_id: "trace-summarize-0002",
-    span_id: "span-root-0002"
+    started_at: "2025-11-19T19:50:00Z",
+    completed_at: "2025-11-19T19:50:01Z",
+    duration_ms: 940,
+    provider: "commandlayer-demo",
+    region: "us-east-1",
+    model: "summarize-large-001"
   },
-  status: {
-    code: "OK",
-    http_status: 200,
-    message: "Looks superficially OK, but the receipt is invalid."
-  },
-  debug: {
-    note: "This field should not exist if additionalProperties:false is applied."
+  status: "ok",
+  result: {
+    summary: "",
+    format: "markdown",
+    compression_ratio: 3.2
   }
 };

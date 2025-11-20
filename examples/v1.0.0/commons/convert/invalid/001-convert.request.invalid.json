@@ -1,0 +1,11 @@
+{
+  "x402": {
+    "verb": "summarize",
+    "version": "1.0.0"
+  },
+  "input": {
+    "content": "<p>This is wrong: verb is not 'convert' and required fields are missing.</p>",
+    "source_format": "html",
+    "target_format": "markdown"
+  }
+}

@@ -2,7 +2,7 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/commons/convert/receipts/convert.receipt.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "convert.receipt",
-  "description": "Receipt for a convert request, including converted output and format/type metadata.",
+  "description": "Receipt for a convert request, including converted content and provenance details.",
   "type": "object",
   "allOf": [
     {
@@ -10,7 +10,6 @@
     },
     {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
         "x402": {
           "description": "x402 envelope describing the verb and version for this receipt.",
@@ -20,7 +19,6 @@
             },
             {
               "type": "object",
-              "additionalProperties": false,
               "properties": {
                 "verb": { "const": "convert" },
                 "version": { "const": "1.0.0" }
@@ -34,32 +32,39 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "output": {
-              "description": "The converted output value in serialized form (e.g., text, JSON string).",
+            "converted_content": {
+              "description": "The converted content.",
               "type": "string",
               "minLength": 1
             },
-            "from_type": {
-              "description": "Logical type or format of the input (e.g., markdown, html, csv, json, xml).",
+            "source_format": {
+              "description": "Source format actually used by the provider.",
               "type": "string",
+              "minLength": 1,
               "maxLength": 64
             },
-            "to_type": {
-              "description": "Logical type or format of the output.",
+            "target_format": {
+              "description": "Target format actually produced.",
               "type": "string",
+              "minLength": 1,
               "maxLength": 64
             },
             "lossy": {
               "description": "Whether the conversion was lossy.",
               "type": "boolean"
             },
-            "notes": {
-              "description": "Optional notes about the conversion (e.g., dropped fields, approximations).",
-              "type": "string",
-              "maxLength": 2048
+            "warnings": {
+              "description": "Optional warnings produced during conversion.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "maxItems": 128
             }
           },
-          "required": ["output"]
+          "required": ["converted_content", "target_format"]
         },
         "usage": {
           "description": "Optional resource usage metrics for this invocation.",

@@ -1,0 +1,9 @@
+{
+  "x402": {
+    "verb": "summarize",
+    "version": "1.0.0"
+  },
+  "input": {
+    "content": "This should be a string, not an object."
+  }
+}

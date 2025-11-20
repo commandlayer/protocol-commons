@@ -2,7 +2,7 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/commons/describe/requests/describe.request.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "describe.request",
-  "description": "Request to produce a detailed description of a subject, resource, or system with explicit limits, A2A-style channel metadata, optional auth, delegation, and context for multi-agent flows.",
+  "description": "Request to produce a descriptive explanation of an input object, resource, or concept (e.g., explain what this thing is and how it behaves).",
   "type": "object",
   "additionalProperties": false,
 
@@ -10,10 +10,11 @@
     "x402": {
       "description": "x402 envelope describing the verb, version, and optional routing metadata.",
       "allOf": [
-        { "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json" },
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+        },
         {
           "type": "object",
-          "additionalProperties": false,
           "properties": {
             "verb": { "const": "describe" },
             "version": { "const": "1.0.0" }
@@ -24,256 +25,97 @@
     },
 
     "actor": {
-      "description": "Logical caller (wallet, ENS name, application, or agent identifier).",
+      "description": "Logical caller identifier (ENS, DID, or internal principal).",
       "type": "string",
       "minLength": 1,
       "maxLength": 256
     },
 
     "limits": {
-      "description": "Guardrails for length and latency of the description.",
+      "description": "Execution limits and constraints for this description.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "max_output_tokens": {
-          "description": "Maximum tokens in the description.",
+          "description": "Maximum output tokens/characters allowed.",
           "type": "integer",
-          "minimum": 1,
-          "maximum": 32768
+          "minimum": 1
         },
-        "max_chars": {
-          "description": "Maximum characters in the description.",
+        "timeout_ms": {
+          "description": "Hard timeout for this operation in milliseconds.",
           "type": "integer",
-          "minimum": 1,
-          "maximum": 500000
-        },
-        "max_latency_ms": {
-          "description": "Optional upper bound on end-to-end latency in milliseconds.",
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 600000
-        }
-      },
-      "required": ["max_output_tokens"]
-    },
-
-    "subject": {
-      "description": "Primary subject to be described.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "type": {
-          "description": "High-level subject category.",
-          "type": "string",
-          "enum": ["entity", "resource", "system", "process", "api", "agent", "other"]
-        },
-        "name": {
-          "description": "Human-readable name or identifier of the subject.",
-          "type": "string",
-          "minLength": 1,
-          "maxLength": 256
-        },
-        "uri": {
-          "description": "Optional URI for the subject (e.g., URL, DID, ENS name, API endpoint).",
-          "type": "string",
-          "maxLength": 2048
-        },
-        "tags": {
-          "description": "Optional tags for the subject (e.g., 'payments', 'KYC', 'L2').",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 64
-          }
-        }
-      },
-      "required": ["type", "name"]
-    },
-
-    "input": {
-      "description": "Optional supporting content or documentation to ground the description.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "content": {
-          "description": "Raw text or markup about the subject to be read before describing.",
-          "type": "string",
-          "minLength": 1,
-          "maxLength": 250000
-        },
-        "format_hint": {
-          "description": "Format of the content, if provided.",
-          "type": "string",
-          "enum": ["text", "markdown", "html", "json", "other"]
-        },
-        "source_uri": {
-          "description": "Optional URI of primary documentation (spec, README, API docs, etc.).",
-          "type": "string",
-          "maxLength": 2048
-        }
-      }
-    },
-
-    "style": {
-      "description": "How the description should be framed.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "audience": {
-          "description": "Target audience (e.g., 'developer', 'executive', 'end_user').",
-          "type": "string",
-          "maxLength": 64
-        },
-        "depth": {
-          "description": "Depth of description.",
-          "type": "string",
-          "enum": ["overview", "detailed", "deep_dive"]
-        },
-        "tone": {
-          "description": "Tone hint (e.g., 'neutral', 'persuasive', 'educational').",
-          "type": "string",
-          "maxLength": 64
-        },
-        "structure": {
-          "description": "Preferred structure for the output.",
-          "type": "string",
-          "enum": ["paragraphs", "bullet_points", "faq", "sections", "mixed"]
+          "minimum": 1
         }
       }
     },
 
     "channel": {
-      "description": "A2A-style channel configuration describing how this request is transported.",
+      "description": "Channel capabilities and modalities for this call.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "protocol": {
-          "description": "Underlying transport protocol.",
-          "type": "string",
-          "enum": ["https", "http", "websocket", "sse", "json-rpc", "queue"]
-        },
-        "input_modalities": {
-          "description": "Modalities used for the request payload.",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["json", "text"]
-          },
-          "minItems": 1
-        },
-        "output_modalities": {
-          "description": "Modalities expected in the response.",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["text", "markdown", "json"]
-          },
-          "minItems": 1
-        },
-        "endpoint": {
-          "description": "Concrete endpoint URI for this invocation (e.g., HTTPS URL, JSON-RPC endpoint).",
+          "description": "Logical protocol (e.g., https, wss, xrpc).",
           "type": "string",
           "minLength": 1,
-          "maxLength": 2048
+          "maxLength": 32
+        },
+        "input_modalities": {
+          "description": "Modalities accepted for input.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "output_modalities": {
+          "description": "Modalities produced as output.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
         }
       },
       "required": ["protocol", "input_modalities", "output_modalities"]
     },
 
-    "auth": {
-      "description": "Authentication metadata. Concrete credentials are implementation-specific and MUST NOT be logged in full.",
+    "input": {
+      "description": "Subject to describe and any contextual hints.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "scheme": {
-          "description": "Auth scheme (e.g., none, api_key, oauth2, signed_message).",
+        "subject": {
+          "description": "The thing to describe (name, identifier, or short text).",
           "type": "string",
-          "enum": ["none", "api_key", "oauth2", "signed_message"]
+          "minLength": 1
         },
-        "api_key_id": {
-          "description": "Optional opaque identifier for the API key used.",
+        "context": {
+          "description": "Optional additional context (e.g., where this subject appears).",
           "type": "string",
-          "maxLength": 256
+          "minLength": 1
         },
-        "oauth2_client_id": {
-          "description": "Optional OAuth2 client identifier.",
+        "detail_level": {
+          "description": "Desired level of detail.",
           "type": "string",
-          "maxLength": 256
+          "enum": ["short", "medium", "long"]
         },
-        "actor_wallet": {
-          "description": "Optional EVM wallet address associated with this request.",
+        "audience": {
+          "description": "Intended audience (e.g., novice, expert, legal, product-manager).",
           "type": "string",
-          "pattern": "^0x[a-fA-F0-9]{40}$"
-        },
-        "signature": {
-          "description": "Optional detached signature (e.g., EIP-191) proving possession or intent.",
-          "type": "string",
-          "maxLength": 4096
+          "minLength": 1,
+          "maxLength": 64
         }
-      }
-    },
-
-    "delegation": {
-      "description": "Swarm-style delegation policy for multi-agent flows (e.g., handoff to domain experts, documentation agents, or review agents).",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "allowed": {
-          "description": "Whether the agent is allowed to hand off or delegate this request.",
-          "type": "boolean"
-        },
-        "targets": {
-          "description": "Preferred downstream agents (e.g., ENS names or canonical identifiers).",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 256
-          }
-        },
-        "policy": {
-          "description": "Delegation policy.",
-          "type": "string",
-          "enum": ["auto", "manual", "none"]
-        },
-        "reason": {
-          "description": "Human-readable reason or intent for allowing delegation.",
-          "type": "string",
-          "maxLength": 1024
-        }
-      }
-    },
-
-    "context": {
-      "description": "Optional conversation or workflow context for multi-step or multi-agent interactions.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "conversation_id": {
-          "description": "Logical conversation identifier.",
-          "type": "string",
-          "maxLength": 256
-        },
-        "parent_task_id": {
-          "description": "Identifier of the parent task, if this request is part of a larger workflow.",
-          "type": "string",
-          "maxLength": 256
-        },
-        "thread": {
-          "description": "Minimal structured history; format is intentionally implementation-defined.",
-          "type": "array",
-          "items": { "type": "object" }
-        }
-      }
-    },
-
-    "metadata": {
-      "description": "Non-normative metadata for routing, billing, or analytics. MUST NOT change the core semantics of the request.",
-      "type": "object",
-      "additionalProperties": true
+      },
+      "required": ["subject"]
     }
   },
 
-  "required": ["x402", "actor", "limits", "subject", "channel"]
+  "required": ["x402", "actor", "limits", "channel", "input"]
 }

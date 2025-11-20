@@ -1,0 +1,41 @@
+{
+  "x402": {
+    "verb": "analyze",
+    "version": "1.0.0",
+    "request_id": "req-analyze-2025-11-19-0001"
+  },
+  "trace": {
+    "trace_id": "trace-analyze-0001",
+    "started_at": "2025-11-19T20:30:00Z",
+    "completed_at": "2025-11-19T20:30:01Z",
+    "duration_ms": 950,
+    "provider": "commandlayer-demo",
+    "region": "us-east-1",
+    "model": "analyze-large-001",
+    "tags": [
+      "analyze",
+      "example",
+      "v1.0.0"
+    ]
+  },
+  "status": "success",
+  "result": {
+    "summary": "The launch plan is viable but carries risks related to ecosystem communication, VC expectations, and dependency on external standards adoption.",
+    "insights": [
+      "Clarify positioning vs x402/8004 actors.",
+      "Define a concrete pilot timeline with 2–3 design partners.",
+      "Document threat model and security posture before public launch."
+    ],
+    "labels": [
+      "risk:medium",
+      "adoption:ecosystem-dependent"
+    ],
+    "score": 0.72
+  },
+  "usage": {
+    "input_tokens": 980,
+    "output_tokens": 220,
+    "total_tokens": 1200,
+    "cost": 0.0035
+  }
+}

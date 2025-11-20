@@ -1,0 +1,35 @@
+{
+  "x402": {
+    "verb": "convert",
+    "version": "1.0.0",
+    "request_id": "req-convert-2025-11-19-0001"
+  },
+  "trace": {
+    "trace_id": "trace-convert-0001",
+    "started_at": "2025-11-19T22:30:00Z",
+    "completed_at": "2025-11-19T22:30:01Z",
+    "duration_ms": 710,
+    "provider": "commandlayer-demo",
+    "region": "us-east-1",
+    "model": "convert-adapter-001",
+    "tags": [
+      "convert",
+      "example",
+      "v1.0.0"
+    ]
+  },
+  "status": "success",
+  "result": {
+    "converted_content": "# CommandLayer\n\nCanonical verbs for agents.\n",
+    "source_format": "html",
+    "target_format": "markdown",
+    "lossy": false,
+    "warnings": []
+  },
+  "usage": {
+    "input_tokens": 150,
+    "output_tokens": 60,
+    "total_tokens": 210,
+    "cost": 0.0006
+  }
+}

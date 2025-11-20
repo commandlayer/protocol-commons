@@ -2,7 +2,7 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/commons/classify/receipts/classify.receipt.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "classify.receipt",
-  "description": "Receipt for a classify request, including labels and optional scores.",
+  "description": "Receipt for a classify request, including assigned labels and optional scores or taxonomy.",
   "type": "object",
   "allOf": [
     {
@@ -10,7 +10,6 @@
     },
     {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
         "x402": {
           "description": "x402 envelope describing the verb and version for this receipt.",
@@ -20,7 +19,6 @@
             },
             {
               "type": "object",
-              "additionalProperties": false,
               "properties": {
                 "verb": { "const": "classify" },
                 "version": { "const": "1.0.0" }
@@ -35,41 +33,35 @@
           "additionalProperties": false,
           "properties": {
             "labels": {
-              "description": "List of labels assigned to the input, optionally with scores.",
+              "description": "Labels assigned to the input.",
               "type": "array",
               "items": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "label": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 256
-                  },
-                  "score": {
-                    "description": "Confidence score in [0,1] if available.",
-                    "type": "number",
-                    "minimum": 0,
-                    "maximum": 1
-                  },
-                  "primary": {
-                    "description": "Whether this label is considered the primary classification.",
-                    "type": "boolean"
-                  }
-                },
-                "required": ["label"]
-              }
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "minItems": 1,
+              "maxItems": 128
             },
-            "primary_label": {
-              "description": "Primary label chosen for the input, if any.",
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 256
+            "scores": {
+              "description": "Optional per-label scores between 0 and 1.",
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "maxItems": 128
             },
-            "taxonomy_version": {
-              "description": "Optional taxonomy or label-set version identifier.",
-              "type": "string",
-              "maxLength": 128
+            "taxonomy": {
+              "description": "Optional taxonomy or hierarchy path used for classification.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "maxItems": 128
             }
           },
           "required": ["labels"]

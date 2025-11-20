@@ -1,0 +1,22 @@
+{
+  "x402": {
+    "verb": "analyze",
+    "version": "1.0.0",
+    "request_id": "req-analyze-2025-11-19-0001"
+  },
+  "input": "Review this document and identify key risks, unknowns, and assumptions in the current CommandLayer launch plan.",
+  "goal": "Risk and assumption analysis for launch readiness.",
+  "hints": [
+    "Focus on protocol-level risks.",
+    "Highlight anything that could block adoption."
+  ],
+  "limits": {
+    "max_tokens": 512,
+    "timeout_ms": 5000
+  },
+  "metadata": {
+    "project": "commandlayer",
+    "verb_set": "commons",
+    "version": "1.0.0"
+  }
+}

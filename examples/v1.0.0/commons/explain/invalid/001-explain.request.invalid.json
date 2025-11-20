@@ -1,0 +1,7 @@
+{
+  "x402": {
+    "verb": "summarize",
+    "version": "1.0.0"
+  },
+  "input": "This is wrong: no actor, no limits, no channel, and input is a string instead of an object."
+}

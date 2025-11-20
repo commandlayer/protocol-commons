@@ -2,7 +2,7 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/commons/convert/requests/convert.request.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "convert.request",
-  "description": "Request to convert content or data from one representation to another (format, schema, encoding, units, or currency) with explicit limits, A2A-style channel metadata, optional auth, delegation, and context for multi-agent flows.",
+  "description": "Request to convert content from one format or schema to another (e.g., HTML->Markdown, JSON->CSV).",
   "type": "object",
   "additionalProperties": false,
 
@@ -15,7 +15,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "properties": {
             "verb": { "const": "convert" },
             "version": { "const": "1.0.0" }
@@ -26,279 +25,98 @@
     },
 
     "actor": {
-      "description": "Logical caller (wallet, ENS name, application, or agent identifier).",
+      "description": "Logical caller identifier (ENS, DID, or internal principal).",
       "type": "string",
       "minLength": 1,
       "maxLength": 256
     },
 
     "limits": {
-      "description": "Guardrails for output size, complexity, and latency.",
+      "description": "Execution limits and constraints for this conversion.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "max_output_bytes": {
-          "description": "Maximum number of bytes allowed in the converted output.",
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 1073741824
-        },
         "max_output_tokens": {
-          "description": "Maximum tokens in the converted output if an LLM is involved.",
+          "description": "Maximum output tokens/characters allowed.",
           "type": "integer",
-          "minimum": 1,
-          "maximum": 32768
+          "minimum": 1
         },
-        "max_latency_ms": {
-          "description": "Optional upper bound on end-to-end latency in milliseconds.",
+        "timeout_ms": {
+          "description": "Hard timeout for this operation in milliseconds.",
           "type": "integer",
-          "minimum": 1,
-          "maximum": 600000
-        }
-      },
-      "required": ["max_output_bytes"]
-    },
-
-    "input": {
-      "description": "Source payload and its representation.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "content": {
-          "description": "Raw content or serialized data to convert.",
-          "type": "string",
-          "minLength": 1,
-          "maxLength": 250000
-        },
-        "from_format": {
-          "description": "Format/representation of the input (e.g., text, markdown, html, json, csv, xml, yaml, units, currency).",
-          "type": "string",
-          "maxLength": 64
-        },
-        "to_format": {
-          "description": "Desired target format/representation.",
-          "type": "string",
-          "maxLength": 64
-        },
-        "from_schema_uri": {
-          "description": "Optional URI for the source schema (e.g., JSON Schema for the input structure).",
-          "type": "string",
-          "maxLength": 2048
-        },
-        "to_schema_uri": {
-          "description": "Optional URI for the target schema.",
-          "type": "string",
-          "maxLength": 2048
-        },
-        "conversion_type": {
-          "description": "High-level conversion type.",
-          "type": "string",
-          "enum": [
-            "format",
-            "schema",
-            "encoding",
-            "unit",
-            "currency",
-            "other"
-          ]
-        },
-        "lossy_allowed": {
-          "description": "Whether lossy conversion is acceptable (e.g., HTML -> text).",
-          "type": "boolean"
-        },
-        "strict": {
-          "description": "If true, conversion MUST fail on validation errors or unsupported structures.",
-          "type": "boolean"
-        }
-      },
-      "required": ["content", "to_format"]
-    },
-
-    "rules": {
-      "description": "Optional conversion rules or hints (e.g., field mappings, rounding behavior, unit systems).",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "field_mappings": {
-          "description": "Explicit mapping of source field names/paths to target field names/paths.",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "from": {
-                "description": "Source field path (e.g., user.name).",
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 256
-              },
-              "to": {
-                "description": "Target field path.",
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 256
-              }
-            },
-            "required": ["from", "to"]
-          }
-        },
-        "rounding_mode": {
-          "description": "Rounding mode for numeric conversions.",
-          "type": "string",
-          "enum": ["bankers", "up", "down", "ceiling", "floor", "half_up", "half_down"]
-        },
-        "decimal_places": {
-          "description": "Number of decimal places to keep for numeric conversions.",
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 18
-        },
-        "unit_system": {
-          "description": "Preferred unit system (e.g., metric, imperial).",
-          "type": "string",
-          "maxLength": 32
-        },
-        "currency": {
-          "description": "Target currency code for currency conversions (e.g., USD, EUR).",
-          "type": "string",
-          "maxLength": 3
+          "minimum": 1
         }
       }
     },
 
     "channel": {
-      "description": "A2A-style channel configuration describing how this request is transported.",
+      "description": "Channel capabilities and modalities for this call.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "protocol": {
-          "description": "Underlying transport protocol.",
-          "type": "string",
-          "enum": ["https", "http", "websocket", "sse", "json-rpc", "queue"]
-        },
-        "input_modalities": {
-          "description": "Modalities used for the request payload.",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["json", "text"]
-          },
-          "minItems": 1
-        },
-        "output_modalities": {
-          "description": "Modalities expected in the response.",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["json", "text"]
-          },
-          "minItems": 1
-        },
-        "endpoint": {
-          "description": "Concrete endpoint URI for this invocation (e.g., HTTPS URL, JSON-RPC endpoint).",
+          "description": "Logical protocol (e.g., https, wss, xrpc).",
           "type": "string",
           "minLength": 1,
-          "maxLength": 2048
+          "maxLength": 32
+        },
+        "input_modalities": {
+          "description": "Modalities accepted for input.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "output_modalities": {
+          "description": "Modalities produced as output.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
         }
       },
       "required": ["protocol", "input_modalities", "output_modalities"]
     },
 
-    "auth": {
-      "description": "Authentication metadata. Concrete credentials are implementation-specific and MUST NOT be logged in full.",
+    "input": {
+      "description": "Content to convert and format details.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "scheme": {
-          "description": "Auth scheme (e.g., none, api_key, oauth2, signed_message).",
+        "content": {
+          "description": "Raw content to be converted.",
           "type": "string",
-          "enum": ["none", "api_key", "oauth2", "signed_message"]
+          "minLength": 1
         },
-        "api_key_id": {
-          "description": "Optional opaque identifier for the API key used.",
+        "source_format": {
+          "description": "Declared source format (e.g., html, markdown, json, csv).",
           "type": "string",
-          "maxLength": 256
+          "minLength": 1,
+          "maxLength": 64
         },
-        "oauth2_client_id": {
-          "description": "Optional OAuth2 client identifier.",
+        "target_format": {
+          "description": "Requested target format.",
           "type": "string",
-          "maxLength": 256
+          "minLength": 1,
+          "maxLength": 64
         },
-        "actor_wallet": {
-          "description": "Optional EVM wallet address associated with this request.",
-          "type": "string",
-          "pattern": "^0x[a-fA-F0-9]{40}$"
-        },
-        "signature": {
-          "description": "Optional detached signature (e.g., EIP-191) proving possession or intent.",
-          "type": "string",
-          "maxLength": 4096
+        "options": {
+          "description": "Optional conversion options (e.g., preserve_links, pretty_print).",
+          "type": "object",
+          "additionalProperties": true
         }
-      }
-    },
-
-    "delegation": {
-      "description": "Swarm-style delegation policy for multi-agent flows (e.g., handoff to schema converters, FX rate providers, or unit-conversion agents).",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "allowed": {
-          "description": "Whether the agent is allowed to hand off or delegate this request.",
-          "type": "boolean"
-        },
-        "targets": {
-          "description": "Preferred downstream agents (e.g., ENS names or canonical identifiers).",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 256
-          }
-        },
-        "policy": {
-          "description": "Delegation policy.",
-          "type": "string",
-          "enum": ["auto", "manual", "none"]
-        },
-        "reason": {
-          "description": "Human-readable reason or intent for allowing delegation.",
-          "type": "string",
-          "maxLength": 1024
-        }
-      }
-    },
-
-    "context": {
-      "description": "Optional conversation or workflow context for multi-step or multi-agent interactions.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "conversation_id": {
-          "description": "Logical conversation identifier.",
-          "type": "string",
-          "maxLength": 256
-        },
-        "parent_task_id": {
-          "description": "Identifier of the parent task, if this request is part of a larger workflow.",
-          "type": "string",
-          "maxLength": 256
-        },
-        "thread": {
-          "description": "Minimal structured history; format is intentionally implementation-defined.",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        }
-      }
-    },
-
-    "metadata": {
-      "description": "Non-normative metadata for routing, billing, or analytics. MUST NOT change the core semantics of the request.",
-      "type": "object",
-      "additionalProperties": true
+      },
+      "required": ["content", "source_format", "target_format"]
     }
   },
 
-  "required": ["x402", "actor", "limits", "input", "channel"]
+  "required": ["x402", "actor", "limits", "channel", "input"]
 }

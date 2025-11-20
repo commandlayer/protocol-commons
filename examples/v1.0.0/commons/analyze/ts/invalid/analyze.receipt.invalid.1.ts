@@ -1,0 +1,24 @@
+// INVALID analyze.receipt #1 — wrong status + empty summary
+
+export const analyzeReceiptInvalid1: any = {
+  x402: {
+    verb: "analyze",
+    version: "1.0.0",
+    request_id: "req-analyze-2025-11-19-0002"
+  },
+  trace: {
+    trace_id: "trace-analyze-0002",
+    started_at: "2025-11-19T20:35:00Z",
+    completed_at: "2025-11-19T20:35:01Z",
+    duration_ms: 870,
+    provider: "commandlayer-demo",
+    region: "us-east-1",
+    model: "analyze-large-001"
+  },
+  // ❌ status is not in enum
+  status: "ok",
+  result: {
+    // ❌ summary should not be empty if required/minLength: 1
+    summary: ""
+  }
+};

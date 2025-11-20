@@ -1,0 +1,26 @@
+{
+  "x402": {
+    "verb": "classify",
+    "version": "1.0.0",
+    "request_id": "req-classify-2025-11-19-0001"
+  },
+  "actor": "did:example:caller-001",
+  "limits": {
+    "max_labels": 3,
+    "timeout_ms": 3000
+  },
+  "channel": {
+    "protocol": "https",
+    "input_modalities": ["text"],
+    "output_modalities": ["text"]
+  },
+  "input": {
+    "content": "Classify this document into one or more categories: protocol-spec, marketing, legal, or ops.",
+    "taxonomy": [
+      "protocol-spec",
+      "marketing",
+      "legal",
+      "ops"
+    ]
+  }
+}

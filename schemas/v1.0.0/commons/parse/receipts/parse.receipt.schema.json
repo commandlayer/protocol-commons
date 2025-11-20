@@ -2,7 +2,7 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/commons/parse/receipts/parse.receipt.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "parse.receipt",
-  "description": "Receipt for a parse request, including structured output and any warnings.",
+  "description": "Receipt for a parse request, including the parsed structure and confidence/provenance details.",
   "type": "object",
   "allOf": [
     {
@@ -10,7 +10,6 @@
     },
     {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
         "x402": {
           "description": "x402 envelope describing the verb and version for this receipt.",
@@ -20,7 +19,6 @@
             },
             {
               "type": "object",
-              "additionalProperties": false,
               "properties": {
                 "verb": { "const": "parse" },
                 "version": { "const": "1.0.0" }
@@ -35,23 +33,31 @@
           "additionalProperties": false,
           "properties": {
             "parsed": {
-              "description": "Parsed structured output. Schema is intentionally loose to support arbitrary structures.",
+              "description": "Parsed structured representation (e.g., JSON object).",
               "type": "object",
               "additionalProperties": true
             },
-            "schema_hint": {
-              "description": "Optional hint describing the shape of parsed data (e.g., name of a JSON Schema, table, or model).",
+            "target_schema": {
+              "description": "Schema actually used by the provider, if any.",
               "type": "string",
-              "maxLength": 256
+              "minLength": 1,
+              "maxLength": 512
+            },
+            "confidence": {
+              "description": "Confidence score in [0,1] for the parsed output.",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
             },
             "warnings": {
-              "description": "Optional list of warnings about partial parses, dropped fields, or coercions.",
+              "description": "Optional warnings encountered during parsing.",
               "type": "array",
               "items": {
                 "type": "string",
                 "minLength": 1,
-                "maxLength": 1024
-              }
+                "maxLength": 256
+              },
+              "maxItems": 128
             }
           },
           "required": ["parsed"]

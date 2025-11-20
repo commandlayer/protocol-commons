@@ -1,0 +1,7 @@
+{
+  "x402": {
+    "verb": "summarize",
+    "version": "1.0.0"
+  },
+  "query": "level=error"
+}

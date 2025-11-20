@@ -1,0 +1,23 @@
+{
+  "x402": {
+    "verb": "parse",
+    "version": "1.0.0",
+    "request_id": "req-parse-2025-11-19-0001"
+  },
+  "actor": "did:example:caller-001",
+  "limits": {
+    "max_output_tokens": 2048,
+    "timeout_ms": 8000
+  },
+  "channel": {
+    "protocol": "https",
+    "input_modalities": ["text"],
+    "output_modalities": ["json"]
+  },
+  "input": {
+    "content": "order_id: 12345\nuser: alice.eth\ntotal: 99.50 USD\nstatus: paid",
+    "content_type": "plain",
+    "target_schema": "https://example.com/schemas/order.v1.json",
+    "mode": "best_effort"
+  }
+}

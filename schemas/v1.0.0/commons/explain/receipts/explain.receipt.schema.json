@@ -2,7 +2,7 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/commons/explain/receipts/explain.receipt.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "explain.receipt",
-  "description": "Receipt for an explain request, capturing the explanation and any supporting details.",
+  "description": "Receipt for an explain request, including the explanation and optional reasoning steps.",
   "type": "object",
   "allOf": [
     {
@@ -10,7 +10,6 @@
     },
     {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
         "x402": {
           "description": "x402 envelope describing the verb and version for this receipt.",
@@ -20,7 +19,6 @@
             },
             {
               "type": "object",
-              "additionalProperties": false,
               "properties": {
                 "verb": { "const": "explain" },
                 "version": { "const": "1.0.0" }
@@ -35,28 +33,34 @@
           "additionalProperties": false,
           "properties": {
             "explanation": {
-              "description": "Human-readable explanation constructed by the agent.",
+              "description": "Natural language explanation tailored to the requested audience.",
               "type": "string",
               "minLength": 1
             },
-            "format": {
-              "description": "Format of the explanation.",
-              "type": "string",
-              "enum": ["text", "markdown", "html", "json", "other"]
-            },
-            "level": {
-              "description": "Optional abstraction level (e.g., beginner, intermediate, expert).",
-              "type": "string",
-              "maxLength": 64
-            },
-            "references": {
-              "description": "Optional list of references or citations the explanation is based on.",
+            "steps": {
+              "description": "Optional step-by-step breakdown of the reasoning.",
               "type": "array",
               "items": {
                 "type": "string",
                 "minLength": 1,
-                "maxLength": 2048
-              }
+                "maxLength": 512
+              },
+              "maxItems": 64
+            },
+            "summary": {
+              "description": "Optional short summary of the explanation.",
+              "type": "string",
+              "minLength": 1
+            },
+            "references": {
+              "description": "Optional references or pointers used for this explanation.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 512
+              },
+              "maxItems": 64
             }
           },
           "required": ["explanation"]

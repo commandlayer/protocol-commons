@@ -1,19 +1,27 @@
 {
   "x402": {
-    "verb": "translate",
+    "verb": "summarize",
     "version": "1.0.0",
-    "idempotency_key": "summarize-2025-11-19-0002"
+    "request_id": "summarize-2025-11-19-0002"
   },
   "trace": {
     "trace_id": "trace-summarize-0002",
-    "span_id": "span-root-0002"
+    "started_at": "2025-11-19T19:50:00Z",
+    "completed_at": "2025-11-19T19:50:01Z",
+    "duration_ms": 940,
+    "provider": "commandlayer-demo",
+    "region": "us-east-1",
+    "model": "summarize-large-001"
   },
-  "status": {
-    "code": "OK",
-    "http_status": 200,
-    "message": "This status looks fine, but the receipt is still invalid."
+  "status": "ok",
+  "result": {
+    "summary": "",
+    "format": "markdown",
+    "compression_ratio": 3.2
   },
-  "debug": {
-    "note": "This field should not exist if additionalProperties:false is enforced."
+  "usage": {
+    "input_tokens": 800,
+    "output_tokens": 260,
+    "total_tokens": 1060
   }
 }

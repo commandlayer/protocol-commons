@@ -1,0 +1,7 @@
+{
+  "x402": {
+    "verb": "summarize",
+    "version": "1.0.0"
+  },
+  "input": "This is a raw string instead of an object, and required fields like actor, limits, and channel are missing."
+}

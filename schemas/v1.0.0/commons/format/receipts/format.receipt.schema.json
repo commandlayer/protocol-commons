@@ -2,7 +2,7 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/commons/format/receipts/format.receipt.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "format.receipt",
-  "description": "Receipt for a format request, including the formatted output and format metadata.",
+  "description": "Receipt for a format request, including formatted content and any applied style details.",
   "type": "object",
   "allOf": [
     {
@@ -10,7 +10,6 @@
     },
     {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
         "x402": {
           "description": "x402 envelope describing the verb and version for this receipt.",
@@ -20,7 +19,6 @@
             },
             {
               "type": "object",
-              "additionalProperties": false,
               "properties": {
                 "verb": { "const": "format" },
                 "version": { "const": "1.0.0" }
@@ -34,27 +32,34 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "output": {
-              "description": "The formatted content.",
+            "formatted_content": {
+              "description": "The formatted output content.",
               "type": "string",
               "minLength": 1
             },
-            "input_format": {
-              "description": "Format of the input content.",
+            "style": {
+              "description": "Style actually applied (e.g., markdown, bullet-list, table).",
               "type": "string",
+              "minLength": 1,
               "maxLength": 64
             },
-            "output_format": {
-              "description": "Format of the output content.",
-              "type": "string",
-              "maxLength": 64
+            "original_length": {
+              "description": "Length of the original content.",
+              "type": "integer",
+              "minimum": 0
             },
-            "changed": {
-              "description": "Whether the formatter materially changed the content.",
-              "type": "boolean"
+            "formatted_length": {
+              "description": "Length of the formatted content.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "notes": {
+              "description": "Optional notes about formatting decisions or truncation.",
+              "type": "string",
+              "minLength": 1
             }
           },
-          "required": ["output"]
+          "required": ["formatted_content"]
         },
         "usage": {
           "description": "Optional resource usage metrics for this invocation.",

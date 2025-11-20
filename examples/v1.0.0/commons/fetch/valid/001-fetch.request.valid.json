@@ -1,0 +1,15 @@
+{
+  "x402": {
+    "verb": "fetch",
+    "version": "1.0.0",
+    "request_id": "req-fetch-2025-11-19-0001"
+  },
+  "source": "https://api.commandlayer.org/logs",
+  "query": "level=error AND date>=2025-11-01",
+  "max_items": 100,
+  "include_metadata": true,
+  "metadata": {
+    "project": "commandlayer",
+    "env": "prod"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "x402": {
+    "verb": "classify",
+    "version": "1.0.0",
+    "request_id": "req-classify-2025-11-19-0001"
+  },
+  "trace": {
+    "trace_id": "trace-classify-0001",
+    "started_at": "2025-11-19T21:30:00Z",
+    "completed_at": "2025-11-19T21:30:00Z",
+    "duration_ms": 320,
+    "provider": "commandlayer-demo",
+    "region": "us-east-1",
+    "model": "classify-medium-001",
+    "tags": [
+      "classify",
+      "example",
+      "v1.0.0"
+    ]
+  },
+  "status": "success",
+  "result": {
+    "labels": [
+      "protocol-spec",
+      "high-priority"
+    ],
+    "taxonomy": [
+      "protocol-spec",
+      "priority/high"
+    ]
+  },
+  "usage": {
+    "input_tokens": 420,
+    "output_tokens": 64,
+    "total_tokens": 484,
+    "cost": 0.0012
+  }
+}

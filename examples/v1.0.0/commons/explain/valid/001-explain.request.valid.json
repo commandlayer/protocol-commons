@@ -1,0 +1,24 @@
+{
+  "x402": {
+    "verb": "explain",
+    "version": "1.0.0",
+    "request_id": "req-explain-2025-11-19-0001"
+  },
+  "actor": "did:example:caller-001",
+  "limits": {
+    "max_output_tokens": 512,
+    "timeout_ms": 5000
+  },
+  "channel": {
+    "protocol": "https",
+    "input_modalities": ["text"],
+    "output_modalities": ["text"]
+  },
+  "input": {
+    "subject": "What the CommandLayer commons repo does",
+    "context": "The protocol-commons repository defines JSON Schemas for verbs like summarize, analyze, classify, and fetch.",
+    "audience": "novice",
+    "style": "step-by-step",
+    "detail_level": "medium"
+  }
+}

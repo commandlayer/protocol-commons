@@ -1,0 +1,14 @@
+{
+  "x402": {
+    "verb": "clean",
+    "version": "1.0.0",
+    "request_id": "req-clean-2025-11-19-0002"
+  },
+  "trace": {
+    "trace_id": "trace-clean-0002"
+  },
+  "status": "ok",
+  "result": {
+    "cleaned_content": ""
+  }
+}

@@ -2,7 +2,7 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/commons/parse/requests/parse.request.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "parse.request",
-  "description": "Request to parse unstructured or semi-structured content into a structured representation (e.g., JSON, fields, entities) with explicit limits, A2A-style channel metadata, optional auth, delegation, and context for multi-agent flows.",
+  "description": "Request to parse unstructured or semi-structured content into a structured representation (e.g., JSON, fields, entities) with explicit limits and channel metadata.",
   "type": "object",
   "additionalProperties": false,
 
@@ -15,7 +15,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "properties": {
             "verb": { "const": "parse" },
             "version": { "const": "1.0.0" }
@@ -26,210 +25,98 @@
     },
 
     "actor": {
-      "description": "Logical caller (wallet, ENS name, application, or agent identifier).",
+      "description": "Logical caller identifier (ENS, DID, or internal principal).",
       "type": "string",
       "minLength": 1,
       "maxLength": 256
     },
 
     "limits": {
-      "description": "Guardrails for output size and latency.",
+      "description": "Execution limits and constraints for this parse operation.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "max_output_tokens": {
-          "description": "Maximum tokens in any natural-language output, if applicable.",
+          "description": "Maximum output tokens/characters allowed for the parsed structure.",
           "type": "integer",
-          "minimum": 1,
-          "maximum": 32768
+          "minimum": 1
         },
-        "max_chars": {
-          "description": "Maximum characters in any rendered output.",
+        "timeout_ms": {
+          "description": "Hard timeout for this operation in milliseconds.",
           "type": "integer",
-          "minimum": 1,
-          "maximum": 500000
-        },
-        "max_latency_ms": {
-          "description": "Optional upper bound on end-to-end latency in milliseconds.",
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 600000
+          "minimum": 1
         }
-      },
-      "required": ["max_output_tokens"]
-    },
-
-    "input": {
-      "description": "Content to parse and the expected target structure.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "content": {
-          "description": "Raw text, markup, or semi-structured data to parse.",
-          "type": "string",
-          "minLength": 1,
-          "maxLength": 250000
-        },
-        "format": {
-          "description": "Format of the input content.",
-          "type": "string",
-          "enum": ["text", "markdown", "html", "json", "csv", "yaml", "xml", "other"]
-        },
-        "schema_uri": {
-          "description": "Optional URI of a target schema definition (e.g., JSON Schema, OpenAPI).",
-          "type": "string",
-          "maxLength": 2048
-        },
-        "expected_shape": {
-          "description": "High-level shape of the parse result when no schema_uri is provided.",
-          "type": "string",
-          "enum": ["object", "array", "kv_pairs", "entities", "table", "other"]
-        },
-        "strict": {
-          "description": "If true, parsing should fail on ambiguous or incomplete matches rather than guessing.",
-          "type": "boolean"
-        },
-        "tolerant": {
-          "description": "If true, parser may attempt best-effort extraction even with malformed input.",
-          "type": "boolean"
-        }
-      },
-      "required": ["content"]
+      }
     },
 
     "channel": {
-      "description": "A2A-style channel configuration describing how this request is transported.",
+      "description": "Channel capabilities and modalities for this call.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "protocol": {
-          "description": "Underlying transport protocol.",
-          "type": "string",
-          "enum": ["https", "http", "websocket", "sse", "json-rpc", "queue"]
-        },
-        "input_modalities": {
-          "description": "Modalities used for the request payload.",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["text", "markdown", "html", "json", "file"]
-          },
-          "minItems": 1
-        },
-        "output_modalities": {
-          "description": "Modalities expected in the response.",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["json", "text"]
-          },
-          "minItems": 1
-        },
-        "endpoint": {
-          "description": "Concrete endpoint URI for this invocation (e.g., HTTPS URL, JSON-RPC endpoint).",
+          "description": "Logical protocol (e.g., https, wss, xrpc).",
           "type": "string",
           "minLength": 1,
-          "maxLength": 2048
+          "maxLength": 32
+        },
+        "input_modalities": {
+          "description": "Modalities accepted for input (e.g., text, json).",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "output_modalities": {
+          "description": "Modalities produced as output (e.g., json).",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
         }
       },
       "required": ["protocol", "input_modalities", "output_modalities"]
     },
 
-    "auth": {
-      "description": "Authentication metadata. Concrete credentials are implementation-specific and MUST NOT be logged in full.",
+    "input": {
+      "description": "Content to parse and hints about the desired structure.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "scheme": {
-          "description": "Auth scheme (e.g., none, api_key, oauth2, signed_message).",
+        "content": {
+          "description": "Raw content to be parsed.",
           "type": "string",
-          "enum": ["none", "api_key", "oauth2", "signed_message"]
+          "minLength": 1
         },
-        "api_key_id": {
-          "description": "Optional opaque identifier for the API key used.",
+        "content_type": {
+          "description": "Hint of the input type (e.g., plain, markdown, json, yaml, csv, log).",
           "type": "string",
-          "maxLength": 256
+          "minLength": 1,
+          "maxLength": 64
         },
-        "oauth2_client_id": {
-          "description": "Optional OAuth2 client identifier.",
+        "target_schema": {
+          "description": "URI or identifier of the target schema for the parsed output (if known).",
           "type": "string",
-          "maxLength": 256
+          "minLength": 1,
+          "maxLength": 512
         },
-        "actor_wallet": {
-          "description": "Optional EVM wallet address associated with this request.",
+        "mode": {
+          "description": "Parsing mode preference.",
           "type": "string",
-          "pattern": "^0x[a-fA-F0-9]{40}$"
-        },
-        "signature": {
-          "description": "Optional detached signature (e.g., EIP-191) proving possession or intent.",
-          "type": "string",
-          "maxLength": 4096
+          "enum": ["strict", "best_effort"]
         }
-      }
-    },
-
-    "delegation": {
-      "description": "Swarm-style delegation policy for multi-agent flows (e.g., handoff to domain-specific parsers).",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "allowed": {
-          "description": "Whether the agent is allowed to hand off or delegate this request.",
-          "type": "boolean"
-        },
-        "targets": {
-          "description": "Preferred downstream agents (e.g., ENS names or canonical identifiers).",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 256
-          }
-        },
-        "policy": {
-          "description": "Delegation policy.",
-          "type": "string",
-          "enum": ["auto", "manual", "none"]
-        },
-        "reason": {
-          "description": "Human-readable reason or intent for allowing delegation.",
-          "type": "string",
-          "maxLength": 1024
-        }
-      }
-    },
-
-    "context": {
-      "description": "Optional conversation or workflow context for multi-step or multi-agent interactions.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "conversation_id": {
-          "description": "Logical conversation identifier.",
-          "type": "string",
-          "maxLength": 256
-        },
-        "parent_task_id": {
-          "description": "Identifier of the parent task, if this request is part of a larger workflow.",
-          "type": "string",
-          "maxLength": 256
-        },
-        "thread": {
-          "description": "Minimal structured history; format is intentionally implementation-defined.",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        }
-      }
-    },
-
-    "metadata": {
-      "description": "Non-normative metadata for routing, billing, or analytics. MUST NOT change the core semantics of the request.",
-      "type": "object",
-      "additionalProperties": true
+      },
+      "required": ["content"]
     }
   },
 
-  "required": ["x402", "actor", "limits", "input", "channel"]
+  "required": ["x402", "actor", "limits", "channel", "input"]
 }

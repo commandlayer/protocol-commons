@@ -14,7 +14,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "properties": {
             "verb": { "const": "analyze" },
             "version": { "const": "1.0.0" }

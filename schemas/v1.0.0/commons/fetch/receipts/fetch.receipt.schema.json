@@ -19,7 +19,6 @@
             },
             {
               "type": "object",
-              "additionalProperties": false,
               "properties": {
                 "verb": { "const": "fetch" },
                 "version": { "const": "1.0.0" }

@@ -21,8 +21,8 @@ const VERBS = [
   "format",
   "parse",
   "summarize",
-  "tag",
-  "translate"
+  "analyze",
+  "fetch"
 ];
 
 function createAjv() {

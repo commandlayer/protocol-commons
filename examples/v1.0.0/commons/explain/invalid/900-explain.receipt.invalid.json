@@ -1,0 +1,14 @@
+{
+  "x402": {
+    "verb": "explain",
+    "version": "1.0.0",
+    "request_id": "req-explain-2025-11-19-0002"
+  },
+  "trace": {
+    "trace_id": "trace-explain-0002"
+  },
+  "status": "ok",
+  "result": {
+    "explanation": ""
+  }
+}

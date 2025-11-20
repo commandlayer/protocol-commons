@@ -2,7 +2,7 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/commons/classify/requests/classify.request.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "classify.request",
-  "description": "Request to classify content against a provided label set or taxonomy with explicit limits, A2A-style channel metadata, optional auth, delegation, and context for multi-agent flows.",
+  "description": "Request to classify content against a taxonomy using ML/rules/keywords. Non-deterministic by default; providers must disclose provenance in receipts.",
   "type": "object",
   "additionalProperties": false,
 
@@ -15,7 +15,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "properties": {
             "verb": { "const": "classify" },
             "version": { "const": "1.0.0" }
@@ -26,222 +25,97 @@
     },
 
     "actor": {
-      "description": "Logical caller (wallet, ENS name, application, or agent identifier).",
+      "description": "Logical caller identifier (e.g., ENS name, DID, or internal principal).",
       "type": "string",
       "minLength": 1,
       "maxLength": 256
     },
 
     "limits": {
-      "description": "Guardrails for output size and latency.",
+      "description": "Optional execution limits and constraints for this classification.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "max_output_tokens": {
-          "description": "Maximum tokens in the classification explanation output, if applicable.",
+        "max_labels": {
+          "description": "Maximum number of labels to return.",
           "type": "integer",
           "minimum": 1,
-          "maximum": 32768
+          "maximum": 128
         },
-        "max_chars": {
-          "description": "Maximum characters in the classification explanation output.",
+        "max_tokens": {
+          "description": "Optional max tokens for model-based classification.",
           "type": "integer",
-          "minimum": 1,
-          "maximum": 500000
+          "minimum": 1
         },
-        "max_latency_ms": {
-          "description": "Optional upper bound on end-to-end latency in milliseconds.",
+        "timeout_ms": {
+          "description": "Hard timeout for this operation in milliseconds.",
           "type": "integer",
-          "minimum": 1,
-          "maximum": 600000
+          "minimum": 1
+        }
+      }
+    },
+
+    "channel": {
+      "description": "Channel capabilities and modalities for this call.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "protocol": {
+          "description": "Logical protocol (e.g., https, wss, xrpc).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "input_modalities": {
+          "description": "Modalities accepted for input.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "output_modalities": {
+          "description": "Modalities produced as output.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
         }
       },
-      "required": ["max_output_tokens"]
+      "required": ["protocol", "input_modalities", "output_modalities"]
     },
 
     "input": {
-      "description": "Primary content to classify and the label space or taxonomy.",
+      "description": "Content to classify and optional taxonomy hints.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "content": {
-          "description": "Raw text or markup to classify.",
+          "description": "Raw text or serialized content to classify.",
           "type": "string",
-          "minLength": 1,
-          "maxLength": 250000
+          "minLength": 1
         },
-        "format": {
-          "description": "Format of the input content.",
-          "type": "string",
-          "enum": ["text", "markdown", "html", "json", "other"]
-        },
-        "locale": {
-          "description": "IETF BCP 47 language tag for the input content (e.g., en-US).",
-          "type": "string",
-          "minLength": 2,
-          "maxLength": 32
-        },
-        "labels": {
-          "description": "Explicit label set to classify against.",
+        "taxonomy": {
+          "description": "Optional list of candidate labels or a taxonomy path.",
           "type": "array",
           "items": {
             "type": "string",
             "minLength": 1,
             "maxLength": 128
           },
-          "minItems": 1
-        },
-        "schema_uri": {
-          "description": "Optional URI of an external taxonomy or schema definition (e.g., JSON Schema, OpenAPI, ontology).",
-          "type": "string",
-          "minLength": 1,
-          "maxLength": 2048
-        },
-        "multi_label": {
-          "description": "Whether multiple labels may be true simultaneously.",
-          "type": "boolean"
-        },
-        "allow_unseen_labels": {
-          "description": "Whether the classifier may emit labels that are not in the provided label set.",
-          "type": "boolean"
+          "maxItems": 128
         }
       },
       "required": ["content"]
-    },
-
-    "channel": {
-      "description": "A2A-style channel configuration describing how this request is transported.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "protocol": {
-          "description": "Underlying transport protocol.",
-          "type": "string",
-          "enum": ["https", "http", "websocket", "sse", "json-rpc", "queue"]
-        },
-        "input_modalities": {
-          "description": "Modalities used for the request payload.",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["text", "markdown", "html", "json", "file"]
-          },
-          "minItems": 1
-        },
-        "output_modalities": {
-          "description": "Modalities expected in the response.",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["text", "markdown", "html", "json"]
-          },
-          "minItems": 1
-        },
-        "endpoint": {
-          "description": "Concrete endpoint URI for this invocation (e.g., HTTPS URL, JSON-RPC endpoint).",
-          "type": "string",
-          "minLength": 1,
-          "maxLength": 2048
-        }
-      },
-      "required": ["protocol", "input_modalities", "output_modalities"]
-    },
-
-    "auth": {
-      "description": "Authentication metadata. Concrete credentials are implementation-specific and MUST NOT be logged in full.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "scheme": {
-          "description": "Auth scheme (e.g., none, api_key, oauth2, signed_message).",
-          "type": "string",
-          "enum": ["none", "api_key", "oauth2", "signed_message"]
-        },
-        "api_key_id": {
-          "description": "Optional opaque identifier for the API key used.",
-          "type": "string",
-          "maxLength": 256
-        },
-        "oauth2_client_id": {
-          "description": "Optional OAuth2 client identifier.",
-          "type": "string",
-          "maxLength": 256
-        },
-        "actor_wallet": {
-          "description": "Optional EVM wallet address associated with this request.",
-          "type": "string",
-          "pattern": "^0x[a-fA-F0-9]{40}$"
-        },
-        "signature": {
-          "description": "Optional detached signature (e.g., EIP-191) proving possession or intent.",
-          "type": "string",
-          "maxLength": 4096
-        }
-      }
-    },
-
-    "delegation": {
-      "description": "Swarm-style delegation policy for multi-agent flows.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "allowed": {
-          "description": "Whether the agent is allowed to hand off or delegate this request.",
-          "type": "boolean"
-        },
-        "targets": {
-          "description": "Preferred downstream agents (e.g., ENS names or canonical identifiers).",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 256
-          }
-        },
-        "policy": {
-          "description": "Delegation policy.",
-          "type": "string",
-          "enum": ["auto", "manual", "none"]
-        },
-        "reason": {
-          "description": "Human-readable reason or intent for allowing delegation.",
-          "type": "string",
-          "maxLength": 1024
-        }
-      }
-    },
-
-    "context": {
-      "description": "Optional conversation or workflow context for multi-step or multi-agent interactions.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "conversation_id": {
-          "description": "Logical conversation identifier.",
-          "type": "string",
-          "maxLength": 256
-        },
-        "parent_task_id": {
-          "description": "Identifier of the parent task, if this request is part of a larger workflow.",
-          "type": "string",
-          "maxLength": 256
-        },
-        "thread": {
-          "description": "Minimal structured history; format is intentionally implementation-defined.",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        }
-      }
-    },
-
-    "metadata": {
-      "description": "Non-normative metadata for routing, billing, or analytics. MUST NOT change the core semantics of the request.",
-      "type": "object",
-      "additionalProperties": true
     }
   },
 
-  "required": ["x402", "actor", "limits", "input", "channel"]
+  "required": ["x402", "actor", "limits", "channel", "input"]
 }

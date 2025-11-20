@@ -1,0 +1,43 @@
+{
+  "x402": {
+    "verb": "describe",
+    "version": "1.0.0",
+    "request_id": "req-describe-2025-11-19-0001"
+  },
+  "trace": {
+    "trace_id": "trace-describe-0001",
+    "started_at": "2025-11-19T22:50:00Z",
+    "completed_at": "2025-11-19T22:50:01Z",
+    "duration_ms": 720,
+    "provider": "commandlayer-demo",
+    "region": "us-east-1",
+    "model": "describe-medium-001",
+    "tags": [
+      "describe",
+      "example",
+      "v1.0.0"
+    ]
+  },
+  "status": "success",
+  "result": {
+    "description": "The CommandLayer protocol-commons repository defines a stable, MIT-licensed set of JSON Schemas for universal agent verbs like summarize, classify, and analyze. It serves as the canonical contract layer for agent-to-agent communication.",
+    "bullets": [
+      "Provides 10 canonical agent verbs.",
+      "Implements strict JSON Schema 2020-12.",
+      "Aligns with x402 and ERC-8004 discovery patterns.",
+      "Designed to remain stable and backwards compatible."
+    ],
+    "properties": {
+      "repo": "commandlayer/protocol-commons",
+      "license": "MIT",
+      "verb_set": "commons",
+      "version": "1.0.0"
+    }
+  },
+  "usage": {
+    "input_tokens": 220,
+    "output_tokens": 260,
+    "total_tokens": 480,
+    "cost": 0.0014
+  }
+}

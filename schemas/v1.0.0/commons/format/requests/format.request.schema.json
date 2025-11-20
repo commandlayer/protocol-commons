@@ -2,7 +2,7 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/commons/format/requests/format.request.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "format.request",
-  "description": "Request to reformat or transform content into a target representation (e.g., markdown, HTML, JSON, structured template) with explicit limits, A2A-style channel metadata, optional auth, delegation, and context for multi-agent flows.",
+  "description": "Request to reformat or restyle content according to a target style or layout (e.g., markdown, JSON, tables, code style).",
   "type": "object",
   "additionalProperties": false,
 
@@ -15,7 +15,6 @@
         },
         {
           "type": "object",
-          "additionalProperties": false,
           "properties": {
             "verb": { "const": "format" },
             "version": { "const": "1.0.0" }
@@ -26,221 +25,98 @@
     },
 
     "actor": {
-      "description": "Logical caller (wallet, ENS name, application, or agent identifier).",
+      "description": "Logical caller identifier (ENS, DID, or internal principal).",
       "type": "string",
       "minLength": 1,
       "maxLength": 256
     },
 
     "limits": {
-      "description": "Guardrails for output size and latency.",
+      "description": "Execution limits and constraints for this formatting operation.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "max_output_tokens": {
-          "description": "Maximum tokens in the formatted output, if applicable.",
+          "description": "Maximum output tokens/characters allowed.",
           "type": "integer",
-          "minimum": 1,
-          "maximum": 32768
+          "minimum": 1
         },
-        "max_chars": {
-          "description": "Maximum characters in the formatted output.",
+        "timeout_ms": {
+          "description": "Hard timeout for this operation in milliseconds.",
           "type": "integer",
-          "minimum": 1,
-          "maximum": 500000
-        },
-        "max_latency_ms": {
-          "description": "Optional upper bound on end-to-end latency in milliseconds.",
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 600000
+          "minimum": 1
         }
-      },
-      "required": ["max_output_tokens"]
-    },
-
-    "input": {
-      "description": "Content to format and the desired target representation.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "content": {
-          "description": "Raw text or markup to be reformatted or transformed.",
-          "type": "string",
-          "minLength": 1,
-          "maxLength": 250000
-        },
-        "source_format": {
-          "description": "Format of the input content.",
-          "type": "string",
-          "enum": ["text", "markdown", "html", "json", "csv", "other"]
-        },
-        "target_format": {
-          "description": "Desired output format.",
-          "type": "string",
-          "enum": ["text", "markdown", "html", "json", "csv", "pdf", "docx", "other"]
-        },
-        "locale": {
-          "description": "IETF BCP 47 language tag for the content (e.g., en-US).",
-          "type": "string",
-          "minLength": 2,
-          "maxLength": 32
-        },
-        "template_id": {
-          "description": "Optional template identifier to drive the layout or structure.",
-          "type": "string",
-          "maxLength": 128
-        },
-        "style": {
-          "description": "High-level style hint such as 'formal', 'informal', 'technical', or 'executive'.",
-          "type": "string",
-          "maxLength": 64
-        },
-        "preserve_structure": {
-          "description": "Whether the agent should preserve the logical structure (sections, headings, lists) as much as possible.",
-          "type": "boolean"
-        },
-        "normalize_whitespace": {
-          "description": "Whether to normalize whitespace (line breaks, spaces) in the output.",
-          "type": "boolean"
-        }
-      },
-      "required": ["content", "target_format"]
+      }
     },
 
     "channel": {
-      "description": "A2A-style channel configuration describing how this request is transported.",
+      "description": "Channel capabilities and modalities for this call.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "protocol": {
-          "description": "Underlying transport protocol.",
-          "type": "string",
-          "enum": ["https", "http", "websocket", "sse", "json-rpc", "queue"]
-        },
-        "input_modalities": {
-          "description": "Modalities used for the request payload.",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["text", "markdown", "html", "json", "file"]
-          },
-          "minItems": 1
-        },
-        "output_modalities": {
-          "description": "Modalities expected in the response.",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["text", "markdown", "html", "json", "file"]
-          },
-          "minItems": 1
-        },
-        "endpoint": {
-          "description": "Concrete endpoint URI for this invocation (e.g., HTTPS URL, JSON-RPC endpoint).",
+          "description": "Logical protocol (e.g., https, wss, xrpc).",
           "type": "string",
           "minLength": 1,
-          "maxLength": 2048
+          "maxLength": 32
+        },
+        "input_modalities": {
+          "description": "Modalities accepted for input.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "output_modalities": {
+          "description": "Modalities produced as output.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
         }
       },
       "required": ["protocol", "input_modalities", "output_modalities"]
     },
 
-    "auth": {
-      "description": "Authentication metadata. Concrete credentials are implementation-specific and MUST NOT be logged in full.",
+    "input": {
+      "description": "Content to format and the desired target style.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "scheme": {
-          "description": "Auth scheme (e.g., none, api_key, oauth2, signed_message).",
+        "content": {
+          "description": "Raw text to be formatted.",
           "type": "string",
-          "enum": ["none", "api_key", "oauth2", "signed_message"]
+          "minLength": 1
         },
-        "api_key_id": {
-          "description": "Optional opaque identifier for the API key used.",
+        "source_style": {
+          "description": "Optional hint of the current style (e.g., plain, markdown, json, code).",
           "type": "string",
-          "maxLength": 256
+          "minLength": 1,
+          "maxLength": 64
         },
-        "oauth2_client_id": {
-          "description": "Optional OAuth2 client identifier.",
+        "target_style": {
+          "description": "Requested target style (e.g., markdown, bullet-list, table, json-block).",
           "type": "string",
-          "maxLength": 256
+          "minLength": 1,
+          "maxLength": 64
         },
-        "actor_wallet": {
-          "description": "Optional EVM wallet address associated with this request.",
-          "type": "string",
-          "pattern": "^0x[a-fA-F0-9]{40}$"
-        },
-        "signature": {
-          "description": "Optional detached signature (e.g., EIP-191) proving possession or intent.",
-          "type": "string",
-          "maxLength": 4096
+        "guidelines": {
+          "description": "Optional additional guidelines (e.g., max line width, heading depth).",
+          "type": "object",
+          "additionalProperties": true
         }
-      }
-    },
-
-    "delegation": {
-      "description": "Swarm-style delegation policy for multi-agent flows (e.g., handoff to specialized formatters, renderers, or exporters).",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "allowed": {
-          "description": "Whether the agent is allowed to hand off or delegate this request.",
-          "type": "boolean"
-        },
-        "targets": {
-          "description": "Preferred downstream agents (e.g., ENS names or canonical identifiers).",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 256
-          }
-        },
-        "policy": {
-          "description": "Delegation policy.",
-          "type": "string",
-          "enum": ["auto", "manual", "none"]
-        },
-        "reason": {
-          "description": "Human-readable reason or intent for allowing delegation.",
-          "type": "string",
-          "maxLength": 1024
-        }
-      }
-    },
-
-    "context": {
-      "description": "Optional conversation or workflow context for multi-step or multi-agent interactions.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "conversation_id": {
-          "description": "Logical conversation identifier.",
-          "type": "string",
-          "maxLength": 256
-        },
-        "parent_task_id": {
-          "description": "Identifier of the parent task, if this request is part of a larger workflow.",
-          "type": "string",
-          "maxLength": 256
-        },
-        "thread": {
-          "description": "Minimal structured history; format is intentionally implementation-defined.",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        }
-      }
-    },
-
-    "metadata": {
-      "description": "Non-normative metadata for routing, billing, or analytics. MUST NOT change the core semantics of the request.",
-      "type": "object",
-      "additionalProperties": true
+      },
+      "required": ["content", "target_style"]
     }
   },
 
-  "required": ["x402", "actor", "limits", "input", "channel"]
+  "required": ["x402", "actor", "limits", "channel", "input"]
 }
