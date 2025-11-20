@@ -1,0 +1,12 @@
+{
+  "x402": {
+    "verb": "summarize",
+    "version": "1.0.0"
+  },
+  "trace": {
+    "trace_id": "trace-001",
+    "span_id": "span-002",
+    "timestamp": "2025-11-19T22:50:05Z"
+  },
+  "status": "not_a_valid_status"
+}

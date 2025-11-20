@@ -1,0 +1,29 @@
+{
+  "x402": {
+    "verb": "summarize",
+    "version": "1.0.0",
+    "idempotency_key": "summarize-2025-11-19-0001"
+  },
+  "trace": {
+    "trace_id": "trace-summarize-0001",
+    "span_id": "span-root-0001"
+  },
+  "status": {
+    "code": "OK",
+    "http_status": 200,
+    "message": "Summarization completed successfully."
+  },
+  "result": {
+    "summary": "This document describes the current state of the CommandLayer protocol, including the canonical verbs, shared primitives, and launch checklist. The key outcome is that protocol-commons v1.0.0 is ready for examples, checksums, IPFS pinning, ENS TXT anchoring, and public release.",
+    "tokens_used": {
+      "input": 1234,
+      "output": 180,
+      "total": 1414
+    },
+    "model": "gpt-5.1",
+    "provider": "openai",
+    "format": "markdown"
+  },
+  "created_at": "2025-11-19T19:45:00Z",
+  "duration_ms": 842
+}

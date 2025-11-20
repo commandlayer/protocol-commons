@@ -1,0 +1,18 @@
+{
+  "x402": {
+    "verb": "summarize",
+    "version": "1.0.0"
+  },
+  "actor": "",
+  "limits": {
+    "max_output_tokens": 0
+  },
+  "input": {
+    "content": ""
+  },
+  "channel": {
+    "protocol": "invalid-protocol",
+    "input_modalities": [],
+    "output_modalities": []
+  }
+}

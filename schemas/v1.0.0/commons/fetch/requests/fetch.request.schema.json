@@ -1,0 +1,54 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/fetch/requests/fetch.request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "fetch.request",
+  "description": "Request to fetch or retrieve items from a specified source using a query or filter.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "x402": {
+      "description": "x402 envelope describing the verb, version, and optional routing metadata.",
+      "allOf": [
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "verb": { "const": "fetch" },
+            "version": { "const": "1.0.0" }
+          },
+          "required": ["verb", "version"]
+        }
+      ]
+    },
+    "source": {
+      "description": "Logical source identifier or base URI (e.g., index name, collection, API endpoint).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "query": {
+      "description": "Query, filter, or search expression to select items.",
+      "type": "string",
+      "minLength": 1
+    },
+    "max_items": {
+      "description": "Maximum number of items to return.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10000
+    },
+    "include_metadata": {
+      "description": "Whether to include source-specific metadata in the result items.",
+      "type": "boolean"
+    },
+    "metadata": {
+      "description": "Opaque caller-defined metadata that does not affect semantics.",
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": ["x402", "source"]
+}

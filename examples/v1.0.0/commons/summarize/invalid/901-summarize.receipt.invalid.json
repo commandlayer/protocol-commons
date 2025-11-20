@@ -1,0 +1,19 @@
+{
+  "x402": {
+    "verb": "translate",
+    "version": "1.0.0",
+    "idempotency_key": "summarize-2025-11-19-0002"
+  },
+  "trace": {
+    "trace_id": "trace-summarize-0002",
+    "span_id": "span-root-0002"
+  },
+  "status": {
+    "code": "OK",
+    "http_status": 200,
+    "message": "This status looks fine, but the receipt is still invalid."
+  },
+  "debug": {
+    "note": "This field should not exist if additionalProperties:false is enforced."
+  }
+}

@@ -2,7 +2,7 @@
   "$id": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "summarize.receipt",
-  "description": "Receipt for a summarize request, including the produced summary and provenance.",
+  "description": "Receipt for summarize requests, including trace, status, output, and usage metadata.",
   "type": "object",
   "allOf": [
     {
@@ -20,7 +20,6 @@
             },
             {
               "type": "object",
-              "additionalProperties": false,
               "properties": {
                 "verb": { "const": "summarize" },
                 "version": { "const": "1.0.0" }
@@ -63,9 +62,18 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "input_tokens": { "type": "integer", "minimum": 0 },
-            "output_tokens": { "type": "integer", "minimum": 0 },
-            "total_tokens": { "type": "integer", "minimum": 0 },
+            "input_tokens": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "output_tokens": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "total_tokens": {
+              "type": "integer",
+              "minimum": 0
+            },
             "cost": {
               "description": "Optional cost for this call in provider-defined units.",
               "type": "number",
@@ -74,7 +82,7 @@
           }
         }
       },
-      "required": ["result"]
+      "required": ["x402", "result"]
     }
   ]
 }

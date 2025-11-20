@@ -1,8 +1,8 @@
 {
-  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/translate/receipts/translate.receipt.schema.json",
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/fetch/receipts/fetch.receipt.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "translate.receipt",
-  "description": "Receipt for a translate request, including translated text and language metadata.",
+  "title": "fetch.receipt",
+  "description": "Receipt for a fetch request, including the items retrieved and pagination cursor if applicable.",
   "type": "object",
   "allOf": [
     {
@@ -10,7 +10,6 @@
     },
     {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
         "x402": {
           "description": "x402 envelope describing the verb and version for this receipt.",
@@ -22,7 +21,7 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "verb": { "const": "translate" },
+                "verb": { "const": "fetch" },
                 "version": { "const": "1.0.0" }
               },
               "required": ["verb", "version"]
@@ -30,34 +29,26 @@
           ]
         },
         "result": {
-          "description": "Translation result payload.",
+          "description": "Fetched items and optional pagination information.",
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "translated_text": {
-              "description": "The translated text.",
+            "items": {
+              "description": "Array of items returned by the fetch operation.",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "description": "An individual fetched item. Structure is source-specific.",
+                "additionalProperties": true
+              }
+            },
+            "next_cursor": {
+              "description": "Opaque pagination cursor for retrieving additional items, if available.",
               "type": "string",
               "minLength": 1
-            },
-            "source_locale": {
-              "description": "IETF BCP 47 language tag for the source text.",
-              "type": "string",
-              "minLength": 2,
-              "maxLength": 32
-            },
-            "target_locale": {
-              "description": "IETF BCP 47 language tag for the translated text.",
-              "type": "string",
-              "minLength": 2,
-              "maxLength": 32
-            },
-            "model_name": {
-              "description": "Optional provider/model identifier used for translation.",
-              "type": "string",
-              "maxLength": 256
             }
           },
-          "required": ["translated_text"]
+          "required": ["items"]
         },
         "usage": {
           "description": "Optional resource usage metrics for this invocation.",

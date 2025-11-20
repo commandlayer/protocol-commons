@@ -1,13 +1,13 @@
 {
   "$id": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "x402.envelope",
-  "description": "Minimal x402-style envelope describing verb, version, and optional routing metadata for agent-to-agent interactions.",
+  "title": "x402 envelope",
+  "description": "Minimal x402-style envelope describing verb, version, and routing metadata for CommandLayer payloads.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
     "verb": {
-      "description": "Canonical verb name (e.g., summarize, analyze, fetch).",
+      "description": "Canonical verb name (e.g., summarize, describe, clean, tag).",
       "type": "string",
       "minLength": 1,
       "maxLength": 64
@@ -15,23 +15,32 @@
     "version": {
       "description": "Semantic version of the verb contract implemented by this payload.",
       "type": "string",
-      "pattern": "^\\d+\\.\\d+\\.\\d+$",
-      "maxLength": 16
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
     "entry": {
       "description": "Optional x402 entry URI for this verb on a given agent (e.g., x402://summarizeagent.eth/summarize/v1).",
       "type": "string",
-      "minLength": 1,
-      "maxLength": 512
+      "format": "uri"
     },
     "request_id": {
-      "description": "Client-assigned request identifier for idempotency and correlation.",
+      "description": "Idempotent client-assigned request identifier for correlating with receipts.",
       "type": "string",
       "minLength": 1,
       "maxLength": 128
     },
+    "idempotency_key": {
+      "description": "Client-provided key ensuring safe retries and preventing duplicate processing of the same logical operation.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "reply_to": {
+      "description": "Optional address or URI where responses/receipts should be delivered.",
+      "type": "string",
+      "format": "uri"
+    },
     "tenant": {
-      "description": "Optional tenant or account identifier in multi-tenant or marketplace scenarios.",
+      "description": "Optional tenant or account identifier in multi-tenant systems.",
       "type": "string",
       "minLength": 1,
       "maxLength": 128
@@ -42,11 +51,10 @@
       "minLength": 1,
       "maxLength": 64
     },
-    "reply_to": {
-      "description": "Optional URI or address where receipts or follow-up messages should be delivered.",
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 512
+    "extras": {
+      "description": "Optional extension bag for implementation-specific routing/metadata.",
+      "type": "object",
+      "additionalProperties": true
     }
   },
   "required": ["verb", "version"]

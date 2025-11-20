@@ -1,8 +1,8 @@
 {
-  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/tag/receipts/tag.receipt.schema.json",
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/analyze/receipts/analyze.receipt.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "tag.receipt",
-  "description": "Receipt for a tag request, including applied tags and any taxonomy metadata.",
+  "title": "analyze.receipt",
+  "description": "Receipt for an analyze request, including derived insights and optional labels.",
   "type": "object",
   "allOf": [
     {
@@ -10,7 +10,6 @@
     },
     {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
         "x402": {
           "description": "x402 envelope describing the verb and version for this receipt.",
@@ -22,7 +21,7 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "verb": { "const": "tag" },
+                "verb": { "const": "analyze" },
                 "version": { "const": "1.0.0" }
               },
               "required": ["verb", "version"]
@@ -30,45 +29,42 @@
           ]
         },
         "result": {
-          "description": "Tagging result payload.",
+          "description": "Analysis result payload.",
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "tags": {
-              "description": "Tags applied to the content.",
+            "summary": {
+              "description": "High-level natural language summary of the analysis.",
+              "type": "string",
+              "minLength": 1
+            },
+            "insights": {
+              "description": "Key findings, observations, or flagged items.",
               "type": "array",
               "items": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "label": {
-                    "description": "Tag label.",
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 256
-                  },
-                  "confidence": {
-                    "description": "Optional confidence score in [0,1].",
-                    "type": "number",
-                    "minimum": 0,
-                    "maximum": 1
-                  },
-                  "source": {
-                    "description": "Where this tag came from (e.g., model, rule, human).",
-                    "type": "string",
-                    "maxLength": 64
-                  }
-                },
-                "required": ["label"]
-              }
+                "type": "string",
+                "minLength": 1
+              },
+              "maxItems": 128
             },
-            "taxonomy_version": {
-              "description": "Optional taxonomy or label-set version identifier.",
-              "type": "string",
-              "maxLength": 128
+            "labels": {
+              "description": "Optional labels or categories assigned to the input.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "maxItems": 64
+            },
+            "score": {
+              "description": "Optional normalized score (e.g., risk, quality) between 0 and 1.",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
             }
           },
-          "required": ["tags"]
+          "required": ["summary"]
         },
         "usage": {
           "description": "Optional resource usage metrics for this invocation.",

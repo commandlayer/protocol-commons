@@ -138,6 +138,14 @@
       "description": "Optional additional metadata, safe for logging and analytics. Must not change core semantics.",
       "type": "object",
       "additionalProperties": true
+    },
+    "result": {
+      "description": "Verb-specific result payload; concrete shape defined by each verb receipt schema.",
+      "type": "object"
+    },
+    "usage": {
+      "description": "Optional resource usage metrics; concrete shape may be extended by each verb receipt schema.",
+      "type": "object"
     }
   },
   "required": ["x402", "trace", "status"]
