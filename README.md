@@ -5,10 +5,10 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/@commandlayer/protocol-commons">
     <img src="https://img.shields.io/npm/v/@commandlayer/protocol-commons?color=brightgreen" />
-  </a>
-  <a href="https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml">
-    <img src="https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml/badge.svg?branch=main" />
-  </a>
+ <a href="https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml">
+  <img src="https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml/badge.svg?branch=main" />
+</a>
+
   <a href="./LICENSE">
     <img src="https://img.shields.io/badge/License-Apache--2.0-blue.svg" />
   </a>
@@ -63,5 +63,6 @@ Canonical verbs always dominate protocol semantics.
 ---
 
 # Repository Layout
+
 
 
