@@ -12,6 +12,13 @@
   <a href="./LICENSE">
     <img src="https://img.shields.io/badge/License-Apache--2.0-blue.svg" />
   </a>
+  </a>
+  <a href="https://discord.gg/">
+    <img src="https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white" alt="Join Discord" />
+  </a>
+  <a href="https://twitter.com/command_layer">
+    <img src="https://img.shields.io/twitter/follow/command_layer?style=social" alt="Follow on Twitter" />
+  </a>
 </p>
 
 ---
@@ -56,4 +63,5 @@ Canonical verbs always dominate protocol semantics.
 ---
 
 # Repository Layout
+
 
