@@ -10,7 +10,6 @@
   },
   "devDependencies": {
     "ajv": "^8.17.1",
-    "ajv": "^8.17.1",
     "ajv-cli": "^5.0.0",
     "ajv-errors": "^3.0.0",
     "ajv-formats": "^3.0.1"
@@ -22,6 +21,7 @@
     "generate:checksums": "node scripts/generate-checksums.mjs schemas/v1.0.0 checksums.txt",
     "scan:unionTypes": "node scripts/find-union-types.mjs",
     "validate:all": "npm run validate:schemas && npm run validate:examples",
-    "validate": "npm run validate:all"
+    "validate": "npm run validate:all",
+    "generate\\:checksums": "node scripts/generate-checksums.mjs > checksums.txt"
   }
 }
