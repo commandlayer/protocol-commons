@@ -9,9 +9,10 @@
   <img src="https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml/badge.svg?branch=main" />
 </a>
 
-  <a href="./LICENSE">
-    <img src="https://img.shields.io/badge/License-Apache--2.0-blue.svg" />
-  </a>
+<a href="./LICENSE">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" />
+</a>
+
   </a>
   <a href="https://discord.gg/">
     <img src="https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white" alt="Join Discord" />
@@ -63,6 +64,7 @@ Canonical verbs always dominate protocol semantics.
 ---
 
 # Repository Layout
+
 
 
 
