@@ -1,0 +1,98 @@
+{
+  "$id": "https://commandlayer.org/agent-cards/schemas/v1.0.0/commons/classify.agent.card.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "classify.agent.card",
+  "description": "AgentCard definition for the CommandLayer Commons v1.0.0 `classify` verb.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "description", "owner", "ens", "version", "capabilities"],
+  "properties": {
+    "id": {
+      "description": "Canonical x402 identifier for this agent instance.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^x402://"
+    },
+    "name": {
+      "description": "Human-readable agent name.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "description": {
+      "description": "Human-readable description of what this agent does.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "owner": {
+      "description": "Logical owner or controller of this agent (e.g., ENS name, org, or DID).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "ens": {
+      "description": "Primary ENS name representing this agent.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "version": {
+      "description": "Semantic version of this AgentCard document.",
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "maxLength": 16
+    },
+    "contact": {
+      "description": "Optional contact email or URL for this agent.",
+      "type": "string",
+      "maxLength": 320
+    },
+    "capabilities": {
+      "description": "Capabilities exposed by this agent, for the `classify` verb.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["verb", "version", "entry", "schema_request", "schema_receipt"],
+        "properties": {
+          "verb": {
+            "description": "Canonical verb name.",
+            "type": "string",
+            "const": "classify"
+          },
+          "version": {
+            "description": "Verb contract version implemented by this capability.",
+            "type": "string",
+            "const": "1.0.0"
+          },
+          "entry": {
+            "description": "x402 entry URI for invoking this verb on this agent.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "schema_request": {
+            "description": "HTTPS URL of the canonical classify.request schema.",
+            "type": "string",
+            "format": "uri",
+            "maxLength": 2048
+          },
+          "schema_receipt": {
+            "description": "HTTPS URL of the canonical classify.receipt schema.",
+            "type": "string",
+            "format": "uri",
+            "maxLength": 2048
+          }
+        }
+      }
+    },
+    "metadata": {
+      "description": "Optional implementation-specific metadata (runtime, network, region, etc.).",
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}
