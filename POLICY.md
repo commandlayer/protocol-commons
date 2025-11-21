@@ -12,7 +12,6 @@ The Protocol Commons provides the universal language foundation for all agents, 
 All canonical verbs MUST:
 
 - Be lowercase, single-word identifiers  
-- Have exactly **one free alias**  
 - Define both:
   ```
   <verb>.request.schema.json
@@ -43,7 +42,6 @@ Each verb MUST contain:
 
 - `requests/<verb>.request.schema.json`
 - `receipts/<verb>.receipt.schema.json`
-- `aliases/<verb>.aliases.json`
 - `examples/valid/*.json`
 - `examples/invalid/*.json`
 
@@ -124,3 +122,4 @@ Deprecated verbs or schemas MUST be:
 3. Preserved for backward compatibility  
 
 Removal is only permitted for verified security risks and MUST include a migration path.
+
