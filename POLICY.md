@@ -22,6 +22,7 @@ All canonical verbs MUST:
   - strict mode enabled
   - no additionalProperties
   - no union types beyond explicitly allowed structures
+ ----
 - Use deterministic `$id` URLs:
   ```
   https://commandlayer.org/schemas/v1.0.0/commons/<verb>/requests/<verb>.request.schema.json
@@ -122,4 +123,5 @@ Deprecated verbs or schemas MUST be:
 3. Preserved for backward compatibility  
 
 Removal is only permitted for verified security risks and MUST include a migration path.
+
 
