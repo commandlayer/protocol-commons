@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "Canonical verb + schema layer for CommandLayer Protocol Commons (v1.0.0).",
   "owner": "commandlayer.eth",
-  "contact": "security@commandlayer.org",
+  "contact": "dev@commandlayer.org",
   "license": "MIT",
 
   "schemas_root": "schemas/v1.0.0",
   "examples_root": "examples/v1.0.0",
   "checksum_file": "checksums.txt",
-  "schemas_cid": "TODO_SET_AFTER_IPFS_PIN",
+  "schemas_cid": "bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m",
   "tag": "commons-v1.0.0",
 
   "verbs": [
