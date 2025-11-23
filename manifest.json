@@ -6,6 +6,9 @@
   "contact": "dev@commandlayer.org",
   "license": "MIT",
 
+  "repository": "https://github.com/commandlayer/protocol-commons",
+  "homepage": "https://commandlayer.org",
+
   "schemas_root": "schemas/v1.0.0",
   "examples_root": "examples/v1.0.0",
   "checksum_file": "checksums.txt",
