@@ -1,8 +1,9 @@
 
 # Governance — Protocol Commons
 
-The CommandLayer Protocol Commons defines the canonical verb and schema layer for agents.  
-During the v1.0.0 cycle, it operates under a single-maintainer model to ensure stability and correctness of the command language.
+The CommandLayer Protocol Commons defines the canonical verb and schema layer for agents.
+During the v1.0.0 cycle, it operates under a single-maintainer model to ensure stability and accuracy of the command language.
+As the protocol matures, stewardship will expand to a small group of trusted maintainers, supported by an open proposal and review process. This ensures the Commons can grow, improve, and remain stable under a clear and transparent governance model.
 
 ---
 
