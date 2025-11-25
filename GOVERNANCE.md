@@ -51,7 +51,15 @@ Fields include:
 - `cl.schema.receipt`  
 - `cl.cid.schemas`  
 - `cl.owner`  
-
+- `cl.schemas.mirror.ipfs`
+- `cl.agentcard`
+- `cl.cid.agentcard`
+- `cl.agentcard.mirror.ipfs`
+- `cl.checksum.request`
+- `cl.checksum.receipt`
+- `cl.checksum.agentcard`
+- `cl.owner`
+  
 Any modification must undergo:
 
 - Maintainer approval  
