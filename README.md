@@ -1,182 +1,196 @@
-CommandLayer Protocol — Commons
+<div align="center">
 
-A canonical verb + schema layer for autonomous agents, aligned with x402 and compatible with ERC-8004.
+# **CommandLayer Protocol — Commons**
 
-<p align="center"> <a href="https://www.npmjs.com/package/@commandlayer/protocol-commons"> <img src="https://img.shields.io/npm/v/@commandlayer/protocol-commons?color=brightgreen" /> </a> <a href="https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml"> <img src="https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml/badge.svg?branch=main" /> </a> <a href="./LICENSE"> <img src="https://img.shields.io/badge/License-MIT-blue.svg" /> </a> <a href="https://twitter.com/command_layer"> <img src="https://img.shields.io/twitter/follow/command_layer?style=social" /> </a> </p>
+A canonical verb + schema layer that standardizes how agents express intent and exchange structured actions — designed for x402 execution flows and fully compatible with ERC-8004 discovery.
+<br>
 
-The Commons repository defines the canonical, immutable verb schemas for the CommandLayer Protocol.
-These schemas describe what an agent can do — not how it runs — and form the universal foundation for A2A communication, multi-agent workflows, LLM orchestration, and automated systems.
+[![npm](https://img.shields.io/npm/v/@commandlayer/protocol-commons?color=brightgreen)](https://www.npmjs.com/package/@commandlayer/protocol-commons)
+[![CI](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml)
+![License](https://img.shields.io/badge/License-MIT-blue.svg)
+[![Twitter Follow](https://img.shields.io/twitter/follow/command_layer?style=social)](https://twitter.com/command_layer)
 
-The Commons represents the linguistic core of CommandLayer:
+</div>
+
+
+---
+
+The **Commons** repository provides the canonical, immutable **verb schemas** for the CommandLayer Protocol.
+
+These schemas define **what an agent can do — not how it runs**.  
+They form the universal foundation for:
+
+- agent-to-agent (A2A) communication  
+- multi-agent workflows  
+- LLM orchestration  
+- automated systems  
+- x402-aligned execution flows  
+
+The Commons is the **linguistic core** of CommandLayer:  
 a neutral, MIT-licensed, schema-first action vocabulary.
 
-Status — v1.0.0
+---
 
-Canonical verb set defined
+## Status — v1.0.0
 
-Fully validated under JSON Schema 2020-12 (strict)
+- Canonical verb set defined  
+- Fully validated under JSON Schema 2020-12 (strict)  
+- Deterministic `$id` structure  
+- Pinned to IPFS (content-addressed)  
+- Request + receipt schemas for all verbs  
+- GitHub Actions validation is green  
+- checksums.txt ensures immutability  
 
-Deterministic $id structure
+This version is the **baseline for SDKs, registries, and identity layers**.
 
-Pinned to IPFS (content-addressed)
+---
 
-Includes request + receipt schemas for all verbs
+## Canonical Verbs (v1.0.0)
 
-CI validation (GitHub Actions) is green
+The Commons includes **10 universal actions** used across nearly all agentic workflows:
 
-Checksums recorded for immutability
+- analyze  
+- classify  
+- clean  
+- convert  
+- describe  
+- explain  
+- format  
+- parse  
+- summarize  
+- fetch  
 
-This is the baseline for ecosystem alignment, SDKs, registries, and agent-card identity layers.
+Each verb provides:
 
-Canonical Verbs (v1.0.0)
+`<verb>.request.schema.json`
 
-The Commons includes 10 universal actions used across nearly all agentic workflows:
+`<verb>.receipt.schema.json`
 
-analyze
+**Schemas define:**
 
-classify
+- input structure  
+- output guarantees  
+- required fields  
+- optional context  
+- x402 envelope shape  
+- trace metadata  
+- version locking  
 
-clean
+No aliases.  
+No ambiguity.  
+Each verb is an immutable, canonical action definition.
 
-convert
+---
 
-describe
-
-explain
-
-format
-
-parse
-
-summarize
-
-fetch
-
-Each verb ships with:
-
-<verb>.request.schema.json
-<verb>.receipt.schema.json
-
-
-These define:
-
-input structure
-
-output guarantees
-
-required fields
-
-optional context
-
-x402 envelope shape
-
-trace metadata
-
-version locking
-
-No aliases. No ambiguity.
-Each verb is a canonical action definition.
-
-Repository Structure
+## Repository Structure
+```
 protocol-commons/
 │
 ├── schemas/
-│   └── v1.0.0/
-│       ├── commons/
-│       │   └── <verb>/
-│       │       ├── requests/
-│       │       └── receipts/
-│       └── _shared/
-│           ├── x402.schema.json
-│           ├── trace.schema.json
-│           └── receipt.base.schema.json
+│ └── v1.0.0/
+│ ├── commons/
+│ │ └── <verb>/
+│ │ ├── requests/
+│ │ └── receipts/
+│ └── _shared/
+│ ├── x402.schema.json
+│ ├── trace.schema.json
+│ └── receipt.base.schema.json
 │
 ├── examples/
-│   └── v1.0.0/
-│       └── <verb>/
-│           ├── valid/
-│           └── invalid/
+│ └── v1.0.0/
+│ └── <verb>/
+│ ├── valid/
+│ └── invalid/
 │
 ├── checksums.txt
 ├── manifest.json
 ├── package.json
 └── README.md
+```
 
-Manifest
 
-manifest.json provides:
+---
 
-high-level metadata
+## Manifest
 
-schema root directories
+`manifest.json` includes:
 
-the IPFS CID containing the schema directory
+- repository metadata  
+- schema root directories  
+- the IPFS CID for the versioned schema folder  
+- a verb index with direct request/receipt paths  
 
-a complete verb index with request/receipt paths
+It is **not** an identity registry.  
+Identity lives in **agent-cards**.
 
-It is not an identity registry; that lives in the agent-cards repo.
+---
 
-Immutability & Checksums
+## Immutability & Checksums
 
-The entire schemas/v1.0.0 directory is pinned to IPFS:
-
-CID:
+All v1.0.0 schemas are pinned to IPFS:
+```
 bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m
+```
 
-This CID acts as the canonical, content-addressed reference to all v1.0.0 schemas.
 
-checksums.txt contains SHA-256 hashes for every schema file inside the versioned folder, enabling:
+`checksums.txt` contains SHA-256 hashes for every file inside `schemas/v1.0.0`, enabling:
 
-offline verification
+- offline verification  
+- reproducible validation  
+- auditability  
+- version locking  
 
-reproducible validation
+Any schema modification requires:
 
-auditability
+- new version (1.0.1, 1.1.0, etc.)  
+- new CID  
+- updated checksums  
+- updated manifest  
+- updated ENS TXT references  
 
-version locking
+Once published, **Commons v1.0.0 is immutable**.
 
-Any change to any schema requires:
+---
 
-a new version (1.0.1, 1.1.0, etc.)
+## Validation
 
-a new pinned CID
+All schemas are validated using:
 
-updated checksums
+- AJV (2020-12) strict mode  
+- deterministic `$id` resolution  
+- no type coercion  
+- no additionalProperties leakage  
+- full valid+invalid example coverage  
 
-updated manifest
+This ensures consistent behavior across runtimes, SDKs, and agent frameworks.
 
-updated ENS TXT
+---
 
-Commons is immutable once published.
+## License
 
-Validation
+MIT — open, universal, fork-friendly.  
+Commons is designed to remain neutral and stable.
 
-Every schema is validated in CI with:
+---
 
-AJV 2020-12 in strict mode
-
-Static $id resolution
-
-No implicit type coercion
-
-No additionalProperties leaks
-
-Full example coverage (valid + invalid)
-
-This ensures consistent, deterministic behavior across SDKs and runtimes.
-
-License
-
-MIT — fully open, compatible, fork-friendly.
-The Commons layer is designed to be neutral and universal.
-
-Next Layers
+## Next Layers
 
 Commons defines verbs and schemas only.
-Other layers live in separate repositories:
 
-agent-cards → identity & discovery
+Other layers of CommandLayer live in dedicated repositories:
 
-protocol-commercial → commercial endpoints & private verbs
+- **agent-cards** → identity & discovery  
+- **protocol-commercial** → commercial verbs & endpoints  
+- **sdk-js / sdk-python** → runtime implementations & helpers  
 
-sdk-js / sdk-python → runtime implementations & helpers
+
+
+
+
+
+
+
+
+
+
