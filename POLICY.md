@@ -141,9 +141,9 @@ Removal is only permitted for verified security risks and MUST include a migrati
 
 ## Links
 
-- [Security Policy](./SECURITY.md) — responsible disclosure and vulnerability handling  
-- [RESOLUTION.md](./RESOLUTION.md) — governance and deprecation log  
-- [Policy](./POLICY.md) — verbs and ENS binding rules  
-- [GOVERNANCE.md](./GOVERNANCE.md) — decision-making and multisig control  
+- [SECURITY POLICY](./SECURITY.md) — responsible disclosure and vulnerability handling  
+- [RESOLUTION](./RESOLUTION.md) — governance and deprecation log  
+- [POLICY](./POLICY.md) — verbs and ENS binding rules  
+- [GOVERNANCE](./GOVERNANCE.md) — decision-making and multisig control  
 
 
