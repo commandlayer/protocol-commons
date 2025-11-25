@@ -139,5 +139,11 @@ Deprecated verbs or schemas MUST be:
 
 Removal is only permitted for verified security risks and MUST include a migration path.
 
+## Links
+
+- [Security Policy](./SECURITY.md) — responsible disclosure and vulnerability handling  
+- [RESOLUTION.md](./RESOLUTION.md) — governance and deprecation log  
+- [Policy](./POLICY.md) — verbs and ENS binding rules  
+- [GOVERNANCE.md](./GOVERNANCE.md) — decision-making and multisig control  
 
 
