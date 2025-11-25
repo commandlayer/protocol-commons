@@ -72,3 +72,10 @@ When a verb or schema is deprecated:
 3. **Preserve** the schema for backward compatibility unless removal is required for security  
 
 Removal is treated as an **exceptional event** and requires a documented migration path for downstream integrators.
+
+## Links
+
+- [Security Policy](./SECURITY.md) — responsible disclosure and vulnerability handling  
+- [RESOLUTION.md](./RESOLUTION.md) — governance and deprecation log  
+- [Policy](./POLICY.md) — verbs and ENS binding rules  
+- [GOVERNANCE.md](./GOVERNANCE.md) — decision-making and multisig control  
