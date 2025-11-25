@@ -3,7 +3,7 @@
 
 This document defines the canonical rules for creating, validating, and publishing verb schemas in the CommandLayer Protocol Commons.
 
-The Protocol Commons provides the universal language foundation for all agents, runtimes, SDKs, and autonomous workflows.
+The Protocol Commons provides the universal language foundation for all agents and autonomous workflows.
 
 ---
 
@@ -145,5 +145,6 @@ Removal is only permitted for verified security risks and MUST include a migrati
 - [RESOLUTION](./RESOLUTION.md) — governance and deprecation log  
 - [POLICY](./POLICY.md) — verbs and ENS binding rules  
 - [GOVERNANCE](./GOVERNANCE.md) — decision-making and multisig control  
+
 
 
