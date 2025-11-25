@@ -25,8 +25,8 @@ Each entry should include:
 - **Verb(s):** `stream`  
 - **Action:** Added  
 - **Reason:** Needed for continuous broadcast use cases (audio/video agents).  
-- **Resolution:** Accepted as a **commercial** verb with 2 aliases (`broadcast`, `cast`).  
-- **Maintainers:** @greg, @ayden 
+- **Resolution:** Accepted as a **commercial** verb  
+- **Maintainers:** @ayden 
 
 ---
 
@@ -34,7 +34,7 @@ Each entry should include:
 - **Verb(s):** `register`  
 - **Action:** Deprecated  
 - **Reason:** Overlaps semantically with `subscribe`; caused confusion.  
-- **Resolution:** Marked as deprecated. Remains valid until **2025-07-10**.  
+- **Resolution:** Marked as deprecated. Remains valid until **2025-12-12**.  
   - Developers should migrate to `subscribe`.  
 - **Maintainers:** @nicole 
 
@@ -49,32 +49,21 @@ Each entry should include:
 
 ---
 
-### 2025-09-01 — Alias Update
-- **Verb(s):** `checkout`  
-- **Alias(es):** `buy`  
-- **Action:** Rejected alias proposal  
-- **Reason:** Ambiguous with `purchase` and `order`.  
-- **Resolution:** Alias `buy` will not be added.  
-- **Maintainers:** @ethan @julia
-
----
-
 ## Rules of Thumb
 
 1. **No silent changes** — everything must be logged here.  
 2. **Stability first** — once a verb is stable, only replace if absolutely necessary.  
 3. **Deprecation window** — always give at least **90 days** before removal.  
-4. **Aliases are soft** — easier to add/remove, but still require reasoning.  
-5. **Governance matters** — if there’s disagreement, it must be resolved before merging.  
+4. **Governance matters** — if there’s disagreement, it must be resolved before merging.  
 
 ---
 
-Maintainers: Please update this file with every schema, verb, or alias decision.  
+Maintainers: Please update this file with every schema or verb decision.  
 If it’s not in `RESOLUTION.md`, it didn’t officially happen.  
 
 ## Links
 
 - [Security Policy](./SECURITY.md) — responsible disclosure and vulnerability handling  
 - [RESOLUTION.md](./RESOLUTION.md) — governance and deprecation log  
-- [Policy](./POLICY.md) — verbs, aliases, and ENS binding rules  
+- [Policy](./POLICY.md) — verbs and ENS binding rules  
 - [GOVERNANCE.md](./GOVERNANCE.md) — decision-making and multisig control  
