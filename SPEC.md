@@ -45,7 +45,6 @@ Out of scope (defined in other repos):
 A system **CONFORMS** to the CommandLayer Commons if it:
 
 3.1 **MUST** support all 10 canonical verbs at their canonical names.  
-3.2 **MUST** support exactly one alias per verb and normalize aliases to the canonical verb.  
 3.3 **MUST** validate all requests/receipts using the official schemas in **strict AJV mode**.  
 3.4 **MUST** treat versioned schemas as immutable once published.  
 3.5 **MUST** echo `trace.requestId` from request → receipt.  
@@ -54,29 +53,27 @@ A “Commons‑Compatible Agent” is any agent capable of consuming a valid req
 
 ---
 
-# **4. Canonical Verbs & Aliases (v1.0.0)**
+# **4. Canonical Verbs &  (v1.0.0)**
 
 The following are the **ONLY canonical verbs** in v1.0.0:
 
-| Category | Verb | Alias |
+| Category | Verb |  |
 |----------|-------|--------|
-| Core Ops + Data | fetch | get |
-|  | save | store |
-|  | parse | extract |
-| AI Cognition | analyze | examine |
-|  | summarize | outline |
-|  | classify | categorize |
-|  | translate | interpret |
-|  | generate | create |
-| Utility | format | normalize |
-| Workflow | query | find |
+| Core Ops + Data | fetch |  |
+|  | clean |  |
+|  | parse |  |
+| AI Cognition | analyze |  |
+|  | summarize |  |
+|  | classify |  |
+|  | describe |  |
+|  |  |explain  |
+| Utility | format |  |
+| Workflow |  |  |
 
 Rules:
 
 - 4.1 Canonical verbs **MUST** be lowercase, single words.  
-- 4.2 Aliases **MUST NOT** conflict with any canonical verb.  
 - 4.3 Canonical names **MUST** appear in `x402.verb`.  
-- 4.4 Aliases **MAY** be used by UIs, SDKs, and routers.
 
 ---
 
@@ -193,22 +190,6 @@ https://commandlayer.org/schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.s
 
 ---
 
-# **9. Alias Rules**
-
-Each alias map MUST follow:
-
-```json
-{
-  "canonical": "<verb>",
-  "aliases": ["<alias>"]
-}
-```
-
-Rules:
-
-- Aliases **MUST NOT** collide with any canonical verb.  
-- Aliases **MAY** be mapped automatically by resolvers.  
-- Canonical verb **MUST** override aliases in all message fields.
 
 ---
 
@@ -255,7 +236,7 @@ Request + receipt envelope fragments are included for implementers (see **SCHEMA
 
 # **15. Examples (Informative)**
 
-Verb examples (fetch, summarize, generate, etc.) are provided in the repository under:
+Verb examples (fetch, summarize,  etc.) are provided in the repository under:
 
 ```
 examples/v1.0.0/commons/<verb>/
