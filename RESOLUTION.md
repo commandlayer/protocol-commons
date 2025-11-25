@@ -1,6 +1,6 @@
 # Resolution Log
 
-This file tracks all lifecycle changes to CommandLayer verbs, aliases, and schemas.  
+This file tracks all lifecycle changes to CommandLayer verbs and schemas.  
 It is the **single source of truth** for why something was added, deprecated, or removed.  
 Every entry must be documented here to maintain transparency and trust.  
 
@@ -11,7 +11,7 @@ Every entry must be documented here to maintain transparency and trust.
 Each entry should include:
 
 - **Date** — When the decision was made.  
-- **Verb(s)** — Affected canonical verb(s) or aliases.  
+- **Verb(s)** — Affected canonical verb(s) 
 - **Action** — Added, Deprecated, Replaced, or Removed.  
 - **Reason** — Short explanation (ecosystem need, duplication, ambiguity, etc.).  
 - **Resolution** — The final decision (what replaces it, if anything).  
