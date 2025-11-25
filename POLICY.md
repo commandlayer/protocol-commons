@@ -61,10 +61,25 @@ All canonical verbs MUST have resolvable ENS TXT entries:
 ```
 cl.verb=<verb>
 cl.version=1.0.0
+
+cl.entry=x402://<verbagent>.eth/<verb>/v1
+
 cl.schema.request=https://commandlayer.org/schemas/v1.0.0/commons/<verb>/requests/<verb>.request.schema.json
 cl.schema.receipt=https://commandlayer.org/schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
-cl.cid.schemas=<ipfs-cid-of-schema-bundle>
+
+cl.cid.schemas=<cid-schemas>
+cl.schemas.mirror.ipfs=https://ipfs.io/ipfs/<cid-schemas>
+
+cl.agentcard=https://commandlayer.org/agent-cards/agents/v1.0.0/commons/<verbagent>.eth.json
+cl.cid.agentcard=<cid-agentcard>
+cl.agentcard.mirror.ipfs=https://ipfs.io/ipfs/<cid-agentcard>/agents/<verbagent>.eth.json
+
+cl.checksum.request=<sha256-request>
+cl.checksum.receipt=<sha256-receipt>
+cl.checksum.agentcard=<sha256-agentcard>
+
 cl.owner=commandlayer.eth
+
 ```
 
 ENS bindings are **critical protocol resources** and may only be modified through governance.
@@ -123,5 +138,6 @@ Deprecated verbs or schemas MUST be:
 3. Preserved for backward compatibility  
 
 Removal is only permitted for verified security risks and MUST include a migration path.
+
 
 
