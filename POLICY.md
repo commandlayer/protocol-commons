@@ -123,7 +123,7 @@ Every release MUST:
 
 The Protocol Commons operates under a strict immutability rule:
 
-> No schema, once published in a versioned directory, may be altered in-place.
+ No schema changes, once published in a versioned directory, may be altered in-place.
 
 All corrective or breaking changes MUST be handled via new versioned directories.
 
@@ -145,6 +145,7 @@ Removal is only permitted for verified security risks and MUST include a migrati
 - [RESOLUTION](./RESOLUTION.md) — governance and deprecation log  
 - [POLICY](./POLICY.md) — verbs and ENS binding rules  
 - [GOVERNANCE](./GOVERNANCE.md) — decision-making and multisig control  
+
 
 
 
