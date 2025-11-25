@@ -35,7 +35,6 @@ This policy covers:
 
 - All schema files under `schemas/`  
 - `_shared` base contracts (trace, x402, receipt base)  
-- All alias definitions  
 - Version manifests (`manifest.json`, `checksums.txt`)  
 - ENS TXT formats used for verb discovery  
 - Any validation or build scripts in `/scripts`  
@@ -64,4 +63,5 @@ This policy covers:
 - [RESOLUTION.md](./RESOLUTION.md) — governance and deprecation log  
 - [Policy](./POLICY.md) — verbs and ENS binding rules  
 - [GOVERNANCE.md](./GOVERNANCE.md) — decision-making and multisig control  
+
 
