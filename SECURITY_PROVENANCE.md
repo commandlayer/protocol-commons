@@ -1,5 +1,5 @@
 
-# Commons v1.0.0 — Security Provenance
+# Security Provenance
 
 **Version:** v1.0.0  
 **Scope:** `schemas/v1.0.0` (commons verbs + `_shared`)  
@@ -52,4 +52,5 @@ Each verb **MUST** expose ENS TXT records including:
 
 
 **Any modification to `ENS TXT` layout, `CID binding`, or `verb metadata` MUST be logged in `RESOLUTION.md` and approved under governance**.
+
 
