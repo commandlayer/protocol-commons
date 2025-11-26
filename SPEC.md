@@ -57,18 +57,18 @@ A “Commons‑Compatible Agent” is any agent capable of consuming a valid req
 
 The following are the **ONLY canonical verbs** in v1.0.0:
 
-| Category | Verb |  |
-|----------|-------|--------|
-| Core Ops + Data | fetch |  |
-|  | clean |  |
-|  | parse |  |
-| AI Cognition | analyze |  |
-|  | summarize |  |
-|  | classify |  |
-|  | describe |  |
-|  |  |explain  |
-| Utility | format |  |
-| Workflow |  |  |
+| Category | Verb |  
+|----------|-------|
+| Core Ops + Data | fetch |  
+|  | clean |  
+|  | parse |  
+| AI Cognition | analyze |  
+|  | summarize |  
+|  | classify |  
+|  | describe |  
+|  |  explain  |
+| Utility | format |  
+| Workflow |  |  
 
 Rules:
 
