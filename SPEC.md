@@ -1,5 +1,5 @@
 
-# **SPEC.md — CommandLayer Protocol Commons (v1.0.0)**  
+# **SPEC — CommandLayer Protocol Commons (v1.0.0)**  
 *A universal verb language for A2A, aligned with x402 and ERC‑8004.*
 
 **Status:** v1.0.0 (Candidate – to be promoted to Stable after ecosystem validation)  
