@@ -1,9 +1,9 @@
-<div align="center">
 
 # **CommandLayer Protocol — Commons**
 
 A canonical verb + schema layer that standardizes how agents express intent and exchange structured actions — designed for x402 execution flows and fully compatible with ERC-8004 discovery.
 <br>
+<div align="center">
 
 [![npm](https://img.shields.io/npm/v/@commandlayer/protocol-commons?color=brightgreen)](https://www.npmjs.com/package/@commandlayer/protocol-commons)
 [![CI](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml)
@@ -183,6 +183,7 @@ Other layers of CommandLayer live in dedicated repositories:
 - **agent-cards** → identity & discovery  
 - **protocol-commercial** → commercial verbs & endpoints  
 - **sdk-js / sdk-python** → runtime implementations & helpers  
+
 
 
 
