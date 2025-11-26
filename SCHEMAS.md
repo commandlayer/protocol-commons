@@ -1,5 +1,5 @@
 
-# **SCHEMAS — CommandLayer Protocol Commons (v1.0.0)**
+# **SCHEMAS — CommandLayer Protocol Commons**
 
 This document defines the full schema layout for the CommandLayer Protocol Commons, including canonical verbs, directory conventions, field-level rules, `$id` structures, versioning, and interoperability requirements for x402 + ERC‑8004 aligned agents.
 
