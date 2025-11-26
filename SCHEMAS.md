@@ -1,5 +1,5 @@
 
-# **SCHEMAS.md — CommandLayer Protocol Commons (v1.0.0)**
+# **SCHEMAS — CommandLayer Protocol Commons (v1.0.0)**
 
 This document defines the full schema layout for the CommandLayer Protocol Commons, including canonical verbs, directory conventions, field-level rules, `$id` structures, versioning, and interoperability requirements for x402 + ERC‑8004 aligned agents.
 
@@ -27,16 +27,17 @@ Once published under a versioned directory, the Commons is **immutable forever**
 schemas/v1.0.0/
   _shared/         # trace, x402, receipt base primitives
   commons/         # 10 canonical verbs (requests + receipts)
-    analyze/
-    classify/
-    fetch/
-    format/
-    generate/
-    parse/
-    query/
-    save/
-    summarize/
-    translate/
+
+analyze
+classify
+clean
+convert
+describe
+explain
+fetch
+format
+parse
+summarize
 ```
 
 Each verb directory contains:
@@ -50,18 +51,19 @@ receipts/<verb>.receipt.schema.json
 
 # **3. Canonical Verb Set (v1.0.0)**
 
-| Verb      | Purpose                                             |
-|-----------|-----------------------------------------------------|
-| analyze   | ML / rules-based content inspection                 |
-| classify  | Taxonomy classification                             |
-| fetch     | External data retrieval                             |
-| format    | Transform content without semantic mutation         |
-| generate  | Content generation (LLM, generative models)         |
-| parse     | Structural extraction & parsing                     |
-| query     | Structured lookup or filtering                      |
-| save      | Persist arbitrary content                           |
-| summarize | Semantic summarization                              |
-| translate | Language translation                                |
+| Verb       | Purpose                                |
+|------------|----------------------------------------|
+| analyze    | Inspect content                        |
+| classify   | Assign categories                      |
+| clean      | Sanitize and normalize                 |
+| convert    | Change formats                         |
+| describe   | Describe content                       |
+| explain    | Explain reasoning                      |
+| fetch      | Retrieve external data                 |
+| format     | Apply formatting                       |
+| parse      | Extract structure                      |
+| summarize  | Condense meaning                       |
+
 
 Each verb defines:
 
@@ -72,7 +74,7 @@ Each verb defines:
 
 # **4. Schema `$id` Structure**
 
-All schema IDs follow this deterministic pattern:
+**`All schema IDs` follow this deterministic pattern:**
 
 ### **Request**
 ```
@@ -117,7 +119,7 @@ Every **receipt** must include:
 }
 ```
 
-x402 object rules:
+**x402 object rules:**
 
 - No `additionalProperties`
 - Fully validated against `_shared/x402.schema.json`
@@ -154,7 +156,7 @@ All requests share this required structure:
 
 ## **6.2 Receipt Contract**
 
-All receipts enforce the CommandLayer status model:
+**All receipts enforce the CommandLayer status model:**
 
 ### **Status Rules**
 
@@ -163,14 +165,15 @@ All receipts enforce the CommandLayer status model:
 | `ok`   | `result`, `error=null` |
 | `error` | `error`, `result=null` |
 
-Receipt must include:
+**Receipt must include:**
 
 - `x402`  
 - `trace`  
 - `status`  
-- conditional `result` or `error`  
+- conditional `result` or `error`
+- 
 
-Strict if/then/else validation is defined in:
+**Strict if/then/else validation is defined in:**
 
 ```
 _shared/receipt.base.schema.json
@@ -182,7 +185,7 @@ _shared/receipt.base.schema.json
 
 Used by *every* request and receipt.
 
-Fields:
+**Fields:**
 
 - `ts`  
 - `requestId`  
@@ -191,7 +194,7 @@ Fields:
 - `requestHash`  
 - Optional: `parentId`, `callbackUri`, `schemaId`, `signature`, `metrics`
 
-Located in:
+**Located in:**
 
 ```
 _shared/trace.schema.json
@@ -227,13 +230,13 @@ allowUnionTypes: false
 strictTuples: true
 ```
 
-Other rules:
+**Other rules:**
 
 - No `additionalProperties` unless explicitly included  
 - All examples must validate with CI  
 - Receipt conditionals must pass if/then/else logic  
 
-Validation commands:
+**Validation commands:**
 
 ```
 npm run validate
@@ -245,7 +248,7 @@ npm run validate:examples
 
 # **10. Examples**
 
-Examples live at:
+**Examples live at:**
 
 ```
 examples/v1.0.0/commons/<verb>/
@@ -253,7 +256,7 @@ examples/v1.0.0/commons/<verb>/
   invalid/*.json
 ```
 
-Requirements:
+**Requirements:**
 
 - Minimum **3 valid** examples per verb  
 - Minimum **3 invalid** examples per verb  
@@ -263,18 +266,18 @@ Requirements:
 
 # **11. Provenance**
 
-The entire schema tree is pinned to IPFS:
+**The entire schema tree is pinned to IPFS:**
 
-```
-bafybeieoynknzalaojwpzjzjy77kpnfe4kla5io7jbfnmyu7w7vyvuljpq
-```
 
-Integrity is tracked via:
+`bafybeieoynknzalaojwpzjzjy77kpnfe4kla5io7jbfnmyu7w7vyvuljpq`
 
-```
-checksums.txt
-manifest.json (coming soon)
-```
+
+**Integrity is tracked via:**
+
+
+`checksums.txt`
+`manifest.json`
+
 
 ---
 
