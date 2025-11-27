@@ -1,19 +1,18 @@
-
-# Governance — Protocol Commons
+# Governance — Protocol-Commons
 
 The CommandLayer Protocol Commons defines the canonical verb and schema layer for agents.
-During the v1.0.0 cycle, it operates under a single-maintainer model to ensure stability and accuracy of the command language.
-As the protocol matures, stewardship will expand to a small group of trusted maintainers, supported by an open proposal and review process. This ensures the Commons can grow, improve, and remain stable under a clear and transparent governance model.
+
+During the v1.0.0 cycle, it operates under a single-maintainer model to ensure stability and correctness of the core language. As adoption grows, stewardship will expand to a small group of trusted maintainers under a transparent proposal and review process.
 
 ---
 
 ## Stewardship
 
-- **Owner:** `commandlayer.eth`  
+- **Owner:** commandlayer.eth  
 - **Maintainer:** CommandLayer Governance Council  
-- **Contact:** `dev@commandlayer.org`  
+- **Contact:** dev@commandlayer.org  
 
-The Commons layer must remain:
+The Commons MUST remain:
 
 - Neutral — no vendor-specific semantics  
 - Minimal — only what is required for interoperability  
@@ -24,67 +23,66 @@ The Commons layer must remain:
 
 ## Change Process
 
-1. **Open an issue** describing the proposed update  
-2. **Provide justification** (interoperability need, bug fix, receipt fix, security hardening)  
-3. **Run validation**:
-   - All schemas pass strict Ajv  
-   - All examples pass  
-   - `checksums.txt` regenerated  
-4. **Maintainer review** and determination  
-5. **Tagged release + provenance update**:
-   - New tag (e.g., `commons-v1.0.1`)  
-   - New IPFS CID recorded in `SECURITY_PROVENANCE.md`  
-   - ENS TXT fields updated if applicable  
+1. Open an Issue describing the change request  
+2. Provide justification  
+   - Interoperability need  
+   - Bug fix  
+   - Security correction  
+3. Update/verifying artifacts:
+   - Request + receipt schemas validated under strict Ajv
+   - Checksums regenerated
+   - Manifest updated
+4. Maintainer review + decision
+5. Versioned release:
+   - New tag (e.g., `commons-v1.0.1`)
+   - New IPFS CID recorded in `SECURITY_PROVENANCE.md`
 
-Changes that alter the request/receipt contract, trace semantics, alias mapping rules, or x402 requirements require a **minor or major** version bump.
+⚠️ Any change to request/receipt shape or `$id` structure requires a **minor/major** version bump.
 
 ---
 
-## ENS Binding Governance
+## ENS Binding
 
-ENS TXT fields associated with Protocol-Commons — such as those stored under `commandlayer.eth` or verb-specific ENS names — are **critical protocol resources**.
+Protocol-Commons is responsible ONLY for:
+```
+cl.verb
+cl.version
+cl.schema.request
+cl.schema.receipt
+cl.cid.schemas
+cl.schemas.mirror.ipfs
+```
 
-Fields include:
+These are **immutable protocol commitments** once published.
 
-- `cl.verb`  
-- `cl.version`  
-- `cl.schema.request`  
-- `cl.schema.receipt`  
-- `cl.cid.schemas`  
-- `cl.owner`  
-- `cl.schemas.mirror.ipfs`
-- `cl.agentcard`
-- `cl.cid.agentcard`
-- `cl.agentcard.mirror.ipfs`
-- `cl.checksum.request`
-- `cl.checksum.receipt`
-- `cl.checksum.agentcard`
-- `cl.owner`
-  
-Any modification must undergo:
-
-- Maintainer approval  
-- Out-of-band verification (PGP or signed message)  
-- Logging in `RESOLUTION.md` with timestamp + rationale  
+Updates MUST be approved via governance and logged in `RESOLUTION.md`.
 
 ---
 
 ## Deprecation
 
-When a verb or schema is deprecated:
+1. Log change in `RESOLUTION.md`
+2. Mark deprecated in documentation
+3. Preserve for backward compatibility unless removal is a security event
 
-1. **Record** in `RESOLUTION.md` with:
-   - Affected `$id`
-   - Reason
-   - Replacement (if any)
-2. **Mark** deprecated status in `SPEC.md` and public documentation  
-3. **Preserve** the schema for backward compatibility unless removal is required for security  
+Deprecation window: **≥90 days** before removal.
 
-Removal is treated as an **exceptional event** and requires a documented migration path for downstream integrators.
+---
 
-## Links
+## Transparency Artifacts
 
-- [SECURITY POLICY](./SECURITY.md) — responsible disclosure and vulnerability handling  
-- [RESOLUTION](./RESOLUTION.md) — governance and deprecation log  
-- [POLICY](./POLICY.md) — verbs and ENS binding rules  
-- [GOVERNANCE](./GOVERNANCE.md) — decision-making and multisig control  
+- `POLICY.md` — rules for verbs & schemas  
+- `SPEC.md` — normative protocol requirements  
+- `RESOLUTION.md` — lifecycle history  
+- `SECURITY_PROVENANCE.md` — CIDs & hashes for each release  
+
+---
+
+
+
+
+
+
+
+
+
