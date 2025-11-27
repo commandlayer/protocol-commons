@@ -1,8 +1,7 @@
 
 # **CommandLayer Protocol — Commons**
 
-The canonical verb + schema layer for agent intent — standardized for autonomous-to-autonomous execution and verifiable interoperability.
-<br>
+The canonical verb + schema layer for machine intent — standardized for verifiable A2A automation.<br>
 <div align="center">
 
 [![npm](https://img.shields.io/npm/v/@commandlayer/protocol-commons?color=brightgreen)](https://www.npmjs.com/package/@commandlayer/protocol-commons)
@@ -73,6 +72,21 @@ The Commons includes **10 universal actions** used across nearly all agentic wor
 - summarize  
 - fetch  
 
+```
++---------------------------+
+|   Protocol-Commons        |
+|  (verbs + schemas)        |
++-------------+-------------+
+              |
+              v
+      Agent Cards (identity)
+              |
+              v
+        x402 Entry (invoke)
+              |
+              v
+     Execution Runtime (A2A)
+```
 **Each verb provides:**
 
 `<verb>.request.schema.json`
@@ -93,21 +107,7 @@ No aliases.
 No ambiguity.  
 **Each verb is an immutable, canonical action definition.**
 
-```
-+---------------------------+
-|   Protocol-Commons        |
-|  (verbs + schemas)        |
-+-------------+-------------+
-              |
-              v
-      Agent Cards (identity)
-              |
-              v
-        x402 Entry (invoke)
-              |
-              v
-     Execution Runtime (A2A)
-```
+
 ---
 
 ## Repository Structure
@@ -211,6 +211,7 @@ Other layers of CommandLayer live in dedicated repositories:
 - **agent-cards** → identity & discovery  
 - **protocol-commercial** → commercial verbs & endpoints  
 - **sdk-js / sdk-python** → runtime implementations & helpers  
+
 
 
 
