@@ -19,12 +19,12 @@ The **Commons** repository provides the canonical, immutable **verb schemas** fo
 These schemas define **what an agent can do — not how it runs**.  
 They form the universal foundation for:
 
+- **A2A = Autonomous-to-Autonomous — no humans required in the loop.**
 - **agent-to-agent** (A2A) communication  
 - **multi-agent workflows**  
 - **LLM orchestration** 
 - **automated systems**  
 - **x402-aligned** execution flows
-- **A2A = Autonomous-to-Autonomous — no humans required in the loop.**
 
 -----
 
@@ -42,6 +42,42 @@ Without one canonical action standard:
 The Commons prevents fragmentation — ensuring every agent can **speak the same language**, validate the same rules, and interoperate trustlessly across any runtime.
 
 ---
+## Quickstart
+
+Install:
+
+```bash
+npm install @commandlayer/protocol-commons
+```
+Import and inspect a canonical verb schema:
+```
+import analyzeRequest from "@commandlayer/protocol-commons/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json";
+
+console.log(analyzeRequest.$id);        // Deterministic schema ID
+console.log(analyzeRequest.properties); // Typed input contract for "analyze"
+```
+**Use these schemas to:**
+
+- validate agent requests and receipts
+- generate types
+- enforce consistent behavior across runtimes
+
+---
+  
+## CommandLayer Protocol Stack
+
+- **Protocol-Commons → canonical verbs & schemas (machine intent grammar)**
+
+- **Agent-Cards → identity, discovery, and entrypoints for concrete agents**
+
+- **x402 runtime → transport, execution, and structured receipts**
+
+Commons defines **what** actions exist and how they are structured.
+Agent-Cards bind those actions to real agents.
+x402 moves the value and messages.
+
+
+
 
 ## Status — v1.0.0
 
@@ -203,14 +239,12 @@ Commons is designed to remain neutral and stable.
 ---
 
 ## Next Layers
-
-**Commons defines verbs and schemas only.**
-
-Other layers of CommandLayer live in dedicated repositories:
+CommandLayer follows a clean separation of concerns:
 
 - **agent-cards** → identity & discovery  
 - **protocol-commercial** → commercial verbs & endpoints  
 - **sdk-js / sdk-python** → runtime implementations & helpers  
+
 
 
 
