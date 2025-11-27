@@ -1,7 +1,7 @@
 
 # **CommandLayer Protocol — Commons**
 
-A canonical verb + schema layer that standardizes how agents express intent and exchange structured actions — designed for x402 execution flows and fully compatible with ERC-8004 discovery.
+The canonical verb + schema layer for agent intent — standardized for autonomous-to-autonomous execution and verifiable interoperability.
 <br>
 <div align="center">
 
@@ -24,10 +24,23 @@ They form the universal foundation for:
 - **multi-agent workflows**  
 - **LLM orchestration** 
 - **automated systems**  
-- **x402-aligned** execution flows  
+- **x402-aligned** execution flows
+- **A2A = Autonomous-to-Autonomous — no humans required in the loop.**
 
-The Commons is the **linguistic core** of CommandLayer:  
-a neutral, MIT-licensed, schema-first action vocabulary.
+-----
+
+## Why the Commons Exists
+
+The Commons is the **linguistic core** of CommandLayer — a neutral, MIT-licensed, schema-first action vocabulary for autonomous agents.
+
+Without one canonical action standard:
+
+- every agent becomes an incompatible API
+- verbs collide and fragment
+- routing and intent resolution fail
+- schemas drift → verification breaks
+
+The Commons prevents fragmentation — ensuring every agent can **speak the same language**, validate the same rules, and interoperate trustlessly across any runtime.
 
 ---
 
@@ -80,6 +93,21 @@ No aliases.
 No ambiguity.  
 **Each verb is an immutable, canonical action definition.**
 
+```
++---------------------------+
+|   Protocol-Commons        |
+|  (verbs + schemas)        |
++-------------+-------------+
+              |
+              v
+      Agent Cards (identity)
+              |
+              v
+        x402 Entry (invoke)
+              |
+              v
+     Execution Runtime (A2A)
+```
 ---
 
 ## Repository Structure
@@ -183,6 +211,7 @@ Other layers of CommandLayer live in dedicated repositories:
 - **agent-cards** → identity & discovery  
 - **protocol-commercial** → commercial verbs & endpoints  
 - **sdk-js / sdk-python** → runtime implementations & helpers  
+
 
 
 
