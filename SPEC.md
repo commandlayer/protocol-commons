@@ -2,7 +2,7 @@
 
 This is the authoritative normative definition of the Commons layer.
 
-## 0. Keywords
+## Keywords
 RFC 2119 interpretation.
 
 ## 1. Architecture
