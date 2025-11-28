@@ -1,4 +1,3 @@
-
 # **CommandLayer Protocol — Commons**
 
 The canonical verb + schema layer for machine intent — standardized for verifiable A2A automation.<br>
@@ -11,22 +10,25 @@ The canonical verb + schema layer for machine intent — standardized for verifi
 
 </div>
 
+---
+
 ## Table of Contents
-- [Overview](##overview)
-- [Why This Exists](#w#hy-this-exists)
-- [Quickstart](##quickstart)
-- [Status](##status)
-- [Canonical Verbs](##canonical-verbs)
-- [Repository Structure](##repository-structure)
-- [Manifest](##manifest)
-- [Immutability  Checksums](##immutability--checksums)
-- [Validation](##validation)
-- [License](##license)
-- [Next Layers](##next-layers)
+- [Overview](#overview)
+- [Why This Exists](#why-this-exists)
+- [Quickstart](#quickstart)
+- [CommandLayer Protocol Stack](#commandlayer-protocol-stack)
+- [Status](#status)
+- [Canonical Verbs](#canonical-verbs)
+- [Repository Structure](#repository-structure)
+- [Manifest](#manifest)
+- [Immutability & Checksums](#immutability--checksums)
+- [Validation](#validation)
+- [License](#license)
+- [Next Layers](#next-layers)
 
 ---
 
-
+## Overview
 
 The **Commons** repository provides the canonical, immutable **verb schemas** for the CommandLayer Protocol.
 
@@ -40,9 +42,9 @@ They form the universal foundation for:
 - **automated systems**  
 - **x402-aligned** execution flows
 
------
+---
 
-## Why the Commons Exists
+## Why This Exists
 
 The Commons is the **linguistic core** of CommandLayer — a neutral, MIT-licensed, schema-first action vocabulary for autonomous agents.
 
@@ -56,12 +58,12 @@ Without one canonical action standard:
 The Commons prevents fragmentation — ensuring every agent can **speak the same language**, validate the same rules, and interoperate trustlessly across any runtime.
 
 ---
-## Quickstart
 
-Install:
+## Quickstart
 
 ```bash
 npm install @commandlayer/protocol-commons
+
 ```
 Import and inspect a canonical verb schema:
 ```
@@ -258,6 +260,7 @@ CommandLayer follows a clean separation of concerns:
 - **agent-cards** → identity & discovery  
 - **protocol-commercial** → commercial verbs & endpoints  
 - **sdk-js / sdk-python** → runtime implementations & helpers  
+
 
 
 
