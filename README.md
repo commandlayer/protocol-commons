@@ -18,6 +18,7 @@ that make them interoperable. Without this shared verb layer:
 - **Multi-agent workflows collapse**
 
 **TL;DR**
+
 - Shared semantics for every autonomous agent  
 - Deterministic request + receipt schemas  
 - Plug-and-play with Agent Cards + x402
@@ -356,6 +357,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
