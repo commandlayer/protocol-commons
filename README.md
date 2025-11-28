@@ -82,34 +82,33 @@ console.log(analyzeRequest.properties); // Typed input contract for "analyze"
   
 ## CommandLayer Protocol Stack
 
-- **Protocol-Commons → canonical verbs & schemas (machine intent grammar)**
+| Layer | Role |
+|------|------|
+| **Protocol-Commons** | Canonical verbs & schemas (machine intent grammar) |
+| **Agent-Cards** | Identity, discovery, and entrypoints for concrete agents |
+| **x402 runtime** | Transport, execution, and structured receipts |
 
-- **Agent-Cards → identity, discovery, and entrypoints for concrete agents**
-
-- **x402 runtime → transport, execution, and structured receipts**
-
-Commons defines **what** actions exist and how they are structured.
-Agent-Cards bind those actions to real agents.
-x402 moves the value and messages.
-
-
-
-
-## Status — v1.0.0
-
-- Canonical verb set defined  
-- Fully validated under JSON Schema 2020-12 (strict)  
-- Deterministic `$id` structure  
-- **Pinned to IPFS** (content-addressed)  
-- **Request + receipt schemas** for ALL verbs  
-- `GitHub Actions` validation is **green**  
-- **checksums.txt** ensures immutability  
-
-This version is the **baseline for SDKs, registries, and identity layers**.
+**Commons** defines *what actions exist* and how they are structured.  
+**Agent-Cards** bind those actions to real agents.  
+**x402** moves the value and messages.
 
 ---
 
-## Canonical Verbs (v1.0.0)
+## Status
+
+- Canonical verb set defined  
+- Fully validated under JSON Schema 2020-12 (**strict**)  
+- Deterministic `$id` structure  
+- **Pinned to IPFS** (content-addressed)  
+- Request + receipt schemas for **all verbs**  
+- `GitHub Actions` validation is **green**  
+- `checksums.txt` ensures **immutability**  
+
+This version is the **baseline** for SDKs, registries, resolvers, and identity layers.
+
+---
+
+## Canonical Verbs
 
 The Commons includes **10 universal actions** used across nearly all agentic workflows:
 
@@ -260,6 +259,7 @@ CommandLayer follows a clean separation of concerns:
 - **agent-cards** → identity & discovery  
 - **protocol-commercial** → commercial verbs & endpoints  
 - **sdk-js / sdk-python** → runtime implementations & helpers  
+
 
 
 
