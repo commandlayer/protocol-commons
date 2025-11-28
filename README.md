@@ -1,41 +1,42 @@
 # **CommandLayer Protocol — Commons**
 
-**The canonical verb + schema layer for machine intent — standardized for verifiable A2A automation.<br>**
+**Canonical verb & schema layer for machine intent — the foundation of verifiable A2A automation.**
+
 <div align="center">
 
 [![npm](https://img.shields.io/npm/v/@commandlayer/protocol-commons?color=brightgreen)](https://www.npmjs.com/package/@commandlayer/protocol-commons)
 [![CI](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
-[![Twitter Follow](https://img.shields.io/twitter/follow/command_layer?style=social)](https://twitter.com/command_layer)
 
 </div>
 
-**Protocol-Commons is the canonical action grammar for autonomous agents.**
-Without a shared verb layer, AI agents cannot interoperate — routing breaks, validation fails,
-and multi-agent workflows collapse.
+Protocol-Commons defines the **canonical actions autonomous agents can perform** and the **typed payloads**
+that make them interoperable. Without this shared verb layer:
+- Routing breaks  
+- Validation fails  
+- Multi-agent workflows collapse  
 
-### Protocol-Commons standardizes:
+**TL;DR**
+- **Shared semantics for every autonomous agent**  
+- **Deterministic request + receipt schemas**  
+- **Plug-and-play with Agent Cards + x402**  
 
-- **What actions exist**
-- **How they are structured**
-- **How they are validated**
-
-Neutral. Immutable. Interoperable by design.
+```text
+┌────────────────────────────┐
+│ Execution — x402 runtime   │  (value & invocation)
+└──────────────▲─────────────┘
+               │
+┌──────────────┴─────────────┐
+│ Identity — Agent Cards     │  (ENS-based discovery)
+└──────────────▲─────────────┘
+               │
+┌──────────────┴─────────────┐
+│ Semantics — Commons        │  (canonical verbs)
+└────────────────────────────┘
+```
 ---
 ### Where Protocol-Commons fits
-```
-+----------------------------+
-|   Execution — x402 runtime |
-+----------------------------+
-|   Identity — Agent Cards   |
-+----------------------------+
-|   Semantics — Commons      |
-+----------------------------+
-            ▲
-            |
-      Canonical verbs
 
-```
 
 - **Commons defines the verbs.**  
 - **Agent-Cards bind identity.**  
@@ -43,7 +44,7 @@ Neutral. Immutable. Interoperable by design.
 
 ---
 
-Protocol‐Commons is the **semantic foundation** of the CommandLayer stack.
+### Protocol‐Commons is the **semantic foundation** of the CommandLayer stack.
 Below is everything you need to implement it correctly:
 
 
@@ -354,6 +355,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
