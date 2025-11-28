@@ -124,7 +124,7 @@ console.log(analyzeRequest.properties); // Typed input contract for "analyze"
 This version is the **baseline** for SDKs, registries, resolvers, and identity layers.
 
 ---
-- [Canonical Verbs](#canonical-verbs)
+## Canonical Verbs
 
 The Commons defines 10 universal actions used across nearly all multi-agent workflows:
 
@@ -290,6 +290,7 @@ CommandLayer follows a clean separation of concerns:
 - ERC-8004 — Agent Schema Discovery
 - x402 — Machine-to-Machine Value Transport Envelope
 - JSON Schema 2020-12 — Canonical validation standard
+
 
 
 
