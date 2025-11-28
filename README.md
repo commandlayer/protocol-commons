@@ -3,10 +3,18 @@
 **Canonical verb & schema layer for machine intent — the foundation of verifiable A2A automation.**
 
 <div align="center">
+  <a href="#"><img alt="Stability" src="https://img.shields.io/badge/Status-Stable%20v1.0.0-brightgreen"/></a>
+  <a href="https://www.npmjs.com/package/@commandlayer/protocol-commons">
+    <img alt="NPM Version" src="https://img.shields.io/npm/v/@commandlayer/protocol-commons?color=brightgreen"/>
+  </a>
+  <a href="https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml">
+    <img alt="CI Status" src="https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml/badge.svg?branch=main"/>
+  </a>
+  <a href="./LICENSE">
+    <img alt="License" src="https://img.shields.io/badge/License-MIT-blue.svg"/>
+  </a>
+</div>
 
-[![npm](https://img.shields.io/npm/v/@commandlayer/protocol-commons?color=brightgreen)](https://www.npmjs.com/package/@commandlayer/protocol-commons)
-[![CI](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml)
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
 </div>
 
@@ -344,3 +352,4 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
