@@ -17,7 +17,7 @@ that make them interoperable. Without this shared verb layer:
 - **Validation fails**
 - **Multi-agent workflows collapse**
 
-**TL;DR**
+### Key Principles
 
 - Shared semantics for every autonomous agent  
 - Deterministic request + receipt schemas  
@@ -82,19 +82,17 @@ They form the universal foundation for:
 
 ---
 
-### Why this matters right now
+## Why this matters right now
 
-Modern LLM agents **fail to collaborate** because:
+**Modern LLM agents struggle to collaborate**
 
 - Every agent invents its own verbs  
 - No shared intent resolution  
 - Validation is non-deterministic  
 - Interop breaks outside single products
 
-→ **LLM agents break without a canonical verb layer**  
-→ **Protocol-Commons fixes routing, validation, and interoperability**
-
-
+ **LLM agents break without a canonical verb layer**  
+Protocol-Commons standardizes routing, validation, and interoperability
 
 ---
 
@@ -102,29 +100,17 @@ Modern LLM agents **fail to collaborate** because:
 
 The Commons is the **linguistic core** of CommandLayer — a neutral, MIT-licensed, schema-first action vocabulary for autonomous agents.
 
-**Without one canonical action standard:**
+Without a shared canonical action vocabulary:
 
-- every agent becomes an incompatible API
-- verbs collide and fragment
-- routing, intent resolution, and validation fail
-- schemas drift → verification breaks
+- agents become incompatible APIs  
+- behaviors drift → validation breaks  
+- chaining fails across ecosystems  
+- trust collapses into private platforms  
+
 
 The Commons prevents fragmentation — ensuring every agent can **speak the same language**, validate the same rules, and interoperate trustlessly across any runtime.
 
 ---
-
-### Without Protocol-Commons…
-
-- Agents become API silos  
-- Behaviors drift and conflict  
-- Payload validation becomes fragile  
-- Chaining fails across ecosystems  
-- Trust depends on private platforms
-
-Standards prevent fragmentation.
-Commons is the **semantic safety net** for the agent economy.
-
-----
 
 ## This is not…
 
@@ -357,6 +343,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
