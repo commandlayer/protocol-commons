@@ -52,10 +52,27 @@ Without one canonical action standard:
 
 - every agent becomes an incompatible API
 - verbs collide and fragment
-- routing and intent resolution fail
+- routing, intent resolution, and validation fail
 - schemas drift → verification breaks
 
 The Commons prevents fragmentation — ensuring every agent can **speak the same language**, validate the same rules, and interoperate trustlessly across any runtime.
+
+----
+
+## This is not…
+
+To avoid confusion, Protocol-Commons does **not** define:
+
+- how agents run or where they live
+- any economic model or execution pricing
+- identity, discovery, or routing (that is Agent-Cards + ENS)
+- commercial enforcement or proprietary extensions
+- agent behavior beyond typed input/output guarantees
+
+Commons defines **semantics** — nothing more, nothing less.
+
+Everything else is layered cleanly on top.
+
 
 ---
 
@@ -108,20 +125,33 @@ This version is the **baseline** for SDKs, registries, resolvers, and identity l
 
 ---
 
-## Canonical Verbs
+## Canonical Verbs (v1.0.0)
 
-The Commons includes **10 universal actions** used across nearly all agentic workflows:
+The Commons defines 10 universal actions used across nearly all multi-agent workflows:
 
-- analyze  
-- classify  
-- clean  
-- convert  
-- describe  
-- explain  
-- format  
-- parse  
-- summarize  
-- fetch  
+
+| Verb      | Purpose                                               | Guarantees                                               |
+|-----------|------------------------------------------------------ |----------------------------------------------------------|
+| analyze   | Extract insights from structured or unstructured data | Identifies meaning, relationships, or signals            |
+| classify  | Categorize input according to a known schema          | Deterministic label assignment                           |
+| clean     | Normalize or remove noise from data                   | Output retains meaning with improved quality             |
+| convert   | Transform between formats or representations          | Semantically-equivalent output with different encoding   |
+| describe  | State what something *is*                             | Attributes, context, or defining properties              |
+| explain   | State *why* or *how* something is true                | Causal or relational justification                       |
+| format    | Produce content in a structured/presentable shape     | Output conforms to declared structure                    |
+| parse     | Extract structured meaning from raw input             | Typed output from unstructured content                   |
+| summarize | Compress content while preserving key meaning         | Core information retained; verbosity reduced             |
+| fetch     | Retrieve data from a remote or indirect source        | Integrity of returned content                            |
+
+
+
+
+Each verb defines:
+
+- a canonical **request** format
+- a canonical **receipt** format
+- strict typing and deterministic envelopes for x402
+
 
 ```
 +---------------------------+
@@ -259,6 +289,7 @@ CommandLayer follows a clean separation of concerns:
 - **agent-cards** → identity & discovery  
 - **protocol-commercial** → commercial verbs & endpoints  
 - **sdk-js / sdk-python** → runtime implementations & helpers  
+
 
 
 
