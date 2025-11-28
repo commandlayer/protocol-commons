@@ -11,8 +11,22 @@ The canonical verb + schema layer for machine intent — standardized for verifi
 
 </div>
 
+## Table of Contents
+- [Overview](#overview)
+- [Why This Exists](#why-this-exists)
+- [Quickstart](#quickstart)
+- [Status](#status)
+- [Canonical Verbs](#canonical-verbs)
+- [Repository Structure](#repository-structure)
+- [Manifest](#manifest)
+- [Immutability  Checksums](#immutability--checksums)
+- [Validation](#validation)
+- [License](#license)
+- [Next Layers](#next-layers)
 
 ---
+
+
 
 The **Commons** repository provides the canonical, immutable **verb schemas** for the CommandLayer Protocol.
 
@@ -244,6 +258,7 @@ CommandLayer follows a clean separation of concerns:
 - **agent-cards** → identity & discovery  
 - **protocol-commercial** → commercial verbs & endpoints  
 - **sdk-js / sdk-python** → runtime implementations & helpers  
+
 
 
 
