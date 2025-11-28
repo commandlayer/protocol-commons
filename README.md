@@ -12,16 +12,18 @@
 
 Protocol-Commons defines the **canonical actions autonomous agents can perform** and the **typed payloads**
 that make them interoperable. Without this shared verb layer:
-- Routing breaks  
-- Validation fails  
-- Multi-agent workflows collapse  
+- **Routing breaks**  
+- **Validation fails** 
+- **Multi-agent workflows collapse** 
 
 **TL;DR**
 - **Shared semantics for every autonomous agent**  
 - **Deterministic request + receipt schemas**  
 - **Plug-and-play with Agent Cards + x402**  
 
-```text
+## Architecture Role
+
+```
 ┌────────────────────────────┐
 │ Execution — x402 runtime   │  (value & invocation)
 └──────────────▲─────────────┘
@@ -100,7 +102,7 @@ Modern LLM agents **fail to collaborate** because:
 
 The Commons is the **linguistic core** of CommandLayer — a neutral, MIT-licensed, schema-first action vocabulary for autonomous agents.
 
-Without one canonical action standard:
+**Without one canonical action standard:**
 
 - every agent becomes an incompatible API
 - verbs collide and fragment
@@ -113,11 +115,11 @@ The Commons prevents fragmentation — ensuring every agent can **speak the same
 
 ### Without Protocol-Commons…
 
-❌ Agents become API silos  
-❌ Behaviors drift and conflict  
-❌ Payload validation becomes fragile  
-❌ Chaining fails across ecosystems  
-❌ Trust depends on private platforms
+- Agents become API silos  
+- Behaviors drift and conflict  
+- Payload validation becomes fragile  
+- Chaining fails across ecosystems  
+- Trust depends on private platforms
 
 Standards prevent fragmentation.
 Commons is the **semantic safety net** for the agent economy.
@@ -355,6 +357,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
