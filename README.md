@@ -124,8 +124,7 @@ console.log(analyzeRequest.properties); // Typed input contract for "analyze"
 This version is the **baseline** for SDKs, registries, resolvers, and identity layers.
 
 ---
-
-## Canonical Verbs (v1.0.0)
+- [Canonical Verbs](#canonical-verbs)
 
 The Commons defines 10 universal actions used across nearly all multi-agent workflows:
 
@@ -144,14 +143,11 @@ The Commons defines 10 universal actions used across nearly all multi-agent work
 | fetch     | Retrieve data from a remote or indirect source        | Integrity of returned content                            |
 
 
-
-
-Each verb defines:
+**Each verb defines:**
 
 - a canonical **request** format
 - a canonical **receipt** format
 - strict typing and deterministic envelopes for x402
-
 
 ```
 +---------------------------+
@@ -188,7 +184,6 @@ No aliases.
 No ambiguity.  
 **Each verb is an immutable, canonical action definition.**
 
-
 ---
 
 ## Repository Structure
@@ -217,8 +212,6 @@ protocol-commons/
 ├── package.json
 └── README.md
 ```
-
-
 ---
 
 ## Manifest
@@ -288,7 +281,15 @@ CommandLayer follows a clean separation of concerns:
 
 - **agent-cards** → identity & discovery  
 - **protocol-commercial** → commercial verbs & endpoints  
-- **sdk-js / sdk-python** → runtime implementations & helpers  
+- **sdk-js / sdk-python** → runtime implementations & helpers
+
+  ----
+
+## References
+
+- ERC-8004 — Agent Schema Discovery
+- x402 — Machine-to-Machine Value Transport Envelope
+- JSON Schema 2020-12 — Canonical validation standard
 
 
 
