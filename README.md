@@ -12,16 +12,18 @@
 
 Protocol-Commons defines the **canonical actions autonomous agents can perform** and the **typed payloads**
 that make them interoperable. Without this shared verb layer:
-- **Routing breaks**  
-- **Validation fails** 
-- **Multi-agent workflows collapse** 
+
+- **Routing breaks**
+- **Validation fails**
+- **Multi-agent workflows collapse**
 
 **TL;DR**
-- **Shared semantics for every autonomous agent**  
-- **Deterministic request + receipt schemas**  
-- **Plug-and-play with Agent Cards + x402**  
+- Shared semantics for every autonomous agent  
+- Deterministic request + receipt schemas  
+- Plug-and-play with Agent Cards + x402
 
-## Architecture Role
+## Architecture 
+
 
 ```
 ┌────────────────────────────┐
@@ -36,13 +38,10 @@ that make them interoperable. Without this shared verb layer:
 │ Semantics — Commons        │  (canonical verbs)
 └────────────────────────────┘
 ```
----
-### Where Protocol-Commons fits
 
-
-- **Commons defines the verbs.**  
-- **Agent-Cards bind identity.**  
-- **x402 executes trustlessly.**
+1. **Commons defines the verbs**  
+2. **Agent-Cards bind identity**  
+3. **x402 executes trustlessly**
 
 ---
 
@@ -130,11 +129,11 @@ Commons is the **semantic safety net** for the agent economy.
 
 To avoid confusion, Protocol-Commons does **not** define:
 
-- how agents run or where they live
-- any economic model or execution pricing
-- identity, discovery, or routing (that is Agent-Cards + ENS)
-- commercial enforcement or proprietary extensions
-- agent behavior beyond typed input/output guarantees
+- **how agents run or where they live**
+- **any economic model or execution pricing**
+- **identity, discovery, or routing** (that is Agent-Cards + ENS)
+- **commercial enforcement or proprietary extensions**
+- **agent behavior beyond typed input/output guarantees**
 
 Commons defines **semantics** — nothing more, nothing less.
 
@@ -357,6 +356,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
