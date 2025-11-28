@@ -10,32 +10,36 @@
 
 </div>
 
- **Protocol-Commons = the canonical action grammar for autonomous agents.**  
- AI agents can’t interoperate without a shared verb layer — this is that layer.
+**Protocol-Commons is the canonical action grammar for autonomous agents.**
+Without a shared verb layer, AI agents cannot interoperate — routing breaks, validation fails,
+and multi-agent workflows collapse.
 
-Autonomous agents break without shared semantics:
+### Protocol-Commons standardizes:
 
-- No routing  
-- No consistent validation  
-- No deterministic multi-agent chaining  
+- **What actions exist**
+- **How they are structured**
+- **How they are validated**
 
-Protocol-Commons solves this by standardizing **what actions exist**, how they are structured,  
-and how they are validated — neutral, immutable, and interoperable by design.
-
+Neutral. Immutable. Interoperable by design.
 ---
 ### Where Protocol-Commons fits
 ```
-+---------------------------+
-| Execution — x402 runtime |
-+---------------------------+
-| Identity — Agent Cards |
-+---------------------------+
-| Semantics — Commons |
-+---------------------------+
++----------------------------+
+|   Execution — x402 runtime |
++----------------------------+
+|   Identity — Agent Cards   |
++----------------------------+
+|   Semantics — Commons      |
++----------------------------+
+            ▲
+            |
+      Canonical verbs
+
 ```
-Commons defines the verbs.  
-Agent-Cards bind identity.  
-x402 executes trustlessly.
+
+- **Commons defines the verbs.**  
+- **Agent-Cards bind identity.**  
+- **x402 executes trustlessly.**
 
 ---
 
@@ -350,6 +354,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
