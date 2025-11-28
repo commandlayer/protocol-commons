@@ -1,56 +1,84 @@
+# Security & Provenance — Protocol-Commons
 
-# Security Provenance
+This file defines ownership, disclosure rules, version integrity,
+and cryptographic provenance for the Commons.
 
-**Version:** v1.0.0  
-**Scope:** `schemas/v1.0.0` (commons verbs + `_shared`)  
-**Owner:** `commandlayer.eth`  
+---
 
-## IPFS
+## Ownership & Contact
 
-- **Schemas CID (v1.0.0):** ``
-- **Directory Layout:**
-  - `commons/` — canonical verb request/receipt schemas  
-  - `_shared/` — x402, trace, and receipt base primitives  
+- **Owner:** commandlayer.eth  
+- **Security Contact:** dev@commandlayer.org  
+- **PGP Fingerprint:** 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A  
 
-This CID represents the **immutable v1.0.0 release** of the Protocol Commons schema tree.  
-Any modification requires a **new version folder** (e.g., `v1.0.1`) and a **new CID** published in this document.
+---
 
-## Checksums
+## Vulnerability Disclosure
 
-All file-level integrity is verified using **SHA-256** digests stored in the repository’s `checksums.txt`.
+Report security issues privately:
 
-Any change to files under `schemas/v1.0.0` MUST trigger:
+ **Email: dev@commandlayer.org**
+ 
+ **Use PGP for sensitive reports**
 
-1. Regeneration of `checksums.txt`  
-2. A new tagged release (e.g., `commons-v1.0.1`)  
-3. A new IPFS pin + CID  
-4. An update to this provenance document  
+We will:
+- Acknowledge valid issues within **72 hours**
+- Provide mitigation plan within **10 business days**
 
-## ENS / Resolution Rules
+---
 
-**ENS Name:** `commandlayer.eth`
+## Provenance
 
-Each verb **MUST** expose ENS TXT records including:
+### Current Release: v1.0.0
 
-- cl.verb — the canonical machine verb this agent implements  
-- cl.version — the semantic version of the verb specification this agent follows  
+- **Schemas CID:** `bafybeieoynknzalaojwpzjzjy77kpnfe4kla5io7jbfnmyu7w7vyvuljpq`
+- Integrity: via `checksums.txt` (SHA-256)  
+- All schemas validated under strict mode CI
 
-- cl.entry — the x402-style execution entrypoint for this capability  
+### Any change requires:
+- New version directory
+- New CID
+- Updated checksums
+- Logged in `RESOLUTION.md`
 
-- cl.schema.request — the HTTPS location of the official request schema  
-- cl.schema.receipt — the HTTPS location of the official receipt schema  
+---
 
-- cl.cid.schemas — the IPFS CID for the full schema bundle this capability belongs to  
+## ENS TXT Responsibilities
 
-- cl.checksum.request — the integrity hash for the request schema  
-- cl.checksum.receipt — the integrity hash for the receipt schema  
+Commons controls ONLY:
+```
+cl.verb
+cl.version
+cl.schema.request
+cl.schema.receipt
+cl.cid.schemas
+cl.schemas.mirror.ipfs
+```
 
-- cl.agentcard — the public AgentCard describing metadata, identity, and capabilities  
-- cl.manifest — the manifest file that indexes and describes the entire release  
+Updates MUST be signed + logged.
 
-- cl.owner — the ENS or organizational owner responsible for this verb definition  
+---
+
+## Immutability Guarantee
+
+Once published:
+- No schema changes in-place  
+- No silent mutability  
+- Breaks require new version
+
+---
+
+Status: **Security-Critical, Stable**
 
 
-**Any modification to `ENS TXT` layout, `CID binding`, or `verb metadata` MUST be logged in `RESOLUTION.md` and approved under governance**.
+
+
+
+
+
+
+
+
+
 
 
