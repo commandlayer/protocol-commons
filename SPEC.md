@@ -1,60 +1,256 @@
-# SPEC — Protocol-Commons v1.0.0
+# SPEC — Protocol-Commons v1.0.0  
+CommandLayer Core Standards · Semantic Layer
 
-This is the authoritative normative definition of the Commons layer.
+> This document is NORMATIVE and ENFORCEABLE.
 
-## Keywords
-RFC 2119 interpretation.
-
-## 1. Architecture
-
-The Commons defines:
-- Canonical verbs
-- Request + receipt schema contracts
-- Trace + x402 envelope structure
-- Validation and versioning rules
-
-## 2. Conformance Requirements
-
-Implementations MUST:
-
-1️⃣ Support **all** canonical verbs  
-2️⃣ Validate against official schemas in strict mode  
-3️⃣ Echo `trace.requestId` request → receipt  
-4️⃣ Treat versioned directories as **immutable**  
-
-A system is **Commons-Compatible** if it supports at least one canonical verb.
-
-## 3. Canonical Verbs (v1.0.0)
-analyze, classify, clean, convert, describe, explain, fetch, format, parse, summarize
-
-## 4. Message Requirements
-
-### Request MUST contain:
-- `x402`
-- `actor`
-- `trace`
-- `input`
-
-### Receipt MUST contain:
-- `x402`
-- `trace.requestId`
-- `status`
-- `result` OR `error`
-
-## 5. x402 Binding
-
-`x402.verb` MUST equal the canonical folder name.  
-`x402.version` MUST equal `"1.0.0"`.
-
-## 6. Versioning
-
-Immutable once published.  
-New semantic version for ANY change.  
-
-## 7. Discovery + ENS
-
-Schemas MUST expose resolvable `$id` URLs + content-addressed CID mirrors.
+## RFC 2119 Keywords
+MUST / MUST NOT / SHOULD / SHOULD NOT / MAY retain their RFC-defined meanings.
 
 ---
 
-Status: **Stable**
+## 1. Purpose
+
+Protocol-Commons defines the **canonical action grammar for autonomous agents**:
+
+- **Verbs** — What actions exist  
+- **Request/Receipt Schemas** — Typed message contracts  
+- **Trace + Status rules** — Deterministic provenance  
+- **Versioning + Immutability** — Trust guarantees  
+
+Execution, payment, identity, and routing are the domain of other layers.
+
+---
+
+## 2. Architecture Position
+
+The Commons is the **lowest** layer of the CommandLayer Standard Stack:
+```
+┌────────────────────────────┐
+│ Execution — x402 runtime   │ (value + invocation)
+└──────────────▲─────────────┘
+│
+┌──────────────┴─────────────┐
+│ Identity — Agent-Cards     │ (ENS discovery)
+└──────────────▲─────────────┘
+│
+┌──────────────┴─────────────┐
+│ Semantics — Commons        │ (canonical verbs)
+└────────────────────────────┘
+```
+
+**Commons answers: “What is this agent trying to do?”**
+
+---
+
+## 3. Canonical Verb Set (v1.0.0)
+
+The only canonical verbs are:
+
+analyze, classify, clean, convert, describe,
+explain, fetch, format, parse, summarize
+
+
+Each verb MUST map to:
+
+- `<verb>.request.schema.json`
+- `<verb>.receipt.schema.json`
+
+No aliases. No synonyms.
+
+---
+
+## 4. Schema Directory Contract
+
+Every schema file MUST reside under:
+
+schemas/v1.0.0/commons/<verb>/
+requests/<verb>.request.schema.json
+receipts/<verb>.receipt.schema.json
+
+Shared primitives located at:
+schemas/v1.0.0/_shared/
+x402.schema.json
+trace.schema.json
+receipt.base.schema.json
+
+**Directory is version-locked.**  
+Moving files is a breaking change.
+
+---
+
+## 5. Schema `$id` Rules (Deterministic)
+
+Every schema MUST use this `$id` pattern:
+
+### Request
+https://commandlayer.org/schemas/v1.0.0/commons/<verb>/requests/<verb>.request.schema.json
+
+shell
+Copy code
+
+### Receipt
+https://commandlayer.org/schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
+
+shell
+Copy code
+
+### Shared
+https://commandlayer.org/schemas/v1.0.0/_shared/<schema>.json
+
+yaml
+Copy code
+
+All `$id` values MUST be resolvable over HTTPS.
+
+---
+
+## 6. x402 Envelope Binding
+
+All requests MUST embed:
+
+```jsonc
+"x402": {
+  "verb": "<verb>",
+  "version": "1.0.0"
+}
+All receipts MUST embed:
+
+jsonc
+Copy code
+"x402": {
+  "verb": "<verb>",
+  "version": "1.0.0",
+  "status": "ok" | "error"
+}
+No additional properties permitted inside x402.
+
+7. Trace Guarantees
+Every receipt MUST echo:
+
+ini
+Copy code
+trace.requestId = request.trace.requestId
+This is REQUIRED for chaining & auditability.
+
+Additional trace fields MAY exist (per _shared/trace.schema.json)
+but MAY NOT weaken determinism or referential integrity.
+
+8. Request Contract
+Requests MUST contain:
+
+Field	Required	Source of Truth
+x402	Yes	_shared/x402.schema.json
+actor	Yes	Freeform identifier
+trace	Yes	_shared/trace.schema.json
+input	Yes	Verb-specific
+
+Requests MUST validate in strict Ajv mode.
+
+9. Receipt Contract
+Receipts MUST contain:
+
+Field	Required	Conditional
+x402	Yes	Always
+trace	Yes	Always
+status	Yes	"ok" or "error"
+result	Yes	IF status = ok
+error	Yes	IF status = error
+
+Strict conditional logic is canonical and MUST pass CI validation.
+
+Error receipts MUST NOT include result.
+
+10. Versioning + Immutability
+Once published under:
+
+bash
+Copy code
+schemas/v1.0.0/
+There MUST NEVER be:
+
+File content changes
+
+Field requirement changes
+
+$id changes
+
+Behavior changes
+
+Any mutation requires:
+
+New version directory (e.g. v1.0.1/)
+
+New CID
+
+Updated checksums + manifest
+
+ENS TXT update
+
+Governance approval
+
+11. Discovery + ENS TXT Responsibilities
+Protocol-Commons governs ONLY:
+
+pgsql
+Copy code
+cl.verb
+cl.version
+cl.schema.request
+cl.schema.receipt
+cl.cid.schemas
+cl.schemas.mirror.ipfs
+These MUST be correct or the schema is unauthenticated.
+
+Identity pointers (cl.agentcard, etc.) are NOT in scope here.
+
+12. Conformance Requirements
+Implementations MUST:
+
+1️⃣ Validate requests & receipts in Ajv strict (2020-12)
+2️⃣ Support schema resolution from $id URLs
+3️⃣ Mirror schema CIDs correctly
+4️⃣ Treat version directories as immutable
+5️⃣ Respect full trace echo
+
+A system supporting ANY canonical verb MAY claim:
+
+“Commons-Compatible”
+
+13. Failure Modes
+If ANY of the following occur:
+
+$id mismatch
+
+Incorrect CID root
+
+trace.requestId mismatch
+
+status mismatch
+
+Request/receipt schema drift
+
+→ Schema is INVALID
+→ Execution MUST be rejected
+→ Incident MUST be logged
+
+14. Security
+Protocol-Commons is Security-Critical Infrastructure:
+
+No PII
+
+No execution logic
+
+No proprietary references
+
+No commercial conditions
+
+Security escalation MUST follow repository policy (SECURITY.md).
+
+Status
+Stable — v1.0.0 locked
+CommandLayer Core Standards
+
+
+
+
+
