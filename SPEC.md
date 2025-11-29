@@ -1,7 +1,7 @@
 # SPEC — Protocol-Commons v1.0.0  
 CommandLayer Core Standards · Semantic Layer
 
-> This document is NORMATIVE and ENFORCEABLE.
+ This document is NORMATIVE and ENFORCEABLE.
 
 ## RFC 2119 Keywords
 MUST / MUST NOT / SHOULD / SHOULD NOT / MAY retain their RFC-defined meanings.
