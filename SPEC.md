@@ -64,14 +64,17 @@ No aliases. No synonyms.
 Every schema file MUST reside under:
 
 schemas/v1.0.0/commons/<verb>/
-requests/<verb>.request.schema.json
-receipts/<verb>.receipt.schema.json
 
-Shared primitives located at:
+- `requests/<verb>.request.schema.json`
+- `receipts/<verb>.receipt.schema.json`
+
+**Shared primitives located at:**
+
 schemas/v1.0.0/_shared/
-x402.schema.json
-trace.schema.json
-receipt.base.schema.json
+
+- `x402.schema.json`
+- `trace.schema.json`
+- `receipt.base.schema.json`
 
 **Directory is version-locked.**  
 Moving files is a breaking change.
@@ -80,25 +83,20 @@ Moving files is a breaking change.
 
 ## 5. Schema `$id` Rules (Deterministic)
 
-Every schema MUST use this `$id` pattern:
+Every schema **MUST** use this `$id` pattern:
 
 ### Request
 https://commandlayer.org/schemas/v1.0.0/commons/<verb>/requests/<verb>.request.schema.json
 
-shell
-Copy code
+
 
 ### Receipt
 https://commandlayer.org/schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
 
-shell
-Copy code
 
 ### Shared
 https://commandlayer.org/schemas/v1.0.0/_shared/<schema>.json
 
-yaml
-Copy code
 
 All `$id` values MUST be resolvable over HTTPS.
 
