@@ -113,8 +113,10 @@ All requests MUST embed:
   "verb": "<verb>",
   "version": "1.0.0"
 }
+```
 All receipts MUST embed:
 
+```
 jsonc
 Copy code
 "x402": {
@@ -122,132 +124,129 @@ Copy code
   "version": "1.0.0",
   "status": "ok" | "error"
 }
+```
+
 No additional properties permitted inside x402.
 
-7. Trace Guarantees
+## 7. Trace Guarantees
 Every receipt MUST echo:
 
+```
 ini
 Copy code
 trace.requestId = request.trace.requestId
+```
+
 This is REQUIRED for chaining & auditability.
 
-Additional trace fields MAY exist (per _shared/trace.schema.json)
+Additional trace fields MAY exist (per `_shared/trace.schema.json`)
 but MAY NOT weaken determinism or referential integrity.
 
-8. Request Contract
+## 8. Request Contract
 Requests MUST contain:
 
-Field	Required	Source of Truth
-x402	Yes	_shared/x402.schema.json
-actor	Yes	Freeform identifier
-trace	Yes	_shared/trace.schema.json
-input	Yes	Verb-specific
+| Field   | Required | Source                      |
+| ------- | -------- | --------------------------- |
+| `x402`  | Yes      | `_shared/x402.schema.json`  |
+| `actor` | Yes      | Freeform identifier         |
+| `trace` | Yes      | `_shared/trace.schema.json` |
+| `input` | Yes      | Verb-specific               |
+c
 
-Requests MUST validate in strict Ajv mode.
+Requests MUST validate in **strict Ajv mode.**
 
-9. Receipt Contract
+## 9. Receipt Contract
 Receipts MUST contain:
 
-Field	Required	Conditional
-x402	Yes	Always
-trace	Yes	Always
-status	Yes	"ok" or "error"
-result	Yes	IF status = ok
-error	Yes	IF status = error
+| Field    | Required | Conditional         |
+| -------- | -------- | ------------------- |
+| `x402`   | Yes      | Always              |
+| `trace`  | Yes      | Always              |
+| `status` | Yes      | `"ok"` or `"error"` |
+| `result` | Yes      | IF `status = ok`    |
+| `error`  | Yes      | IF `status = error` |
+
 
 Strict conditional logic is canonical and MUST pass CI validation.
 
-Error receipts MUST NOT include result.
+Error receipts MUST NOT include `result.`
 
-10. Versioning + Immutability
+## 10. Versioning + Immutability
+
 Once published under:
-
-bash
-Copy code
+```
 schemas/v1.0.0/
+```
+
 There MUST NEVER be:
 
-File content changes
-
-Field requirement changes
-
-$id changes
-
-Behavior changes
+- File content changes
+- Field requirement changes
+- `$id` changes
+- Behavior changes
 
 Any mutation requires:
 
-New version directory (e.g. v1.0.1/)
+- New version directory (e.g. v1.0.1/)
+- New CID
+- Updated checksums + manifest
+- ENS TXT update
+- Governance approval
 
-New CID
+## 11. Discovery + ENS TXT Responsibilities
 
-Updated checksums + manifest
-
-ENS TXT update
-
-Governance approval
-
-11. Discovery + ENS TXT Responsibilities
 Protocol-Commons governs ONLY:
 
-pgsql
-Copy code
 cl.verb
 cl.version
 cl.schema.request
 cl.schema.receipt
 cl.cid.schemas
 cl.schemas.mirror.ipfs
+
 These MUST be correct or the schema is unauthenticated.
 
 Identity pointers (cl.agentcard, etc.) are NOT in scope here.
 
-12. Conformance Requirements
+## 12. Conformance Requirements
 Implementations MUST:
 
-1️⃣ Validate requests & receipts in Ajv strict (2020-12)
-2️⃣ Support schema resolution from $id URLs
-3️⃣ Mirror schema CIDs correctly
-4️⃣ Treat version directories as immutable
-5️⃣ Respect full trace echo
+ 1. Validate requests & receipts in Ajv strict (2020-12)
+ 2. Support schema resolution from $id URLs
+ 3. Mirror schema CIDs correctly
+ 4. Treat version directories as immutable
+ 5. Respect full trace echo
 
 A system supporting ANY canonical verb MAY claim:
 
-“Commons-Compatible”
+**Commons-Compatible**
 
-13. Failure Modes
+## 13. Failure Modes
+
 If ANY of the following occur:
 
-$id mismatch
-
-Incorrect CID root
-
-trace.requestId mismatch
-
-status mismatch
-
-Request/receipt schema drift
+- `$id` mismatch
+- Incorrect CID root
+- trace.requestId mismatch
+- status mismatch
+- Request/receipt schema drift
 
 → Schema is INVALID
 → Execution MUST be rejected
 → Incident MUST be logged
 
-14. Security
-Protocol-Commons is Security-Critical Infrastructure:
+## 14. Security
+Protocol-Commons is **Security-Critical Infrastructure:**
 
-No PII
-
-No execution logic
-
-No proprietary references
-
-No commercial conditions
+- No PII
+- No execution logic
+- No proprietary references
+- No commercial conditions
 
 Security escalation MUST follow repository policy (SECURITY.md).
 
-Status
-Stable — v1.0.0 locked
+### Status
+**Stable — v1.0.0 locked**
 CommandLayer Core Standards
 
 
