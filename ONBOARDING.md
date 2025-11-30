@@ -147,7 +147,7 @@ npm run validate:examples
 ## 5. Local Dev / Validation
 
 Standard workflow:
-
+```
 git clone https://github.com/commandlayer/protocol-commons.git
 cd protocol-commons
 
@@ -156,31 +156,24 @@ npm install
 # Validate schemas + examples
 npm run validate
 npm run validate:examples
+```
 
-
-If validation fails, do not paper over it — fix the schemas or examples so they align with SPEC.md.
+If validation fails, **do not** paper over it — fix the schemas or examples so they align with SPEC.md.
 
 ## 6. What “Good” Looks Like
 
 A good contribution:
 
-Does one thing clearly (e.g., “add stream as a new verb”, not “rewrite half the repo”).
+- **Does one thing clearly** (e.g., “add stream as a new verb”, not “rewrite half the repo”).
+- Comes with:
+    - Updated schemas
+    - Valid + invalid examples
+    - Updated docs where normative behavior changed
+    - A RESOLUTION.md entry explaining the change
 
-Comes with:
-
-Updated schemas
-
-Valid + invalid examples
-
-Updated docs where normative behavior changed
-
-A RESOLUTION.md entry explaining the change
-
-Respects immutability:
-
-No edits to existing v1.0.0/ files
-
-New version directories for any real change
+-Respects immutability:
+    - No edits to existing v1.0.0/ files
+    - New version directories for any real change
 
 If you’re not sure whether a change is allowed for a given version, assume it requires a new version directory and ask via an Issue.
 
