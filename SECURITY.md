@@ -1,58 +1,48 @@
 # Security Policy — Protocol-Commons
 
-The CommandLayer Protocol-Commons defines canonical verbs and schemas for A2A
-interoperability. Because agents operate autonomously, malformed or malicious
-schemas can cause system-wide failures. Security is treated as critical
-infrastructure.
+Protocol-Commons defines **the language** agents use.  
+If schemas break, automation breaks — so security and simplicity matter.
+
+We maintain this layer like infrastructure: steady and reliable.
+
+---
+
+## What to Report
+
+- Schema bugs or constraint gaps  
+- `$id` mismatch or non-resolvable URLs  
+- CID or checksum inconsistencies  
+- Anything creating ambiguity in verb meaning
 
 ---
 
 ## Contact
 
-Report vulnerabilities privately to:
+Email: **dev@commandlayer.org**  
+PGP Fingerprint: **5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A**
 
-📨 dev@commandlayer.org  
-🔐 PGP Fingerprint: `5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A`
-
-**DO NOT** disclose publicly until a fix is confirmed deployed.
+Private reporting helps keep agents safe while fixes ship.
 
 ---
 
-## Reporting Requirements
+## Response Targets
 
-Include when possible:
+- **72 hours** — acknowledgment  
+- **10 business days** — mitigation plan  
 
-- Description + expected behavior
-- Steps to reproduce
-- Impact assessment (scope of failure)
-- Affected `$id` or schema paths
-
-Valid reports receive:
-
-- Acknowledgment within **72 hours**
-- Mitigation plan within **10 business days**
+Breaking issues are prioritized.
 
 ---
 
-## Integrity Guarantees
+## Integrity Rules
 
-- All schemas validated using **strict AJV**
-- Versioned directories (`v1.0.0/`) are **immutable**
-- All files covered by `checksums.txt` (SHA-256)
-- Every release pinned to IPFS with verified CID
-- Provenance tracked in `SECURITY_PROVENANCE.md`
+- Versioned directories are **immutable** once published  
+- All schemas pinned to IPFS + checksummed  
+- Strict, reproducible CI validation  
+- Any change requires **a new version** — never hot patches
 
-Any mutation requires a **new version** + governance review.
-
----
-
-## Out-of-Scope
-
-Transport, runtime behavior, authentication, authorization,
-and execution-layer vulnerabilities are handled in their respective repos.
+These guarantees keep Commons safe to depend on long-term.
 
 ---
 
-## Status
-
-**Security-Critical** · Stable · Strict Governance
+**Status:** Stable • Security-Conscious • Version-Locked
