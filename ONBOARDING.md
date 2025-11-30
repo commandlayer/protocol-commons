@@ -96,11 +96,11 @@ If a change is not consistent with these files, it is non-compliant, even if CI 
 
 ## 4. How To Propose a Change
 
-Never just “fix a schema” in a drive-by PR.
+**Never** just “fix a schema” in a drive-by PR.
 
 For any change (new verb, bugfix, tightening, etc.):
 
-Open an Issue
+### 1. Open an Issue
 
 Describe the problem / use case.
 
@@ -108,7 +108,7 @@ Specify which verb(s) and version(s) are affected.
 
 Describe expected behavior vs current behavior.
 
-Design the Change
+### 2. Design the Change
 
 Decide if this is breaking (shape or semantics) or additive.
 
@@ -116,7 +116,7 @@ Map it onto versioning rules in POLICY.md and SPEC.md.
 
 For new verbs, justify why it belongs in Commons (not Commercial).
 
-Implement
+### 3. Implement
 
 Modify or add schemas under schemas/vX.Y.Z/...
 
@@ -129,7 +129,7 @@ npm run validate
 npm run validate:examples
 
 
-Update Provenance
+### 4. Update Provenance
 
 Append entries to RESOLUTION.md (what changed and why).
 
@@ -137,7 +137,7 @@ Prepare new checksums and manifest updates (if version changes).
 
 Ensure new CIDs are ready to be pinned (IPFS).
 
-Submit PR
+### 5. Submit PR
 
 Link the Issue in the PR description.
 
@@ -145,7 +145,7 @@ Include validation output (or CI link).
 
 Call out whether this is MAJOR/MINOR/PATCH in semantic-version terms.
 
-Governance Review
+### 6. Governance Review
 
 Maintainers check:
 
