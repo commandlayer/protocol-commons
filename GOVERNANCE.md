@@ -1,4 +1,4 @@
-# COMMANDLAYER GOVERNANCE — CORE PROTOCOLS
+# Governance — Protocol Commons
 
 **Applies To:** Protocol-Commons, Agent-Cards  
 **Status:** v1.0.0 — Stable-Lock  
