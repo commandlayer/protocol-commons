@@ -207,19 +207,28 @@ The Commons defines 10 universal actions used across nearly all multi-agent work
 - strict typing and deterministic envelopes for x402
 
 ```
-+---------------------------+
-|   Protocol-Commons        |
-|  (verbs + schemas)        |
-+-------------+-------------+
++-----------------------------+
+|  Execution Runtime          |  (action is performed)
++-------------▲---------------+
               |
               v
-      Agent Cards (identity)
++-----------------------------+
+|  x402 Transport Layer       |  (invocation + settlement)
+|  "How messages move"        |
++-------------▲---------------+
               |
               v
-        x402 Entry (invoke)
++-----------------------------+
+|  Agent Cards (Identity)     |  (ENS discovery + routing)
+|  "Who does what, and where" |
++-------------▲---------------+
               |
               v
-     Execution Runtime (A2A)
++-----------------------------+
+|  Protocol-Commons           |  (verbs + schemas)
+|  "What actions mean"        |
++-----------------------------+
+
 ```
 **Each verb provides:**
 
@@ -254,7 +263,7 @@ protocol-commons/
 ├── checksums.txt
 ├── manifest.json
 └── README.md
----
+```
 
 ## Manifest
 
@@ -332,6 +341,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
