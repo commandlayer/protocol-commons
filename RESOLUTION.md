@@ -1,4 +1,5 @@
-# RESOLUTION — Protocol-Commons
+# Resolution Log — Protocol Commons
+
 *Lifecycle log for canonical verbs & schemas.*
 
 This file tracks **every** lifecycle decision for Protocol-Commons:
