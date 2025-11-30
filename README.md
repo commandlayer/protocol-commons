@@ -155,15 +155,19 @@ console.log(analyzeRequest.properties); // Typed input contract for "analyze"
   
 ## CommandLayer Protocol Stack
 
-| Layer | Role |
-|------|------|
-| **Protocol-Commons** | Canonical verbs & schemas (machine intent grammar) |
-| **Agent-Cards** | Identity, discovery, and entrypoints for concrete agents |
-| **x402 runtime** | Transport, execution, and structured receipts |
+| Layer                   | Role                                               |
+| ----------------------- | -------------------------------------------------- |
+| **Protocol-Commons**    | Canonical verbs & schemas (machine intent grammar) |
+| **Agent-Cards**         | Identity, discovery, and invocation metadata       |
+| **Protocol-Commercial** | Monetized verbs + economic execution guarantees    |
+| **x402 runtime**        | Transport, execution, and structured receipts      |
 
-**Commons** defines *what actions exist* and how they are structured.  
-**Agent-Cards** bind those actions to real agents.  
-**x402** moves the value and messages.
+
+- **Commons** defines *what actions exist* and how they are structured.  
+- **Agent-Cards** bind those actions to real agents.  
+- **Protocol-Commercial** defines market-aligned verbs and receipt.
+- **x402 runtime** executes those actions and returns proof
+
 
 ---
 
@@ -340,6 +344,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
