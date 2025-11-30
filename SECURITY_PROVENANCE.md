@@ -1,7 +1,6 @@
-# Security & Provenance — Protocol-Commons
+# Security Provenance — Protocol Commons
 
-Protocol-Commons defines the **canonical semantic layer** for autonomous agents.  
-This document ensures schema integrity and ecosystem trust.
+This document defines the cryptographic provenance, integrity guarantees, and audit mechanisms for Protocol Commons schemas.
 
 ---
 
@@ -60,4 +59,5 @@ Breakage here is **ecosystem-wide** — restored only through transparent govern
 ---
 
 **Status:** Stable • Verifiable • Production-grade semantics • v1.0.0 locked
+
 
