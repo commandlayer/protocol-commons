@@ -41,7 +41,7 @@ No business logic. No pricing. No proprietary behavior.
 
 ## 3. Repo Layout
 
-
+```
 schemas/
   v1.0.0/
     _shared/
@@ -78,7 +78,7 @@ GOVERNANCE.md
 SECURITY.md
 SECURITY_PROVENANCE.md
 RESOLUTION.md
-
+```
 
 Authoritative documents:
 
@@ -94,7 +94,7 @@ RESOLUTION.md — why any verb/schema changed
 
 If a change is not consistent with these files, it is non-compliant, even if CI passes.
 
-4. How To Propose a Change
+## 4. How To Propose a Change
 
 Never just “fix a schema” in a drive-by PR.
 
@@ -157,7 +157,7 @@ ENS TXT responsibility unchanged or correctly updated
 
 Once merged, a new tag and CID are produced and recorded in SECURITY_PROVENANCE.md.
 
-5. Local Dev / Validation
+## 5. Local Dev / Validation
 
 Standard workflow:
 
@@ -173,7 +173,7 @@ npm run validate:examples
 
 If validation fails, do not paper over it — fix the schemas or examples so they align with SPEC.md.
 
-6. What “Good” Looks Like
+## 6. What “Good” Looks Like
 
 A good contribution:
 
@@ -197,7 +197,7 @@ New version directories for any real change
 
 If you’re not sure whether a change is allowed for a given version, assume it requires a new version directory and ask via an Issue.
 
-7. Support
+## 7. Support
 
 Governance / security contact: dev@commandlayer.org
 
