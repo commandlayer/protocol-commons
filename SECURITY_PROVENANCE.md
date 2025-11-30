@@ -37,7 +37,7 @@ No silent edits. No exceptions.
 
 ---
 
-## 📌 ENS TXT Summary
+##  ENS TXT Summary
 
 Protocol-Commons governs TXT keys that resolve **schema semantics**.  
 Canonical definitions — including required keys and enforcement — are specified in:
@@ -60,3 +60,4 @@ Breakage here is **ecosystem-wide** — restored only through transparent govern
 ---
 
 **Status:** Stable • Verifiable • Production-grade semantics • v1.0.0 locked
+
