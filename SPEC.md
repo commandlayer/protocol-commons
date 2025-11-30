@@ -115,8 +115,6 @@ All requests MUST embed:
 All receipts MUST embed:
 
 ```
-jsonc
-Copy code
 "x402": {
   "verb": "<verb>",
   "version": "1.0.0",
@@ -130,8 +128,6 @@ No additional properties permitted inside x402.
 Every receipt MUST echo:
 
 ```
-ini
-Copy code
 trace.requestId = request.trace.requestId
 ```
 
@@ -149,7 +145,7 @@ Requests MUST contain:
 | `actor` | Yes      | Freeform identifier         |
 | `trace` | Yes      | `_shared/trace.schema.json` |
 | `input` | Yes      | Verb-specific               |
-c
+
 
 Requests MUST validate in **strict Ajv mode.**
 
