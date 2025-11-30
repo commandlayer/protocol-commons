@@ -1,8 +1,8 @@
-# POLICY — Protocol-Commons
-CommandLayer Core Standards · Semantic Layer
+# Schemas Policy — Protocol Commons
 
-This document defines **publication rules** for Common verbs and schemas.
-`SPEC.md` remains the primary normative authority.
+This document governs the creation, evolution, and stability of all canonical schemas within the Protocol Commons layer of CommandLayer.
+
+Machine interoperability depends on **predictable**, **verifiable**, and **non-breaking** behavior. These rules ensure that autonomous agents integrating Protocol Commons never lose trust in the core semantics.
 
 ---
 
@@ -104,3 +104,4 @@ Every change MUST:
 ---
 
 _Last updated: v1.0.0 — Stable-Lock_
+
