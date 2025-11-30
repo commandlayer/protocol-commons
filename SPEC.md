@@ -190,17 +190,23 @@ Any mutation requires:
 ## 11. Discovery + ENS TXT Responsibilities
 
 Protocol-Commons governs ONLY:
-
+```
 cl.verb
 cl.version
 cl.schema.request
 cl.schema.receipt
 cl.cid.schemas
 cl.schemas.mirror.ipfs
+```
+These TXT fields MUST:
 
-These MUST be correct or the schema is unauthenticated.
+- **match the schema metadata exactly**
+- **resolve to the CID and versioned release** declared in `SECURITY_PROVENANCE.md`
+- **update ONLY** when a new version is released and logged in `RESOLUTION.md`
 
-Identity pointers (cl.agentcard, etc.) are NOT in scope here.
+Resolvers MUST treat any mismatch as an **unauthenticated schema.**
+
+Identity-related TXT fields (e.g. `cl.agentcard`, `cl.entry`) are defined and governed by **Agent-Cards**, not Protocol-Commons.
 
 ## 12. Conformance Requirements
 Implementations MUST:
