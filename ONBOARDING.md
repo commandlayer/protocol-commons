@@ -1,13 +1,14 @@
 # ONBOARDING — Protocol-Commons
 
-Welcome to **CommandLayer Protocol-Commons** — the canonical verb + schema layer.
+Welcome to **Protocol-Commons** — the canonical verb + schema layer for autonomous agents.
 
-This repo defines the **semantic contract** for autonomous agents:
-- What actions exist (verbs)
-- How requests and receipts are structured (schemas)
+This repo defines the **semantic contract**:
+
+- What actions exist (canonical verbs)
+- How requests and receipts are structured (typed schemas)
 - How they bind into x402 envelopes and trace primitives
 
-If you break this, you break everyone’s agents. Treat it as core infra.
+Stable semantics here protect the entire agent ecosystem.
 
 ---
 
@@ -15,32 +16,29 @@ If you break this, you break everyone’s agents. Treat it as core infra.
 
 You’re in the right place if you are:
 
-- A **protocol / infra engineer** defining or consuming canonical verbs
-- An **agent runtime / router implementer** mapping verbs → handlers
-- A **schema / validation engineer** integrating strict JSON Schema flows
-- An **ecosystem contributor** helping extend the canonical verb set
+- Protocol / infra engineer defining canonical verbs
+- Agent runtime / router implementer mapping verbs → handlers
+- Validator engineer enforcing JSON Schema standards
+- Contributor extending neutral A2A semantics
 
-If you want to work with identity metadata or ENS discovery, see **agent-cards** instead.
+For identity metadata + ENS discovery → see **agent-cards**.
 
 ---
 
 ## 2. Mental Model
 
-Protocol-Commons is the **bottom layer**:
+Protocol-Commons is the bottom layer:
 
 ```text
-[ Execution ]       x402 runtimes, agents, payments
-[ Identity  ]       Agent-Cards (ENS discovery, x402 entrypoints)
-[ Semantics ]  ←    Protocol-Commons (canonical verbs + schemas)
+[ Execution ]   x402 runtimes (invocation + receipts)
+[ Identity  ]   Agent-Cards (discovery + ownership)
+[ Semantics ]   Protocol-Commons (verbs + schemas)
 ```
-This repo answers exactly one question:
+It answers:
 
-“What is this agent trying to do, and what does that message look like on the wire?”
+“What is this agent trying to do — and what must this message look like?”
 
-No business logic. No pricing. No proprietary behavior.
-
-## 3. Repo Layout
-
+3. Repo Layout
 ```
 schemas/
   v1.0.0/
@@ -50,8 +48,6 @@ schemas/
       receipt.base.schema.json
     commons/
       analyze/
-        requests/analyze.request.schema.json
-        receipts/analyze.receipt.schema.json
       classify/
       clean/
       convert/
@@ -61,14 +57,8 @@ schemas/
       format/
       parse/
       summarize/
-
 examples/
-  v1.0.0/
-    commons/
-      <verb>/
-        valid/*.json
-        invalid/*.json
-
+  v1.0.0/commons/<verb>/valid|invalid/*.json
 checksums.txt
 manifest.json
 
@@ -80,109 +70,51 @@ SECURITY_PROVENANCE.md
 RESOLUTION.md
 ```
 
-Authoritative documents:
+Authoritative docs:
 
-SPEC.md — normative protocol rules (NORMATIVE, ENFORCEABLE)
+SPEC.md — NORMATIVE rules
 
-POLICY.md — how verbs + schemas are allowed to evolve
+- `POLICY.md` — versioning and extension governance
+- `GOVERNANCE.md` — approval of normative changes
+- `SECURITY*.md` — provenance + integrity guarantees
+- `RESOLUTION.md` — canonical lifecycle log
 
-GOVERNANCE.md — who can approve changes and how
+If a change is not reflected here → **not canonical.**
 
-SECURITY*.md — disclosure, CIDs, and immutability guarantees
+**ENS TXT Summary**
+Protocol-Commons governs TXT keys that resolve schema semantics.
+Canonical definitions → `SPEC.md.`
 
-RESOLUTION.md — why any verb/schema changed
+## 4. Contribution Flow
+1. Open an Issue describing context + verb(s)
+2. Design change per POLICY.md
+3. Update schemas + examples
+4. Validate:
 
-If a change is not consistent with these files, it is non-compliant, even if CI passes.
-
-
-## 4. How To Propose a Change
-
-**Never** just “fix a schema” in a drive-by PR.
-
-For any change (new verb, bugfix, tightening, etc.):
-
-### 1. Open an Issue
-
-- Describe the problem / use case.
-- Specify which verb(s) and version(s) are affected.
-- Describe expected behavior vs current behavior.
-
-### 2. Design the Change
-
-- Decide if this is breaking (shape or semantics) or additive.
-- Map it onto versioning rules in POLICY.md and SPEC.md.
-- For new verbs, justify why it belongs in Commons (not Commercial).
-
-### 3. Implement
-
-- Modify or add schemas under schemas/vX.Y.Z/..
-- Update examples under examples/vX.Y.Z/...
-- Run local validation:
 ```
 npm install
 npm run validate
 npm run validate:examples
 ```
+5. Update `RESOLUTION.md`, provenance
+6. Submit PR with version class (MAJOR/MINOR/PATCH)
 
-### 4. Update Provenance
+Once approved → tagged + pinned.
 
-- Append entries to RESOLUTION.md (what changed and why).
-- Prepare new checksums and manifest updates (if version changes).
-- Ensure new CIDs are ready to be pinned (IPFS).
+## 5. What “Good” Looks Like
 
-### 5. Submit PR
+- Clear, single-purpose PR
+- Schema + example alignment
+- No edits to existing version folders
+- Fully traceable governance + checksums
+- Deterministic $id + HTTP resolution
 
-- Link the Issue in the PR description.
-- Include validation output (or CI link).
-- Call out whether this is MAJOR/MINOR/PATCH in semantic-version terms.
+Default assumption: **new version** for any semantic change.
 
-### 6. Governance Review
+## 6. Support
 
-- Maintainers check:
-    - No silent breaking changes
-    - Versioning rules respected
-    - ENS TXT responsibility unchanged or correctly updated
-- Once merged, a new tag and CID are produced and recorded in SECURITY_PROVENANCE.md.
-
-## 5. Local Dev / Validation
-
-Standard workflow:
-```
-git clone https://github.com/commandlayer/protocol-commons.git
-cd protocol-commons
-
-npm install
-
-# Validate schemas + examples
-npm run validate
-npm run validate:examples
-```
-
-If validation fails, **do not** paper over it — fix the schemas or examples so they align with SPEC.md.
-
-## 6. What “Good” Looks Like
-
-A good contribution:
-
-- **Does one thing clearly** (e.g., “add stream as a new verb”, not “rewrite half the repo”).
-- Comes with:
-    - Updated schemas
-    - Valid + invalid examples
-    - Updated docs where normative behavior changed
-    - A RESOLUTION.md entry explaining the change
-
--Respects immutability:
-    - No edits to existing v1.0.0/ files
-    - New version directories for any real change
-
-If you’re not sure whether a change is allowed for a given version, assume it requires a new version directory and ask via an Issue.
-
-## 7. Support
-
-Governance / security contact: dev@commandlayer.org
-
+Governance contact: dev@commandlayer.org
 PGP fingerprint: 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
 
-If your use case doesn’t fit the existing verbs or schemas, open an Issue before forking semantics.
-
-Protocol-Commons is meant to be a shared, neutral layer — not anyone’s private fork.
+Protocol-Commons is a **neutral shared layer.**
+Precision here preserves interoperability everywhere else.
