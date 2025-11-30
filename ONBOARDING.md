@@ -1,4 +1,4 @@
-# ONBOARDING — Protocol-Commons
+# Onboarding — Protocol Commons
 
 Welcome to **Protocol-Commons** — the canonical verb + schema layer for autonomous agents.
 
