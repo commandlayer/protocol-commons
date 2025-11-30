@@ -23,9 +23,11 @@ These rules apply to:
   cl.schema.receipt
   cl.cid.schemas
   cl.schemas.mirror.ipfs
+  ```
+  
 Everything here is normative for semantics and schema integrity.
 
-2. Versioning & Immutability
+## 2. Versioning & Immutability
 For any directory schemas/vX.Y.Z/:
 
 No in-place edits to:
