@@ -1,51 +1,49 @@
 # Security & Provenance — Protocol-Commons
 
-This file defines ownership, disclosure rules, version integrity,
-and cryptographic provenance for the Commons.
+Protocol-Commons provides the shared verbs and contracts that keep autonomous agents
+interoperable. This document describes how correctness, transparency, and trust
+are maintained in a neutral and long-lived way.
 
 ---
 
-## Ownership & Contact
+## Contact
 
-- **Owner:** commandlayer.eth  
-- **Security Contact:** dev@commandlayer.org  
-- **PGP Fingerprint:** 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A  
+If something seems off, please reach out:
 
----
+Email: dev@commandlayer.org  
+PGP: 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
 
-## Vulnerability Disclosure
-
-Report security issues privately:
-
- **Email: dev@commandlayer.org**
- 
- **Use PGP for sensitive reports**
-
-We will:
-- Acknowledge valid issues within **72 hours**
-- Provide mitigation plan within **10 business days**
+Reports are welcomed from everyone — builders, auditors, and users.
 
 ---
 
-## Provenance
+## Provenance and Version Integrity
 
-### Current Release: v1.0.0
+Protocol-Commons releases are **content addressed** and **reproducible**.
 
-- **Schemas CID:** `bafybeieoynknzalaojwpzjzjy77kpnfe4kla5io7jbfnmyu7w7vyvuljpq`
-- Integrity: via `checksums.txt` (SHA-256)  
-- All schemas validated under strict mode CI
+Current: **v1.0.0**
 
-### Any change requires:
-- New version directory
-- New CID
-- Updated checksums
-- Logged in `RESOLUTION.md`
+| Artifact | Integrity Source |
+|---------|-----------------|
+| Canonical Schema CID | `bafybeieoynknzalaojwpzjzjy77kpnfe4kla5io7jbfnmyu7w7vyvuljpq` |
+| Checksums | `checksums.txt` |
+| Validation | Strict Ajv CI on every PR |
+| Audit Trail | `RESOLUTION.md` |
+
+Any change that affects semantics requires:
+
+- New versioned directory (e.g., `v1.0.1/`)
+- New CID + checksums
+- Governance review and `RESOLUTION.md` entry
+
+No silent edits. No exceptions.
 
 ---
 
-## ENS TXT Responsibilities
+## ENS TXT Reference
 
-Commons controls ONLY:
+Commons defines:
+
 ```
 cl.verb
 cl.version
@@ -55,30 +53,18 @@ cl.cid.schemas
 cl.schemas.mirror.ipfs
 ```
 
-Updates MUST be signed + logged.
+These pointers help resolvers confidently retrieve the correct schema set.
 
 ---
 
-## Immutability Guarantee
+## Security Posture
 
-Once published:
-- No schema changes in-place  
-- No silent mutability  
-- Breaks require new version
+- No PII
+- No proprietary execution logic
+- Strict, minimal design to preserve durability
+
+If something breaks, we fix it — transparently and permanently.
 
 ---
 
-Status: **Security-Critical, Stable**
-
-
-
-
-
-
-
-
-
-
-
-
-
+**Status:** Stable · Stewarded for the long run
