@@ -16,36 +16,32 @@ Responsible for:
 
 - Maintaining canonical Protocol-Commons + Agent-Cards standards
 - Publishing signed manifest + checksum sets
-- Ensuring ENS TXT correctness
 - Approving and versioning normative changes
+- Ensuring transparency + security in provenance
 - Security revocation + incident handling
 
-> The Founding Steward **does not own** the ecosystem —  
-> it **protects** stability until broader stewardship is in place.
+> The Founding Steward **protects protocol stability** until broader stewardship is in place.
 
 ### Future Decentralization Intent
-
-Governance will evolve in **phases**:
 
 | Phase | Governance Structure | Trigger |
 |------|---------------------|--------|
 | 1 — Bootstrap (now) | Single steward | Initial adoption |
 | 2 — Multi-maintainer | ≥3 independent implementers | Cross-vendor usage |
 | 3 — Standards Committee | Formal proposal & review | Widespread ecosystem reliance |
-| 4 — Neutral Standards Body | Community-elected representatives | Global adoption & academic participation |
+| 4 — Neutral Standards Body | Community-elected representatives | Global adoption |
 
-Governance will remain permissionless and open to ecosystem implementers.
 ---
 
 ## 2. Change Classes
 
 | Change Type | Examples | Version Rule | Audit Log |
 |------------|----------|--------------|-----------|
-| **Normative** | Schema rules, ENS TXT semantics | Major: `1 → 2` | `RESOLUTION.md` |
+| **Normative** | Schema rules, TXT semantics | Major: `1 → 2` | `RESOLUTION.md` |
 | **Compatibility-affecting** | Required field tightening | Minor: `1.0 → 1.1` | `RESOLUTION.md` |
-| **Non-behavioral** | Docs, comments, naming | Patch: `1.0.0 → 1.0.1` | Commit message |
+| **Non-behavioral** | Docs, naming | Patch: `1.0.0 → 1.0.1` | Commit message |
 
-CIDs + checksums MUST be published for the change to become effective.
+CIDs + checksums MUST be published for changes to become effective.
 
 ---
 
@@ -53,11 +49,10 @@ CIDs + checksums MUST be published for the change to become effective.
 
 Once a version is published:
 
-- No file mutation  
-- No `$id` or CID changes  
-- ENS TXT MUST still resolve correctly  
+- No file mutation
+- No `$id` or CID changes
 
-**Violation triggers:** revocation + new version.
+Violations require revocation + new version.
 
 ---
 
@@ -66,28 +61,22 @@ Once a version is published:
 Every release MUST include:
 
 - Strict validation via CI
-- Signed IPFS CID and checksums
-- Complete transparency artifacts updated **together**:
-  - `SPEC.md`
-  - `POLICY.md`
-  - `SECURITY_PROVENANCE.md`
-  - `RESOLUTION.md`
-  - `VERSIONING.md`
+- Signed IPFS CID + checksums
+- Transparency artifacts updated **together**:
+  - `SPEC.md`, `POLICY.md`, `SECURITY_PROVENANCE.md`, `RESOLUTION.md`, `VERSIONING.md`
 
-**Atomic and provable — or it isn’t real.**
+**Atomic and verifiable — or not valid.**
 
 ---
 
-## 5. ENS TXT Enforcement
+## 5. TXT Responsibility Split (NORMATIVE)
 
-Resolvers MUST reject identity bindings when:
+- **Protocol-Commons** governs TXT keys that resolve **schema semantics**  
+- **Agent-Cards** governs TXT keys that bind **identity + invocation**
 
-- TXT keys mismatch card values
-- CIDs or checksums fail
-- Required TXT fields are missing
+If a TXT field is not explicitly assigned here, it MUST NOT be introduced without governance approval.
 
-**Correct TXT = trusted identity**  
-**Anything else = untrusted.**
+Resolvers MUST treat TXT contract violations as **UNTRUSTED** bindings.
 
 ---
 
@@ -95,28 +84,21 @@ Resolvers MUST reject identity bindings when:
 
 Responsibilities:
 
-- Enforce security requirements under:
-  - `SECURITY.md`
-  - `SECURITY_PROVENANCE.md`
-- Respond to incidents within **7 days**
-- Record revocations transparently
+- Enforce requirements under `SECURITY*.md`
+- Respond to security reports within **7 days**
 - Require signed replacements for compromised artifacts
+- Log revocations transparently
 
-Emergency revocations MAY bypass full review  
-if required to protect the network.
+Emergency revocation MAY bypass full review if required to protect the ecosystem.
 
 ---
 
 ## 7. Dispute Resolution
 
-If an artifact or claim is contested:
-
-1. Log issue publicly  
-2. Review evidence and ecosystem impact  
-3. Decide outcome via steward + public comment  
-4. Log resolution action in `RESOLUTION.md`  
-
-**Collaborative — not arbitrary.**
+1. Log an Issue publicly  
+2. Review evidence + ecosystem impact  
+3. Render decision with public comment  
+4. Log outcome in `RESOLUTION.md`  
 
 ---
 
@@ -127,14 +109,14 @@ Software MAY claim:
 - **Commons-Compatible**
 - **Agent-Cards-Compatible**
 
-…only if ALL of the following hold:
+…only with:
 
-✔ ENS TXT → Card → Schema → CID validation  
-✔ Ajv strict JSON Schema conformance  
+✔ Schema/CID/TXT validation  
+✔ Ajv strict JSON Schema enforcement  
 ✔ Canonical x402 entry format  
 ✔ Trace echo + status rules enforced  
 
-False compatibility claims are governance violations.
+False claims are governance violations.
 
 ---
 
