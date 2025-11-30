@@ -17,8 +17,7 @@
 
 ----
 
-Protocol-Commons defines **shared actions** autonomous agents can perform and the **typed payloads**
-that make them interoperable. Without this shared verb layer:
+**Protocol-Commons defines interoperable semantics and typed message contracts for autonomous agents**. It provides a **neutral, versioned foundation** that ensures multi-agent workflows remain compatible across different runtimes, platforms, and discovery systems. Without this shared verb layer:
 
 - **Routing breaks**
 - **Validation fails**
@@ -341,6 +340,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
