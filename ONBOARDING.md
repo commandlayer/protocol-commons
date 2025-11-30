@@ -94,6 +94,7 @@ RESOLUTION.md — why any verb/schema changed
 
 If a change is not consistent with these files, it is non-compliant, even if CI passes.
 
+
 ## 4. How To Propose a Change
 
 **Never** just “fix a schema” in a drive-by PR.
@@ -102,60 +103,46 @@ For any change (new verb, bugfix, tightening, etc.):
 
 ### 1. Open an Issue
 
-Describe the problem / use case.
-
-Specify which verb(s) and version(s) are affected.
-
-Describe expected behavior vs current behavior.
+- Describe the problem / use case.
+- Specify which verb(s) and version(s) are affected.
+- Describe expected behavior vs current behavior.
 
 ### 2. Design the Change
 
-Decide if this is breaking (shape or semantics) or additive.
-
-Map it onto versioning rules in POLICY.md and SPEC.md.
-
-For new verbs, justify why it belongs in Commons (not Commercial).
+- Decide if this is breaking (shape or semantics) or additive.
+- Map it onto versioning rules in POLICY.md and SPEC.md.
+- For new verbs, justify why it belongs in Commons (not Commercial).
 
 ### 3. Implement
 
-Modify or add schemas under schemas/vX.Y.Z/...
-
-Update examples under examples/vX.Y.Z/...
-
-Run local validation:
-
+- Modify or add schemas under schemas/vX.Y.Z/..
+- Update examples under examples/vX.Y.Z/...
+- Run local validation:
+```
 npm install
 npm run validate
 npm run validate:examples
-
+```
 
 ### 4. Update Provenance
 
-Append entries to RESOLUTION.md (what changed and why).
-
-Prepare new checksums and manifest updates (if version changes).
-
-Ensure new CIDs are ready to be pinned (IPFS).
+- Append entries to RESOLUTION.md (what changed and why).
+- Prepare new checksums and manifest updates (if version changes).
+- Ensure new CIDs are ready to be pinned (IPFS).
 
 ### 5. Submit PR
 
-Link the Issue in the PR description.
-
-Include validation output (or CI link).
-
-Call out whether this is MAJOR/MINOR/PATCH in semantic-version terms.
+- Link the Issue in the PR description.
+- Include validation output (or CI link).
+- Call out whether this is MAJOR/MINOR/PATCH in semantic-version terms.
 
 ### 6. Governance Review
 
-Maintainers check:
-
-No silent breaking changes
-
-Versioning rules respected
-
-ENS TXT responsibility unchanged or correctly updated
-
-Once merged, a new tag and CID are produced and recorded in SECURITY_PROVENANCE.md.
+- Maintainers check:
+    - No silent breaking changes
+    - Versioning rules respected
+    - ENS TXT responsibility unchanged or correctly updated
+- Once merged, a new tag and CID are produced and recorded in SECURITY_PROVENANCE.md.
 
 ## 5. Local Dev / Validation
 
