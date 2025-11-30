@@ -1,9 +1,6 @@
-
 # COMPLIANCE — Protocol-Commons
 
-This document defines what it means to be **Protocol-Commons compliant** and how to keep that status over time.
-
-If you claim compatibility but break these rules, you’re lying to your own users.
+This document defines what it means to be **Protocol-Commons compliant** and how to maintain that status over time.
 
 ---
 
@@ -11,194 +8,124 @@ If you claim compatibility but break these rules, you’re lying to your own use
 
 These rules apply to:
 
-- All schemas under `schemas/v*/commons/`
-- All shared primitives under `schemas/v*/_shared/`
-- All examples under `examples/v*/commons/`
-- The ENS TXT fields governed by Protocol-Commons:
+- Schemas under `schemas/v*/commons/`
+- Shared primitives under `schemas/v*/_shared/`
+- Examples under `examples/v*/commons/`
 
-  ```txt
-  cl.verb
-  cl.version
-  cl.schema.request
-  cl.schema.receipt
-  cl.cid.schemas
-  cl.schemas.mirror.ipfs
-  ```
-  
-Everything here is normative for semantics and schema integrity.
+**ENS TXT Summary**  
+This document only summarizes TXT responsibilities.  
+The canonical definitions and enforcement rules are specified in:  
+- `SPEC.md` (Protocol-Commons)
+
+In case of discrepancy, SPEC.md is authoritative.
+
+Compliance covers semantics and schema integrity only—identity bindings are governed by Agent-Cards.
+
+---
 
 ## 2. Versioning & Immutability
-For any directory schemas/vX.Y.Z/:
+
+For any directory `schemas/vX.Y.Z/`:
 
 No in-place edits to:
+- Request/receipt schemas
+- `_shared` primitives
+- `$id` values
+- Normative behavior
 
-Request/receipt schemas
+Any semantic change requires:
+- New version directory
+- Updated CIDs + checksums
+- Logged update in `RESOLUTION.md`
+- Governance approval
 
-_shared primitives
+Mutating a published version is **not compliant**.
 
-$id strings
+---
 
-No silent behavior changes.
+## 3. JSON Schema Requirements
 
-Any change to schema shape, $id, or semantics requires:
-
-A new version directory (vX.Y+1.Z or vX+1.0.0)
-
-New CID
-
-Updated checksums.txt + manifest.json
-
-A logged entry in RESOLUTION.md
-
-Governance approval as defined in GOVERNANCE.md
-
-If you mutate a published version directory, you are no longer compliant.
-
-3. JSON Schema Requirements
 All Protocol-Commons schemas MUST:
 
-Use JSON Schema Draft 2020-12
+- Use JSON Schema Draft 2020-12
+- Validate under **Ajv strict mode**
+- Use deterministic HTTPS-resolvable `$id` values matching SPEC.md
+- Enforce verb-specific input + receipt contract
 
-Validate under Ajv strict mode (see SPEC.md)
+Loose validation or altered `$id` resolution is **not compliant**.
 
-Disallow unexpected fields unless explicitly allowed via additionalProperties: true
+---
 
-Use deterministic, HTTPS-resolvable $id values:
+## 4. CIDs & Checksums
 
-text
-Copy code
-https://commandlayer.org/schemas/v1.0.0/commons/<verb>/requests/<verb>.request.schema.json
-https://commandlayer.org/schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
-Shared primitives follow:
+Each release MUST:
 
-text
-Copy code
-https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json
-https://commandlayer.org/schemas/v1.0.0/_shared/trace.schema.json
-https://commandlayer.org/schemas/v1.0.0/_shared/receipt.base.schema.json
-If your implementation uses different $id values or looser validation, you are not fully compliant.
-
-4. ENS TXT Responsibilities
-Protocol-Commons is responsible only for the following TXT records on ENS:
-
-txt
-Copy code
-cl.verb
-cl.version
-cl.schema.request
-cl.schema.receipt
-cl.cid.schemas
-cl.schemas.mirror.ipfs
-Compliance requires that:
-
-These fields map exactly to the canonical schemas and the published CID.
-
-They reflect the correct version directory.
-
-They are updated only when a new version is published and recorded in SECURITY_PROVENANCE.md and RESOLUTION.md.
-
-Identity-specific TXT fields (cl.agentcard, cl.entry, etc.) are governed by Agent-Cards, not Protocol-Commons.
-
-5. CIDs & Checksums
-For each release:
-
-The entire schemas/vX.Y.Z/ tree MUST be:
-
-Pinned to IPFS (see SECURITY_PROVENANCE.md)
-
-Indexed in checksums.txt using SHA-256
-
-Described in manifest.json
+- Pin the entire version folder to IPFS
+- Provide SHA-256 checksums
+- Publish manifest.json
 
 Compliance requires:
+- `cl.cid.schemas` resolves to the correct CID
+- IPFS mirrors match HTTP mirrors exactly
 
-The CID used in cl.cid.schemas matches the pinned content.
+Mismatch = **integrity failure**
 
-The HTTP mirror at cl.schemas.mirror.ipfs serves the same content.
+---
 
-Any mismatch between CID, checksum, and actual content is treated as an integrity failure.
+## 5. Security & Privacy
 
-6. Security & Privacy
-Protocol-Commons is semantic infra, not application data:
+Schemas are **semantic infrastructure**, not application output.
 
-No PII in schemas or examples.
+Therefore:
+- No PII
+- No secrets or private routing data
+- No execution logic
 
-No runtime secrets, keys, or hostnames.
+Security incidents MUST follow `SECURITY.md`.
 
-No transport-specific tokens.
+---
 
-If your downstream usage adds sensitive data, that is outside this repo and must be governed by your own security model.
+## 6. Governance Traceability
 
-Security incidents in Commons itself (e.g., malicious modification of schemas, hijacked $id hosts, or CID poisoning) must follow the procedure in SECURITY.md.
+Every canonical change MUST be reflected in:
+- `RESOLUTION.md` (what + why + who)
+- `SECURITY_PROVENANCE.md` (CIDs + checksums)
 
-7. Governance Traceability
-Compliance requires a paper trail:
+An artifact **without a governance trail** is not canonical.
 
-Every semantic change has a corresponding entry in RESOLUTION.md.
+---
 
-Every published version and CID appears in SECURITY_PROVENANCE.md.
+## 7. Ecosystem Alignment
 
-Every ENS TXT mutation for Commons-controlled keys is:
+Commons-compliant implementations SHOULD:
 
-Justified (new version, bugfix, etc.)
+- Support ERC-8004 discovery where relevant
+- Enforce canonical x402 envelope + trace rules
 
-Logged and reviewable
+Divergence is allowed — but **compliance claims then MUST NOT be made**.
 
-If a schema or version exists without a trail in these files, it is not canonical, regardless of where it is hosted.
+---
 
-8. Ecosystem Alignment
-To be a good citizen, a Commons-compliant implementation should:
+## 8. Deviation Handling
 
-Respect ERC-8004 discovery flows where applicable.
+If a deviation is found:
 
-Respect x402 envelope semantics:
+1. File an Issue (or follow `SECURITY.md` if sensitive)
+2. Describe affected version and impact
+3. Steward determines whether to publish a corrected version
+4. Changes documented in `RESOLUTION.md`
 
-x402.verb = canonical verb name
+---
 
-x402.version = Commons version
+## 9. Compliance Checklist
 
-x402.status ∈ {"ok", "error"} for receipts
+You may claim **Protocol-Commons compliant** if:
 
-Embed trace and status primitives exactly as defined in _shared/ schemas.
+- Strict Ajv validation enforced  
+- Version directories treated as immutable  
+- `$id` URLs resolve correctly  
+- CIDs and checksums match content  
+- Changes logged and signed  
+- ENS TXT duties respected per SPEC.md  
 
-If you diverge from x402 or related standards, you are still free to run locally — just don’t claim compliance.
-
-9. Deviation Handling
-If you discover a deviation (your own or the repo’s):
-
-File an Issue in this repository.
-
-Describe:
-
-What is wrong (schema mismatch, CID mismatch, TXT mismatch, etc.)
-
-Which versions, verbs, and endpoints are affected
-
-Potential impact on runtimes
-
-If it’s a security issue, follow SECURITY.md instead of posting full details publicly.
-
-Work with maintainers to:
-
-Decide if a new version is required
-
-Update provenance and ENS records
-
-Document the incident in RESOLUTION.md
-
-10. Compliance Checklist
-You can reasonably say you are Protocol-Commons compliant if:
-
- You validate requests and receipts using the canonical schemas with strict Ajv.
-
- You treat version directories as immutable once published.
-
- You resolve $id URLs to the canonical HTTP mirrors.
-
- You verify CIDs and checksums before trusting schemas.
-
- You respect the ENS TXT division of responsibilities.
-
- You log any verb/schema lifecycle changes in RESOLUTION.md.
-
-If any of the above is false, treat your implementation as experimental and avoid claiming full compliance.
+If uncertain → treat the implementation as **experimental**.
