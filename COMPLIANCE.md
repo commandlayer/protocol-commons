@@ -1,6 +1,4 @@
-## 2️⃣ `protocol-commons/COMPLIANCE.md`
 
-```markdown
 # COMPLIANCE — Protocol-Commons
 
 This document defines what it means to be **Protocol-Commons compliant** and how to keep that status over time.
