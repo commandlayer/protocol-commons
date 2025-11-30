@@ -1,70 +1,62 @@
 # Security & Provenance — Protocol-Commons
 
-Protocol-Commons provides the shared verbs and contracts that keep autonomous agents
-interoperable. This document describes how correctness, transparency, and trust
-are maintained in a neutral and long-lived way.
+Protocol-Commons defines the **canonical semantic layer** for autonomous agents.  
+This document ensures schema integrity and ecosystem trust.
 
 ---
 
 ## Contact
 
-If something seems off, please reach out:
+If something seems incorrect, report immediately:
 
 Email: dev@commandlayer.org  
-PGP: 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
-
-Reports are welcomed from everyone — builders, auditors, and users.
+PGP fingerprint: 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
 
 ---
 
-## Provenance and Version Integrity
+## Provenance & Version Integrity
 
-Protocol-Commons releases are **content addressed** and **reproducible**.
+Releases are **reproducible and content-addressed**.
 
-Current: **v1.0.0**
+Current canonical version: **v1.0.0**
 
-| Artifact | Integrity Source |
-|---------|-----------------|
-| Canonical Schema CID | `bafybeieoynknzalaojwpzjzjy77kpnfe4kla5io7jbfnmyu7w7vyvuljpq` |
-| Checksums | `checksums.txt` |
-| Validation | Strict Ajv CI on every PR |
-| Audit Trail | `RESOLUTION.md` |
+Integrity sources:
 
-Any change that affects semantics requires:
+- **CID**: `bafybeieoynknzalaojwpzjzjy77kpnfe4kla5io7jbfnmyu7w7vyvuljpq`
+- **checksums.txt** — file-level hashes
+- **CI validation** — Ajv strict mode
+- **RESOLUTION.md** — lifecycle log
 
-- New versioned directory (e.g., `v1.0.1/`)
-- New CID + checksums
-- Governance review and `RESOLUTION.md` entry
+Any semantic update requires:
+
+- New `schemas/vX.Y.Z/` directory
+- New CID and updated checksums
+- Governance approval + provenance record
 
 No silent edits. No exceptions.
 
 ---
 
-## ENS TXT Reference
+## 📌 ENS TXT Summary
 
-Commons defines:
+Protocol-Commons governs TXT keys that resolve **schema semantics**.  
+Canonical definitions — including required keys and enforcement — are specified in:
 
-```
-cl.verb
-cl.version
-cl.schema.request
-cl.schema.receipt
-cl.cid.schemas
-cl.schemas.mirror.ipfs
-```
+- `SPEC.md` (Protocol-Commons)
 
-These pointers help resolvers confidently retrieve the correct schema set.
+Resolvers MUST reject bindings that do not match canonical metadata.
 
 ---
 
 ## Security Posture
 
 - No PII
-- No proprietary execution logic
-- Strict, minimal design to preserve durability
+- No runtime or proprietary logic
+- Minimal surface area
+- Simple, strict, and stable
 
-If something breaks, we fix it — transparently and permanently.
+Breakage here is **ecosystem-wide** — restored only through transparent governance.
 
 ---
 
-**Status:** Stable · Stewarded for the long run
+**Status:** Stable • Verifiable • Production-grade semantics • v1.0.0 locked
