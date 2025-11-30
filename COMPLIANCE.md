@@ -1,4 +1,4 @@
-# COMPLIANCE — Protocol-Commons
+# Compliance — Protocol Commons
 
 This document defines what it means to be **Protocol-Commons compliant** and how to maintain that status over time.
 
