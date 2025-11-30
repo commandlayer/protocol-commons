@@ -1,228 +1,188 @@
 
-# **SCHEMAS — CommandLayer Protocol Commons**
+# SCHEMAS — Protocol-Commons v1.0.0
+CommandLayer Core Standards · Semantic Layer
 
-This document defines the full schema layout for the CommandLayer Protocol Commons, including canonical verbs, directory conventions, field-level rules, `$id` structures, versioning, and interoperability requirements for x402 + ERC‑8004 aligned agents.
-
----
-
-# **1. Purpose**
-
-The Protocol Commons provides the **canonical verb namespace** and the **universal schema layer** for all agents in the CommandLayer ecosystem.  
-It establishes:
-
-- A stable verb dictionary  
-- Strict JSON Schema Draft 2020‑12 request + receipt contracts  
-- Deterministic `$id` URLs  
-- Standardized x402 envelope embedding  
-- Trace + status primitives (`_shared`)  
-- Example-driven validation for CI + reproducibility  
-
-Once published under a versioned directory, the Commons is **immutable forever**.
+This document is **NORMATIVE and ENFORCEABLE**.
 
 ---
 
-# **2. Directory Layout**
+## 1. Purpose
+
+Protocol-Commons defines the **canonical verb and schema layer** for autonomous agents:
+
+- Standardized verbs
+- Strict request/receipt contracts (JSON Schema 2020-12)
+- Deterministic `$id` URLs
+- x402 envelope embedding
+- Trace + status primitives
+- Immutable versioning
+
+Once published in a version directory, the Commons is **immutable**.
+
+---
+
+## 2. Directory Layout
 
 ```
 schemas/v1.0.0/
-  _shared/         # trace, x402, receipt base primitives
-  commons/         # 10 canonical verbs (requests + receipts)
-
-analyze
-classify
-clean
-convert
-describe
-explain
-fetch
-format
-parse
-summarize
-```
-
-Each verb directory contains:
-
-```
+_shared/
+x402.schema.json
+trace.schema.json
+receipt.base.schema.json
+commons/
+<verb>/
 requests/<verb>.request.schema.json
 receipts/<verb>.receipt.schema.json
 ```
 
----
+### Normative Rules
 
-# **3. Canonical Verb Set (v1.0.0)**
-
-| Verb       | Purpose                                |
-|------------|----------------------------------------|
-| analyze    | Inspect content                        |
-| classify   | Assign categories                      |
-| clean      | Sanitize and normalize                 |
-| convert    | Change formats                         |
-| describe   | Describe content                       |
-| explain    | Explain reasoning                      |
-| fetch      | Retrieve external data                 |
-| format     | Apply formatting                       |
-| parse      | Extract structure                      |
-| summarize  | Condense meaning                       |
-
-
-Each verb defines:
-
-- 1 **request schema**  
-- 1 **receipt schema**  
+- **Paths MUST NOT change** in a published version directory
+- Verbs MUST match folder names **exactly**
+- No aliases or synonyms allowed
 
 ---
 
-# **4. Schema `$id` Structure**
+## 3. Canonical Verb Set
 
-**`All schema IDs` follow this deterministic pattern:**
+| Verb | Purpose |
+|------|---------|
+| analyze | Inspect content |
+| classify | Assign categories |
+| clean | Sanitize and normalize |
+| convert | Transform formats |
+| describe | Provide description |
+| explain | Provide justification/reasoning |
+| fetch | Retrieve external data |
+| format | Apply formatting rules |
+| parse | Extract structured meaning |
+| summarize | Condense content |
 
-### **Request**
-```
+Each verb MUST define:
+
+- One request schema
+- One receipt schema
+
+---
+
+## 4. Schema `$id` Requirements
+
+Every schema MUST use a fully-qualified `$id` URI:
+
+### Request
+
+
 https://commandlayer.org/schemas/v1.0.0/commons/<verb>/requests/<verb>.request.schema.json
-```
+
 
 ### **Receipt**
-```
+
 https://commandlayer.org/schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
-```
+
+### Shared
+
+https://commandlayer.org/schemas/v1.0.0/_shared/<name>.schema.json
 
 
+Schemas MUST be:
 
+- HTTPS-resolvable
+- Deterministic
+- Pinned in provenance manifests
 
-### **Shared Primitives**
-```
-https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json
-https://commandlayer.org/schemas/v1.0.0/_shared/trace.schema.json
-https://commandlayer.org/schemas/v1.0.0/_shared/receipt.base.schema.json
-```
+## 5. x402 Envelope Binding
 
----
+### Requests MUST include:
 
-# **5. x402 Embedding Rules**
-
-Every **request** must include:
-
-```
+```json
 "x402": {
   "verb": "<verb>",
   "version": "1.0.0"
-}
 ```
 
-Every **receipt** must include:
-
+### Receipts MUST include:
 ```
 "x402": {
   "verb": "<verb>",
   "version": "1.0.0",
   "status": "ok" | "error"
 }
-```
-
-**x402 object rules:**
-
-- No `additionalProperties`
-- Fully validated against `_shared/x402.schema.json`
-- Version string must match the verb directory version
-
----
-
-# **6. Request & Receipt Contracts**
-
-## **6.1 Request Contract**
-
-All requests share this required structure:
-
-| Field       | Description                             |
-|-------------|-----------------------------------------|
-| `x402`      | verb + version metadata                 |
-| `actor`     | freeform string, ENS, or DID            |
-| `trace`     | deterministic trace primitive           |
-| `input`     | verb‑specific input object              |
-| `limits`    | optional time/size constraints          |
-
-**Generic Example**
 
 ```
-{
-  "x402": { "verb": "fetch", "version": "1.0.0" },
-  "actor": "example.eth",
-  "trace": { "ts": 1234567890, "requestId": "..." },
-  "input": { "url": "https://..." }
-}
-```
 
----
+Additional properties **MUST NOT** appear inside x402.
 
-## **6.2 Receipt Contract**
+Validated by `_shared/x402.schema.json.`
 
-**All receipts enforce the CommandLayer status model:**
+## 6. Request Contract
+   
+Every request MUST include:
 
-### **Status Rules**
+| Field    | Requirement                       |
+| -------- | --------------------------------- |
+| `x402`   | Required                          |
+| `actor`  | Required                          |
+| `trace`  | Required                          |
+| `input`  | Required                          |
+| `limits` | Optional (if supported by schema) |
 
-| status | required fields     |
-|--------|----------------------|
-| `ok`   | `result`, `error=null` |
-| `error` | `error`, `result=null` |
 
-**Receipt must include:**
+Invalid Example
+Missing any required field → MUST fail validation.
 
-- `x402`  
-- `trace`  
-- `status`  
-- conditional `result` or `error`
-- 
+## 7. Receipt Contract
+| Field    | Requirement                       |
+| -------- | --------------------------------- |
+| `x402`   | Required                          |
+| `actor`  | Required                          |
+| `trace`  | Required                          |
+| `input`  | Required                          |
+| `limits` | Optional (if supported by schema) |
 
-**Strict if/then/else validation is defined in:**
 
-```
+Conditional structure MUST validate using:
+
+
 _shared/receipt.base.schema.json
-```
 
----
+No result in error receipts.
+No error in success receipts.
 
-# **7. Trace Primitive**
+## 8. Trace Primitive
+Fields MUST include:
 
-Used by *every* request and receipt.
+- `requestId`
+- `ts`
 
-**Fields:**
+Optional fields (if schema supports):
 
-- `ts`  
-- `requestId`  
-- `idempotencyKey`  
-- `nonce`  
-- `requestHash`  
-- Optional: `parentId`, `callbackUri`, `schemaId`, `signature`, `metrics`
+`parentId`, `callbackUri`, `metrics`
 
-**Located in:**
+Trace MUST ensure:
 
-```
-_shared/trace.schema.json
-```
+- **requestId is echoed** in receipts
+- Integrity is deterministic for chaining
 
----
+## 9. Versioning Rules
+Once released under:
 
-# **8. Versioning Rules**
 
-The Commons follows strict immutability:
+schemas/v1.0.0/
 
-- `v1.0.0/` **will never change** once published  
-- Any modification requires:
-  - New versioned directory (e.g., `v1.0.1/`)  
-  - New IPFS CID  
-  - New checksums  
-  - Updated ENS TXT  
-  - Updated provenance  
+The following actions are prohibited:
 
-NPM package: `@commandlayer/protocol-commons`  
-ENS: `commandlayer.eth`
+- Editing schema content
+- Changing requirements
+- Updating $id values
 
----
+Any change requires:
+- New version folder
+- New CID + manifest entries
+- ENS TXT update
+- Governance approval
 
-# **9. Validation Rules**
-
-The Commons enforces **strict Ajv mode**:
-
+## 10. Validation Rules
+CI MUST enforce:
 ```
 strict: true
 strictTypes: true
@@ -230,25 +190,20 @@ allowUnionTypes: false
 strictTuples: true
 ```
 
-**Other rules:**
+Other guarantees:
 
-- No `additionalProperties` unless explicitly included  
-- All examples must validate with CI  
-- Receipt conditionals must pass if/then/else logic  
+-All examples MUST validate
+-No `additionalProperties` unless allowed explicitly
 
-**Validation commands:**
+Validation commands:
 
-```
+``` 
 npm run validate
-npm run validate:all
 npm run validate:examples
 ```
 
----
-
-# **10. Examples**
-
-**Examples live at:**
+## 11. Examples
+Examples are REQUIRED for every verb:
 
 ```
 examples/v1.0.0/commons/<verb>/
@@ -256,33 +211,31 @@ examples/v1.0.0/commons/<verb>/
   invalid/*.json
 ```
 
-**Requirements:**
+Minimum:
 
-- Minimum **3 valid** examples per verb  
-- Minimum **3 invalid** examples per verb  
-- All examples must pass strict CI validation  
+-3 valid examples
+-3 invalid examples
 
----
+Every file MUST pass CI.
 
-# **11. Provenance**
+## 12. Provenance
+Schemas pinned to IPFS:
 
-**The entire schema tree is pinned to IPFS:**
+```
+bafybeieoynknzalaojwpzjzjy77kpnfe4kla5io7jbfnmyu7w7vyvuljpq
+```
 
+Integrity tracked by:
 
-`bafybeieoynknzalaojwpzjzjy77kpnfe4kla5io7jbfnmyu7w7vyvuljpq`
+- `checksums.txt`
+- `manifest.json`
 
+Resolvers MUST NOT trust mismatched artifacts.
 
-**Integrity is tracked via:**
+## 13. Contact
+We welcome collaboration and responsible disclosure:
 
+email  dev@commandlayer.org
+PGP 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
 
-`checksums.txt`
-`manifest.json`
-
-
----
-
-# **12. Contact**
-
-- Governance and Security: **dev@commandlayer.org**
-- PGP Fingerprint: `5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A`
-
+Status: Stable · v1.0.0 locked
