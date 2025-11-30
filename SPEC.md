@@ -1,4 +1,4 @@
-# SPEC — Protocol-Commons v1.0.0  
+# Specification — Protocol Commons
 CommandLayer Core Standards · Semantic Layer
 
 > This document is **NORMATIVE and ENFORCEABLE**.
