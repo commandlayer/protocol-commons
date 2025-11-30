@@ -1,8 +1,8 @@
-
 # SCHEMAS — Protocol-Commons v1.0.0
+
 CommandLayer Core Standards · Semantic Layer
 
-This document is **NORMATIVE and ENFORCEABLE**.
+> This document is **NORMATIVE and ENFORCEABLE**.
 
 ---
 
@@ -11,17 +11,19 @@ This document is **NORMATIVE and ENFORCEABLE**.
 Protocol-Commons defines the **canonical verb and schema layer** for autonomous agents:
 
 - Standardized verbs
-- Strict request/receipt contracts (JSON Schema 2020-12)
+- Strict JSON Schema 2020-12 validation
 - Deterministic `$id` URLs
 - x402 envelope embedding
-- Trace + status primitives
-- Immutable versioning
+- Trace + status requirements
+- Immutable versioning rules
 
-Once published in a version directory, the Commons is **immutable**.
+Once published, a version directory is **immutable**.
 
 ---
 
 ## 2. Directory Layout
+
+
 
 ```
 schemas/v1.0.0/
@@ -35,28 +37,29 @@ requests/<verb>.request.schema.json
 receipts/<verb>.receipt.schema.json
 ```
 
+
 ### Normative Rules
 
-- **Paths MUST NOT change** in a published version directory
-- Verbs MUST match folder names **exactly**
-- No aliases or synonyms allowed
+- **Paths MUST NOT change once published**
+- Folder names MUST match canonical verb exactly
+- No aliases or synonyms permitted
 
 ---
 
-## 3. Canonical Verb Set
+## 3. Canonical Verb Set (v1.0.0)
 
 | Verb | Purpose |
 |------|---------|
-| analyze | Inspect content |
-| classify | Assign categories |
-| clean | Sanitize and normalize |
-| convert | Transform formats |
-| describe | Provide description |
-| explain | Provide justification/reasoning |
-| fetch | Retrieve external data |
-| format | Apply formatting rules |
-| parse | Extract structured meaning |
-| summarize | Condense content |
+| analyze   | Extract meaning from input |
+| classify  | Assign categories deterministically |
+| clean     | Normalize input |
+| convert   | Transform between formats |
+| describe  | State defining properties |
+| explain   | Provide causal justification |
+| fetch     | Retrieve external data |
+| format    | Produce structured output |
+| parse     | Extract structured meaning |
+| summarize | Condense content while preserving meaning |
 
 Each verb MUST define:
 
@@ -65,30 +68,25 @@ Each verb MUST define:
 
 ---
 
-## 4. Schema `$id` Requirements
+## 4. Deterministic `$id` Contract
 
-Every schema MUST use a fully-qualified `$id` URI:
+Schemas MUST include fully-qualified, HTTPS-resolvable `$id` values:
 
-### Request
+**Requests**
 
 
+```
 https://commandlayer.org/schemas/v1.0.0/commons/<verb>/requests/<verb>.request.schema.json
-
+```
 
 ### **Receipt**
-
+```
 https://commandlayer.org/schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
-
+```
 ### Shared
-
+```
 https://commandlayer.org/schemas/v1.0.0/_shared/<name>.schema.json
-
-
-Schemas MUST be:
-
-- HTTPS-resolvable
-- Deterministic
-- Pinned in provenance manifests
+```
 
 ## 5. x402 Envelope Binding
 
@@ -98,6 +96,7 @@ Schemas MUST be:
 "x402": {
   "verb": "<verb>",
   "version": "1.0.0"
+}
 ```
 
 ### Receipts MUST include:
@@ -109,79 +108,67 @@ Schemas MUST be:
 }
 
 ```
-
-Additional properties **MUST NOT** appear inside x402.
-
+No additional properties allowed in `x402`.
 Validated by `_shared/x402.schema.json.`
 
 ## 6. Request Contract
    
 Every request MUST include:
 
-| Field    | Requirement                       |
-| -------- | --------------------------------- |
-| `x402`   | Required                          |
-| `actor`  | Required                          |
-| `trace`  | Required                          |
-| `input`  | Required                          |
-| `limits` | Optional (if supported by schema) |
+| Field   | Source               | Required |
+| ------- | -------------------- | :------: |
+| `x402`  | x402 schema          |     ✓    |
+| `actor` | Free-form identifier |     ✓    |
+| `trace` | trace schema         |     ✓    |
+| `input` | verb-specific        |     ✓    |
 
-
-Invalid Example
-Missing any required field → MUST fail validation.
+Missing required fields MUST fail validation.
 
 ## 7. Receipt Contract
-| Field    | Requirement                       |
-| -------- | --------------------------------- |
-| `x402`   | Required                          |
-| `actor`  | Required                          |
-| `trace`  | Required                          |
-| `input`  | Required                          |
-| `limits` | Optional (if supported by schema) |
+| Field    | Conditional                  |
+| -------- | ---------------------------- |
+| `x402`   | Always required              |
+| `trace`  | Always required              |
+| `status` | `"ok"` or `"error"`          |
+| `result` | Required if `status="ok"`    |
+| `error`  | Required if `status="error"` |
+
+No `result` in error receipts.
+No `error` in success receipts.
+Validated by` _shared/receipt.base.schema.json`
 
 
-Conditional structure MUST validate using:
-
-
-_shared/receipt.base.schema.json
-
-No result in error receipts.
-No error in success receipts.
-
-## 8. Trace Primitive
+## 8. Trace Guarantees
 Fields MUST include:
 
 - `requestId`
 - `ts`
-
+Receipts MUST echo:
+```
+trace.requestId = request.trace.requestId
+```
 Optional fields (if schema supports):
 
-`parentId`, `callbackUri`, `metrics`
-
-Trace MUST ensure:
-
-- **requestId is echoed** in receipts
-- Integrity is deterministic for chaining
+- `parentId`, 
+- `callbackUri`, 
+- `metrics`
 
 ## 9. Versioning Rules
-Once released under:
-
-
-schemas/v1.0.0/
+Once published under schemas/v1.0.0/:
 
 The following actions are prohibited:
 
 - Editing schema content
-- Changing requirements
+- Changing behavior or requirements
 - Updating $id values
 
 Any change requires:
-- New version folder
-- New CID + manifest entries
+- New version directory (e.g., v1.0.1/)
+- New CID + updated manifest & checksums
 - ENS TXT update
 - Governance approval
 
-## 10. Validation Rules
+## 10. Validation Requirements
 CI MUST enforce:
 ```
 strict: true
@@ -189,18 +176,7 @@ strictTypes: true
 allowUnionTypes: false
 strictTuples: true
 ```
-
-Other guarantees:
-
--All examples MUST validate
--No `additionalProperties` unless allowed explicitly
-
-Validation commands:
-
-``` 
-npm run validate
-npm run validate:examples
-```
+All valid + invalid examples MUST pass CI.
 
 ## 11. Examples
 Examples are REQUIRED for every verb:
@@ -213,14 +189,11 @@ examples/v1.0.0/commons/<verb>/
 
 Minimum:
 
--3 valid examples
--3 invalid examples
+- 3 valid examples
+- 3 invalid examples
 
-Every file MUST pass CI.
-
-## 12. Provenance
-Schemas pinned to IPFS:
-
+## 12. Provenance & Integrity
+Pinned schemas CID:
 ```
 bafybeieoynknzalaojwpzjzjy77kpnfe4kla5io7jbfnmyu7w7vyvuljpq
 ```
@@ -230,10 +203,9 @@ Integrity tracked by:
 - `checksums.txt`
 - `manifest.json`
 
-Resolvers MUST NOT trust mismatched artifacts.
+Resolvers MUST reject mismatched artifacts.
 
 ## 13. Contact
-We welcome collaboration and responsible disclosure:
 
 email  dev@commandlayer.org
 PGP 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
