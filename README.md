@@ -1,6 +1,6 @@
 # **CommandLayer Protocol — Commons**
 
-**Canonical verb & schema layer for machine intent — the foundation of verifiable A2A automation.**
+**Verb & schema layer for machine intent — the foundation of verifiable A2A automation.**
 
 <div align="center">
   <a href="#"><img alt="Stability" src="https://img.shields.io/badge/Status-Stable%20v1.0.0-brightgreen"/></a>
@@ -17,7 +17,7 @@
 
 ----
 
-Protocol-Commons defines the **canonical actions autonomous agents can perform** and the **typed payloads**
+Protocol-Commons defines **shared actions** autonomous agents can perform and the **typed payloads**
 that make them interoperable. Without this shared verb layer:
 
 - **Routing breaks**
@@ -31,27 +31,25 @@ that make them interoperable. Without this shared verb layer:
 
 ```
 ┌────────────────────────────┐
-│ Execution — x402 runtime   │  (value & invocation)
+│ Execution — x402 runtime   │  (execution + settlement)
 └──────────────▲─────────────┘
                │
 ┌──────────────┴─────────────┐
-│ Identity — Agent Cards     │  (ENS-based discovery)
+│ Identity — Agent Cards     │  (identity + discovery)
 └──────────────▲─────────────┘
                │
 ┌──────────────┴─────────────┐
-│ Semantics — Commons        │  (canonical verbs)
+│ Semantics — Commons        │  (semantics + validation)
 └────────────────────────────┘
 ```
 
 1. **Commons defines the verbs**  
 2. **Agent-Cards bind identity**  
-3. **x402 executes trustlessly**
+3. **x402 enables verifiable invocation and settlement**
 
 ---
 
 ### Protocol‐Commons is the **semantic foundation** of the CommandLayer stack.
-Below is everything you need to implement it correctly:
-
 
 ## Table of Contents
 - [Overview](#overview)
@@ -61,11 +59,11 @@ Below is everything you need to implement it correctly:
 - [Status](#status)
 - [Canonical Verbs](#canonical-verbs)
 - [Repository Structure](#repository-structure)
-- [Manifest](#manifest)
-- [Immutability & Checksums](#immutability--checksums)
-- [Validation](#validation)
-- [License](#license)
-- [Next Layers](#next-layers)
+- [Manifest](##manifest)
+- [Immutability & Checksums](##immutability--checksums)
+- [Validation](##validation)
+- [License](##license)
+- [Next Layers](##next-layers)
 
 ---
 ### Key Principles
@@ -104,7 +102,7 @@ Protocol-Commons standardizes routing, validation, and interoperability
 
 ---
 
-## Why This Exists
+## Why this Exists
 
 The Commons is the **linguistic core** of CommandLayer — a neutral, MIT-licensed, schema-first action vocabulary for autonomous agents.
 
@@ -115,9 +113,7 @@ Without a shared canonical action vocabulary:
 - chaining fails across ecosystems  
 - trust collapses into private platforms  
 
-
-The Commons prevents fragmentation — ensuring every agent can **speak the same language**, validate the same rules, and interoperate trustlessly across any runtime.
-
+Protocol-Commons prevents fragmentation — ensuring every agent speaks the same language, validates the same rules, and interoperates trustlessly across any runtime.
 ---
 
 ## This is not…
@@ -133,7 +129,6 @@ To avoid confusion, Protocol-Commons does **not** define:
 Commons defines **semantics** — nothing more, nothing less.
 
 Everything else is layered cleanly on top.
-
 
 ---
 
@@ -250,29 +245,14 @@ No ambiguity.
 ## Repository Structure
 ```
 protocol-commons/
-│
-├── schemas/
-│ └── v1.0.0/
-│ ├── commons/
-│ │ └── <verb>/
-│ │ ├── requests/
-│ │ └── receipts/
-│ └── _shared/
-│ ├── x402.schema.json
-│ ├── trace.schema.json
-│ └── receipt.base.schema.json
-│
-├── examples/
-│ └── v1.0.0/
-│ └── <verb>/
-│ ├── valid/
-│ └── invalid/
-│
+├── schemas/v1.0.0/
+│   ├── commons/<verb>/requests/
+│   ├── commons/<verb>/receipts/
+│   └── _shared/
+├── examples/v1.0.0/<verb>/
 ├── checksums.txt
 ├── manifest.json
-├── package.json
 └── README.md
-```
 ---
 
 ## Manifest
@@ -351,6 +331,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
