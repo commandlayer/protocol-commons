@@ -114,6 +114,7 @@ Without a shared canonical action vocabulary:
 - trust collapses into private platforms  
 
 Protocol-Commons prevents fragmentation — ensuring every agent speaks the same language, validates the same rules, and interoperates trustlessly across any runtime.
+
 ---
 
 ## This is not…
@@ -331,6 +332,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
