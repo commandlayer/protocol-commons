@@ -32,6 +32,7 @@ Protocol-Commons is the **bottom layer**:
 [ Execution ]       x402 runtimes, agents, payments
 [ Identity  ]       Agent-Cards (ENS discovery, x402 entrypoints)
 [ Semantics ]  ←    Protocol-Commons (canonical verbs + schemas)
+```
 This repo answers exactly one question:
 
 “What is this agent trying to do, and what does that message look like on the wire?”
