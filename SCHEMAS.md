@@ -1,6 +1,7 @@
-# SCHEMAS — Protocol-Commons v1.0.0
+# Schemas Policy — Protocol Commons
 
-CommandLayer Core Standards · Semantic Layer
+This document specifies stability rules, versioning constraints, and change governance for all Protocol Commons schemas.
+
 
 > This document is **NORMATIVE and ENFORCEABLE**.
 
