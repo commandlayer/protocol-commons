@@ -124,6 +124,8 @@ All receipts MUST embed:
 
 No additional properties permitted inside x402.
 
+---
+
 ## 7. Trace Guarantees
 Every receipt MUST echo:
 
@@ -135,6 +137,8 @@ This is REQUIRED for chaining & auditability.
 
 Additional trace fields MAY exist (per `_shared/trace.schema.json`)
 but MAY NOT weaken determinism or referential integrity.
+
+---
 
 ## 8. Request Contract
 Requests MUST contain:
@@ -148,6 +152,8 @@ Requests MUST contain:
 
 
 Requests MUST validate in **strict Ajv mode.**
+
+---
 
 ## 9. Receipt Contract
 Receipts MUST contain:
@@ -164,6 +170,8 @@ Receipts MUST contain:
 Strict conditional logic is canonical and MUST pass CI validation.
 
 Error receipts MUST NOT include `result.`
+
+---
 
 ## 10. Versioning + Immutability
 
@@ -187,9 +195,11 @@ Any mutation requires:
 - ENS TXT update
 - Governance approval
 
+---
+
 ## 11. Discovery + ENS TXT Responsibilities
 
-Protocol-Commons governs ONLY:
+Protocol-Commons governs **schema-related** TXT keys only:
 ```
 cl.verb
 cl.version
@@ -198,18 +208,20 @@ cl.schema.receipt
 cl.cid.schemas
 cl.schemas.mirror.ipfs
 ```
-These TXT fields MUST:
 
-- **match the schema metadata exactly**
-- **resolve to the CID and versioned release** declared in `SECURITY_PROVENANCE.md`
-- **update ONLY** when a new version is released and logged in `RESOLUTION.md`
+These keys MUST:
+- **match the canonical schema metadata exactly**
+- **resolve to the published CID-linked artifacts**
+- be updated **only** when a new version is released and
+  recorded in `RESOLUTION.md`
 
-Resolvers MUST treat any mismatch as an **unauthenticated schema.**
+Resolvers MUST treat any mismatch as an **unauthenticated schema binding** and MUST NOT trust the resolution.
 
-Identity-related TXT fields (e.g. `cl.agentcard`, `cl.entry`) are defined and governed by **Agent-Cards**, not Protocol-Commons.
+Identity + invocation TXT keys (e.g., `cl.entry`, `cl.agentcard`) are governed by **Agent-Cards**, not Protocol-Commons.
 
-## 12. Conformance Requirements
-Implementations MUST:
+---
+
+## 12. Implementations MUST:
 
  1. Validate requests & receipts in Ajv strict (2020-12)
  2. Support schema resolution from $id URLs
@@ -221,20 +233,29 @@ A system supporting ANY canonical verb MAY claim:
 
 **Commons-Compatible**
 
+---
+
 ## 13. Failure Modes
 
 If ANY of the following occur:
 
 - `$id` mismatch
-- Incorrect CID root
-- trace.requestId mismatch
-- status mismatch
-- Request/receipt schema drift
+- CID mismatch between schema and ENS TXT
+- TXT keys missing or malformed
+- Request or receipt fails strict validation
+- Trace does not echo `requestId`
+- Version directory contents differ from published checksums
+- Published artifact mutated in-place
 
-→ Schema is INVALID
-→ Execution MUST be rejected
-→ Incident MUST be logged
+Resolvers MUST treat the result as **untrusted** and SHOULD:
 
+- Reject the request/receipt
+- Emit a diagnostic error
+- Fallback to a known-good version if available
+
+Silent degradation MUST NOT occur.
+
+---
 ## 14. Security
 Protocol-Commons is **Security-Critical Infrastructure:**
 
