@@ -69,12 +69,41 @@ SDKs → Runtimes → x402 → ENS → Receipts
 3. **x402 enables verifiable invocation and settlement**
 
 ---
+## Quickstart
+
+```bash
+npm install @commandlayer/protocol-commons
+
+```
+Import and inspect a canonical verb schema:
+```
+import Ajv from "ajv";
+import analyzeRequest from "@commandlayer/protocol-commons/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json";
+
+const ajv = new Ajv({ strict: true });
+const validate = ajv.compile(analyzeRequest);
+
+const input = {
+  verb: "analyze",
+  content: "CommandLayer defines the semantics of agent behavior."
+};
+
+console.log(validate(input));   // true or false
+console.log(validate.errors);   // schema-aligned diagnostics if invalid
+```
+
+**What this gives you:**
+
+- Deterministic action contracts
+- Runtime-level validation
+- Reliable cross-agent interoperability
+- Immediate SDK/receipt predictability
 
 ### Protocol‐Commons is the **semantic foundation** of the CommandLayer stack.
 
 ## Table of Contents
 - [Overview](#overview)
-- [Why This Exists](#Why-this-exists)
+- [Why this exists](#why-this-exists)
 - [Quickstart](#quickstart)
 - [CommandLayer Protocol Stack](#commandlayer-protocol-stack)
 - [Status](#status)
@@ -163,38 +192,6 @@ Everything else is layered cleanly on top.
 
 ---
 
-## Quickstart
-
-```bash
-npm install @commandlayer/protocol-commons
-
-```
-Import and inspect a canonical verb schema:
-```
-import Ajv from "ajv";
-import analyzeRequest from "@commandlayer/protocol-commons/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json";
-
-const ajv = new Ajv({ strict: true });
-const validate = ajv.compile(analyzeRequest);
-
-const input = {
-  verb: "analyze",
-  content: "CommandLayer defines the semantics of agent behavior."
-};
-
-console.log(validate(input));   // true or false
-console.log(validate.errors);   // schema-aligned diagnostics if invalid
-```
-
-**What this gives you:**
-
-- Deterministic action contracts
-- Runtime-level validation
-- Reliable cross-agent interoperability
-- Immediate SDK/receipt predictability
-
----
-  
 ## CommandLayer Protocol Stack
 ```
 | Layer               | Role                                                              |
@@ -392,6 +389,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
