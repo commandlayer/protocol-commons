@@ -28,8 +28,7 @@ Autonomous agents fail at scale without shared meaning:
 **Protocol-Commons** fixes this with a global action language:
 canonical verbs + JSON Schemas + strict validation.
 
-If agents can’t agree on what actions mean → **nothing works**.
-
+**If agents can’t agree on what actions mean → nothing works.**
 
 ---
 ## Real verbs. Real receipts.
@@ -87,19 +86,18 @@ npx cl-validate examples/v1.0.0/commons/summarize/request.json
 **Programmatic usage**
 ```
 import Ajv from "ajv";
-import req from "@commandlayer/protocol-commons/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json";
+import analyzeRequest from "@commandlayer/protocol-commons/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json";
 
 const ajv = new Ajv({ strict: true });
-const validate = ajv.compile(req);
+const validate = ajv.compile(analyzeRequest);
 
-console.log(validate({
+const input = {
   verb: "analyze",
   content: "CommandLayer defines semantics."
-}));
-
+};
 
 console.log(validate(input));   // true or false
-console.log(validate.errors);   // schema-aligned diagnostics if invalid
+console.log(validate.errors);   // diagnostics if invalid
 ```
 
 ## What Commons enables
@@ -408,6 +406,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
