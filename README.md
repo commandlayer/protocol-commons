@@ -1,6 +1,7 @@
 # **CommandLayer Protocol — Commons**
 
-**Verb & schema layer for machine intent — the foundation of verifiable A2A automation.**
+**The canonical semantic contract for autonomous agents.**  
+**Verbs, schemas, and validation — or nothing interoperates.**
 
 <div align="center">
   <a href="#"><img alt="Stability" src="https://img.shields.io/badge/Status-Stable%20v1.0.0-brightgreen"/></a>
@@ -17,15 +18,34 @@
 
 ----
 
-**Protocol-Commons defines interoperable semantics and typed message contracts for autonomous agents**. 
+Autonomous agents are **breaking in the wild**:
 
-It provides a **neutral, versioned foundation** that ensures multi-agent workflows remain compatible across different runtimes, platforms, and discovery systems. Without this shared verb layer:
+- Every agent reinventing verbs  
+- No shared validation contracts  
+- No trust in execution or receipts  
+- Interop collapses outside a single platform  
 
-- **Routing breaks**
-- **Validation fails**
-- **Multi-agent workflows collapse**
+**Protocol-Commons fixes this** — a **global action language** that lets any agent discover, collaborate, and verify execution across runtimes.
 
+---
+## Real verbs. Real receipts.
 
+```jsonc
+// summarize.request
+{
+  "verb": "summarize",
+  "content": "CommandLayer defines the semantics of agent behavior."
+}
+
+// summarize.receipt
+{
+  "result": "Semantic verb layer for autonomous multi-agent workflows.",
+  "trace": "bafybeieoynknza..."
+}
+```
+
+Same shape — everywhere:
+SDKs → Runtimes → x402 → ENS → Receipts
 
 ## Architecture 
 
@@ -60,11 +80,11 @@ It provides a **neutral, versioned foundation** that ensures multi-agent workflo
 - [Status](#status)
 - [Canonical Verbs](#canonical-verbs)
 - [Repository Structure](#repository-structure)
-- [Manifest](##manifest)
-- [Immutability & Checksums](##immutability--checksums)
-- [Validation](##validation)
-- [License](##license)
-- [Next Layers](##next-layers)
+- [Manifest](#manifest)
+- [Immutability & Checksums](#immutability--checksums)
+- [Validation](#validation)
+- [License](#license)
+- [Next Layers](#next-layers)
 
 ---
 ### Key Principles
@@ -156,19 +176,21 @@ console.log(analyzeRequest.properties); // Typed input contract for "analyze"
 ---
   
 ## CommandLayer Protocol Stack
+```
+| Layer               | Role                                                              |
+|---------------------|-------------------------------------------------------------------|
+| Protocol-Commons    | Canonical verbs & schemas (machine intent grammar)                |
+| Agent-Cards         | Identity, discovery, and invocation metadata                      |
+| Protocol-Commercial | Canonical commercial/economic verbs (schemas & receipt defaults)  |
+| Protocol-Runtime    | Transport adapters, execution, and structured receipts            |
 
-| Layer                   | Role                                               |
-| ----------------------- | -------------------------------------------------- |
-| **Protocol-Commons**    | Canonical verbs & schemas (machine intent grammar) |
-| **Agent-Cards**         | Identity, discovery, and invocation metadata       |
-| **Protocol-Commercial** | Monetized verbs + economic execution guarantees    |
-| **x402 runtime**        | Transport, execution, and structured receipts      |
+```
 
-
-- **Commons** defines *what actions exist* and how they are structured.  
+- **Commons** defines what actions exist and how they are structured.  
 - **Agent-Cards** bind those actions to real agents.  
-- **Protocol-Commercial** defines market-aligned verbs and receipt.
-- **x402 runtime** executes those actions and returns proof
+- **Protocol-Commercial** defines market-aligned economic verbs and receipt schemas.  
+- **Runtime** executes those actions and returns verifiable receipts (optionally over x402).  
+
 
 
 ---
@@ -350,6 +372,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
