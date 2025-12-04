@@ -18,14 +18,18 @@
 
 ----
 
-Autonomous agents are **breaking in the wild**:
+Autonomous agents fail at scale without shared meaning:
 
-- Every agent reinventing verbs  
-- No shared validation contracts  
-- No trust in execution or receipts  
-- Interop collapses outside a single platform  
+- New verbs reinvented everywhere
+- No trustable receipts
+- No cross-runtime interoperability
+- Closed ecosystems with fragile glue logic
 
-**Protocol-Commons fixes this** — a **global action language** that lets any agent discover, collaborate, and verify execution across runtimes.
+**Protocol-Commons** fixes this with a global action language:
+canonical verbs + JSON Schemas + strict validation.
+
+If agents can’t agree on what actions mean → **nothing works**.
+
 
 ---
 ## Real verbs. Real receipts.
@@ -75,31 +79,60 @@ SDKs → Runtimes → x402 → ENS → Receipts
 npm install @commandlayer/protocol-commons
 
 ```
-Import and inspect a canonical verb schema:
+**Validate a request against a canonical verb schema**
+```
+npx cl-validate examples/v1.0.0/commons/summarize/request.json
+# ✓ VALID — trace: bafybeieoynknza...
+```
+**Programmatic usage**
 ```
 import Ajv from "ajv";
-import analyzeRequest from "@commandlayer/protocol-commons/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json";
+import req from "@commandlayer/protocol-commons/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json";
 
 const ajv = new Ajv({ strict: true });
-const validate = ajv.compile(analyzeRequest);
+const validate = ajv.compile(req);
 
-const input = {
+console.log(validate({
   verb: "analyze",
-  content: "CommandLayer defines the semantics of agent behavior."
-};
+  content: "CommandLayer defines semantics."
+}));
+
 
 console.log(validate(input));   // true or false
 console.log(validate.errors);   // schema-aligned diagnostics if invalid
 ```
 
-**What this gives you:**
+## What Commons enables
 
-- Deterministic action contracts
-- Runtime-level validation
-- Reliable cross-agent interoperability
-- Immediate SDK/receipt predictability
+- **Deterministic action contracts**
+- **Runtime-level validation**
+- **Trustable receipts**
+- **Cross-vendor interoperability**
+- **Future-proof machine intent**
 
-### Protocol‐Commons is the **semantic foundation** of the CommandLayer stack.
+Protocol-Commons is the **semantic foundation** of the CommandLayer stack.
+
+---
+
+## Why this exists
+
+Fragmented agents → isolated ecosystems → brittle automation.
+
+Protocol-Commons delivers:
+
+- **Shared semantics**
+- **Typed request/receipt envelopes**
+- **Receipt-level provability**
+- **Portable behavior across runtimes**
+- **Open standards alignment**
+  - JSON Schema 2020-12  
+  - x402  
+  - ERC-8004  
+
+The **language** is open.  
+Economics happen in higher layers.
+
+---
 
 ## Table of Contents
 - [Overview](#overview)
@@ -135,20 +168,6 @@ They form the universal foundation for:
 - **LLM orchestration** 
 - **automated systems**  
 - **x402-aligned** execution flows
-
----
-
-## **Why this exists**
-
-Modern autonomous agents face **fragmentation**:
-
-- Each system invents its own action vocabulary  
-- No consistent request/receipt semantics  
-- Interoperability breaks across products and platforms  
-- Validation behavior diverges without typed guarantees  
-- Trust depends on closed execution environments  
-
-This creates isolated agent ecosystems — difficult to scale, govern, or integrate.
 
 ---
 
@@ -389,6 +408,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
