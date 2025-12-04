@@ -109,32 +109,41 @@ They form the universal foundation for:
 
 ---
 
-## Why this matters right now
+## **Why this exists**
 
-**Modern LLM agents struggle to collaborate**
+Modern autonomous agents face **fragmentation**:
 
-- Every agent invents its own verbs  
-- No shared intent resolution  
-- Validation is non-deterministic  
-- Interop breaks outside single products
+- Each system invents its own action vocabulary  
+- No consistent request/receipt semantics  
+- Interoperability breaks across products and platforms  
+- Validation behavior diverges without typed guarantees  
+- Trust depends on closed execution environments  
 
- **LLM agents break without a canonical verb layer**  
-Protocol-Commons standardizes routing, validation, and interoperability
+This creates isolated agent ecosystems — difficult to scale, govern, or integrate.
 
 ---
 
-## Why this Exists
+**Protocol-Commons** provides a **neutral, versioned foundation** that ensures:
 
-The Commons is the **linguistic core** of CommandLayer — a neutral, MIT-licensed, schema-first action vocabulary for autonomous agents.
+- **Shared semantics** across heterogeneous agent frameworks  
+- **Deterministic validation** of inputs and outputs  
+- **Verifiable receipts** for auditability and proof of execution  
+- **Portable behavior** across runtimes and discovery systems  
+- **Durable interoperability** aligned with open standards  
+  - JSON Schema 2020-12  
+  - x402 (value transport envelope)  
+  - ERC-8004 (agent schema discovery)  
 
-Without a shared canonical action vocabulary:
+---
 
-- agents become incompatible APIs  
-- behaviors drift → validation breaks  
-- chaining fails across ecosystems  
-- trust collapses into private platforms  
+By standardizing **what actions mean**, Protocol-Commons enables:
 
-Protocol-Commons prevents fragmentation — ensuring every agent speaks the same language, validates the same rules, and interoperates trustlessly across any runtime.
+- **Composable multi-agent workflows** across vendors and ecosystems  
+- **Cross-platform automation** without custom glue logic  
+- **Future-proof governance** of action semantics and protocol evolution  
+
+**Commons is the linguistic core of CommandLayer** —  
+the semantic base on which identity, execution, and economic layers depend.
 
 ---
 
@@ -383,6 +392,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
