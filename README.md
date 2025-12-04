@@ -74,7 +74,7 @@ SDKs → Runtimes → x402 → ENS → Receipts
 
 ## Table of Contents
 - [Overview](#overview)
-- [Why This Exists](#why-this-exists)
+- [Why This Exists](#Why-this-exists)
 - [Quickstart](#quickstart)
 - [CommandLayer Protocol Stack](#commandlayer-protocol-stack)
 - [Status](#status)
@@ -162,16 +162,27 @@ npm install @commandlayer/protocol-commons
 ```
 Import and inspect a canonical verb schema:
 ```
+import Ajv from "ajv";
 import analyzeRequest from "@commandlayer/protocol-commons/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json";
 
-console.log(analyzeRequest.$id);        // Deterministic schema ID
-console.log(analyzeRequest.properties); // Typed input contract for "analyze"
-```
-**Use these schemas to:**
+const ajv = new Ajv({ strict: true });
+const validate = ajv.compile(analyzeRequest);
 
-- validate agent requests and receipts
-- generate types
-- enforce consistent behavior across runtimes
+const input = {
+  verb: "analyze",
+  content: "CommandLayer defines the semantics of agent behavior."
+};
+
+console.log(validate(input));   // true or false
+console.log(validate.errors);   // schema-aligned diagnostics if invalid
+```
+
+**What this gives you:**
+
+- Deterministic action contracts
+- Runtime-level validation
+- Reliable cross-agent interoperability
+- Immediate SDK/receipt predictability
 
 ---
   
@@ -372,6 +383,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
