@@ -333,11 +333,15 @@ Commons is designed to remain neutral and stable.
 ---
 
 ## Next Layers
+
 CommandLayer follows a clean separation of concerns:
 
-- **agent-cards** → identity & discovery  
-- **protocol-commercial** → commercial verbs & endpoints  
-- **sdk-js / sdk-python** → runtime implementations & helpers
+- **protocol-commons** → free canonical Commons schemas (specs)
+- **protocol-commercial** → free canonical Commercial schemas (specs)
+- **agent-cards** → identity & discovery for agents
+- **protocol-runtime** → reference execution layer (endpoints, adapters, paywalls)
+- **sdk-js / sdk-python** → client libraries that interact with the runtime
+
 
   ----
 
@@ -346,6 +350,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
