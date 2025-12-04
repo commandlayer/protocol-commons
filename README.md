@@ -50,32 +50,11 @@ canonical verbs + JSON Schemas + strict validation.
 Same shape — everywhere:
 SDKs → Runtimes → x402 → ENS → Receipts
 
-## Architecture 
-
-
-```
-┌────────────────────────────┐
-│ Execution — x402 runtime   │  (execution + settlement)
-└──────────────▲─────────────┘
-               │
-┌──────────────┴─────────────┐
-│ Identity — Agent Cards     │  (identity + discovery)
-└──────────────▲─────────────┘
-               │
-┌──────────────┴─────────────┐
-│ Semantics — Commons        │  (semantics + validation)
-└────────────────────────────┘
-```
-
-1. **Commons defines the verbs**  
-2. **Agent-Cards bind identity**  
-3. **x402 enables verifiable invocation and settlement**
-
 ---
 ## Quickstart
 
 ```bash
-npm install @commandlayer/protocol-commons
+npm install @commandlayer/commons ajv
 
 ```
 **Validate a request against a canonical verb schema**
@@ -406,6 +385,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
