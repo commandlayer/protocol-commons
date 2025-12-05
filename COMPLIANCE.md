@@ -62,15 +62,21 @@ Each release MUST:
 
 - Pin the entire version folder to IPFS
 - Provide SHA-256 checksums
-- Publish manifest.json
+- Publish `manifest.json`
 
 Compliance requires:
+
 - `cl.cid.schemas` resolves to the correct CID
 - IPFS mirrors match HTTP mirrors exactly
 
+Consumers SHOULD verify `checksums.txt` against the published schema
+artifacts prior to use.
+
+Automated resolvers and runtimes MUST verify checksums as part of
+canonical compliance, and MUST reject mismatches.
+
 Mismatch = **integrity failure**
 
----
 
 ## 5. Security & Privacy
 
