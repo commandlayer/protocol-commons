@@ -4,9 +4,9 @@ Welcome to **Protocol-Commons** — the canonical verb + schema layer for autono
 
 This repo defines the **semantic contract**:
 
-- What actions exist (canonical verbs)
-- How requests and receipts are structured (typed schemas)
-- How they bind into x402 envelopes and trace primitives
+- What actions exist (**canonical verbs**)
+- How requests and receipts are structured (**typed schemas**)
+- How they bind into **x402 envelopes** and **trace primitives**
 
 Stable semantics here protect the entire agent ecosystem.
 
@@ -18,8 +18,11 @@ You’re in the right place if you are:
 
 - Protocol / infra engineer defining canonical verbs
 - Agent runtime / router implementer mapping verbs → handlers
-- Validator engineer enforcing JSON Schema standards
+- Validator enforcing strict JSON Schema behavior
 - Contributor extending neutral A2A semantics
+
+> Quick start: implement a Commons verb (e.g., `summarize`) and validate strict request/receipt compatibility.  
+> It gets you typing — not just reading.
 
 For identity metadata + ENS discovery → see **agent-cards**.
 
@@ -27,12 +30,13 @@ For identity metadata + ENS discovery → see **agent-cards**.
 
 ## 2. Mental Model
 
-Protocol-Commons is the bottom layer:
+Protocol-Commons is the **bottom** layer:
 
 ```text
 [ Execution ]   x402 runtimes (invocation + receipts)
 [ Identity  ]   Agent-Cards (discovery + ownership)
 [ Semantics ]   Protocol-Commons (verbs + schemas)
+
 ```
 It answers:
 
