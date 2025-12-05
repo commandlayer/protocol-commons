@@ -21,9 +21,10 @@ We maintain this layer like infrastructure: steady and reliable.
 Email: **dev@commandlayer.org**  
 PGP Fingerprint: **5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A**
 
-Private reporting helps keep agents safe while fixes ship.
+Private reporting helps protect dependent systems while a remediation is prepared.
+If a vulnerability could impact interoperability or cause ecosystem-wide breakage,
+**confidential disclosure is strongly preferred** until a fix is published.
 
----
 
 ## Response Targets
 
