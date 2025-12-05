@@ -5,8 +5,8 @@
 
 <div align="center">
   <a href="#"><img alt="Stability" src="https://img.shields.io/badge/Status-Stable%20v1.0.0-brightgreen"/></a>
-  <a href="https://www.npmjs.com/package/@commandlayer/protocol-commons">
-    <img alt="NPM Version" src="https://img.shields.io/npm/v/@commandlayer/protocol-commons?color=brightgreen"/>
+  <a href="https://www.npmjs.com/package/@commandlayer/commons">
+    <img alt="NPM Version" src="https://img.shields.io/npm/v/@commandlayer/commons?color=brightgreen"/>
   </a>
   <a href="https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml">
     <img alt="CI Status" src="https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml/badge.svg?branch=main"/>
@@ -15,6 +15,7 @@
     <img alt="License" src="https://img.shields.io/badge/License-MIT-blue.svg"/>
   </a>
 </div>
+
 
 ----
 
@@ -53,21 +54,21 @@ SDKs → Runtimes → x402 → ENS → Receipts
 ---
 ## Quickstart
 
-```bash
+```
 npm install @commandlayer/commons ajv
-
 ```
 **Validate a request against a canonical verb schema**
+
 ```
 npx cl-validate examples/v1.0.0/commons/summarize/request.json
 # ✓ VALID — trace: bafybeieoynknza...
 ```
 **Programmatic usage**
-```
+```js
 import Ajv from "ajv";
 import analyzeRequest from "@commandlayer/commons/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json";
 
-const ajv = new Ajv({ strict: true });
+const ajv = new Ajv({ strict: true, allErrors: true });
 const validate = ajv.compile(analyzeRequest);
 
 const input = {
@@ -77,6 +78,7 @@ const input = {
 
 console.log(validate(input));   // true or false
 console.log(validate.errors);   // diagnostics if invalid
+
 
 ```
 
@@ -91,6 +93,27 @@ console.log(validate.errors);   // diagnostics if invalid
 Protocol-Commons is the **semantic foundation** of the CommandLayer stack.
 
 ---
+## Table of Contents
+- [Real verbs. Real receipts.](#real-verbs-real-receipts)
+- [Quickstart](#quickstart)
+- [What Commons enables](#what-commons-enables)
+- [Canonical Verbs](#canonical-verbs)
+- [Why this exists](#why-this-exists)
+- [Overview](#overview)
+- [Key Principles](#key-principles)
+- [This is not…](#this-is-not)
+- [CommandLayer Protocol Stack](#commandlayer-protocol-stack)
+- [Status](#status)
+- [Repository Structure](#repository-structure)
+- [Manifest](#manifest)
+- [Immutability & Checksums](#immutability--checksums)
+- [Validation](#validation)
+- [License](#license)
+- [Next Layers](#next-layers)
+- [References](#references)
+
+---
+
 ## Canonical Verbs
 
 The Commons defines 10 universal actions used across nearly all multi-agent workflows:
@@ -181,26 +204,6 @@ Economics happen in higher layers.
 
 ---
 
-## Table of Contents
-- [Real verbs. Real receipts.](#real-verbs-real-receipts)
-- [Quickstart](#quickstart)
-- [What Commons enables](#what-commons-enables)
-- [Canonical Verbs](#canonical-verbs)
-- [Why this exists](#why-this-exists)
-- [Overview](#overview)
-- [Key Principles](#key-principles)
-- [This is not…](#this-is-not)
-- [CommandLayer Protocol Stack](#commandlayer-protocol-stack)
-- [Status](#status)
-- [Repository Structure](#repository-structure)
-- [Manifest](#manifest)
-- [Immutability & Checksums](#immutability--checksums)
-- [Validation](#validation)
-- [License](#license)
-- [Next Layers](#next-layers)
-- [References](#references)
-
----
 ### Key Principles
 
 - Shared semantics for every autonomous agent  
@@ -391,6 +394,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
