@@ -42,7 +42,7 @@ It answers:
 
 “What is this agent trying to do — and what must this message look like?”
 
-3. Repo Layout
+## 3. Repo Layout
    
 
 | Folder/File                       | Meaning                                 |
