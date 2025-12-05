@@ -43,36 +43,21 @@ It answers:
 “What is this agent trying to do — and what must this message look like?”
 
 3. Repo Layout
-```
-schemas/
-  v1.0.0/
-    _shared/
-      x402.schema.json
-      trace.schema.json
-      receipt.base.schema.json
-    commons/
-      analyze/
-      classify/
-      clean/
-      convert/
-      describe/
-      explain/
-      fetch/
-      format/
-      parse/
-      summarize/
-examples/
-  v1.0.0/commons/<verb>/valid|invalid/*.json
-checksums.txt
-manifest.json
+   
 
-SPEC.md
-POLICY.md
-GOVERNANCE.md
-SECURITY.md
-SECURITY_PROVENANCE.md
-RESOLUTION.md
-```
+| Folder/File                       | Meaning                                 |
+| --------------------------------- | --------------------------------------- |
+| `schemas/v1.0.0/commons/`         | Canonical verb schemas (immutable)      |
+| `schemas/v1.0.0/_shared/`         | Shared primitives (trace/x402/receipts) |
+| `examples/v1.0.0/commons/`        | Valid + invalid test vectors            |
+| `manifest.json` + `checksums.txt` | Integrity + provenance                  |
+| `SPEC.md`                         | Canonical rules                         |
+| `POLICY.md`                       | Schema enforcement rules                |
+| `GOVERNANCE.md`                   | Change authority + approvals            |
+| `SECURITY*.md`                    | Disclosure + provenance                 |
+| `RESOLUTION.md`                   | Change log (signed provenance)          |
+
+
 
 Authoritative docs:
 
