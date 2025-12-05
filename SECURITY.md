@@ -46,4 +46,5 @@ These guarantees keep Commons safe to depend on long-term.
 
 ---
 
-**Status:** Stable • Security-Conscious • Version-Locked
+Status: Stable • Verifiable • Production-grade semantics • v1.0.0 locked
+
