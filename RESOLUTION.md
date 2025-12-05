@@ -24,9 +24,10 @@ If a change is **not** documented here, it is **not** considered valid.
 
 > *(Initial release — no lifecycle changes yet)*
 
-| Date | Verb(s) | Action | Reason | Resolution | Approver(s) |
-|------|---------|--------|--------|------------|-------------|
-| — | — | — | — | — | — |
+| Date | Verb(s) | Action | Class | Reason | Resolution | Approver(s) |
+|------|---------|--------|-------|--------|------------|-------------|
+| —    | —       | —      | —     | —      | —          | —           |
+
 
 ---
 
