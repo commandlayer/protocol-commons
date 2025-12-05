@@ -146,7 +146,6 @@ Requests MUST contain:
 | Field   | Required | Source                      |
 | ------- | -------- | --------------------------- |
 | `x402`  | Yes      | `_shared/x402.schema.json`  |
-| `actor` | Yes      | Freeform identifier         |
 | `trace` | Yes      | `_shared/trace.schema.json` |
 | `input` | Yes      | Verb-specific               |
 
