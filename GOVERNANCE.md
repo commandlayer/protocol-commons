@@ -1,4 +1,4 @@
-# GOVERNANCE — Protocol-Commons (CommandLayer)
+# Governance — Protocol Commons
 
 **Scope:** Protocol-Commons (primary), Agent-Cards (identity bindings)  
 **Status:** v1.0.0 — Stable-Lock  
