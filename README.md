@@ -90,7 +90,76 @@ console.log(validate.errors);   // diagnostics if invalid
 Protocol-Commons is the **semantic foundation** of the CommandLayer stack.
 
 ---
+## Canonical Verbs
 
+The Commons defines 10 universal actions used across nearly all multi-agent workflows:
+
+
+| Verb      | Purpose                                               | Guarantees                                               |
+|-----------|------------------------------------------------------ |----------------------------------------------------------|
+| analyze   | Extract insights from structured or unstructured data | Identifies meaning, relationships, or signals            |
+| classify  | Categorize input according to a known schema          | Deterministic label assignment                           |
+| clean     | Normalize or remove noise from data                   | Output retains meaning with improved quality             |
+| convert   | Transform between formats or representations          | Semantically-equivalent output with different encoding   |
+| describe  | State what something *is*                             | Attributes, context, or defining properties              |
+| explain   | State *why* or *how* something is true                | Causal or relational justification                       |
+| format    | Produce content in a structured/presentable shape     | Output conforms to declared structure                    |
+| parse     | Extract structured meaning from raw input             | Typed output from unstructured content                   |
+| summarize | Compress content while preserving key meaning         | Core information retained; verbosity reduced             |
+| fetch     | Retrieve data from a remote or indirect source        | Integrity of returned content                            |
+
+
+**Each verb defines:**
+
+- a canonical **request** format
+- a canonical **receipt** format
+- strict typing and deterministic envelopes for x402
+
+```
++-----------------------------+
+|  Execution Runtime          |  (action is performed)
++-------------▲---------------+
+              |
+              v
++-----------------------------+
+|  x402 Transport Layer       |  (invocation + settlement)
+|  "How messages move"        |
++-------------▲---------------+
+              |
+              v
++-----------------------------+
+|  Agent Cards (Identity)     |  (ENS discovery + routing)
+|  "Who does what, and where" |
++-------------▲---------------+
+              |
+              v
++-----------------------------+
+|  Protocol-Commons           |  (verbs + schemas)
+|  "What actions mean"        |
++-----------------------------+
+
+```
+**Each verb provides:**
+
+`<verb>.request.schema.json`
+
+`<verb>.receipt.schema.json`
+
+**Schemas define:**
+
+- `input` structure  
+- `output` guarantees  
+- `required fields`  
+- optional context  
+- `x402 envelope` shape  
+- trace metadata  
+- version locking  
+
+No aliases.  
+No ambiguity.  
+**Each verb is an immutable, canonical action definition.**
+
+---
 ## Why this exists
 
 Fragmented agents → isolated ecosystems → brittle automation.
@@ -221,76 +290,7 @@ Everything else is layered cleanly on top.
 This version is the **baseline** for SDKs, registries, resolvers, and identity layers.
 
 ---
-## Canonical Verbs
 
-The Commons defines 10 universal actions used across nearly all multi-agent workflows:
-
-
-| Verb      | Purpose                                               | Guarantees                                               |
-|-----------|------------------------------------------------------ |----------------------------------------------------------|
-| analyze   | Extract insights from structured or unstructured data | Identifies meaning, relationships, or signals            |
-| classify  | Categorize input according to a known schema          | Deterministic label assignment                           |
-| clean     | Normalize or remove noise from data                   | Output retains meaning with improved quality             |
-| convert   | Transform between formats or representations          | Semantically-equivalent output with different encoding   |
-| describe  | State what something *is*                             | Attributes, context, or defining properties              |
-| explain   | State *why* or *how* something is true                | Causal or relational justification                       |
-| format    | Produce content in a structured/presentable shape     | Output conforms to declared structure                    |
-| parse     | Extract structured meaning from raw input             | Typed output from unstructured content                   |
-| summarize | Compress content while preserving key meaning         | Core information retained; verbosity reduced             |
-| fetch     | Retrieve data from a remote or indirect source        | Integrity of returned content                            |
-
-
-**Each verb defines:**
-
-- a canonical **request** format
-- a canonical **receipt** format
-- strict typing and deterministic envelopes for x402
-
-```
-+-----------------------------+
-|  Execution Runtime          |  (action is performed)
-+-------------▲---------------+
-              |
-              v
-+-----------------------------+
-|  x402 Transport Layer       |  (invocation + settlement)
-|  "How messages move"        |
-+-------------▲---------------+
-              |
-              v
-+-----------------------------+
-|  Agent Cards (Identity)     |  (ENS discovery + routing)
-|  "Who does what, and where" |
-+-------------▲---------------+
-              |
-              v
-+-----------------------------+
-|  Protocol-Commons           |  (verbs + schemas)
-|  "What actions mean"        |
-+-----------------------------+
-
-```
-**Each verb provides:**
-
-`<verb>.request.schema.json`
-
-`<verb>.receipt.schema.json`
-
-**Schemas define:**
-
-- `input` structure  
-- `output` guarantees  
-- `required fields`  
-- optional context  
-- `x402 envelope` shape  
-- trace metadata  
-- version locking  
-
-No aliases.  
-No ambiguity.  
-**Each verb is an immutable, canonical action definition.**
-
----
 
 ## Repository Structure
 ```
@@ -385,6 +385,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
