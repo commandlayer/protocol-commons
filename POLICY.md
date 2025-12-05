@@ -1,4 +1,4 @@
-# SCHEMAS_POLICY.md — Protocol-Commons (CommandLayer)
+# Policy
 
 **Scope:** Protocol-Commons  
 **Status:** v1.0.0 — Stable-Lock  
@@ -141,6 +141,7 @@ Silent changes are **forbidden**.
 _Last updated: v1.0.0 — Stable-Lock_  
 Signed: **`commandlayer.eth`**  
 *Founding Steward — CommandLayer Semantic Standards*
+
 
 
 
