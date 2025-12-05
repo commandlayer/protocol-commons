@@ -19,7 +19,10 @@
 
 ----
 
-Autonomous agents fail at scale without shared meaning:
+**Autonomous agents fail at scale without shared meaning —**  
+CommandLayer delivers the shared language of machine intent: stable, open, and versioned.
+
+
 
 - New verbs reinvented everywhere
 - No trustable receipts
@@ -83,11 +86,11 @@ console.log(validate.errors);   // diagnostics if invalid
 ## Table of Contents
 - [Real verbs. Real receipts.](#real-verbs-real-receipts)
 - [Quickstart](#quickstart)
-- [Why this exists](#why-this-exists)
 - [What Commons enables](#what-commons-enables)
+- [Why this exists](#why-this-exists)
 - [Canonical Verbs](#canonical-verbs)
-- [Key Principles](#key-principles)
 - [Overview](#overview)
+- [Key Principles](#key-principles)
 - [This is not…](#this-is-not)
 - [CommandLayer Protocol Stack](#commandlayer-protocol-stack)
 - [Status](#status)
@@ -102,6 +105,23 @@ console.log(validate.errors);   // diagnostics if invalid
 
 ---
 
+## Why this exists
+
+Fragmented agents → isolated ecosystems → brittle automation.
+
+Protocol-Commons delivers:
+
+- **Shared semantics**
+- **Typed request/receipt envelopes**
+- **Receipt-level provability**
+- **Portable behavior across runtimes**
+- **Open standards alignment**
+  - JSON Schema 2020-12  
+  - x402  
+  - ERC-8004
+
+ ---
+    
 ## What Commons enables
 
 - **Deterministic action contracts**
@@ -112,6 +132,7 @@ console.log(validate.errors);   // diagnostics if invalid
 
 Protocol-Commons is the **semantic foundation** of the CommandLayer stack.
 
+---
 
 ## Canonical Verbs
 
@@ -181,25 +202,6 @@ The Commons defines 10 universal actions used across nearly all multi-agent work
 No aliases.  
 No ambiguity.  
 **Each verb is an immutable, canonical action definition.**
-
----
-## Why this exists
-
-Fragmented agents → isolated ecosystems → brittle automation.
-
-Protocol-Commons delivers:
-
-- **Shared semantics**
-- **Typed request/receipt envelopes**
-- **Receipt-level provability**
-- **Portable behavior across runtimes**
-- **Open standards alignment**
-  - JSON Schema 2020-12  
-  - x402  
-  - ERC-8004  
-
-The **language** is open.  
-Economics happen in higher layers.
 
 ---
  
@@ -377,6 +379,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
