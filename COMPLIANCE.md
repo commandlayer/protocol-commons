@@ -1,6 +1,6 @@
 # Compliance — Protocol Commons
 
-This document defines what it means to be **Protocol-Commons compliant** and how to maintain that status over time.
+This document defines what it means to be Protocol-Commons compliant and how to **assert** and **maintain** that status over time.
 
 ---
 
@@ -16,8 +16,8 @@ These rules apply to:
 This document only summarizes TXT responsibilities.  
 The canonical definitions and enforcement rules are specified in:  
 - `SPEC.md` (Protocol-Commons)
-
-In case of discrepancy, SPEC.md is authoritative.
+ 
+Compliance cannot override normative definitions in SPEC.md.
 
 Compliance covers semantics and schema integrity only—identity bindings are governed by Agent-Cards.
 
