@@ -57,6 +57,8 @@ SDKs → Runtimes → x402 → ENS → Receipts**
 ---
 ## Quickstart
 
+Install Commons + AJV:
+
 ```
 npm install @commandlayer/commons ajv
 ```
@@ -66,8 +68,9 @@ npm install @commandlayer/commons ajv
 npx cl-validate examples/v1.0.0/commons/summarize/request.json
 # ✓ VALID — trace: bafybeieoynknza...
 ```
-**Programmatic usage**
-```js
+**Programmatic usage (Node.js/ESM)**
+
+```
 import Ajv from "ajv";
 import analyzeRequest from "@commandlayer/commons/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json";
 
@@ -82,7 +85,12 @@ const input = {
 console.log(validate(input));   // true or false
 console.log(validate.errors);   // diagnostics if invalid
 ```
+**Generate TypeScript types directly from schemas** for zero-drift validation:
+```
+npx ajv compile -s schemas/v1.0.0 -o dist/types.d.ts
+```
 ---
+
 ## Table of Contents
 - [Real verbs. Real receipts.](#real-verbs-real-receipts)
 - [Quickstart](#quickstart)
@@ -115,7 +123,7 @@ Protocol-Commons delivers:
 - **Typed request/receipt envelopes**
 - **Receipt-level provability**
 - **Portable behavior across runtimes**
-- **Open standards alignment**
+- **Open standards alignment → one shared language for all autonomous agents**
   - JSON Schema 2020-12  
   - x402  
   - ERC-8004
@@ -379,6 +387,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
