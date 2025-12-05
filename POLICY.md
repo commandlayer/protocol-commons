@@ -1,107 +1,156 @@
-# Schemas Policy — Protocol Commons
+# SCHEMAS_POLICY.md — Protocol-Commons (CommandLayer)
 
-This document governs the creation, evolution, and stability of all canonical schemas within the Protocol Commons layer of CommandLayer.
+**Scope:** Protocol-Commons  
+**Status:** v1.0.0 — Stable-Lock  
 
-Machine interoperability depends on **predictable**, **verifiable**, and **non-breaking** behavior. These rules ensure that autonomous agents integrating Protocol Commons never lose trust in the core semantics.
+This document is **NORMATIVE and ENFORCEABLE**.  
+Machine interoperability depends on **predictable**, **verifiable**, and **non-breaking** semantics.
+
+Protocol-Commons defines the **canonical language of agent intent**.  
+All schemas under this layer MUST comply with this policy.
 
 ---
 
-## 1. Canonical Verb Requirements
+## 1. Canonical Verb Requirements — NORMATIVE
 
-A canonical verb MUST:
+A **Commons** (canonical) verb MUST:
 
 - Be a **single lowercase word**
 - Have exactly **one** interpretation
 - Be **domain-neutral** and non-commercial
-- Be approved through governance review PRIOR to publication
+- Pass governance review **prior to publication**
 
-Commons verbs SHALL NOT encode:
+Canonical **Commons** verbs SHALL NOT encode:
 
-- Payments or finance
-- Authentication or identity proofing
-- Business-specific logic
+- Payments, invoicing, authorization, or settlement  
+- Authentication or identity proofing  
+- Business, policy, or market-specific logic  
 
-Those belong to **Commercial** standards.
+> Economic and business semantics belong to **Commercial** verbs —  
+> their schemas are permanently free, but NOT considered Commons.
 
 ---
 
-## 2. Required Artifacts Per Verb
+## 2. Directory Layout — NORMATIVE
 
-Each verb MUST include:
+Each Commons verb MUST follow this **exact directory structure**:
+```
+schemas/v1.0.0/commons/<verb>/requests/<verb>.request.schema.json
+schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
+schemas/v1.0.0/examples/<verb>/valid/.json
+schemas/v1.0.0/examples/<verb>/invalid/.json
+```
 
-- `requests/<verb>.request.schema.json`
-- `receipts/<verb>.receipt.schema.json`
-- Valid + invalid example sets:
+No aliases, shortcuts, or alternate layouts permitted.
 
-`examples/valid/.json`
-`examples/invalid/.json`
+---
 
-vbnet
-Copy code
-Schematics MUST reference shared primitives under:
+## 3. JSON Schema Requirements — NORMATIVE
 
+All Protocol-Commons schemas MUST:
+
+- Use JSON Schema Draft **2020-12**
+- Validate under Ajv **strict** mode
+- Include `"additionalProperties": false` on every object
+- Define `$id` deterministically:
+```
+https://commandlayer.org/schemas/v1.0.0/commons/
+<verb>/requests/<verb>.request.schema.json
+```
+
+Schemas MUST reference shared primitives only from:
+```
 schemas/v1.0.0/_shared/
+```
+
+No external schema dependencies permitted.
 
 ---
 
-## 3. JSON Schema Requirements
+## 4. x402 Alignment — NORMATIVE
 
-- Draft **2020-12**
-- Ajv **strict** validation
-- `"additionalProperties": false`
-- Deterministic `$id` structure:
+All **requests MUST contain**:
 
-https://commandlayer.org/schemas/v1.0.0/commons/<verb>/requests/<verb>.request.schema.json
-https://commandlayer.org/schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
+- `x402.verb = <verb>`
+- `x402.version = "1.0.0"`
 
+All **receipts MUST contain**:
 
-Directory layout MUST NOT vary.
+- `x402.status = "ok" | "error"`
 
----
+Receipts MUST echo:
 
-## 4. x402 Alignment (Normative)
+- `trace.requestId`
+- `$id` and CID of request schema
 
-**All requests MUST define:**
-
-- x402.verb = <verb>
-- x402.version = "1.0.0"
-
-
-**All receipts MUST define:**
-
-`x402.status = "ok" | "error"`
-
-Trace MUST echo `request.trace.requestId`.
+This guarantees **verifiable interaction lineage**.
 
 ---
 
-## 5. Immutability
+## 5. Immutable Semantics — Anti-Rug
 
 Once published:
 
-- No modification permitted in-place
-- Breaking change → new major version dir
-- Additive change → minor version dir
-- Example/docs fixes → patch version
+- **NO** in-place semantic modification permitted
+- Breaking behavior change → **major** version (`v2.0.0`)
+- Additive change → **minor** version
+- Documentation/example fixes → **patch** version
 
 New versions MUST include:
 
-- Updated CIDs
-- Updated checksums
-- ENS TXT update where applicable
+- Updated **CIDs + SHA-256 checksums**
+- Required TXT binding updates where governed
+
+Historical versions MUST remain **resolvable forever**.
 
 ---
 
-## 6. Governance Compliance
+## 6. Validity Requirements — NORMATIVE
 
-Every change MUST:
+Every Commons verb MUST provide:
 
-- Have an issue link
-- Pass CI validation
-- Be recorded in `RESOLUTION.md`
-- Be signed by governance maintainer
+- Minimum **3 valid** example instances
+- Minimum **3 invalid** example instances including:
+  - missing required fields
+  - incorrect types
+  - unauthorized extra properties
+
+CI MUST enforce:
+
+- No failing examples
+- No unreferenced files
+- No schema drift across commits
+
+> A verb without test vectors is NOT canonical.
 
 ---
 
-_Last updated: v1.0.0 — Stable-Lock_
+## 7. Governance Compliance — NORMATIVE
+
+All semantic changes MUST:
+
+1. Reference an Issue requesting change  
+2. Pass validation CI  
+3. Be recorded in `RESOLUTION.md`  
+4. Be signed by governance maintainer  
+
+Silent changes are **forbidden**.
+
+---
+
+_Last updated: v1.0.0 — Stable-Lock_  
+Signed: **`commandlayer.eth`**  
+*Founding Steward — CommandLayer Semantic Standards*
+
+
+
+
+
+
+
+
+
+
+
+
 
