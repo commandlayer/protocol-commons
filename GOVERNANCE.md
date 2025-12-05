@@ -100,9 +100,9 @@ TXT semantics are partitioned:
 
 | Prefix | Authority | Meaning | Mutation Allowed? |
 |--------|-----------|---------|------------------|
-| `cl.schema.*` | Commons | Semantic bindings | ❌ NEVER |
-| `cl.agentcard` | Agent-Cards | Identity binding | ❌ NEVER (per version) |
-| `cl.runtime.*` | Runtime | Operational endpoints | ✔ Yes, logged |
+| `cl.schema.*` | Commons | Semantic bindings |  NEVER |
+| `cl.agentcard` | Agent-Cards | Identity binding |  NEVER (per version) |
+| `cl.runtime.*` | Runtime | Operational endpoints |  Yes, logged |
 
 Resolvers MUST:
 
