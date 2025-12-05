@@ -99,8 +99,8 @@ Protocol-Commons is the **semantic foundation** of the CommandLayer stack.
 - [What Commons enables](#what-commons-enables)
 - [Canonical Verbs](#canonical-verbs)
 - [Why this exists](#why-this-exists)
-- [Overview](#overview)
 - [Key Principles](#key-principles)
+- [Overview](#overview)
 - [This is not…](#this-is-not)
 - [CommandLayer Protocol Stack](#commandlayer-protocol-stack)
 - [Status](#status)
@@ -111,6 +111,7 @@ Protocol-Commons is the **semantic foundation** of the CommandLayer stack.
 - [License](#license)
 - [Next Layers](#next-layers)
 - [References](#references)
+
 
 ---
 
@@ -394,6 +395,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
