@@ -65,7 +65,7 @@ npx cl-validate examples/v1.0.0/commons/summarize/request.json
 **Programmatic usage**
 ```
 import Ajv from "ajv";
-import analyzeRequest from "@commandlayer/protocol-commons/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json";
+import analyzeRequest from "@commandlayer/commons/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json";
 
 const ajv = new Ajv({ strict: true });
 const validate = ajv.compile(analyzeRequest);
@@ -77,6 +77,7 @@ const input = {
 
 console.log(validate(input));   // true or false
 console.log(validate.errors);   // diagnostics if invalid
+
 ```
 
 ## What Commons enables
@@ -390,6 +391,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
