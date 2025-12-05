@@ -32,12 +32,12 @@ For identity metadata + ENS discovery → see **agent-cards**.
 
 Protocol-Commons is the **bottom** layer:
 
-```text
+```
 [ Execution ]   x402 runtimes (invocation + receipts)
 [ Identity  ]   Agent-Cards (discovery + ownership)
 [ Semantics ]   Protocol-Commons (verbs + schemas)
-
 ```
+
 It answers:
 
 “What is this agent trying to do — and what must this message look like?”
