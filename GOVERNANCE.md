@@ -1,9 +1,9 @@
-# GOVERNANCE — CommandLayer Protocol Commons
+# GOVERNANCE — CommandLayer Protocol
 
-**Applies To:** Protocol-Commons, Agent-Cards  
+**Applies To:** Protocol-Commons, Protocol-Commercial, Agent-Cards  
 **Status:** v1.0.0 — Stable-Lock  
 
-> This document is **NORMATIVE and ENFORCEABLE**.  
+> This document is **NORMATIVE, ENFORCEABLE, AND PERMANENT**.  
 > Governance is custodial today and **designed to decentralize** over time.
 
 ---
@@ -14,225 +14,180 @@
 
 Responsible for:
 
-- Canonical Protocol-Commons + Agent-Cards standards  
-- Signed manifests + checksum provenance  
-- Normative version approvals  
-- Transparency + receipt of all changes  
-- Security revocation + incident response  
+- Maintaining canonical Commons + Commercial semantics  
+- Publishing signed manifests + checksums  
+- Approving normative version changes  
+- Security revocations + provenance logging  
+- Transparency and public accountability  
 
-> The Founding Steward protects **semantic stability** until multi-party governance takes over.
+> The Steward protects **semantic stability** until multi-party governance takes over.
 
-### 1.1 Governance Phases
+### 1.1 Decentralization Roadmap
 
-| Phase | Governance Structure | Trigger |
-|------|---------------------|---------|
-| **1 — Bootstrap** | Single-operator Safe | Initial public release |
-| **2 — Multi-maintainer** | ≥3 independent implementers in a shared Safe | Cross-vendor production use |
-| **3 — Standards Committee** | Public proposal + review; multi-stakeholder Safe | Widespread ecosystem reliance |
-| **4 — Neutral Standards Body** | Community-elected representatives | Global adoption |
+| Phase | Governance | Trigger |
+|------|------------|---------|
+| 1 — Bootstrap | Single-operator Safe | Initial ecosystem adoption |
+| 2 — Multi-Maintainer | ≥3 independent vendors in Safe | Cross-vendor production usage |
+| 3 — Standards Committee | Public proposal + review | Widespread interoperability reliance |
+| 4 — Neutral Standards Body | Community-elected seats | Global normative standard |
 
-> Phase advancement requires **vendor diversity**: no two operators may be majority-affiliated.
-
----
-
-### 1.2 Rug-Resistance Guarantee
-
-Canonical semantics:
-
-- CANNOT be revoked or made paywalled  
-- CANNOT change without recorded approval  
-- CANNOT drift silently  
-
-All normative state is:
-
-- **Content-addressed** (CIDs)  
-- **Version-locked**  
-- **Publicly auditable**
-
-> Protocol governance **preserves permissionless interoperability forever**.
-
----
-
-### 1.3 Open Stewardship Path
-
-Once Phase 2 triggers:
-
-- Governance seats MUST be open to public application  
-- Qualifications MUST prioritize neutrality + ecosystem contribution  
-- All selections MUST be logged in `SECURITY_PROVENANCE.md`
-
-> Governance is open to growth — not capture.
-
----
-
-### 1.4 External Participation
-
-Eligible stakeholders include:
+New governance participants SHALL be recruited from:
 
 - ENS DAO  
-- Ethereum Foundation  
-- Independent runtime + schema implementers  
-- Infrastructure operators  
-- Academic / open standards orgs  
+- Ethereum Foundation contributors  
+- Neutral infra & runtime operators  
+- Academic and open-standards bodies  
 
-Participation MUST align with:
-
-- Free access to canonical schemas  
-- Rug-resistant semantics  
-- Cross-ecosystem interoperability  
+Vendor diversity is REQUIRED — no single affiliation may dominate control.
 
 ---
 
 ## 2. Scope of Authority — NORMATIVE
 
-Governance MAY define:
+Governance **MAY** define:
 
-- Canonical verb semantics  
-- JSON Schema rules  
-- TXT semantics tied to identity + invocation  
-- Transparency + provenance requirements  
+- Semantic contracts (Commons + Commercial schemas)
+- TXT semantics for identity + invocation
+- Transparency + versioning requirements
 
-Governance MUST NOT dictate:
+Governance **MUST NOT** dictate:
 
-- Runtime topology  
 - Execution pricing  
-- Proprietary commercial logic  
-- Business models of implementers  
+- Runtime topology  
+- Settlement mechanisms  
+- Vendor-specific commercial logic
 
-> CommandLayer sets the **language**, not the **economics**.
+> **Commons + Commercial define language.  
+> Agent-Cards bind identity.  
+> Runtime governs execution and economics.**
 
 ---
 
-## 3. Token Governance Rule
+## 3. Immutable Semantic Guarantees (Anti-Rug)
 
-Token-based control:
+Once published:
 
-- **MUST NOT** be introduced before Phase 3  
-- Any introduction **REQUIRES** community motion + recorded rationale  
-- Tokens MUST NOT introduce **pay-to-govern** dynamics  
+- **Schemas:** `$id`, CID, and versioned TXT keys MAY NOT change  
+- **Agent-Cards:** historical versions MUST remain resolvable  
+- **Governance artifacts:** MUST preserve full historical context  
 
-> Tokens are a **last resort**, not a founding primitive.
+Attempts to mutate semantics in place MUST be treated as **untrusted**.
+
+Schemas are **permanently free** under MIT/Apache-2.0 — irrevocable rights.
+
+> **Semantics are public infrastructure — forever.**
 
 ---
 
 ## 4. Change Classes
 
-| Change Type | Examples | Version Rule | Audit Requirement |
-|------------|----------|--------------|------------------|
-| **Normative** | Schema, TXT semantics | `1 → 2` | `RESOLUTION.md` |
-| **Compatibility-affecting** | Field tightening | `1.0 → 1.1` | `RESOLUTION.md` |
-| **Non-behavioral** | Docs, naming | `1.0.0 → 1.0.1` | Git history |
+| Change | Version Rule | Required Log |
+|-------|--------------|--------------|
+| **Normative** (behavior change) | `1 → 2` | `RESOLUTION.md` |
+| **Compat-affecting** | `1.0 → 1.1` | `RESOLUTION.md` |
+| **Non-behavioral** | `1.0.0 → 1.0.1` | Commit history |
 
-All changes MUST update CIDs + checksums.
-
----
-
-## 5. Immutability Guarantees
-
-Once a version is published:
-
-- No file mutation  
-- No `$id` changes  
-- No CID changes  
-
-Violations REQUIRE revocation + new version.
+CIDs + checksums MUST be published for every semantic release.
 
 ---
 
-## 6. Release Policy
+## 5. Release Requirements
 
 Valid releases MUST include:
 
-- Full CI validation (strict mode)  
-- Signed IPFS CID + checksums  
+- Strict validation CI passing  
+- Signed IPFS CIDs + checksums  
 - Updated transparency artifacts:
-  - `SPEC.md`, `SECURITY_PROVENANCE.md`, `RESOLUTION.md`, `VERSIONING.md`  
+  - `SPEC.md`, `VERSIONING.md`, `SECURITY_PROVENANCE.md`, `RESOLUTION.md`
 
-> **Atomic + verifiable — or not valid.**
+> **Atomic. Verified. Immutable. Or not valid.**
 
 ---
 
-## 7. TXT Responsibility Split — NORMATIVE
+## 6. TXT Governance (NORMATIVE)
 
-- **Protocol-Commons**: TXT semantics for **schema**
-- **Agent-Cards**: TXT semantics for **identity + invocation**
+TXT semantics are partitioned:
+
+| Prefix | Authority | Meaning | Mutation Allowed? |
+|--------|-----------|---------|------------------|
+| `cl.schema.*` | Commons + Commercial | Semantic schemas | ❌ NEVER |
+| `cl.agentcard` | Agent-Cards | Identity binding | ❌ NEVER (per version) |
+| `cl.runtime.*` | Runtime | Execution endpoints | ✔ Yes, logged |
 
 Resolvers MUST:
 
-- Reject mismatches between TXT + published manifests  
-- Treat ungoverned TXT as **UNTRUSTED**  
+- Reject TXT → CID mismatches  
+- Treat unauthorized TXT keys as **UNTRUSTED**  
+- Honor immutability of versioned schema keys  
 
-Unauthorized TXT keys are **forbidden**.
+> **Schema TXT keys are sacred. Runtime keys are operational.**
 
 ---
 
-## 8. Security Governance
+## 7. ENS Custody Model — NORMATIVE
 
-Steward MUST:
+Canonical ENS:
 
-- Enforce `SECURITY*.md` requirements  
-- Respond to disclosures within **7 days**  
-- Require signed replacements after compromise  
-- Log revocations transparently  
+- `commandlayer.eth`  
+- `{verb}agent.eth` identities  
+
+Custody MUST be a **3-of-5 Safe** once Phase 2 triggers:
+
+- Signers hardware-backed  
+- All signer identities disclosed in `SECURITY_PROVENANCE.md`  
+- Rotation MUST be logged as governance action  
+
+**No single key** can change canonical TXT state.
+
+---
+
+## 8. Runtime Governance Boundary
+
+- Runtime **MAY** set and rotate `cl.runtime.*`
+- Runtime **MAY** define pricing and SLAs
+- Runtime **MAY** provide commercial execution
+
+Runtime MUST NOT:
+
+- Alter semantic contracts  
+- Shadow governed schema keys  
+- Introduce proprietary lock-in of verbs
+
+> **Execution is business.  
+> Semantics are public goods.**
+
+---
+
+## 9. Dispute Resolution
+
+1. Public Issue opened  
+2. Evidence + impact review  
+3. Governance decision + rationale  
+4. Permanent entry in `RESOLUTION.md`  
 
 Emergency revocation MAY bypass full review to protect users.
 
-Independent third-party validation MUST be possible at all times.
-
 ---
 
-## 9. Dispute Resolution Protocol
-
-1. Log a public Issue  
-2. Evidence review  
-3. Governance decision with rationale  
-4. Permanent entry in `RESOLUTION.md`  
-
----
-
-## 10. ENS Registry Custody — NORMATIVE
-
-Canonical ENS names:
-
-- `commandlayer.eth`  
-- `{verb}agent.eth` canonical identity bindings  
-
-Custody MUST be via a **multi-signature Safe**:
-
-- Minimum **3-of-5** threshold  
-- Hardware-secured signer keys  
-- All signers published in `SECURITY_PROVENANCE.md`  
-- Rotation MUST be logged as governance action  
-
-> No single key can alter canonical TXT state.
-
-**Decentralization Trigger:** Start Phase 2  
-➝ ≥3 independent production implementers.
-
-ENS authority MUST remain **public infrastructure**, not a private asset.
-
-Any action restricting interoperability is a **governance violation**.
-
----
-
-## 11. Compatibility Claims
+## 10. Compatibility Claims
 
 Software MAY claim:
 
 - **Commons-Compatible**
+- **Commercial-Compatible**
 - **Agent-Cards-Compatible**
 
-Only if:
+ONLY if:
 
-- Canonical CID / `$id` alignment  
-- Ajv strict schema compliance  
-- Verified x402 envelope semantics  
-- Receipt + trace integrity  
+- CID + `$id` validation  
+- Ajv strict mode  
+- Timestamp-protected trace + receipts  
+- Conformance with this Governance  
 
-False claims **require enforcement**.
+False claims REQUIRE enforcement.
 
 ---
 
 _Last updated: v1.0.0 — Stable-Lock_  
-Signed: **commandlayer.eth**  
+Signed: **`commandlayer.eth`**  
 *Founding Steward — CommandLayer Standards*
