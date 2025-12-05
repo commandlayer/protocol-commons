@@ -48,8 +48,8 @@ canonical verbs + JSON Schemas + strict validation.
 }
 ```
 
-Same shape — everywhere:
-SDKs → Runtimes → x402 → ENS → Receipts
+**Same shape — everywhere:
+SDKs → Runtimes → x402 → ENS → Receipts**
 
 ---
 ## Quickstart
@@ -78,27 +78,14 @@ const input = {
 
 console.log(validate(input));   // true or false
 console.log(validate.errors);   // diagnostics if invalid
-
-
 ```
-
-## What Commons enables
-
-- **Deterministic action contracts**
-- **Runtime-level validation**
-- **Trustable receipts**
-- **Cross-vendor interoperability**
-- **Future-proof machine intent**
-
-Protocol-Commons is the **semantic foundation** of the CommandLayer stack.
-
 ---
 ## Table of Contents
 - [Real verbs. Real receipts.](#real-verbs-real-receipts)
 - [Quickstart](#quickstart)
+- [Why this exists](#why-this-exists)
 - [What Commons enables](#what-commons-enables)
 - [Canonical Verbs](#canonical-verbs)
-- [Why this exists](#why-this-exists)
 - [Key Principles](#key-principles)
 - [Overview](#overview)
 - [This is not…](#this-is-not)
@@ -114,6 +101,17 @@ Protocol-Commons is the **semantic foundation** of the CommandLayer stack.
 
 
 ---
+
+## What Commons enables
+
+- **Deterministic action contracts**
+- **Runtime-level validation**
+- **Trustable receipts**
+- **Cross-vendor interoperability**
+- **Future-proof machine intent**
+
+Protocol-Commons is the **semantic foundation** of the CommandLayer stack.
+
 
 ## Canonical Verbs
 
@@ -204,12 +202,6 @@ The **language** is open.
 Economics happen in higher layers.
 
 ---
-
-### Key Principles
-
-- Shared semantics for every autonomous agent  
-- Deterministic request + receipt schemas  
-- Plug-and-play with Agent Cards + x402
  
 ## Overview
 
@@ -227,28 +219,18 @@ They form the universal foundation for:
 
 ---
 
-**Protocol-Commons** provides a **neutral, versioned foundation** that ensures:
+### Key Principles
 
-- **Shared semantics** across heterogeneous agent frameworks  
-- **Deterministic validation** of inputs and outputs  
-- **Verifiable receipts** for auditability and proof of execution  
-- **Portable behavior** across runtimes and discovery systems  
-- **Durable interoperability** aligned with open standards  
-  - JSON Schema 2020-12  
-  - x402 (value transport envelope)  
-  - ERC-8004 (agent schema discovery)  
+- **Shared semantics** — every autonomous agent speaks the same actions  
+- **Deterministic envelopes** — strict request & receipt schemas, version-locked  
+- **Trustable execution** — verifiable, auditable receipts across runtimes  
+- **Portable behavior** — identical contract shapes across vendors & ecosystems  
+- **Neutral governance** — open, MIT-licensed semantics with immutable history  
+- **Standards aligned** — JSON Schema 2020-12, x402 transport, ERC-8004 discovery  
 
----
-
-By standardizing **what actions mean**, Protocol-Commons enables:
-
-- **Composable multi-agent workflows** across vendors and ecosystems  
-- **Cross-platform automation** without custom glue logic  
-- **Future-proof governance** of action semantics and protocol evolution  
-
-**Commons is the linguistic core of CommandLayer** —  
-the semantic base on which identity, execution, and economic layers depend.
-
+> Commons is the **linguistic core** of CommandLayer —  
+> the foundation on which identity, execution, and economic layers depend.
+> 
 ---
 
 ## This is not…
@@ -395,6 +377,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
