@@ -26,7 +26,7 @@ Execution, payment, identity, and routing are the domain of other layers.
 The Commons is the **lowest** layer of the CommandLayer Standard Stack:
 ```
 ┌────────────────────────────┐
-│ Execution — x402 runtime   │ (value + invocation)
+│ Execution — Runtime layer  │ (value + invocation)
 └──────────────▲─────────────┘
 │
 ┌──────────────┴─────────────┐
@@ -216,6 +216,7 @@ Auditors and resolvers MUST:
    
 3. Treat any mismatch as an integrity failure and reject trust 
 `schemas/v1.0.0/` is immutable.
+
 Any semantic change requires a new version directory.
 
 ---
