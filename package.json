@@ -8,6 +8,14 @@
   "engines": {
     "node": ">=20.0.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commandlayer/protocol-commons.git"
+  },
+  "homepage": "https://commandlayer.org",
+  "bugs": {
+    "url": "https://github.com/commandlayer/protocol-commons/issues"
+  },
   "keywords": [
     "agent",
     "agents",
