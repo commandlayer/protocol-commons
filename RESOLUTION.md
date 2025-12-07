@@ -22,12 +22,11 @@ If a change is **not** documented here, it is **not** considered valid.
 
 ## Decision Log
 
-> *(Initial release — no lifecycle changes yet)*
+| Date       | Verb(s)                                                                                                                                                                     | Action | Class   | Reason                     | Resolution                                                                                                              | Approver(s)      |
+|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|---------|----------------------------|-------------------------------------------------------------------------------------------------------------------------|-----------------|
+| 2025-12-06 | analyze, classify, clean, convert, describe, explain, fetch, format, parse, summarize                                                                                       | Added  | Commons | Initial canonical verb set | v1.0.0 published — immutable directory `schemas/v1.0.0/` — CID: `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m` | Founding Steward |
 
-| Date | Verb(s) | Action | Class | Reason | Resolution | Approver(s) |
-|------|---------|--------|-------|--------|------------|-------------|
-| —    | —       | —      | —     | —      | —          | —           |
-
+> Any future semantic change requires a **new version directory** and **new CID** prior to approval and publication in this Resolution Log.
 
 ---
 
@@ -44,7 +43,7 @@ If a change is **not** documented here, it is **not** considered valid.
 
 ---
 
-Maintainers should read before any merge:
+Maintainers must review before any merge:
 - `SPEC.md`
 - `GOVERNANCE.md`
 - `SECURITY_PROVENANCE.md`
