@@ -37,10 +37,10 @@ It MUST protect:
 - TXT keys that bind semantic truth (`cl.schema.*`)
 
 ### Commons MUST NOT govern:
-- Pricing or economics  
-- Runtime topology  
-- Execution performance or SLAs  
-- Vendor-specific commercial logic  
+- Pricing or economics
+- Runtime topology
+- Execution performance or SLAs
+- Vendor-specific commercial logic
 
 Commercial and Runtime layers MUST remain **subordinate**:
 
@@ -48,6 +48,10 @@ Commercial and Runtime layers MUST remain **subordinate**:
 > Semantics are public goods.**
 
 Commercial schemas may reference Commons semantics — they **may not alter them**.
+
+
+- **SPEC.md is the single source of normative truth.**  
+- Where documents disagree, **SPEC.md SHALL prevail** without exception.
 
 ---
 
@@ -133,6 +137,12 @@ No single key may modify canonical semantics.
 ---
 
 ## 7. Change Classification
+
+**All** normative proposals **MUST** originate from a public GitHub Issue linked to a PR.  
+Silent or undocumented changes are **STRICTLY FORBIDDEN.**
+
+
+
 
 | Change Class | Version Rule | Required Log |
 |--------------|--------------|--------------|
