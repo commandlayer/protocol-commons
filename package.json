@@ -1,13 +1,40 @@
 {
-  "name": "@commandlayer/protocol-commons",
+  "name": "@commandlayer/commons",
   "version": "1.0.0",
-  "description": "CommandLayer — canonical verb + schema layer for autonomous agents. A2A + x402 + ERC-8004 aligned.",
+  "description": "ERC-8004 and x402-aligned canonical verbs and strict JSON Schemas for autonomous agents — immutable semantics, trustable receipts, and cross-runtime interoperability.",
   "private": false,
   "type": "module",
   "license": "MIT",
   "engines": {
     "node": ">=20.0.0"
   },
+  "keywords": [
+    "agent",
+    "agents",
+    "ai-agents",
+    "autonomous-agents",
+    "commandlayer",
+    "ens",
+    "erc8004",
+    "interoperability",
+    "json-schema",
+    "machine-intent",
+    "m2m",
+    "protocol",
+    "schema-validation",
+    "schemas",
+    "semantics",
+    "trustless",
+    "x402"
+  ],
+  "files": [
+    "schemas/",
+    "examples/",
+    "checksums.txt",
+    "manifest.json",
+    "README.md"
+  ],
+  "main": "schemas/v1.0.0/index.json",
   "devDependencies": {
     "ajv": "^8.17.1",
     "ajv-cli": "^5.0.0",
@@ -18,10 +45,9 @@
     "validate:schema": "node scripts/ajv-run.mjs",
     "validate:schemas": "node scripts/validate-all.mjs",
     "validate:examples": "node scripts/validate-examples.mjs",
-    "generate:checksums": "node scripts/generate-checksums.mjs schemas/v1.0.0 checksums.txt",
-    "scan:unionTypes": "node scripts/find-union-types.mjs",
     "validate:all": "npm run validate:schemas && npm run validate:examples",
     "validate": "npm run validate:all",
-    "generate\\:checksums": "node scripts/generate-checksums.mjs > checksums.txt"
+    "generate:checksums": "node scripts/generate-checksums.mjs schemas/v1.0.0 checksums.txt",
+    "scan:unionTypes": "node scripts/find-union-types.mjs"
   }
 }
