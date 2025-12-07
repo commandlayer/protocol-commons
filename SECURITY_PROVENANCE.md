@@ -24,7 +24,7 @@ Releases are **reproducible and content-addressed**.
 Current canonical version: **v1.0.0**
 
 Integrity sources:
-- **CID:** `bafybeieoynknzalaojwpzjzjy77kpnfe4kla5io7jbfnmyu7w7vyvuljpq`
+- **CID:** `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
 - `checksums.txt` — file-level hashes
 - CI strict validation (Ajv)
 - `RESOLUTION.md` — immutable lifecycle history
@@ -68,3 +68,4 @@ Recovery requires **transparent governance** — never mutation in place.
 ---
 
 **Status:** Stable • Verifiable • Production-grade semantics • v1.0.0 locked
+
