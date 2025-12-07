@@ -295,16 +295,40 @@ This version is the **baseline** for SDKs, registries, resolvers, and identity l
 
 
 ## Repository Structure
-```
+```text
 protocol-commons/
-├── schemas/v1.0.0/
-│   ├── commons/<verb>/requests/
-│   ├── commons/<verb>/receipts/
-│   └── _shared/
-├── examples/v1.0.0/<verb>/
+├── schemas/
+│   └── v1.0.0/
+│       ├── commons/
+│       │   └── <verb>/
+│       │       ├── requests/
+│       │       │   └── <verb>.request.schema.json
+│       │       └── receipts/
+│       │           └── <verb>.receipt.schema.json
+│       └── _shared/
+│           ├── x402.schema.json
+│           ├── trace.schema.json
+│           └── receipt.base.schema.json
+├── examples/
+│   └── v1.0.0/
+│       └── commons/
+│           └── <verb>/
+│               ├── valid/
+│               │   └── *.json
+│               └── invalid/
+│                   └── *.json
 ├── checksums.txt
 ├── manifest.json
+├── SPEC.md
+├── POLICY.md
+├── GOVERNANCE.md
+├── SECURITY.md
+├── SECURITY_PROVENANCE.md
+├── COMPLIANCE.md
+├── RESOLUTION.md
+├── ONBOARDING.md
 └── README.md
+
 ```
 
 ## Manifest
@@ -387,6 +411,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
