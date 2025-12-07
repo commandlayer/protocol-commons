@@ -18,6 +18,22 @@
 
 
 ----
+
+## Why Now
+
+Autonomous agents are finally leaving the lab — but without shared meaning, they fragment into isolated API silos.
+
+CommandLayer establishes the first **semantic contract for agents**:
+
+- **ENS** provides universal identity
+- **x402** enables verifiable machine-to-machine execution
+- **Protocol-Commons** defines **the shared language** those machines speak
+
+This is the foundation of the machine economy —  
+**without semantics, nothing interoperates.**
+
+---
+
 > **Integrity Notice — Protocol-Commons v1.0.0**
 >
 > Canonical schemas are pinned and immutable:
@@ -32,20 +48,21 @@
 > Any mismatch indicates **untrusted or modified artifacts**.
 > New versions MUST use a new version directory + new CID.
 
-**Autonomous agents fail at scale without shared meaning —**  
-CommandLayer delivers the shared language of machine intent: stable, open, and versioned.
+---
 
+Without a shared verb layer, ecosystems degrade into:
 
+- Ad-hoc verbs and incompatible dialects  
+- No trustable receipts  
+- No cross-runtime interoperability  
+- Closed vendor silos with fragile glue logic  
 
-- New verbs reinvented everywhere
-- No trustable receipts
-- No cross-runtime interoperability
-- Closed ecosystems with fragile glue logic
+**Protocol-Commons** fixes this with a global, canonical **action language**:
 
-**Protocol-Commons** fixes this with a global action language:
-canonical verbs + JSON Schemas + strict validation.
+- Verbs + JSON Schemas + strict validation =  
+- **Machine intent you can trust.**
 
-**If agents can’t agree on what actions mean → nothing works.**
+If agents can’t agree on what actions mean → **nothing works.**
 
 ---
 ## Real verbs. Real receipts.
@@ -273,7 +290,7 @@ Everything else is layered cleanly on top.
 ---
 
 ## CommandLayer Protocol Stack
-```
+
 | Layer               | Role                                                              |
 |---------------------|-------------------------------------------------------------------|
 | Protocol-Commons    | Canonical verbs & schemas (machine intent grammar)                |
@@ -281,7 +298,7 @@ Everything else is layered cleanly on top.
 | Protocol-Commercial | Canonical commercial/economic verbs (schemas & receipt defaults)  |
 | Protocol-Runtime    | Transport adapters, execution, and structured receipts            |
 
-```
+
 
 - **Commons** defines what actions exist and how they are structured.  
 - **Agent-Cards** bind those actions to real agents.  
@@ -424,6 +441,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
