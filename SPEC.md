@@ -212,6 +212,8 @@ Auditors and resolvers MUST:
 
    ```bash
    sha256sum -c checksums.txt
+   ```
+   
 3. Treat any mismatch as an integrity failure and reject trust 
 `schemas/v1.0.0/` is immutable.
 Any semantic change requires a new version directory.
