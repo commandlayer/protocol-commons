@@ -18,6 +18,19 @@
 
 
 ----
+> **Integrity Notice — Protocol-Commons v1.0.0**
+>
+> Canonical schemas are pinned and immutable:
+> `schemas/v1.0.0/` — CID:
+> `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
+>
+> Verify integrity locally:
+> ```bash
+> sha256sum -c checksums.txt
+> ```
+>
+> Any mismatch indicates **untrusted or modified artifacts**.
+> New versions MUST use a new version directory + new CID.
 
 **Autonomous agents fail at scale without shared meaning —**  
 CommandLayer delivers the shared language of machine intent: stable, open, and versioned.
@@ -411,6 +424,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
