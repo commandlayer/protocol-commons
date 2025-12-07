@@ -195,8 +195,30 @@ Any mutation requires:
 - Governance approval
 
 ---
+## 11. Provenance & Integrity (NORMATIVE)
 
-## 11. Discovery + ENS TXT Responsibilities
+The canonical Protocol-Commons v1.0.0 release is uniquely identified by:
+
+- Version directory: `schemas/v1.0.0/`
+- Git tag: `commons-v1.0.0`
+- IPFS directory CID:
+  `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
+- File-level hashes: `checksums.txt` (SHA-256)
+
+Auditors and resolvers MUST:
+
+1. Fetch `schemas/v1.0.0/` via HTTP(S) or IPFS using the canonical CID
+2. Verify integrity:
+
+   ```bash
+   sha256sum -c checksums.txt
+3. Treat any mismatch as an integrity failure and reject trust 
+`schemas/v1.0.0/` is immutable.
+Any semantic change requires a new version directory.
+
+---
+
+## 12. Discovery + ENS TXT Responsibilities
 
 Protocol-Commons governs **schema-related** TXT keys only:
 ```
@@ -220,7 +242,7 @@ Identity + invocation TXT keys (e.g., `cl.entry`, `cl.agentcard`) are governed b
 
 ---
 
-## 12. Implementations MUST:
+## 13. Implementations MUST:
 
  1. Validate requests & receipts in Ajv strict (2020-12)
  2. Support schema resolution from $id URLs
@@ -234,7 +256,7 @@ A system supporting ANY canonical verb MAY claim:
 
 ---
 
-## 13. Failure Modes
+## 14. Failure Modes
 
 If ANY of the following occur:
 
@@ -255,7 +277,7 @@ Resolvers MUST treat the result as **untrusted** and SHOULD:
 Silent degradation MUST NOT occur.
 
 ---
-## 14. Security
+## 15. Security
 Protocol-Commons is **Security-Critical Infrastructure:**
 
 - No PII
