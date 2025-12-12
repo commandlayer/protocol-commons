@@ -23,6 +23,16 @@ CommandLayer establishes the first **semantic contract for agents**:
 This is the foundation of the machine economy —  
 **without semantics, nothing interoperates.**
 
+----
+
+### Canonical Release & Immutability
+
+Protocol-Commons v1.0.0 is the canonical, immutable semantic layer of CommandLayer.
+
+• Canonical release branch: `release/v1`  
+• Canonical tag: `commons-v1.0.0-canonical`  
+• All schemas are pinned and content-addressed under `schemas/v1.0.0`
+
 ---
 
 > **Integrity Notice — Protocol-Commons v1.0.0**
@@ -55,7 +65,8 @@ Without a shared verb layer, ecosystems degrade into:
 
 If agents can’t agree on what actions mean → **nothing works.**
 
----
+----
+
 ## Real verbs. Real receipts.
 
 ```jsonc
@@ -432,6 +443,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
