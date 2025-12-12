@@ -1,0 +1,6 @@
+
+# Local/dev junk (do not commit)
+node_modules/
+package-lock.json
+commons-consumer-test/
+NUL
