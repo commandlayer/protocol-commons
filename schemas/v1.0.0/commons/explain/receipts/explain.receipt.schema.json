@@ -1,0 +1,87 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/explain/receipts/explain.receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "explain.receipt",
+  "description": "Receipt for an explain request, including the explanation and optional reasoning steps.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/receipt.base.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "x402": {
+          "description": "x402 envelope describing the verb and version for this receipt.",
+          "allOf": [
+            {
+              "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "verb": { "const": "explain" },
+                "version": { "const": "1.0.0" }
+              },
+              "required": ["verb", "version"]
+            }
+          ]
+        },
+        "result": {
+          "description": "Explanation result payload.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "explanation": {
+              "description": "Natural language explanation tailored to the requested audience.",
+              "type": "string",
+              "minLength": 1
+            },
+            "steps": {
+              "description": "Optional step-by-step breakdown of the reasoning.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 512
+              },
+              "maxItems": 64
+            },
+            "summary": {
+              "description": "Optional short summary of the explanation.",
+              "type": "string",
+              "minLength": 1
+            },
+            "references": {
+              "description": "Optional references or pointers used for this explanation.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 512
+              },
+              "maxItems": 64
+            }
+          },
+          "required": ["explanation"]
+        },
+        "usage": {
+          "description": "Optional resource usage metrics for this invocation.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "input_tokens": { "type": "integer", "minimum": 0 },
+            "output_tokens": { "type": "integer", "minimum": 0 },
+            "total_tokens": { "type": "integer", "minimum": 0 },
+            "cost": {
+              "description": "Optional cost for this call in provider-defined units.",
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "required": ["result"]
+    }
+  ]
+}

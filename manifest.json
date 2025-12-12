@@ -1,0 +1,80 @@
+{
+  "name": "@commandlayer/protocol-commons",
+  "version": "1.0.0",
+  "description": "Canonical verb + schema layer for CommandLayer Protocol Commons (v1.0.0).",
+  "owner": "commandlayer.eth",
+  "contact": "dev@commandlayer.org",
+  "license": "MIT",
+
+  "repository": "https://github.com/commandlayer/protocol-commons",
+  "homepage": "https://commandlayer.org",
+
+  "schemas_root": "schemas/v1.0.0",
+  "examples_root": "examples/v1.0.0",
+  "checksum_file": "checksums.txt",
+  "schemas_cid": "bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m",
+  "tag": "commons-v1.0.0",
+
+  "verbs": [
+    {
+      "name": "classify",
+      "category": "cognition",
+      "request_schema": "schemas/v1.0.0/commons/classify/requests/classify.request.schema.json",
+      "receipt_schema": "schemas/v1.0.0/commons/classify/receipts/classify.receipt.schema.json"
+    },
+    {
+      "name": "clean",
+      "category": "transform",
+      "request_schema": "schemas/v1.0.0/commons/clean/requests/clean.request.schema.json",
+      "receipt_schema": "schemas/v1.0.0/commons/clean/receipts/clean.receipt.schema.json"
+    },
+    {
+      "name": "convert",
+      "category": "transform",
+      "request_schema": "schemas/v1.0.0/commons/convert/requests/convert.request.schema.json",
+      "receipt_schema": "schemas/v1.0.0/commons/convert/receipts/convert.receipt.schema.json"
+    },
+    {
+      "name": "describe",
+      "category": "cognition",
+      "request_schema": "schemas/v1.0.0/commons/describe/requests/describe.request.schema.json",
+      "receipt_schema": "schemas/v1.0.0/commons/describe/receipts/describe.receipt.schema.json"
+    },
+    {
+      "name": "explain",
+      "category": "cognition",
+      "request_schema": "schemas/v1.0.0/commons/explain/requests/explain.request.schema.json",
+      "receipt_schema": "schemas/v1.0.0/commons/explain/receipts/explain.receipt.schema.json"
+    },
+    {
+      "name": "format",
+      "category": "transform",
+      "request_schema": "schemas/v1.0.0/commons/format/requests/format.request.schema.json",
+      "receipt_schema": "schemas/v1.0.0/commons/format/receipts/format.receipt.schema.json"
+    },
+    {
+      "name": "parse",
+      "category": "structure",
+      "request_schema": "schemas/v1.0.0/commons/parse/requests/parse.request.schema.json",
+      "receipt_schema": "schemas/v1.0.0/commons/parse/receipts/parse.receipt.schema.json"
+    },
+    {
+      "name": "summarize",
+      "category": "cognition",
+      "request_schema": "schemas/v1.0.0/commons/summarize/requests/summarize.request.schema.json",
+      "receipt_schema": "schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json"
+    },
+    {
+      "name": "analyze",
+      "category": "cognition",
+      "request_schema": "schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json",
+      "receipt_schema": "schemas/v1.0.0/commons/analyze/receipts/analyze.receipt.schema.json"
+    },
+    {
+      "name": "fetch",
+      "category": "io",
+      "request_schema": "schemas/v1.0.0/commons/fetch/requests/fetch.request.schema.json",
+      "receipt_schema": "schemas/v1.0.0/commons/fetch/receipts/fetch.receipt.schema.json"
+    }
+  ]
+}

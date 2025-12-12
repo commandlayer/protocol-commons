@@ -1,0 +1,29 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/_shared/verb.aliases.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "verb.aliases",
+  "description": "Schema for CommandLayer verb alias documents: a canonical verb and a list of alias strings.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["canonical", "aliases"],
+  "properties": {
+    "canonical": {
+      "description": "Canonical verb name as used in x402, ERC-8004, and schema IDs.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "aliases": {
+      "description": "List of alternate spellings or synonyms for this verb. Non-normative; SDKs MAY use these for routing.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 64
+      },
+      "minItems": 1,
+      "maxItems": 16,
+      "uniqueItems": true
+    }
+  }
+}

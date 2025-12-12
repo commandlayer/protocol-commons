@@ -1,0 +1,122 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/parse/requests/parse.request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "parse.request",
+  "description": "Request to parse unstructured or semi-structured content into a structured representation (e.g., JSON, fields, entities) with explicit limits and channel metadata.",
+  "type": "object",
+  "additionalProperties": false,
+
+  "properties": {
+    "x402": {
+      "description": "x402 envelope describing the verb, version, and optional routing metadata.",
+      "allOf": [
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "verb": { "const": "parse" },
+            "version": { "const": "1.0.0" }
+          },
+          "required": ["verb", "version"]
+        }
+      ]
+    },
+
+    "actor": {
+      "description": "Logical caller identifier (ENS, DID, or internal principal).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+
+    "limits": {
+      "description": "Execution limits and constraints for this parse operation.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_output_tokens": {
+          "description": "Maximum output tokens/characters allowed for the parsed structure.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "timeout_ms": {
+          "description": "Hard timeout for this operation in milliseconds.",
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+
+    "channel": {
+      "description": "Channel capabilities and modalities for this call.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "protocol": {
+          "description": "Logical protocol (e.g., https, wss, xrpc).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "input_modalities": {
+          "description": "Modalities accepted for input (e.g., text, json).",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "output_modalities": {
+          "description": "Modalities produced as output (e.g., json).",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
+        }
+      },
+      "required": ["protocol", "input_modalities", "output_modalities"]
+    },
+
+    "input": {
+      "description": "Content to parse and hints about the desired structure.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "Raw content to be parsed.",
+          "type": "string",
+          "minLength": 1
+        },
+        "content_type": {
+          "description": "Hint of the input type (e.g., plain, markdown, json, yaml, csv, log).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "target_schema": {
+          "description": "URI or identifier of the target schema for the parsed output (if known).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "mode": {
+          "description": "Parsing mode preference.",
+          "type": "string",
+          "enum": ["strict", "best_effort"]
+        }
+      },
+      "required": ["content"]
+    }
+  },
+
+  "required": ["x402", "actor", "limits", "channel", "input"]
+}

@@ -1,0 +1,127 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/explain/requests/explain.request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "explain.request",
+  "description": "Request to explain a concept, decision, or output, tailored to a specific audience and detail level.",
+  "type": "object",
+  "additionalProperties": false,
+
+  "properties": {
+    "x402": {
+      "description": "x402 envelope describing the verb, version, and optional routing metadata.",
+      "allOf": [
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "verb": { "const": "explain" },
+            "version": { "const": "1.0.0" }
+          },
+          "required": ["verb", "version"]
+        }
+      ]
+    },
+
+    "actor": {
+      "description": "Logical caller identifier (ENS, DID, or internal principal).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+
+    "limits": {
+      "description": "Execution limits and constraints for this explanation.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_output_tokens": {
+          "description": "Maximum output tokens/characters allowed.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "timeout_ms": {
+          "description": "Hard timeout for this operation in milliseconds.",
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+
+    "channel": {
+      "description": "Channel capabilities and modalities for this call.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "protocol": {
+          "description": "Logical protocol (e.g., https, wss, xrpc).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "input_modalities": {
+          "description": "Modalities accepted for input.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "output_modalities": {
+          "description": "Modalities produced as output.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
+        }
+      },
+      "required": ["protocol", "input_modalities", "output_modalities"]
+    },
+
+    "input": {
+      "description": "Subject and context to explain, plus target audience and style.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "subject": {
+          "description": "What should be explained (e.g., a concept, decision, or output).",
+          "type": "string",
+          "minLength": 1
+        },
+        "context": {
+          "description": "Optional surrounding context or raw snippet to ground the explanation.",
+          "type": "string",
+          "minLength": 1
+        },
+        "audience": {
+          "description": "Intended audience (e.g., novice, expert, legal, product-manager).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "style": {
+          "description": "Optional style hint (e.g., step-by-step, analogy, formal).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "detail_level": {
+          "description": "Desired level of detail.",
+          "type": "string",
+          "enum": ["short", "medium", "long"]
+        }
+      },
+      "required": ["subject"]
+    }
+  },
+
+  "required": ["x402", "actor", "limits", "channel", "input"]
+}

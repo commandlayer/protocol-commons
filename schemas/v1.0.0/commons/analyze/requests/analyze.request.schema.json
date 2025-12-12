@@ -1,0 +1,66 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "analyze.request",
+  "description": "Request to analyze content for patterns, anomalies, structure, or meaning.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "x402": {
+      "description": "x402 envelope describing the verb, version, and optional routing metadata.",
+      "allOf": [
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "verb": { "const": "analyze" },
+            "version": { "const": "1.0.0" }
+          },
+          "required": ["verb", "version"]
+        }
+      ]
+    },
+    "input": {
+      "description": "Content to analyze (text, JSON, or encoded payload).",
+      "type": "string",
+      "minLength": 1
+    },
+    "goal": {
+      "description": "High-level purpose of the analysis (e.g., risk assessment, classification, quality review).",
+      "type": "string",
+      "minLength": 1
+    },
+    "hints": {
+      "description": "Optional free-form hints, instructions, or questions to guide the analysis.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "maxItems": 32
+    },
+    "limits": {
+      "description": "Optional execution limits for this analysis.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_tokens": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "timeout_ms": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "metadata": {
+      "description": "Opaque caller-defined metadata that does not affect semantics.",
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": ["x402", "input"]
+}

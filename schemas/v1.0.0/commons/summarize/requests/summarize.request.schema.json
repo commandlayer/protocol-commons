@@ -1,0 +1,201 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/summarize/requests/summarize.request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "summarize.request",
+  "description": "Request to summarize content with explicit limits, channel, auth, and optional delegation/handoff metadata.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["x402", "actor", "limits", "input", "channel"],
+  "properties": {
+    "x402": {
+      "description": "x402 envelope describing the verb and version for this request.",
+      "allOf": [
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "verb": { "const": "summarize" },
+            "version": { "const": "1.0.0" }
+          },
+          "required": ["verb", "version"]
+        }
+      ]
+    },
+
+    "actor": {
+      "type": "string",
+      "description": "Logical caller identifier or subject (wallet, account, or system).",
+      "minLength": 1,
+      "maxLength": 256
+    },
+
+    "limits": {
+      "type": "object",
+      "description": "Guardrails for output size and cost.",
+      "additionalProperties": false,
+      "required": ["max_output_tokens"],
+      "properties": {
+        "max_output_tokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32768
+        },
+        "max_latency_ms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600000,
+          "description": "Optional upper bound on end-to-end latency."
+        },
+        "max_cost_usd": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Optional soft ceiling for cost accounting."
+        }
+      }
+    },
+
+    "input": {
+      "type": "object",
+      "description": "Content to summarize and optional instructions.",
+      "additionalProperties": false,
+      "required": ["content"],
+      "properties": {
+        "content": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 250000
+        },
+        "format_hint": {
+          "type": "string",
+          "description": "Optional hint: e.g. 'markdown', 'html', 'plain'.",
+          "maxLength": 64
+        },
+        "summary_style": {
+          "type": "string",
+          "description": "High-level style hint such as 'bullet_points', 'narrative', 'exec_brief'.",
+          "maxLength": 64
+        }
+      }
+    },
+
+    "channel": {
+      "type": "object",
+      "description": "A2A-style channel metadata: how this request is transported and what modalities are expected.",
+      "additionalProperties": false,
+      "required": ["protocol", "input_modalities", "output_modalities"],
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "enum": ["https", "http", "websocket", "sse", "json-rpc"]
+        },
+        "input_modalities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["text", "json", "file"]
+          },
+          "minItems": 1
+        },
+        "output_modalities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["text", "json"]
+          },
+          "minItems": 1
+        },
+        "endpoint": {
+          "type": "string",
+          "description": "Concrete endpoint URI used for this invocation (e.g., https://api.example.com/a2a/tasks).",
+          "minLength": 1,
+          "maxLength": 2048
+        }
+      }
+    },
+
+    "auth": {
+      "type": "object",
+      "description": "Authentication material (A2A-style). Concrete credentials are deployment-specific.",
+      "additionalProperties": false,
+      "properties": {
+        "scheme": {
+          "type": "string",
+          "enum": ["none", "api_key", "oauth2", "signed_message"]
+        },
+        "api_key_id": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "oauth2_client_id": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "signature": {
+          "type": "string",
+          "description": "Optional detached signature (e.g., EIP-191 or other scheme).",
+          "maxLength": 4096
+        }
+      }
+    },
+
+    "delegation": {
+      "type": "object",
+      "description": "Swarm-style handoff/delegation hints for multi-agent flows.",
+      "additionalProperties": false,
+      "properties": {
+        "allowed": {
+          "type": "boolean",
+          "description": "Whether summarizeagent is allowed to handoff to another agent."
+        },
+        "targets": {
+          "type": "array",
+          "description": "Preferred downstream agents (ENS names or URIs).",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        },
+        "policy": {
+          "type": "string",
+          "description": "Handoff policy: 'auto', 'manual', or 'none'.",
+          "enum": ["auto", "manual", "none"]
+        },
+        "reason": {
+          "type": "string",
+          "description": "Optional human-readable reason for requesting delegation.",
+          "maxLength": 1024
+        }
+      }
+    },
+
+    "context": {
+      "type": "object",
+      "description": "Cross-agent shared context metadata for Swarm/A2A style message histories.",
+      "additionalProperties": false,
+      "properties": {
+        "conversation_id": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "parent_task_id": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "thread": {
+          "type": "array",
+          "description": "Minimal structured history; concrete format is left to implementers.",
+          "items": { "type": "object" }
+        }
+      }
+    },
+
+    "metadata": {
+      "type": "object",
+      "description": "Free-form, non-normative metadata; MUST NOT affect core semantics.",
+      "additionalProperties": true
+    }
+  }
+}

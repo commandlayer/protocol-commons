@@ -1,0 +1,87 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/analyze/receipts/analyze.receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "analyze.receipt",
+  "description": "Receipt for an analyze request, including derived insights and optional labels.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/receipt.base.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "x402": {
+          "description": "x402 envelope describing the verb and version for this receipt.",
+          "allOf": [
+            {
+              "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "verb": { "const": "analyze" },
+                "version": { "const": "1.0.0" }
+              },
+              "required": ["verb", "version"]
+            }
+          ]
+        },
+        "result": {
+          "description": "Analysis result payload.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "summary": {
+              "description": "High-level natural language summary of the analysis.",
+              "type": "string",
+              "minLength": 1
+            },
+            "insights": {
+              "description": "Key findings, observations, or flagged items.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "maxItems": 128
+            },
+            "labels": {
+              "description": "Optional labels or categories assigned to the input.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "maxItems": 64
+            },
+            "score": {
+              "description": "Optional normalized score (e.g., risk, quality) between 0 and 1.",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": ["summary"]
+        },
+        "usage": {
+          "description": "Optional resource usage metrics for this invocation.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "input_tokens": { "type": "integer", "minimum": 0 },
+            "output_tokens": { "type": "integer", "minimum": 0 },
+            "total_tokens": { "type": "integer", "minimum": 0 },
+            "cost": {
+              "description": "Optional cost for this call in provider-defined units.",
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "required": ["result"]
+    }
+  ]
+}

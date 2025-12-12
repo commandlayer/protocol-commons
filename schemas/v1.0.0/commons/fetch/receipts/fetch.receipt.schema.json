@@ -1,0 +1,71 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/fetch/receipts/fetch.receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "fetch.receipt",
+  "description": "Receipt for a fetch request, including the items retrieved and pagination cursor if applicable.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/receipt.base.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "x402": {
+          "description": "x402 envelope describing the verb and version for this receipt.",
+          "allOf": [
+            {
+              "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "verb": { "const": "fetch" },
+                "version": { "const": "1.0.0" }
+              },
+              "required": ["verb", "version"]
+            }
+          ]
+        },
+        "result": {
+          "description": "Fetched items and optional pagination information.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "items": {
+              "description": "Array of items returned by the fetch operation.",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "description": "An individual fetched item. Structure is source-specific.",
+                "additionalProperties": true
+              }
+            },
+            "next_cursor": {
+              "description": "Opaque pagination cursor for retrieving additional items, if available.",
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": ["items"]
+        },
+        "usage": {
+          "description": "Optional resource usage metrics for this invocation.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "input_tokens": { "type": "integer", "minimum": 0 },
+            "output_tokens": { "type": "integer", "minimum": 0 },
+            "total_tokens": { "type": "integer", "minimum": 0 },
+            "cost": {
+              "description": "Optional cost for this call in provider-defined units.",
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "required": ["result"]
+    }
+  ]
+}

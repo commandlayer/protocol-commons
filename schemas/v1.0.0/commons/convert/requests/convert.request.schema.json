@@ -1,0 +1,122 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/convert/requests/convert.request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "convert.request",
+  "description": "Request to convert content from one format or schema to another (e.g., HTML->Markdown, JSON->CSV).",
+  "type": "object",
+  "additionalProperties": false,
+
+  "properties": {
+    "x402": {
+      "description": "x402 envelope describing the verb, version, and optional routing metadata.",
+      "allOf": [
+        {
+          "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "verb": { "const": "convert" },
+            "version": { "const": "1.0.0" }
+          },
+          "required": ["verb", "version"]
+        }
+      ]
+    },
+
+    "actor": {
+      "description": "Logical caller identifier (ENS, DID, or internal principal).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+
+    "limits": {
+      "description": "Execution limits and constraints for this conversion.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_output_tokens": {
+          "description": "Maximum output tokens/characters allowed.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "timeout_ms": {
+          "description": "Hard timeout for this operation in milliseconds.",
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+
+    "channel": {
+      "description": "Channel capabilities and modalities for this call.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "protocol": {
+          "description": "Logical protocol (e.g., https, wss, xrpc).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "input_modalities": {
+          "description": "Modalities accepted for input.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
+        },
+        "output_modalities": {
+          "description": "Modalities produced as output.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "minItems": 1,
+          "maxItems": 8
+        }
+      },
+      "required": ["protocol", "input_modalities", "output_modalities"]
+    },
+
+    "input": {
+      "description": "Content to convert and format details.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "description": "Raw content to be converted.",
+          "type": "string",
+          "minLength": 1
+        },
+        "source_format": {
+          "description": "Declared source format (e.g., html, markdown, json, csv).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "target_format": {
+          "description": "Requested target format.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "options": {
+          "description": "Optional conversion options (e.g., preserve_links, pretty_print).",
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "required": ["content", "source_format", "target_format"]
+    }
+  },
+
+  "required": ["x402", "actor", "limits", "channel", "input"]
+}

@@ -1,0 +1,43 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/_shared/identity.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "identity",
+  "description": "Shared logical identity envelope for actors in CommandLayer (humans, apps, or agents).",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "description": "Opaque logical identifier for the actor (user ID, system ID, etc.).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "display_name": {
+      "description": "Optional human-readable display name.",
+      "type": "string",
+      "maxLength": 256
+    },
+    "wallet": {
+      "description": "Optional EVM wallet address associated with this identity.",
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$"
+    },
+    "ens": {
+      "description": "Optional ENS name associated with this identity.",
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 253
+    },
+    "role": {
+      "description": "Optional role of this actor in the interaction (e.g., user, system, agent).",
+      "type": "string",
+      "maxLength": 64
+    },
+    "metadata": {
+      "description": "Optional additional metadata about the actor. Safe to log.",
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": ["id"]
+}

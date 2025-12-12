@@ -1,0 +1,83 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/format/receipts/format.receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "format.receipt",
+  "description": "Receipt for a format request, including formatted content and any applied style details.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/receipt.base.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "x402": {
+          "description": "x402 envelope describing the verb and version for this receipt.",
+          "allOf": [
+            {
+              "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "verb": { "const": "format" },
+                "version": { "const": "1.0.0" }
+              },
+              "required": ["verb", "version"]
+            }
+          ]
+        },
+        "result": {
+          "description": "Formatting result payload.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "formatted_content": {
+              "description": "The formatted output content.",
+              "type": "string",
+              "minLength": 1
+            },
+            "style": {
+              "description": "Style actually applied (e.g., markdown, bullet-list, table).",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "original_length": {
+              "description": "Length of the original content.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "formatted_length": {
+              "description": "Length of the formatted content.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "notes": {
+              "description": "Optional notes about formatting decisions or truncation.",
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": ["formatted_content"]
+        },
+        "usage": {
+          "description": "Optional resource usage metrics for this invocation.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "input_tokens": { "type": "integer", "minimum": 0 },
+            "output_tokens": { "type": "integer", "minimum": 0 },
+            "total_tokens": { "type": "integer", "minimum": 0 },
+            "cost": {
+              "description": "Optional cost for this call in provider-defined units.",
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "required": ["result"]
+    }
+  ]
+}

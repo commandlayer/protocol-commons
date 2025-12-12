@@ -1,0 +1,84 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.0.0/commons/parse/receipts/parse.receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "parse.receipt",
+  "description": "Receipt for a parse request, including the parsed structure and confidence/provenance details.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/receipt.base.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "x402": {
+          "description": "x402 envelope describing the verb and version for this receipt.",
+          "allOf": [
+            {
+              "$ref": "https://commandlayer.org/schemas/v1.0.0/_shared/x402.schema.json"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "verb": { "const": "parse" },
+                "version": { "const": "1.0.0" }
+              },
+              "required": ["verb", "version"]
+            }
+          ]
+        },
+        "result": {
+          "description": "Parsing result payload.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "parsed": {
+              "description": "Parsed structured representation (e.g., JSON object).",
+              "type": "object",
+              "additionalProperties": true
+            },
+            "target_schema": {
+              "description": "Schema actually used by the provider, if any.",
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            },
+            "confidence": {
+              "description": "Confidence score in [0,1] for the parsed output.",
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "warnings": {
+              "description": "Optional warnings encountered during parsing.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "maxItems": 128
+            }
+          },
+          "required": ["parsed"]
+        },
+        "usage": {
+          "description": "Optional resource usage metrics for this invocation.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "input_tokens": { "type": "integer", "minimum": 0 },
+            "output_tokens": { "type": "integer", "minimum": 0 },
+            "total_tokens": { "type": "integer", "minimum": 0 },
+            "cost": {
+              "description": "Optional cost for this call in provider-defined units.",
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      },
+      "required": ["result"]
+    }
+  ]
+}
