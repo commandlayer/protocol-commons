@@ -10,14 +10,7 @@ const repoRoot = path.resolve(__dirname, "..");
 
 // Which paths to include in checksums
 const ROOTS = [
-  "schemas/v1.0.0",
-  "examples/v1.0.0",
-  "manifest.json",
-  "POLICY.md",
-  "SPEC.md",
-  "README.md",
-  "SECURITY.md",
-  "SECURITY_PROVENANCE.md"
+  "schemas/v1.0.0",  
 ];
 
 // Paths to skip entirely
