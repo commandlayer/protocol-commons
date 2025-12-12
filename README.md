@@ -3,11 +3,6 @@
 **The canonical semantic contract for autonomous agents.**  
 **Verbs, schemas, and validation — or nothing interoperates.**
 
-
-> **Note:** The canonical protocol release lives on the `release/v1` branch  
-> (tag: `commons-v1.0.0-canonical`).  
-> This branch (`main`) contains development history and living documentation.
-
 [![Status](https://img.shields.io/badge/Status-Stable%20v1.0.0-brightgreen)](https://github.com/commandlayer/protocol-commons)
 [![NPM Version](https://img.shields.io/npm/v/@commandlayer/commons)](https://www.npmjs.com/package/@commandlayer/commons)
 [![CI Status](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml)
@@ -437,6 +432,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
