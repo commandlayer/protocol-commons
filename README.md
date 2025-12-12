@@ -3,18 +3,11 @@
 **The canonical semantic contract for autonomous agents.**  
 **Verbs, schemas, and validation — or nothing interoperates.**
 
-<div align="center">
-  <a href="#"><img alt="Stability" src="https://img.shields.io/badge/Status-Stable%20v1.0.0-brightgreen"/></a>
-  <a href="https://www.npmjs.com/package/@commandlayer/commons">
-    <img alt="NPM Version" src="https://img.shields.io/npm/v/@commandlayer/commons?color=brightgreen"/>
-  </a>
-  <a href="https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml">
-    <img alt="CI Status" src="https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml/badge.svg?branch=main"/>
-  </a>
-  <a href="./LICENSE">
-    <img alt="License" src="https://img.shields.io/badge/License-MIT-blue.svg"/>
-  </a>
-</div>
+[![Status](https://img.shields.io/badge/Status-Stable%20v1.0.0-brightgreen)](https://github.com/commandlayer/protocol-commons)
+[![NPM Version](https://img.shields.io/npm/v/@commandlayer/commons)](https://www.npmjs.com/package/@commandlayer/commons)
+[![CI Status](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/commandlayer/protocol-commons/blob/main/LICENSE)
+
 
 
 ----
@@ -441,6 +434,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
