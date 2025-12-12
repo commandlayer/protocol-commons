@@ -1,6 +1,6 @@
 {
   "name": "@commandlayer/commons",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ERC-8004 and x402-aligned canonical verbs and strict JSON Schemas for autonomous agents — immutable semantics, trustable receipts, and cross-runtime interoperability.",
   "private": false,
   "type": "module",
