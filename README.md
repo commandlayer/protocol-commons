@@ -426,6 +426,21 @@ CommandLayer follows a clean separation of concerns:
 - **protocol-runtime** → reference execution layer (endpoints, adapters, paywalls)
 - **sdk-js / sdk-python** → client libraries that interact with the runtime
 
+  ----
+  
+## Docs & Governance (Living)
+
+The following documents evolve over time and are maintained on the development branch (`main`).
+They describe governance, compliance, and operational policy — not the immutable schema surface.
+
+- SPEC — https://github.com/commandlayer/protocol-commons/blob/main/SPEC.md
+- GOVERNANCE — https://github.com/commandlayer/protocol-commons/blob/main/GOVERNANCE.md
+- SECURITY — https://github.com/commandlayer/protocol-commons/blob/main/SECURITY.md
+- SECURITY & PROVENANCE — https://github.com/commandlayer/protocol-commons/blob/main/SECURITY_PROVENANCE.md
+- COMPLIANCE — https://github.com/commandlayer/protocol-commons/blob/main/COMPLIANCE.md
+- ONBOARDING — https://github.com/commandlayer/protocol-commons/blob/main/ONBOARDING.md
+- RESOLUTION — https://github.com/commandlayer/protocol-commons/blob/main/RESOLUTION.md
+
 
   ----
 
@@ -434,6 +449,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
