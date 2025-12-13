@@ -26,13 +26,22 @@ This is the foundation of the machine economy —
 
 ----
 
-### Canonical Release & Immutability
+### Canonical Semantics & Immutability
 
-Protocol-Commons v1.0.0 is the canonical, immutable semantic layer of CommandLayer.
+**Schemas v1.0.0** are the canonical, immutable semantic layer of CommandLayer.
 
-• Canonical release branch: `release/v1`  
-• Canonical tag: `commons-v1.0.0-canonical`  
-• All schemas are pinned and content-addressed under `schemas/v1.0.0`
+The npm package (`@commandlayer/commons`) may advance within **v1.0.x**
+to deliver tooling, documentation, and distribution improvements —
+**without modifying schemas or semantic meaning**.
+
+• Canonical schemas: `schemas/v1.0.0/`
+• Schema immutability enforced via content addressing + checksums
+• Package versions may patch forward independently
+
+• Canonical branch: `main`
+• Canonical schema tag: `commons-v1.0.0-canonical`
+• Canonical schema CID: `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
+
 
 ---
 
