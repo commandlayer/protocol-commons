@@ -2,9 +2,15 @@ name: Validate Schemas
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+      - release/v1
+    tags:
+      - "a*"
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+      - release/v1
 
 jobs:
   validate:
