@@ -45,7 +45,6 @@
   ],
   "devDependencies": {
     "ajv": "^8.17.1",
-    "ajv-cli": "^5.0.0",
     "ajv-errors": "^3.0.0",
     "ajv-formats": "^3.0.1"
   },
@@ -55,11 +54,9 @@
     "validate:examples": "node scripts/validate-examples.mjs",
     "validate:all": "npm run validate:schemas && npm run validate:examples",
     "validate": "npm run validate:all",
-
     "checksums:gen": "bash scripts/generate-checksums.sh schemas/v1.0.0 checksums.txt",
     "checksums:verify": "bash scripts/verify-checksums.sh",
     "checksums:dirty": "git diff --exit-code -- checksums.txt",
-
     "prepack": "npm run checksums:gen",
     "prepublishOnly": "npm run checksums:gen && npm run checksums:dirty && npm run validate"
   }
