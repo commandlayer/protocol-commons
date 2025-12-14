@@ -4,14 +4,11 @@ on:
   push:
     branches:
       - main
-        - clean-main
-      - release/v1
     tags:
       - "v*"
   pull_request:
     branches:
       - main
-      - release/v1
 
 jobs:
   validate:
