@@ -26,25 +26,6 @@ This is the foundation of the machine economy —
 
 ----
 
-### Canonical Semantics & Immutability
-
-**Schemas v1.0.0** are the canonical, immutable semantic layer of CommandLayer.
-
-The npm package (`@commandlayer/commons`) may advance within **v1.0.x**
-to deliver tooling, documentation, and distribution improvements —
-**without modifying schemas or semantic meaning**.
-
-• Canonical schemas: `schemas/v1.0.0/`
-• Schema immutability enforced via content addressing + checksums
-• Package versions may patch forward independently
-
-• Canonical branch: `main`
-• Canonical schema tag: `commons-v1.0.0-canonical`
-• Canonical schema CID: `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
-
-
----
-
 > **Integrity Notice — Protocol-Commons v1.0.0**
 >
 > Canonical schemas are pinned and immutable:
@@ -453,6 +434,7 @@ CommandLayer follows a clean separation of concerns:
 - [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
 - [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
 - [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
+
 
 
 
