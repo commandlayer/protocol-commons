@@ -8,56 +8,55 @@
 [![CI Status](https://img.shields.io/github/actions/workflow/status/commandlayer/protocol-commons/validate.yml?branch=main&label=CI)](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/commandlayer/protocol-commons/blob/main/LICENSE)
 
-
-----
+---
 
 ## Why Now
 
 Autonomous agents are finally leaving the lab — but without shared meaning, they fragment into isolated API silos.
 
-CommandLayer establishes the first **semantic contract for agents**:
+CommandLayer separates the stack into clear responsibilities:
 
-- **ENS** provides universal identity
-- **x402** enables verifiable machine-to-machine execution
-- **Protocol-Commons** defines **the shared language** those machines speak
+- **Protocol-Commons** defines the shared semantic layer
+- **Identity and discovery layers** can resolve who an agent is and where it can be reached
+- **Execution and payment layers** can transport, meter, or settle work around those semantics
 
-This is the foundation of the machine economy —  
-**without semantics, nothing interoperates.**
+Protocol-Commons is the foundation for portable machine intent: a stable set of verbs plus strict JSON Schemas for requests and receipts.
 
-----
+---
 
 > **Integrity Notice — Protocol-Commons v1.1.0**
 >
 > Canonical schemas are pinned and immutable:
-> `schemas/v1.1.0/commons` — CID: `PENDING`
+> `schemas/v1.1.0/commons` — CID: `TBD (pre-release)`
 >
 > Historical v1.0.0 artifacts remain in-repo for compatibility and verification.
 >
 > Verify integrity locally:
 > ```bash
-> sha256sum -c checksums.txt
+> npm run checksums:verify
 > ```
 >
-> Any mismatch indicates **untrusted or modified artifacts**.
-> New versions MUST use a new version directory + new CID.
+> Any mismatch indicates modified artifacts.
+> New versions MUST use a new version directory and, once published, a new CID.
 
 ---
 
 Without a shared verb layer, ecosystems degrade into:
 
-- Ad-hoc verbs and incompatible dialects  
-- No trustable receipts  
-- No cross-runtime interoperability  
-- Closed vendor silos with fragile glue logic  
+- Ad-hoc verbs and incompatible dialects
+- Ambiguous receipts with inconsistent evidence
+- No cross-runtime interoperability
+- Closed vendor silos with fragile glue logic
 
-**Protocol-Commons** fixes this with a global, canonical **action language**:
+**Protocol-Commons** fixes this with a canonical action language:
 
-- Verbs + JSON Schemas + strict validation =  
-- **Machine intent you can trust.**
+- Verbs + JSON Schemas + strict validation
+- Stable request envelopes
+- Signed receipts with hash-based verification evidence
 
-If agents can’t agree on what actions mean → **nothing works.**
+If agents cannot agree on what actions mean, interoperability breaks.
 
-----
+---
 
 ## Real verbs. Real receipts.
 
@@ -66,7 +65,7 @@ If agents can’t agree on what actions mean → **nothing works.**
 {
   "verb": "summarize",
   "version": "1.1.0",
-  "input": "CommandLayer defines the semantics of agent behavior.",
+  "input": "CommandLayer Commons v1.1.0 simplifies every request into a flat verb/version/input shape and narrows receipts to signed execution evidence.",
   "mode": "brief"
 }
 
@@ -75,81 +74,134 @@ If agents can’t agree on what actions mean → **nothing works.**
   "verb": "summarize",
   "version": "1.1.0",
   "status": "ok",
-  "timestamp": "2026-03-18T00:00:00Z",
-  "agent": "commandlayer.eth",
-  "request_hash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-  "summary": "Semantic verb layer for autonomous multi-agent workflows.",
-  "signature": "Q29tbWFuZExheWVyU2lnbmF0dXJlRXhhbXBsZV8xMjM0NTY"
+  "timestamp": "2026-03-18T12:00:00Z",
+  "agent": "summarizeagent.eth",
+  "request_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+  "result_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+  "result_cid": "bafybeisummarizereceiptokexample0001",
+  "summary": "Commons v1.1.0 makes requests smaller and receipts easier to verify while preserving stable verb semantics.",
+  "signature": "sigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 }
 ```
 
-**Same shape — everywhere:
-SDKs → Runtimes → x402 → ENS → Receipts**
-
----
-## Quickstart
-
-Install Commons + AJV:
-
-```
-npm install @commandlayer/commons ajv
-```
-**Validate a request against a canonical verb schema**
-
-```
-npx cl-validate examples/v1.1.0/commons/summarize/json/valid/001-summarize.request.valid.json
-# ✓ VALID — trace: bafybeieoynknza...
-```
-**Programmatic usage (Node.js/ESM)**
-
-```
-import Ajv from "ajv";
-import { analyzeRequestV110 } from "@commandlayer/commons";
-
-const ajv = new Ajv({ strict: true, allErrors: true });
-const validate = ajv.compile(analyzeRequestV110);
-
-const input = {
-  verb: "analyze",
-  version: "1.1.0",
-  input: "CommandLayer defines semantics.",
-  mode: "extract"
-};
-
-console.log(validate(input));   // true or false
-console.log(validate.errors);   // diagnostics if invalid
-```
-**Generate TypeScript types directly from schemas** for zero-drift validation:
-```
-npx ajv compile -s schemas/v1.1.0/commons -o dist/types.d.ts
-```
----
-
-
-## Commons v1.1.0
-
-Commons v1.1.0 introduces a simplified schema surface for general-purpose agent actions. The new `schemas/v1.1.0/commons` family is fully self-contained: each request and receipt schema stands alone, uses no shared `$ref` dependencies, and keeps the Commons layer flat and minimal.
-
-Commons is the general-purpose primitive layer for interoperable agent actions. Commercial and x402-specific packaging remain separate concerns and are not part of the Commons v1.1.0 request/receipt schema family. Earlier versions remain in the repo for compatibility and historical reference.
-
-Example standalone schema paths:
-
-- `schemas/v1.1.0/commons/analyze/analyze.request.schema.json`
-- `schemas/v1.1.0/commons/analyze/analyze.receipt.schema.json`
-
-Every v1.1.0 Commons receipt shares the same trust spine:
+Every v1.1.0 Commons receipt uses the same evidence-oriented spine:
 
 - `status`
 - `timestamp`
 - `agent`
 - `request_hash`
-- `result_hash`
-- `result_cid`
-- `summary`
+- `result_hash` *(optional)*
+- `result_cid` *(optional)*
+- `summary` *(required on success)*
 - `signature`
-- `error`
+- `error` *(required on error)*
 
-These schemas are intended to be easy to pin, easy to validate, and easy to consume directly from the package exports.
+---
+
+## Quickstart
+
+Install Commons and AJV:
+
+```bash
+npm install @commandlayer/commons ajv ajv-formats ajv-errors
+```
+
+**Validate all schemas and examples with the repo's working commands**
+
+```bash
+npm install
+npm run validate
+```
+
+**Validate a specific example against the published schema using AJV**
+
+```bash
+node --input-type=module <<'EOF_NODE'
+import Ajv2020 from 'ajv/dist/2020.js';
+import addFormats from 'ajv-formats';
+import fs from 'node:fs';
+import summarizeRequestSchema from './schemas/v1.1.0/commons/summarize/summarize.request.schema.json' with { type: 'json' };
+
+const ajv = new Ajv2020({ strict: true, allErrors: true, strictRequired: false, allowUnionTypes: false });
+addFormats(ajv);
+
+const validate = ajv.compile(summarizeRequestSchema);
+const data = JSON.parse(fs.readFileSync('./examples/v1.1.0/commons/summarize/json/valid/001-summarize.request.valid.json', 'utf8'));
+
+console.log(validate(data));
+console.log(validate.errors ?? []);
+EOF_NODE
+```
+
+**Programmatic usage (Node.js/ESM)**
+
+```js
+import Ajv2020 from 'ajv/dist/2020.js';
+import addFormats from 'ajv-formats';
+import summarizeRequestSchema from '@commandlayer/commons/schemas/v1.1.0/commons/summarize/summarize.request.schema.json' with { type: 'json' };
+
+const ajv = new Ajv2020({ strict: true, allErrors: true, strictRequired: false, allowUnionTypes: false });
+addFormats(ajv);
+
+const validate = ajv.compile(summarizeRequestSchema);
+
+const input = {
+  verb: 'summarize',
+  version: '1.1.0',
+  input: 'CommandLayer Commons v1.1.0 simplifies every request into a flat shape.',
+  mode: 'brief'
+};
+
+console.log(validate(input));
+console.log(validate.errors ?? []);
+```
+
+---
+
+## Commons v1.1.0
+
+Commons v1.1.0 introduces a simplified, flat schema surface for general-purpose agent actions.
+
+- Each request schema is standalone
+- Each receipt schema is standalone
+- No shared `$ref` dependency tree is required for v1.1.0 Commons
+- Commercial, transport, and payment envelopes are out of scope for Commons itself
+
+Example schema paths:
+
+- `schemas/v1.1.0/commons/analyze/analyze.request.schema.json`
+- `schemas/v1.1.0/commons/analyze/analyze.receipt.schema.json`
+
+The request contract is intentionally small:
+
+```json
+{
+  "verb": "<canonical verb>",
+  "version": "1.1.0",
+  "input": "<caller-supplied string>",
+  "mode": "<verb-specific optional mode>"
+}
+```
+
+The receipt contract is proof-oriented rather than transport-oriented:
+
+```json
+{
+  "verb": "<canonical verb>",
+  "version": "1.1.0",
+  "status": "ok | error",
+  "timestamp": "<RFC 3339 date-time>",
+  "agent": "<stable signer identity>",
+  "request_hash": "sha256:<64 lowercase hex chars>",
+  "result_hash": "sha256:<64 lowercase hex chars>",
+  "result_cid": "<optional content identifier>",
+  "summary": "<required when status = ok>",
+  "signature": "<base64url detached signature>",
+  "error": "<required when status = error>"
+}
+```
+
+These fields let consumers verify that a signer attested to a specific request hash and, when present, a specific result hash or result CID. Commons does not define transport settlement, execution proofs beyond these fields, or any x402-specific wrapping.
 
 ## Table of Contents
 - [Real verbs. Real receipts.](#real-verbs-real-receipts)
@@ -171,78 +223,64 @@ These schemas are intended to be easy to pin, easy to validate, and easy to cons
 - [Next Layers](#next-layers)
 - [References](#references)
 
-
 ---
 
 ## Why this exists
 
-Fragmented agents → isolated ecosystems → brittle automation.
+Fragmented agents create isolated ecosystems and brittle automation.
 
 Protocol-Commons delivers:
 
 - **Shared semantics**
-- **Typed request/receipt envelopes**
-- **Receipt-level provability**
+- **Typed request and receipt envelopes**
+- **Signed receipts bound to request hashes**
 - **Portable behavior across runtimes**
-- **Open standards alignment → one shared language for all autonomous agents**
-  - JSON Schema 2020-12  
-  - x402  
-  - ERC-8004
+- **A stable foundation other layers can build around**
 
- ---
-    
+---
+
 ## What Commons enables
 
 - **Deterministic action contracts**
 - **Runtime-level validation**
-- **Trustable receipts**
+- **Receipt verification through hashes and signatures**
 - **Cross-vendor interoperability**
-- **Future-proof machine intent**
+- **Versioned, immutable semantics**
 
-Protocol-Commons is the **semantic foundation** of the CommandLayer stack.
+Protocol-Commons is the semantic foundation of the CommandLayer stack.
 
 ---
 
 ## Canonical Verbs
 
-The Commons defines 10 universal actions used across nearly all multi-agent workflows:
+The Commons defines 10 universal actions used across common multi-agent workflows:
 
+| Verb      | Purpose                                               | Guarantees                                             |
+|-----------|-------------------------------------------------------|--------------------------------------------------------|
+| analyze   | Extract insights from structured or unstructured data | Identifies meaning, relationships, or signals          |
+| classify  | Categorize input according to a known schema          | Deterministic label assignment                         |
+| clean     | Normalize or remove noise from data                   | Output retains meaning with improved quality           |
+| convert   | Transform between formats or representations          | Equivalent content in a different representation       |
+| describe  | State what something *is*                             | Attributes, context, or defining properties            |
+| explain   | State *why* or *how* something is true                | Causal or relational justification                     |
+| fetch     | Retrieve data from a remote or indirect source        | Receipt can attest to the requested content retrieval  |
+| format    | Produce content in a structured or presentable shape  | Output conforms to the declared representation intent  |
+| parse     | Extract structured meaning from raw input             | Typed structure extracted from unstructured content    |
+| summarize | Compress content while preserving key meaning         | Core information retained with reduced verbosity       |
 
-| Verb      | Purpose                                               | Guarantees                                               |
-|-----------|------------------------------------------------------ |----------------------------------------------------------|
-| analyze   | Extract insights from structured or unstructured data | Identifies meaning, relationships, or signals            |
-| classify  | Categorize input according to a known schema          | Deterministic label assignment                           |
-| clean     | Normalize or remove noise from data                   | Output retains meaning with improved quality             |
-| convert   | Transform between formats or representations          | Semantically-equivalent output with different encoding   |
-| describe  | State what something *is*                             | Attributes, context, or defining properties              |
-| explain   | State *why* or *how* something is true                | Causal or relational justification                       |
-| format    | Produce content in a structured/presentable shape     | Output conforms to declared structure                    |
-| parse     | Extract structured meaning from raw input             | Typed output from unstructured content                   |
-| summarize | Compress content while preserving key meaning         | Core information retained; verbosity reduced             |
-| fetch     | Retrieve data from a remote or indirect source        | Integrity of returned content                            |
+Each verb defines:
 
+- a canonical request format
+- a canonical receipt format
 
-**Each verb defines:**
-
-- a canonical **request** format
-- a canonical **receipt** format
-- strict typing and deterministic envelopes for x402
-
-```
+```text
 +-----------------------------+
 |  Execution Runtime          |  (action is performed)
 +-------------▲---------------+
               |
               v
 +-----------------------------+
-|  x402 Transport Layer       |  (invocation + settlement)
-|  "How messages move"        |
-+-------------▲---------------+
-              |
-              v
-+-----------------------------+
-|  Agent Cards (Identity)     |  (ENS discovery + routing)
-|  "Who does what, and where" |
+|  Identity / Routing         |  (discovery + addressing)
 +-------------▲---------------+
               |
               v
@@ -250,274 +288,159 @@ The Commons defines 10 universal actions used across nearly all multi-agent work
 |  Protocol-Commons           |  (verbs + schemas)
 |  "What actions mean"        |
 +-----------------------------+
-
 ```
-**Each verb provides:**
 
-`<verb>.request.schema.json`
+Each verb provides:
 
-`<verb>.receipt.schema.json`
-
-**Schemas define:**
-
-- `input` structure  
-- `output` guarantees  
-- `required fields`  
-- optional context  
-- `x402 envelope` shape  
-- trace metadata  
-- version locking  
-
-No aliases.  
-No ambiguity.  
-**Each verb is an immutable, canonical action definition.**
+- `<verb>.request.schema.json`
+- `<verb>.receipt.schema.json`
 
 ---
- 
+
 ## Overview
 
-The **Commons** repository provides the canonical, immutable **verb schemas** for the CommandLayer Protocol.
+Protocol-Commons is the schema package for canonical agent verbs.
 
-These schemas define **what an agent can do — not how it runs**.  
-They form the universal foundation for:
+For v1.1.0, the Commons layer is intentionally flat:
 
-- **A2A = Autonomous-to-Autonomous — no humans required in the loop.**
-- **agent-to-agent** (A2A) communication  
-- **multi-agent workflows**  
-- **LLM orchestration** 
-- **automated systems**  
-- **x402-aligned** execution flows
+- requests contain the action intent and caller input
+- receipts contain execution status plus signer-bound evidence
+- versioned directories preserve immutability over time
 
 ---
 
-### Key Principles
+## Key Principles
 
-- **Shared semantics** — every autonomous agent speaks the same actions  
-- **Deterministic envelopes** — strict request & receipt schemas, version-locked  
-- **Trustable execution** — verifiable, auditable receipts across runtimes  
-- **Portable behavior** — identical contract shapes across vendors & ecosystems  
-- **Neutral governance** — open, MIT-licensed semantics with immutable history  
-- **Standards aligned** — JSON Schema 2020-12, x402 transport, ERC-8004 discovery  
+1. **Semantic stability** — verb meanings do not drift within a published version.
+2. **Strict validation** — schemas compile under Ajv 2020-12 strict mode.
+3. **Immutable releases** — published version directories are append-only historical artifacts.
+4. **Minimal envelopes** — Commons defines semantics, not every higher-layer concern.
+5. **Verifiable receipts** — trust comes from request hashes, optional result hashes/CIDs, and signatures.
 
-> Commons is the **linguistic core** of CommandLayer —  
-> the foundation on which identity, execution, and economic layers depend.
-> 
 ---
 
 ## This is not…
 
-To avoid confusion, Protocol-Commons does **not** define:
+Protocol-Commons is **not**:
 
-- **how agents run or where they live**
-- **any economic model or execution pricing**
-- **identity, discovery, or routing** (that is Agent-Cards + ENS)
-- **commercial enforcement or proprietary extensions**
-- **agent behavior beyond typed input/output guarantees**
+- a payment protocol
+- an identity registry
+- a transport envelope standard
+- a runtime execution engine
+- a guarantee of result correctness beyond the attested hashes and signer identity
 
-Commons defines **semantics** — nothing more, nothing less.
-
-Everything else is layered cleanly on top.
+Those concerns can be layered on top, but they are not defined by the v1.1.0 Commons schemas.
 
 ---
 
 ## CommandLayer Protocol Stack
 
-| Layer               | Role                                                              |
-|---------------------|-------------------------------------------------------------------|
-| Protocol-Commons    | Canonical verbs & schemas (machine intent grammar)                |
-| Agent-Cards         | Identity, discovery, and invocation metadata                      |
-| Protocol-Commercial | Canonical commercial/economic verbs (schemas & receipt defaults)  |
-| Protocol-Runtime    | Transport adapters, execution, and structured receipts            |
+```text
+Execution / settlement layers
+        ↑
+Identity / routing layers
+        ↑
+Protocol-Commons (semantic verbs + schemas)
+```
 
-
-
-- **Commons** defines what actions exist and how they are structured.  
-- **Agent-Cards** bind those actions to real agents.  
-- **Protocol-Commercial** defines market-aligned economic verbs and receipt schemas.  
-- **Runtime** executes those actions and returns verifiable receipts (optionally over x402).  
-
-
+Commons gives upper layers a stable meaning layer to build around.
 
 ---
 
 ## Status
 
-- Canonical verb set defined  
-- Fully validated under JSON Schema 2020-12 (**strict**)  
-- Deterministic `$id` structure  
-- **Pinned to IPFS** (content-addressed)  
-- Request + receipt schemas for **all verbs**  
-- `GitHub Actions` validation is **green**  
-- `checksums.txt` ensures **immutability**  
+**Stable — v1.1.0 current**
 
-This version is the **baseline** for SDKs, registries, resolvers, and identity layers.
+- `v1.1.0` is the current flat Commons layout
+- `v1.0.0` remains in-repo as a legacy schema family
 
 ---
 
-
 ## Repository Structure
+
 ```text
-protocol-commons/
-├── schemas/
-│   └── v1.0.0/
-│       ├── commons/
-│       │   └── <verb>/
-│       │       ├── requests/
-│       │       │   └── <verb>.request.schema.json
-│       │       └── receipts/
-│       │           └── <verb>.receipt.schema.json
-│       └── _shared/
-│           ├── x402.schema.json
-│           ├── trace.schema.json
-│           └── receipt.base.schema.json
+.
+├── README.md
+├── SCHEMAS.md
+├── SPEC.md
+├── checksums.txt
 ├── examples/
 │   ├── v1.0.0/
-│   │   └── commons/
-│   │       └── <verb>/
-│   │           ├── valid/
-│   │           │   └── *.json
-│   │           └── invalid/
-│   │               └── *.json
+│   │   └── commons/<verb>/{valid,invalid}/*.json
 │   └── v1.1.0/
-│       └── commons/
-│           └── <verb>/
-│               ├── json/
-│               │   ├── valid/
-│               │   │   └── *.json
-│               │   └── invalid/
-│               │       └── *.json
-│               └── ts/
-│                   ├── valid/
-│                   │   └── *.ts
-│                   └── invalid/
-│                       └── *.ts
-├── checksums.txt
+│       └── commons/<verb>/json/{valid,invalid}/*.json
 ├── manifest.json
-├── SPEC.md
-├── POLICY.md
-├── GOVERNANCE.md
-├── SECURITY.md
-├── SECURITY_PROVENANCE.md
-├── COMPLIANCE.md
-├── RESOLUTION.md
-├── ONBOARDING.md
-└── README.md
-
+├── package.json
+├── schemas/
+│   ├── v1.0.0/
+│   │   ├── _shared/
+│   │   └── commons/<verb>/{requests,receipts}/*.schema.json
+│   └── v1.1.0/
+│       └── commons/<verb>/
+│           ├── <verb>.request.schema.json
+│           └── <verb>.receipt.schema.json
+└── scripts/
+    ├── ajv-run.mjs
+    ├── validate-all.mjs
+    └── validate-examples.mjs
 ```
+
+---
 
 ## Manifest
 
-`manifest.json` includes:
+`manifest.json` records release metadata for the package, including:
 
-- repository metadata  
-- schema root directories  
-- the IPFS CID for the versioned schema folder  
-- a verb index with direct request/receipt paths  
-
-It is **not** an identity registry.  
-Identity lives in **agent-cards**.
+- package version
+- schema and example roots
+- the current schema pin target
+- per-verb request and receipt schema paths
+- release CID status (`TBD (pre-release)` until a real CID is published)
 
 ---
 
 ## Immutability & Checksums
 
-**All v1.0.0 schemas are pinned to IPFS:**
+Use the checksum and validation scripts shipped in the repo:
+
+```bash
+npm run checksums:verify
+npm run validate
 ```
-bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m
-```
 
-
-`checksums.txt` contains SHA-256 hashes for every file inside `schemas/v1.0.0`, enabling:
-
-- **offline verification**  
-- **reproducible validation**  
-- **auditability**  
-- **version locking**  
-
-### **Any schema modification requires:**
-
-- new version (1.0.1, 1.1.0, etc.)  
-- new CID  
-- updated checksums  
-- updated manifest  
-- updated ENS TXT references  
-
-Once published, **Commons v1.0.0 is immutable**.
+Published version directories must not be edited in place.
 
 ---
 
 ## Validation
 
-**All schemas are validated using:**
+Available commands:
 
-- AJV (2020-12) strict mode  
-- deterministic `$id` resolution  
-- no type coercion  
-- no additionalProperties leakage  
-- full valid+invalid example coverage  
+```bash
+npm run validate:schemas
+npm run validate:examples
+npm run validate
+```
 
-This ensures consistent behavior across runtimes, SDKs, and agent frameworks.
+These commands compile schemas in strict Ajv mode and validate the shipped examples for both `v1.0.0` and `v1.1.0`.
 
 ---
 
 ## License
 
-MIT — open, universal, fork-friendly.  
-Commons is designed to remain neutral and stable.
+MIT.
 
 ---
 
 ## Next Layers
 
-CommandLayer follows a clean separation of concerns:
+Commons is designed to be composed with other layers for identity, routing, transport, payment, or settlement. Those layers can wrap Commons requests and receipts, but they should not be confused with the Commons schema contract itself.
 
-- **protocol-commons** → free canonical Commons schemas (specs)
-- **protocol-commercial** → free canonical Commercial schemas (specs)
-- **agent-cards** → identity & discovery for agents
-- **protocol-runtime** → reference execution layer (endpoints, adapters, paywalls)
-- **sdk-js / sdk-python** → client libraries that interact with the runtime
-
-
-  ----
+---
 
 ## References
 
-- [ERC-8004 — Agent Schema Discovery](https://eips.ethereum.org/EIPS/eip-8004)
-- [x402 — Machine-to-Machine Value Transport Envelope](https://github.com/ethereum/x402)
-- [JSON Schema 2020-12 — Canonical validation standard](https://json-schema.org/specification-links)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- `SPEC.md`
+- `SCHEMAS.md`
+- `manifest.json`
+- `schemas/v1.1.0/commons/`
