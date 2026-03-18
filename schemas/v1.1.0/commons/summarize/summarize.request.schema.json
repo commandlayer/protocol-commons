@@ -1,0 +1,36 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "summarize.request",
+  "description": "Request to compress content while preserving key information.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "verb": {
+      "type": "string",
+      "const": "summarize"
+    },
+    "version": {
+      "type": "string",
+      "const": "1.1.0"
+    },
+    "input": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "brief",
+        "detailed",
+        "bullets",
+        "headline"
+      ]
+    }
+  },
+  "required": [
+    "verb",
+    "version",
+    "input"
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "summarize.receipt",
+  "description": "Signed receipt proving execution of a summarize request.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "verb": {
+      "type": "string",
+      "const": "summarize"
+    },
+    "version": {
+      "type": "string",
+      "const": "1.1.0"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "error"
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "agent": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Signer identity for this receipt, typically an ENS name or stable agent identifier."
+    },
+    "request_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "result_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "result_cid": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional content identifier for the result payload, typically a CIDv1."
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The generated summary of the input."
+    },
+    "signature": {
+      "type": "string",
+      "minLength": 32,
+      "pattern": "^[A-Za-z0-9_-]+$",
+      "description": "Detached signature encoded as base64url."
+    },
+    "error": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Error detail describing why execution failed."
+    }
+  },
+  "required": [
+    "verb",
+    "version",
+    "status",
+    "timestamp",
+    "request_hash",
+    "signature"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "ok"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "summary"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "error"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "error"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.1.0/commons/clean/clean.request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "clean.request",
+  "description": "Request to remove noise, normalize, and sanitize content.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "verb": {
+      "type": "string",
+      "const": "clean"
+    },
+    "version": {
+      "type": "string",
+      "const": "1.1.0"
+    },
+    "input": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "normalize",
+        "deduplicate",
+        "strip",
+        "sanitize"
+      ]
+    }
+  },
+  "required": [
+    "verb",
+    "version",
+    "input"
+  ]
+}
