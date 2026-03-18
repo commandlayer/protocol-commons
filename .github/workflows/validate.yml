@@ -13,6 +13,10 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20, 22]
 
     steps:
       - name: Checkout repository
@@ -21,13 +25,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ matrix.node-version }}
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate schemas
-        run: npm run validate:schemas
+      - name: Validate package
+        run: npm run validate
 
-      - name: Validate examples
-        run: npm run validate:examples
+      - name: Verify checksums
+        run: npm run checksums:verify
+
+      - name: Smoke test entrypoint import
+        run: npm run test:smoke:import
+
+      - name: Smoke test npm pack
+        run: npm run test:smoke:pack
