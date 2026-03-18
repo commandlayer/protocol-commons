@@ -2,52 +2,62 @@
 
 This document specifies stability rules, versioning constraints, and change governance for all Protocol Commons schemas.
 
-
 > This document is **NORMATIVE and ENFORCEABLE**.
 
 ---
 
 ## 1. Purpose
 
-Protocol-Commons defines the **canonical verb and schema layer** for autonomous agents:
+Protocol-Commons defines the canonical verb and schema layer for autonomous agents:
 
-- Standardized verbs
-- Strict JSON Schema 2020-12 validation
-- Deterministic `$id` URLs
-- x402 envelope embedding
-- Trace + status requirements
-- Immutable versioning rules
+- standardized verbs
+- strict JSON Schema 2020-12 validation
+- deterministic `$id` URLs
+- immutable versioning rules
+- flat v1.1.0 request and receipt contracts
 
-Once published, a version directory is **immutable**.
+Once published, a version directory is immutable.
 
 ---
 
 ## 2. Directory Layout
 
+### Current layout: v1.1.0
 
-
+```text
+schemas/v1.1.0/
+└── commons/
+    └── <verb>/
+        ├── <verb>.request.schema.json
+        └── <verb>.receipt.schema.json
 ```
+
+### Legacy layout: v1.0.0
+
+```text
 schemas/v1.0.0/
-_shared/
-x402.schema.json
-trace.schema.json
-receipt.base.schema.json
-commons/
-<verb>/
-requests/<verb>.request.schema.json
-receipts/<verb>.receipt.schema.json
+├── _shared/
+│   ├── identity.schema.json
+│   ├── receipt.base.schema.json
+│   ├── trace.schema.json
+│   ├── verb.aliases.schema.json
+│   └── x402.schema.json
+└── commons/
+    └── <verb>/
+        ├── requests/<verb>.request.schema.json
+        └── receipts/<verb>.receipt.schema.json
 ```
-
 
 ### Normative Rules
 
-- **Paths MUST NOT change once published**
-- Folder names MUST match canonical verb exactly
-- No aliases or synonyms permitted
+- Paths MUST NOT change once published
+- Folder names MUST match the canonical verb exactly
+- v1.1.0 Commons schemas MUST use the flat per-verb file layout
+- Nested `requests/` and `receipts/` directories are legacy-only and MUST NOT be described as the v1.1.0 layout
 
 ---
 
-## 3. Canonical Verb Set (v1.0.0)
+## 3. Canonical Verb Set
 
 | Verb | Purpose |
 |------|---------|
@@ -56,159 +66,192 @@ receipts/<verb>.receipt.schema.json
 | clean     | Normalize input |
 | convert   | Transform between formats |
 | describe  | State defining properties |
-| explain   | Provide causal justification |
+| explain   | Provide rationale or clarification |
 | fetch     | Retrieve external data |
-| format    | Produce structured output |
+| format    | Produce structured or presentable output |
 | parse     | Extract structured meaning |
 | summarize | Condense content while preserving meaning |
 
-Each verb MUST define:
+Each verb MUST define exactly:
 
-- One request schema
-- One receipt schema
+- one request schema
+- one receipt schema
 
 ---
 
 ## 4. Deterministic `$id` Contract
 
-Schemas MUST include fully-qualified, HTTPS-resolvable `$id` values:
+### v1.1.0 request schemas
 
-**Requests**
-
-
-```
-https://commandlayer.org/schemas/v1.0.0/commons/<verb>/requests/<verb>.request.schema.json
+```text
+https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json
 ```
 
-### **Receipt**
-```
-https://commandlayer.org/schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
-```
-### Shared
-```
-https://commandlayer.org/schemas/v1.0.0/_shared/<name>.schema.json
+Example:
+
+```text
+https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.request.schema.json
 ```
 
-## 5. x402 Envelope Binding
+### v1.1.0 receipt schemas
 
-### Requests MUST include:
-
-```json
-"x402": {
-  "verb": "<verb>",
-  "version": "1.0.0"
-}
+```text
+https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json
 ```
 
-### Receipts MUST include:
+Example:
+
+```text
+https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.receipt.schema.json
 ```
-"x402": {
-  "verb": "<verb>",
-  "version": "1.0.0",
-  "status": "ok" | "error"
-}
 
-```
-No additional properties allowed in `x402`.
-Validated by `_shared/x402.schema.json.`
+### Legacy v1.0.0 note
 
-## 6. Request Contract
-   
-Every request MUST include:
+Legacy v1.0.0 schemas retain their older nested `$id` patterns and `_shared` references. Those patterns are not the v1.1.0 contract.
 
-| Field   | Source               | Required |
-| ------- | -------------------- | :------: |
-| `x402`  | x402 schema          |     ✓    |
-| `actor` | Free-form identifier |     ✓    |
-| `trace` | trace schema         |     ✓    |
-| `input` | verb-specific        |     ✓    |
+All `$id` values MUST be fully qualified HTTPS URLs.
 
-Missing required fields MUST fail validation.
+---
 
-## 7. Receipt Contract
-| Field    | Conditional                  |
-| -------- | ---------------------------- |
-| `x402`   | Always required              |
-| `trace`  | Always required              |
-| `status` | `"ok"` or `"error"`          |
-| `result` | Required if `status="ok"`    |
-| `error`  | Required if `status="error"` |
+## 5. v1.1.0 Request Contract
 
-No `result` in error receipts.
-No `error` in success receipts.
-Validated by` _shared/receipt.base.schema.json`
+Every v1.1.0 request MUST include:
 
+| Field     | Required | Notes |
+|-----------|----------|-------|
+| `verb`    | Yes      | Canonical verb constant |
+| `version` | Yes      | Must equal `1.1.0` |
+| `input`   | Yes      | Non-empty string |
+| `mode`    | No       | Optional verb-specific enum |
 
-## 8. Trace Guarantees
-Fields MUST include:
+Requests MUST reject additional properties.
 
-- `requestId`
-- `ts`
-Receipts MUST echo:
-```
-trace.requestId = request.trace.requestId
-```
-Optional fields (if schema supports):
+v1.1.0 requests do not use nested request objects, `x402`, `trace`, or `actor` fields.
 
-- `parentId`, 
-- `callbackUri`, 
-- `metrics`
+---
 
-## 9. Versioning Rules
-Once published under schemas/v1.0.0/:
+## 6. v1.1.0 Receipt Contract
 
-The following actions are prohibited:
+Every v1.1.0 receipt MUST include:
 
-- Editing schema content
-- Changing behavior or requirements
-- Updating $id values
+| Field          | Required |
+|----------------|----------|
+| `verb`         | Yes |
+| `version`      | Yes |
+| `status`       | Yes |
+| `timestamp`    | Yes |
+| `request_hash` | Yes |
+| `signature`    | Yes |
 
-Any change requires:
-- New version directory (e.g., v1.0.1/)
-- New CID + updated manifest & checksums
-- ENS TXT update
-- Governance approval
+Additional shared fields are schema-supported but optional unless conditionally required:
 
-## 10. Validation Requirements
-CI MUST enforce:
-```
+| Field         | Requirement |
+|---------------|-------------|
+| `agent`       | Optional |
+| `result_hash` | Optional |
+| `result_cid`  | Optional |
+| `summary`     | Required when `status = "ok"` |
+| `error`       | Required when `status = "error"` |
+
+Receipts MUST reject additional properties.
+
+The trust model is limited to signer attestation plus request/result hash references. Implementations MUST NOT imply unsupported receipt substructures or execution-trace guarantees.
+
+---
+
+## 7. Legacy v1.0.0 Scope
+
+v1.0.0 remains in-repo for compatibility and historical verification.
+
+Its schemas use:
+
+- `_shared` helper schemas
+- nested `requests/` and `receipts/` folders
+- older envelope conventions
+
+Documentation and tooling MUST distinguish that legacy structure from v1.1.0.
+
+---
+
+## 8. Versioning Rules
+
+Once published under a version directory such as `schemas/v1.1.0/`, the following actions are prohibited:
+
+- editing schema content in place
+- changing behavior or required fields for that version
+- updating `$id` values for that version
+- changing the directory layout for that version
+
+Any change requires a new version directory.
+
+---
+
+## 9. Validation Requirements
+
+CI and local validation SHOULD enforce strict schema compilation behavior equivalent to:
+
+```text
 strict: true
-strictTypes: true
+strictSchema: true
+allErrors: true
+strictRequired: false
 allowUnionTypes: false
-strictTuples: true
 ```
-All valid + invalid examples MUST pass CI.
 
-## 11. Examples
-Examples are REQUIRED for every verb:
+Repository validation commands:
 
+```bash
+npm run validate:schemas
+npm run validate:examples
+npm run validate
 ```
+
+All shipped valid and invalid examples MUST match the version-specific schema layout they target.
+
+---
+
+## 10. Examples
+
+Examples are maintained per version.
+
+### v1.1.0 examples
+
+```text
+examples/v1.1.0/commons/<verb>/json/
+  valid/*.json
+  invalid/*.json
+```
+
+### v1.0.0 examples
+
+```text
 examples/v1.0.0/commons/<verb>/
   valid/*.json
   invalid/*.json
 ```
 
-Minimum:
+---
 
-- 3 valid examples
-- 3 invalid examples
+## 11. Provenance & Integrity
 
-## 12. Provenance & Integrity
-Pinned schemas CID:
-```
-bafybeieoynknzalaojwpzjzjy77kpnfe4kla5io7jbfnmyu7w7vyvuljpq
-```
-
-Integrity tracked by:
+Integrity is tracked by:
 
 - `checksums.txt`
 - `manifest.json`
 
-Resolvers MUST reject mismatched artifacts.
+Current v1.1.0 schema CID status:
 
-## 13. Contact
+```text
+TBD (pre-release)
+```
 
-email  dev@commandlayer.org
-PGP 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
+Resolvers and auditors MUST reject mismatched artifacts.
 
-Status: Stable · v1.0.0 locked
+---
+
+## 12. Contact
+
+- dev@commandlayer.org
+- PGP 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
+
+**Status:** Stable `v1.1.0` current; `v1.0.0` legacy

@@ -10,12 +10,12 @@ MUST / MUST NOT / SHOULD / SHOULD NOT / MAY retain their RFC-defined meanings.
 
 ## 1. Purpose
 
-Protocol-Commons defines the **canonical action grammar for autonomous agents**:
+Protocol-Commons defines the canonical action grammar for autonomous agents:
 
-- **Verbs** — What actions exist  
-- **Request/Receipt Schemas** — Typed message contracts  
-- **Trace + Status rules** — Deterministic provenance  
-- **Versioning + Immutability** — Trust guarantees  
+- **Verbs** — what actions exist
+- **Request schemas** — typed invocation contracts
+- **Receipt schemas** — typed execution evidence contracts
+- **Versioning + immutability** — trust guarantees for published artifacts
 
 Execution, payment, identity, and routing are the domain of other layers.
 
@@ -23,18 +23,19 @@ Execution, payment, identity, and routing are the domain of other layers.
 
 ## 2. Architecture Position
 
-The Commons is the **lowest** layer of the CommandLayer Standard Stack:
-```
+The Commons is the semantic base layer of the CommandLayer stack:
+
+```text
 ┌────────────────────────────┐
-│ Execution — Runtime layer  │ (value + invocation)
+│ Execution / settlement     │
 └──────────────▲─────────────┘
-│
+               │
 ┌──────────────┴─────────────┐
-│ Identity — Agent-Cards     │ (ENS discovery)
+│ Identity / routing         │
 └──────────────▲─────────────┘
-│
+               │
 ┌──────────────┴─────────────┐
-│ Semantics — Commons        │ (canonical verbs)
+│ Semantics — Commons        │
 └────────────────────────────┘
 ```
 
@@ -42,259 +43,280 @@ The Commons is the **lowest** layer of the CommandLayer Standard Stack:
 
 ---
 
-## 3. Canonical Verb Set (v1.0.0)
+## 3. Canonical Verb Set
 
 The only canonical verbs are:
 
-analyze, classify, clean, convert, describe,
-explain, fetch, format, parse, summarize
-
+`analyze`, `classify`, `clean`, `convert`, `describe`, `explain`, `fetch`, `format`, `parse`, `summarize`
 
 Each verb MUST map to:
 
 - `<verb>.request.schema.json`
 - `<verb>.receipt.schema.json`
 
-No aliases. No synonyms.
+No aliases or synonyms are canonical.
 
 ---
 
-## 4. Schema Directory Contract
+## 4. Commons v1.1.0
 
-Every schema file MUST reside under:
+Commons v1.1.0 is the current schema family for this repository.
 
-schemas/v1.0.0/commons/<verb>/
+### 4.1 Directory contract
 
-- `requests/<verb>.request.schema.json`
-- `receipts/<verb>.receipt.schema.json`
+Every v1.1.0 schema file MUST reside under:
 
-**Shared primitives located at:**
+```text
+schemas/v1.1.0/commons/<verb>/
+```
 
-schemas/v1.0.0/_shared/
+with exactly these file names:
 
-- `x402.schema.json`
-- `trace.schema.json`
-- `receipt.base.schema.json`
+- `<verb>.request.schema.json`
+- `<verb>.receipt.schema.json`
 
-**Directory is version-locked.**  
-Moving files is a breaking change.
+Moving published files is a breaking change.
+
+### 4.2 Request shape (flat)
+
+Every v1.1.0 request MUST be a flat JSON object with:
+
+| Field     | Required | Constraints |
+|-----------|----------|-------------|
+| `verb`    | Yes      | String constant equal to the canonical verb |
+| `version` | Yes      | String constant equal to `1.1.0` |
+| `input`   | Yes      | Non-empty string |
+| `mode`    | No       | Verb-specific enum when present |
+
+Requests MUST NOT include undeclared properties.
+
+A conforming request shape is:
+
+```json
+{
+  "verb": "<canonical verb>",
+  "version": "1.1.0",
+  "input": "<non-empty string>",
+  "mode": "<optional verb-specific mode>"
+}
+```
+
+Commons v1.1.0 does not require `x402`, `trace`, `actor`, or nested request wrappers.
+
+### 4.3 Receipt shape
+
+Every v1.1.0 receipt MUST be a flat JSON object with these shared fields:
+
+| Field         | Required | Constraints |
+|---------------|----------|-------------|
+| `verb`        | Yes      | String constant equal to the canonical verb |
+| `version`     | Yes      | String constant equal to `1.1.0` |
+| `status`      | Yes      | `"ok"` or `"error"` |
+| `timestamp`   | Yes      | RFC 3339 / JSON Schema `date-time` |
+| `request_hash`| Yes      | `sha256:` followed by 64 lowercase hex chars |
+| `signature`   | Yes      | Base64url-style string, min length 32 |
+| `agent`       | No       | Non-empty string signer identity |
+| `result_hash` | No       | `sha256:` followed by 64 lowercase hex chars |
+| `result_cid`  | No       | Non-empty string content identifier |
+| `summary`     | Cond.    | REQUIRED when `status = "ok"` |
+| `error`       | Cond.    | REQUIRED when `status = "error"` |
+
+Receipts MUST NOT include undeclared properties.
+
+A conforming success receipt shape is:
+
+```json
+{
+  "verb": "<canonical verb>",
+  "version": "1.1.0",
+  "status": "ok",
+  "timestamp": "<RFC 3339 date-time>",
+  "agent": "<stable signer identity>",
+  "request_hash": "sha256:<64 lowercase hex chars>",
+  "result_hash": "sha256:<64 lowercase hex chars>",
+  "result_cid": "<optional content identifier>",
+  "summary": "<human-readable outcome summary>",
+  "signature": "<base64url detached signature>"
+}
+```
+
+A conforming error receipt shape is:
+
+```json
+{
+  "verb": "<canonical verb>",
+  "version": "1.1.0",
+  "status": "error",
+  "timestamp": "<RFC 3339 date-time>",
+  "request_hash": "sha256:<64 lowercase hex chars>",
+  "signature": "<base64url detached signature>",
+  "error": "<human-readable failure detail>"
+}
+```
+
+### 4.4 Trust model
+
+Commons v1.1.0 provides attestation-oriented receipts:
+
+- `request_hash` binds the receipt to a specific request payload
+- `result_hash` and `result_cid`, when present, bind the receipt to a specific result payload or content address
+- `signature` binds the signer to the receipt contents
+- `agent`, when present, identifies the signer in a stable application-level form
+
+Commons v1.1.0 does **not** define settlement proofs, transport-level guarantees, execution traces, or result-object substructures.
 
 ---
 
-## 5. Schema `$id` Rules (Deterministic)
+## 5. v1.0.0 Legacy Status
 
-Every schema **MUST** use this `$id` pattern:
+`v1.0.0` remains in the repository as a legacy schema family for compatibility and historical verification.
+
+Its structure differs materially from v1.1.0:
+
+- nested request/receipt directories
+- `_shared` referenced schemas
+- transport-oriented `x402` and `trace` concepts
+
+Implementers MUST NOT project those legacy requirements onto v1.1.0.
+
+Legacy path pattern:
+
+```text
+schemas/v1.0.0/commons/<verb>/requests/<verb>.request.schema.json
+schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
+```
+
+---
+
+## 6. Schema `$id` Rules
+
+Every v1.1.0 schema MUST use a resolvable HTTPS `$id` under this pattern.
 
 ### Request
-https://commandlayer.org/schemas/v1.0.0/commons/<verb>/requests/<verb>.request.schema.json
 
-
+```text
+https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json
+```
 
 ### Receipt
-https://commandlayer.org/schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
 
+```text
+https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json
+```
 
-### Shared
-https://commandlayer.org/schemas/v1.0.0/_shared/<schema>.json
-
-
-All `$id` values MUST be resolvable over HTTPS.
+Legacy v1.0.0 `$id` layouts remain valid only for the legacy directory tree.
 
 ---
 
-## 6. x402 Envelope Binding
+## 7. Validation Requirements
 
-All requests MUST embed:
+Implementations claiming v1.1.0 compatibility MUST:
 
-```jsonc
-"x402": {
-  "verb": "<verb>",
-  "version": "1.0.0"
-}
+1. Validate requests and receipts against the exact published schema files
+2. Use JSON Schema draft 2020-12 support
+3. Compile schemas in strict Ajv mode or equivalent
+4. Reject undeclared properties
+5. Enforce conditional receipt logic for `summary` and `error`
+
+Repository validation commands are:
+
+```bash
+npm run validate:schemas
+npm run validate:examples
+npm run validate
 ```
-All receipts MUST embed:
-
-```
-"x402": {
-  "verb": "<verb>",
-  "version": "1.0.0",
-  "status": "ok" | "error"
-}
-```
-
-No additional properties permitted inside x402.
 
 ---
 
-## 7. Trace Guarantees
-Every receipt MUST echo:
+## 8. Versioning + Immutability
 
-```
-trace.requestId = request.trace.requestId
-```
+Once published under a version directory such as:
 
-This is REQUIRED for chaining & auditability.
-
-Additional trace fields MAY exist (per `_shared/trace.schema.json`)
-but MAY NOT weaken determinism or referential integrity.
-
----
-
-## 8. Request Contract
-Requests MUST contain:
-
-| Field   | Required | Source                      |
-| ------- | -------- | --------------------------- |
-| `x402`  | Yes      | `_shared/x402.schema.json`  |
-| `trace` | Yes      | `_shared/trace.schema.json` |
-| `input` | Yes      | Verb-specific               |
-
-
-Requests MUST validate in **strict Ajv mode.**
-
----
-
-## 9. Receipt Contract
-Receipts MUST contain:
-
-| Field    | Required | Conditional         |
-| -------- | -------- | ------------------- |
-| `x402`   | Yes      | Always              |
-| `trace`  | Yes      | Always              |
-| `status` | Yes      | `"ok"` or `"error"` |
-| `result` | Yes      | IF `status = ok`    |
-| `error`  | Yes      | IF `status = error` |
-
-
-Strict conditional logic is canonical and MUST pass CI validation.
-
-Error receipts MUST NOT include `result.`
-
----
-
-## 10. Versioning + Immutability
-
-Once published under:
-```
-schemas/v1.0.0/
+```text
+schemas/v1.1.0/
 ```
 
-There MUST NEVER be:
+there MUST NEVER be in-place mutation of:
 
-- File content changes
-- Field requirement changes
-- `$id` changes
-- Behavior changes
+- schema file contents
+- required field sets
+- `$id` values
+- documented semantics for that version
 
-Any mutation requires:
-
-- New version directory (e.g. v1.0.1/)
-- New CID
-- Updated checksums + manifest
-- ENS TXT update
-- Governance approval
-
----
-## 11. Provenance & Integrity (NORMATIVE)
-
-The canonical Protocol-Commons v1.0.0 release is uniquely identified by:
-
-- Version directory: `schemas/v1.0.0/`
-- Git tag: `commons-v1.0.0`
-- IPFS directory CID:
-  `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
-- File-level hashes: `checksums.txt` (SHA-256)
-
-Auditors and resolvers MUST:
-
-1. Fetch `schemas/v1.0.0/` via HTTP(S) or IPFS using the canonical CID
-2. Verify integrity:
-
-   ```bash
-   sha256sum -c checksums.txt
-   ```
-   
-3. Treat any mismatch as an integrity failure and reject trust 
-`schemas/v1.0.0/` is immutable.
-
-Any semantic change requires a new version directory.
+Any semantic or structural change requires a new version directory.
 
 ---
 
-## 12. Discovery + ENS TXT Responsibilities
+## 9. Provenance & Integrity
 
-Protocol-Commons governs **schema-related** TXT keys only:
-```
-cl.verb
-cl.version
-cl.schema.request
-cl.schema.receipt
-cl.cid.schemas
-cl.schemas.mirror.ipfs
+The canonical Protocol-Commons v1.1.0 release is identified by:
+
+- Version directory: `schemas/v1.1.0/`
+- Package version: `1.1.0`
+- Manifest entry: `manifest.json`
+- File-level hashes: `checksums.txt`
+- IPFS directory CID: `TBD (pre-release)` until a release CID is published
+
+Auditors and resolvers SHOULD:
+
+1. Fetch the versioned schemas
+2. Verify integrity locally
+3. Treat mismatched artifacts as untrusted
+
+Integrity check command:
+
+```bash
+npm run checksums:verify
 ```
 
-These keys MUST:
-- **match the canonical schema metadata exactly**
-- **resolve to the published CID-linked artifacts**
-- be updated **only** when a new version is released and
-  recorded in `RESOLUTION.md`
+---
 
-Resolvers MUST treat any mismatch as an **unauthenticated schema binding** and MUST NOT trust the resolution.
+## 10. Implementations MUST
 
-Identity + invocation TXT keys (e.g., `cl.entry`, `cl.agentcard`) are governed by **Agent-Cards**, not Protocol-Commons.
+An implementation supporting Commons v1.1.0 MUST:
+
+1. Support the canonical verb names exactly
+2. Validate the flat request shape exactly as published
+3. Validate the flat receipt shape exactly as published
+4. Treat published version directories as immutable
+5. Preserve receipt trust semantics as hashes plus signatures, without inventing unsupported guarantees
+
+A system supporting any canonical verb MAY claim **Commons-Compatible** for that version.
 
 ---
 
-## 13. Implementations MUST:
+## 11. Failure Modes
 
- 1. Validate requests & receipts in Ajv strict (2020-12)
- 2. Support schema resolution from $id URLs
- 3. Mirror schema CIDs correctly
- 4. Treat version directories as immutable
- 5. Respect full trace echo
-
-A system supporting ANY canonical verb MAY claim:
-
-**Commons-Compatible**
-
----
-
-## 14. Failure Modes
-
-If ANY of the following occur:
+If any of the following occur:
 
 - `$id` mismatch
-- CID mismatch between schema and ENS TXT
-- TXT keys missing or malformed
-- Request or receipt fails strict validation
-- Trace does not echo `requestId`
-- Version directory contents differ from published checksums
-- Published artifact mutated in-place
+- request or receipt fails strict validation
+- required conditional receipt fields are missing
+- published artifacts differ from expected checksums
+- published artifacts are mutated in place
 
-Resolvers MUST treat the result as **untrusted** and SHOULD:
-
-- Reject the request/receipt
-- Emit a diagnostic error
-- Fallback to a known-good version if available
+consumers MUST treat the artifact as untrusted and SHOULD reject it.
 
 Silent degradation MUST NOT occur.
 
 ---
-## 15. Security
-Protocol-Commons is **Security-Critical Infrastructure:**
 
-- No PII
-- No execution logic
-- No proprietary references
-- No commercial conditions
+## 12. Security
 
-Security escalation MUST follow repository policy (SECURITY.md).
+Protocol-Commons is security-relevant infrastructure.
 
-### Status
-**Stable — v1.0.0 locked**
-CommandLayer Core Standards
+It does not itself define:
 
+- payment authorization
+- invocation transport security
+- identity registry semantics
+- result correctness proofs beyond signed, hashed attestation
 
+Security escalation MUST follow repository policy.
 
+---
 
+## Status
 
+**Stable — v1.1.0 current**  
+**Legacy — v1.0.0 retained for compatibility**
