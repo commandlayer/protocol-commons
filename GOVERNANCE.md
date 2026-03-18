@@ -1,7 +1,7 @@
 # Governance — Protocol Commons
 
 **Scope:** Protocol-Commons (primary), Agent-Cards (identity bindings)  
-**Status:** v1.0.0 — Stable-Lock  
+**Status:** v1.0.0 — Stable-Lock; v1.1.0 — Active In-Repo Pre-Release Candidate  
 
 > This governance is **NORMATIVE, ENFORCEABLE, AND PERMANENT**.  
 > Control is custodial today and **designed to decentralize** as adoption grows.
@@ -96,6 +96,11 @@ Commercial schemas inherit similar guarantees:
 
 Attempts to mutate semantics in place MUST be treated as **UNTRUSTED**.
 
+The current lock states are interpreted strictly:
+
+- **v1.0.0 Stable-Lock** means the last fully pinned canonical release with published CID, immutable checksums, and locked provenance
+- **v1.1.0 active in-repo schema family** means the current repository contract under review and validation, but still a pre-release candidate until pinning is complete
+
 ---
 
 ## 5. TXT Key Governance — NORMATIVE
@@ -141,9 +146,6 @@ No single key may modify canonical semantics.
 **All** normative proposals **MUST** originate from a public GitHub Issue linked to a PR.  
 Silent or undocumented changes are **STRICTLY FORBIDDEN.**
 
-
-
-
 | Change Class | Version Rule | Required Log |
 |--------------|--------------|--------------|
 | **Normative** (behavior change) | `1 → 2` | `RESOLUTION.md` |
@@ -151,6 +153,8 @@ Silent or undocumented changes are **STRICTLY FORBIDDEN.**
 | **Non-behavioral** | `1.0.0 → 1.0.1` | Commit history |
 
 Every semantic release MUST publish new CIDs + checksums.
+
+Until a new release CID is published, contributors MUST describe that version as an active in-repo pre-release candidate rather than a fully pinned canonical release.
 
 ---
 
@@ -180,8 +184,6 @@ ONLY if:
 
 False claims REQUIRE public enforcement action.
 
----
-
-_Last updated: v1.0.0 — Stable-Lock_  
+_Last updated: v1.0.0 locked as the last fully pinned canonical release; v1.1.0 active in repo as a pre-release candidate_  
 Signed: **`commandlayer.eth`**  
 *Founding Steward — CommandLayer Semantic Standards*
