@@ -1,0 +1,17 @@
+// VALID convert.request #1 — aligned with schemas/v1.1.0/commons/convert/convert.request.schema.json
+
+export type ConvertMode = "text" | "markdown" | "html" | "json";
+
+export interface ConvertRequest {
+  verb: "convert";
+  version: "1.1.0";
+  input: string;
+  mode?: ConvertMode;
+}
+
+export const convertRequestValid1: ConvertRequest = {
+  "verb": "convert",
+  "version": "1.1.0",
+  "input": "Title: Commons v1.1.0\nPoint 1: Flat requests\nPoint 2: Signed receipts",
+  "mode": "markdown"
+};

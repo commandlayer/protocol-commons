@@ -1,0 +1,6 @@
+{
+  "verb": "summarize",
+  "version": "1.1.0",
+  "input": "CommandLayer Commons v1.1.0 simplifies every request into a flat verb/version/input shape and narrows receipts to signed execution evidence.",
+  "mode": "brief"
+}
