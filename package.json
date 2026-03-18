@@ -58,7 +58,9 @@
     "checksums:verify": "bash scripts/verify-checksums.sh",
     "checksums:dirty": "git diff --exit-code -- checksums.txt",
     "prepack": "npm run checksums:gen",
-    "prepublishOnly": "npm run checksums:gen && npm run checksums:dirty && npm run validate"
+    "prepublishOnly": "npm run checksums:gen && npm run checksums:dirty && npm run validate",
+    "test:smoke:import": "node scripts/smoke-import.mjs",
+    "test:smoke:pack": "node scripts/smoke-pack.mjs"
   },
   "main": "./index.js",
   "exports": {
