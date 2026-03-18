@@ -16,7 +16,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 const ROOT_DIR = process.cwd();
-const SCHEMAS_ROOT = path.join(ROOT_DIR, 'schemas', 'v1.0.0');
+const SCHEMAS_ROOT = path.join(ROOT_DIR, 'schemas');
 
 async function collectSchemaFiles(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true });

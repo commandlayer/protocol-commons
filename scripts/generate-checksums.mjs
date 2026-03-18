@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+/**
+ * NOTE: This Node.js helper is not the canonical checksum generator for release workflows.
+ * The canonical generator remains scripts/generate-checksums.sh, which package.json invokes.
+ * Keep this helper behavior aligned with the shell script's text-mode `checksums.txt` output.
+ */
 import fs from "fs";
 import path from "path";
 import crypto from "crypto";
@@ -10,7 +15,7 @@ function die(msg) {
 }
 
 // --- Args: [rootDir] [outFile]
-const rootDirArg = process.argv[2] || "schemas/v1.0.0";
+const rootDirArg = process.argv[2] || "schemas";
 const outFileArg = process.argv[3] || "checksums.txt";
 
 // Resolve repo root (scripts/..)
@@ -52,9 +57,8 @@ function walkDir(absDir, relBasePosix, acc) {
     const stat = fs.statSync(absChild);
     if (stat.isDirectory()) {
       walkDir(absChild, relChildPosix, acc);
-    } else if (stat.isFile()) {
-      // Canonical scope: JSON schemas only
-      if (relChildPosix.endsWith(".json")) acc.push(relChildPosix);
+    } else if (stat.isFile() && relChildPosix.endsWith(".json")) {
+      acc.push(relChildPosix);
     }
   }
 }
@@ -64,7 +68,7 @@ function main() {
   const st = fs.statSync(rootAbs);
   if (!st.isDirectory()) die(`Root is not a directory: ${rootDirArg}`);
 
-  const relRootPosix = toPosix(rootDirArg);
+  const relRootPosix = toPosix(path.relative(repoRoot, rootAbs)) || ".";
   const files = [];
   walkDir(rootAbs, relRootPosix, files);
 
@@ -73,8 +77,7 @@ function main() {
   const lines = files.map((relPosix) => {
     const absPath = path.join(repoRoot, relPosix);
     const hash = sha256File(absPath);
-    // Match common sha256sum style (binary marker *)
-    return `${hash} *${relPosix}`;
+    return `${hash}  ${relPosix}`;
   });
 
   fs.writeFileSync(outAbs, lines.join("\n") + "\n", "utf8");

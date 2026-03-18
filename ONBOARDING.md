@@ -2,13 +2,13 @@
 
 Welcome to **Protocol-Commons** — the canonical verb + schema layer for autonomous agents.
 
-This repo defines the **semantic contract**:
+This repo defines the **semantic contract** for the active **v1.1.0** schema family and preserves **v1.0.0** as historical pinned context:
 
 - What actions exist (**canonical verbs**)
 - How requests and receipts are structured (**typed schemas**)
-- How they bind into **x402 envelopes** and **trace primitives**
+- How versioned schema families are governed, published, and verified
 
-Stable semantics here protect the entire agent ecosystem.
+Stable semantics here protect the entire agent ecosystem. Legacy v1.0.0 materials still document the older x402/trace-oriented layout, but those assumptions do **not** automatically apply to v1.1.0.
 
 ---
 
@@ -33,7 +33,7 @@ For identity metadata + ENS discovery → see **agent-cards**.
 Protocol-Commons is the **bottom** layer:
 
 ```
-[ Execution ]   x402 runtimes (invocation + receipts)
+[ Execution ]   runtimes and transport envelopes
 [ Identity  ]   Agent-Cards (discovery + ownership)
 [ Semantics ]   Protocol-Commons (verbs + schemas)
 ```
@@ -43,40 +43,38 @@ It answers:
 “What is this agent trying to do — and what must this message look like?”
 
 ## 3. Repo Layout
-   
 
-| Folder/File                       | Meaning                                 |
-| --------------------------------- | --------------------------------------- |
-| `schemas/v1.0.0/commons/`         | Canonical verb schemas (immutable)      |
-| `schemas/v1.0.0/_shared/`         | Shared primitives (trace/x402/receipts) |
-| `examples/v1.0.0/commons/`        | Valid + invalid test vectors            |
-| `manifest.json` + `checksums.txt` | Integrity + provenance                  |
-| `SPEC.md`                         | Canonical rules                         |
-| `POLICY.md`                       | Schema enforcement rules                |
-| `GOVERNANCE.md`                   | Change authority + approvals            |
-| `SECURITY*.md`                    | Disclosure + provenance                 |
-| `RESOLUTION.md`                   | Change log (signed provenance)          |
-
-
+| Folder/File                       | Meaning                                                              |
+| --------------------------------- | -------------------------------------------------------------------- |
+| `schemas/v1.1.0/commons/`         | Active in-repo Commons schemas (current pre-release candidate)       |
+| `examples/v1.1.0/commons/`        | Active v1.1.0 example payloads and vectors                           |
+| `schemas/v1.0.0/commons/`         | Historical pinned Commons schemas (immutable canonical release)      |
+| `schemas/v1.0.0/_shared/`         | Historical shared primitives used by v1.0.0                          |
+| `examples/v1.0.0/commons/`        | Historical v1.0.0 test vectors                                       |
+| `manifest.json` + `checksums.txt` | Integrity, provenance, and active-versus-historical release metadata |
+| `SPEC.md`                         | Canonical rules                                                      |
+| `SCHEMAS.md`                      | Schema family and layout rules                                       |
+| `GOVERNANCE.md`                   | Change authority + approvals                                         |
+| `SECURITY*.md`                    | Disclosure + provenance                                              |
+| `RESOLUTION.md`                   | Change log (signed provenance)                                       |
 
 Authoritative docs:
 
-SPEC.md — NORMATIVE rules
-
-- `POLICY.md` — versioning and extension governance
+- `SPEC.md` — normative rules
+- `SCHEMAS.md` — versioning, layout, and schema-family guidance
 - `GOVERNANCE.md` — approval of normative changes
 - `SECURITY*.md` — provenance + integrity guarantees
 - `RESOLUTION.md` — canonical lifecycle log
 
 If a change is not reflected here → **not canonical.**
 
-**ENS TXT Summary**
-Protocol-Commons governs TXT keys that resolve schema semantics.
-Canonical definitions → `SPEC.md.`
+**ENS TXT Summary**  
+Protocol-Commons governs TXT keys that resolve schema semantics.  
+Canonical definitions → `SPEC.md`.
 
 ## 4. Contribution Flow
 1. Open an Issue describing context + verb(s)
-2. Design change per POLICY.md
+2. Design change per `SCHEMAS.md`
 3. Update schemas + examples
 4. Validate:
 
