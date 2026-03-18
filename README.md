@@ -97,7 +97,7 @@ npm install @commandlayer/commons ajv
 **Validate a request against a canonical verb schema**
 
 ```
-npx cl-validate examples/v1.0.0/commons/summarize/request.json
+npx cl-validate examples/v1.1.0/commons/summarize/json/valid/001-summarize.request.valid.json
 # ✓ VALID — trace: bafybeieoynknza...
 ```
 **Programmatic usage (Node.js/ESM)**
@@ -371,13 +371,26 @@ protocol-commons/
 │           ├── trace.schema.json
 │           └── receipt.base.schema.json
 ├── examples/
-│   └── v1.0.0/
+│   ├── v1.0.0/
+│   │   └── commons/
+│   │       └── <verb>/
+│   │           ├── valid/
+│   │           │   └── *.json
+│   │           └── invalid/
+│   │               └── *.json
+│   └── v1.1.0/
 │       └── commons/
 │           └── <verb>/
-│               ├── valid/
-│               │   └── *.json
-│               └── invalid/
-│                   └── *.json
+│               ├── json/
+│               │   ├── valid/
+│               │   │   └── *.json
+│               │   └── invalid/
+│               │       └── *.json
+│               └── ts/
+│                   ├── valid/
+│                   │   └── *.ts
+│                   └── invalid/
+│                       └── *.ts
 ├── checksums.txt
 ├── manifest.json
 ├── SPEC.md

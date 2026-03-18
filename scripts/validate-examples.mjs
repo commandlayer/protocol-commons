@@ -7,11 +7,8 @@ import ajvErrors from "ajv-errors";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const ROOT = path.join(__dirname, "..");
 
-const SCHEMAS_ROOT = path.join(__dirname, "..", "schemas", "v1.0.0");
-const EXAMPLES_ROOT = path.join(__dirname, "..", "examples", "v1.0.0");
-
-// Commons verbs currently defined in this repo
 const VERBS = [
   "classify",
   "clean",
@@ -23,6 +20,27 @@ const VERBS = [
   "summarize",
   "analyze",
   "fetch"
+];
+
+const EXAMPLE_CONFIGS = [
+  {
+    version: "v1.0.0",
+    schemasRoot: path.join(ROOT, "schemas", "v1.0.0"),
+    examplesRoot: path.join(ROOT, "examples", "v1.0.0"),
+    requestSchemaId: (verb) => `https://commandlayer.org/schemas/v1.0.0/commons/${verb}/requests/${verb}.request.schema.json`,
+    receiptSchemaId: (verb) => `https://commandlayer.org/schemas/v1.0.0/commons/${verb}/receipts/${verb}.receipt.schema.json`,
+    validDir: (verb) => path.join(ROOT, "examples", "v1.0.0", "commons", verb, "valid"),
+    invalidDir: (verb) => path.join(ROOT, "examples", "v1.0.0", "commons", verb, "invalid")
+  },
+  {
+    version: "v1.1.0",
+    schemasRoot: path.join(ROOT, "schemas", "v1.1.0"),
+    examplesRoot: path.join(ROOT, "examples", "v1.1.0"),
+    requestSchemaId: (verb) => `https://commandlayer.org/schemas/v1.1.0/commons/${verb}/${verb}.request.schema.json`,
+    receiptSchemaId: (verb) => `https://commandlayer.org/schemas/v1.1.0/commons/${verb}/${verb}.receipt.schema.json`,
+    validDir: (verb) => path.join(ROOT, "examples", "v1.1.0", "commons", verb, "json", "valid"),
+    invalidDir: (verb) => path.join(ROOT, "examples", "v1.1.0", "commons", verb, "json", "invalid")
+  }
 ];
 
 function createAjv() {
@@ -54,8 +72,7 @@ async function existsDir(dirPath) {
   }
 }
 
-// Recursively load all schemas from SCHEMAS_ROOT into Ajv
-async function preloadAllSchemas(ajv) {
+async function preloadAllSchemas(ajv, rootDir) {
   async function walk(dir) {
     const entries = await fs.readdir(dir, { withFileTypes: true });
     for (const entry of entries) {
@@ -68,7 +85,6 @@ async function preloadAllSchemas(ajv) {
         try {
           ajv.addSchema(schema, key);
         } catch (err) {
-          // If schema with same key already exists in this Ajv instance, skip
           if (!String(err.message || "").includes("already exists")) {
             throw err;
           }
@@ -77,85 +93,76 @@ async function preloadAllSchemas(ajv) {
     }
   }
 
-  await walk(SCHEMAS_ROOT);
+  await walk(rootDir);
 }
 
-async function validateExamplesForVerb(verb, ajv) {
-  const validDir = path.join(EXAMPLES_ROOT, "commons", verb, "valid");
-  const invalidDir = path.join(EXAMPLES_ROOT, "commons", verb, "invalid");
+async function validateDir(dirPath, expectedValid, validateRequest, validateReceipt) {
+  if (!(await existsDir(dirPath))) return;
 
+  const files = await fs.readdir(dirPath);
+
+  for (const file of files) {
+    if (!file.endsWith(".json")) continue;
+
+    const fullPath = path.join(dirPath, file);
+    const data = await loadJson(fullPath);
+    const isRequest = file.includes("request");
+    const validateFn = isRequest ? validateRequest : validateReceipt;
+    const ok = validateFn(data);
+
+    if (expectedValid && !ok) {
+      console.error(`❌ Expected VALID but got errors for ${fullPath}:`, validateFn.errors);
+      throw new Error(`Example should be valid but failed: ${fullPath}`);
+    }
+
+    if (!expectedValid && ok) {
+      console.error(`❌ Expected INVALID but schema accepted ${fullPath}`);
+      throw new Error(`Example should be invalid but passed: ${fullPath}`);
+    }
+  }
+}
+
+async function validateExamplesForVerb(config, verb, ajv) {
+  const validDir = config.validDir(verb);
+  const invalidDir = config.invalidDir(verb);
   const hasValidDir = await existsDir(validDir);
   const hasInvalidDir = await existsDir(invalidDir);
 
   if (!hasValidDir && !hasInvalidDir) {
-    console.log(`ℹ️  No examples found for verb: ${verb}, skipping.`);
+    console.log(`ℹ️  No ${config.version} examples found for verb: ${verb}, skipping.`);
     return;
   }
 
-  console.log(`\n🔍 Validating examples for verb: ${verb}`);
+  console.log(`\n🔍 Validating ${config.version} examples for verb: ${verb}`);
 
-  const requestSchemaId = `https://commandlayer.org/schemas/v1.0.0/commons/${verb}/requests/${verb}.request.schema.json`;
-  const receiptSchemaId = `https://commandlayer.org/schemas/v1.0.0/commons/${verb}/receipts/${verb}.receipt.schema.json`;
-
-  const validateRequest = ajv.getSchema(requestSchemaId);
-  const validateReceipt = ajv.getSchema(receiptSchemaId);
+  const validateRequest = ajv.getSchema(config.requestSchemaId(verb));
+  const validateReceipt = ajv.getSchema(config.receiptSchemaId(verb));
 
   if (!validateRequest) {
-    throw new Error(`No compiled schema found in Ajv for request id: ${requestSchemaId}`);
+    throw new Error(`No compiled schema found in Ajv for request id: ${config.requestSchemaId(verb)}`);
   }
   if (!validateReceipt) {
-    throw new Error(`No compiled schema found in Ajv for receipt id: ${receiptSchemaId}`);
+    throw new Error(`No compiled schema found in Ajv for receipt id: ${config.receiptSchemaId(verb)}`);
   }
 
-  async function validateDir(dirPath, expectedValid) {
-    if (!(await existsDir(dirPath))) return;
+  await validateDir(validDir, true, validateRequest, validateReceipt);
+  await validateDir(invalidDir, false, validateRequest, validateReceipt);
 
-    const files = await fs.readdir(dirPath);
-
-    for (const file of files) {
-      if (!file.endsWith(".json")) continue;
-
-      const fullPath = path.join(dirPath, file);
-      const data = await loadJson(fullPath);
-
-      const isRequest = file.includes("request");
-      const validateFn = isRequest ? validateRequest : validateReceipt;
-
-      const ok = validateFn(data);
-
-      if (expectedValid && !ok) {
-        console.error(
-          `❌ Expected VALID but got errors for ${fullPath}:`,
-          validateFn.errors
-        );
-        throw new Error(`Example should be valid but failed: ${fullPath}`);
-      }
-
-      if (!expectedValid && ok) {
-        console.error(
-          `❌ Expected INVALID but schema accepted ${fullPath}`
-        );
-        throw new Error(`Example should be invalid but passed: ${fullPath}`);
-      }
-    }
-  }
-
-  // Valid examples must pass
-  await validateDir(validDir, true);
-
-  // Invalid examples must fail
-  await validateDir(invalidDir, false);
-
-  console.log(`✅ Examples OK for verb: ${verb}`);
+  console.log(`✅ ${config.version} examples OK for verb: ${verb}`);
 }
 
 async function main() {
   try {
     const ajv = createAjv();
-    await preloadAllSchemas(ajv);
 
-    for (const verb of VERBS) {
-      await validateExamplesForVerb(verb, ajv);
+    for (const config of EXAMPLE_CONFIGS) {
+      await preloadAllSchemas(ajv, config.schemasRoot);
+    }
+
+    for (const config of EXAMPLE_CONFIGS) {
+      for (const verb of VERBS) {
+        await validateExamplesForVerb(config, verb, ajv);
+      }
     }
 
     console.log("\n✅ All example validations completed.");

@@ -9,7 +9,7 @@
   "repository": "https://github.com/commandlayer/protocol-commons",
   "homepage": "https://commandlayer.org",
   "schemas_root": "schemas/v1.1.0",
-  "examples_root": "examples/v1.0.0",
+  "examples_root": "examples/v1.1.0",
   "checksum_file": "checksums.txt",
   "schemas_cid": "PENDING",
   "tag": "commons-schemas-v1.1.0",
