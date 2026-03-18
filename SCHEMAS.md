@@ -20,9 +20,20 @@ Once published, a version directory is immutable.
 
 ---
 
-## 2. Directory Layout
+## 2. Version Status
 
-### Current layout: v1.1.0
+This repository currently ships:
+
+- **v1.1.0** as the active in-repo schema family
+- **v1.0.0** as the historical and last fully pinned canonical release
+
+Because `manifest.json` still reports the v1.1.0 schema CID as pending, documentation MUST describe v1.1.0 as **pre-release for provenance/pinning status** until a real CID is published.
+
+---
+
+## 3. Directory Layout
+
+### Current in-repo layout: v1.1.0
 
 ```text
 schemas/v1.1.0/
@@ -32,7 +43,7 @@ schemas/v1.1.0/
         └── <verb>.receipt.schema.json
 ```
 
-### Legacy layout: v1.0.0
+### Historical pinned layout: v1.0.0
 
 ```text
 schemas/v1.0.0/
@@ -57,7 +68,7 @@ schemas/v1.0.0/
 
 ---
 
-## 3. Canonical Verb Set
+## 4. Canonical Verb Set
 
 | Verb | Purpose |
 |------|---------|
@@ -79,7 +90,7 @@ Each verb MUST define exactly:
 
 ---
 
-## 4. Deterministic `$id` Contract
+## 5. Deterministic `$id` Contract
 
 ### v1.1.0 request schemas
 
@@ -107,13 +118,13 @@ https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.receipt.sche
 
 ### Legacy v1.0.0 note
 
-Legacy v1.0.0 schemas retain their older nested `$id` patterns and `_shared` references. Those patterns are not the v1.1.0 contract.
+Legacy v1.0.0 schemas retain their older nested `$id` patterns and `_shared` references. Those patterns are legacy-only and are not the v1.1.0 contract.
 
 All `$id` values MUST be fully qualified HTTPS URLs.
 
 ---
 
-## 5. v1.1.0 Request Contract
+## 6. v1.1.0 Request Contract
 
 Every v1.1.0 request MUST include:
 
@@ -130,7 +141,7 @@ v1.1.0 requests do not use nested request objects, `x402`, `trace`, or `actor` f
 
 ---
 
-## 6. v1.1.0 Receipt Contract
+## 7. v1.1.0 Receipt Contract
 
 Every v1.1.0 receipt MUST include:
 
@@ -159,21 +170,21 @@ The trust model is limited to signer attestation plus request/result hash refere
 
 ---
 
-## 7. Legacy v1.0.0 Scope
+## 8. Legacy v1.0.0 Scope
 
-v1.0.0 remains in-repo for compatibility and historical verification.
+v1.0.0 remains in-repo for compatibility, historical verification, and canonical pin auditing.
 
 Its schemas use:
 
 - `_shared` helper schemas
 - nested `requests/` and `receipts/` folders
-- older envelope conventions
+- older envelope conventions including `x402` and `trace`
 
-Documentation and tooling MUST distinguish that legacy structure from v1.1.0.
+Documentation and tooling MUST distinguish that legacy structure from v1.1.0 and MUST NOT present those legacy fields as universally normative.
 
 ---
 
-## 8. Versioning Rules
+## 9. Versioning Rules
 
 Once published under a version directory such as `schemas/v1.1.0/`, the following actions are prohibited:
 
@@ -186,7 +197,7 @@ Any change requires a new version directory.
 
 ---
 
-## 9. Validation Requirements
+## 10. Validation Requirements
 
 CI and local validation SHOULD enforce strict schema compilation behavior equivalent to:
 
@@ -210,7 +221,7 @@ All shipped valid and invalid examples MUST match the version-specific schema la
 
 ---
 
-## 10. Examples
+## 11. Examples
 
 Examples are maintained per version.
 
@@ -232,7 +243,7 @@ examples/v1.0.0/commons/<verb>/
 
 ---
 
-## 11. Provenance & Integrity
+## 12. Provenance & Integrity
 
 Integrity is tracked by:
 
@@ -245,13 +256,19 @@ Current v1.1.0 schema CID status:
 TBD (pre-release)
 ```
 
-Resolvers and auditors MUST reject mismatched artifacts.
+Last pinned canonical release CID:
+
+```text
+v1.0.0 → bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m
+```
+
+Resolvers and auditors MUST reject mismatched artifacts and MUST distinguish between a shipped schema family and a fully pinned canonical release.
 
 ---
 
-## 12. Contact
+## 13. Contact
 
 - dev@commandlayer.org
 - PGP 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
 
-**Status:** Stable `v1.1.0` current; `v1.0.0` legacy
+**Status:** v1.1.0 active in-repo schema family with pending CID; v1.0.0 retained as the historical pinned canonical release.

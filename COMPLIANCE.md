@@ -23,7 +23,22 @@ Compliance covers semantics and schema integrity only—identity bindings are go
 
 ---
 
-## 2. Versioning & Immutability
+## 2. Version-Aware Compliance Status
+
+Compliance claims MUST identify the version they apply to.
+
+Current repository status:
+
+- **v1.1.0** — current in-repo schema family; CID publication still pending
+- **v1.0.0** — last fully pinned canonical release
+
+A system MAY claim **v1.1.0 schema compatibility** if it validates and enforces the published v1.1.0 schemas.
+
+A system MUST NOT claim **fully pinned canonical v1.1.0 release compliance** until the v1.1.0 CID and provenance record are published.
+
+---
+
+## 3. Versioning & Immutability
 
 For any directory `schemas/vX.Y.Z/`:
 
@@ -35,7 +50,7 @@ No in-place edits to:
 
 Any semantic change requires:
 - New version directory
-- Updated CIDs + checksums
+- Updated CIDs + checksums for canonical releases
 - Logged update in `RESOLUTION.md`
 - Governance approval
 
@@ -43,22 +58,22 @@ Mutating a published version is **not compliant**.
 
 ---
 
-## 3. JSON Schema Requirements
+## 4. JSON Schema Requirements
 
 All Protocol-Commons schemas MUST:
 
 - Use JSON Schema Draft 2020-12
 - Validate under **Ajv strict mode**
 - Use deterministic HTTPS-resolvable `$id` values matching SPEC.md
-- Enforce verb-specific input + receipt contract
+- Enforce the version-specific input + receipt contract
 
 Loose validation or altered `$id` resolution is **not compliant**.
 
 ---
 
-## 4. CIDs & Checksums
+## 5. CIDs & Checksums
 
-Each release MUST:
+Each canonical release MUST:
 
 - Pin the entire version folder to IPFS
 - Provide SHA-256 checksums
@@ -66,8 +81,8 @@ Each release MUST:
 
 Compliance requires:
 
-- `cl.cid.schemas` resolves to the correct CID
-- IPFS mirrors match HTTP mirrors exactly
+- Canonical TXT/CID bindings only for fully published releases
+- IPFS mirrors match HTTP mirrors exactly for pinned releases
 
 Consumers SHOULD verify `checksums.txt` against the published schema
 artifacts prior to use.
@@ -77,8 +92,11 @@ canonical compliance, and MUST reject mismatches.
 
 Mismatch = **integrity failure**
 
+For v1.1.0 specifically, the schemas and checksums can still be validated locally, but the release MUST be described as pre-release until its CID publication is complete.
 
-## 5. Security & Privacy
+---
+
+## 6. Security & Privacy
 
 Schemas are **semantic infrastructure**, not application output.
 
@@ -91,7 +109,7 @@ Security incidents MUST follow `SECURITY.md`.
 
 ---
 
-## 6. Governance Traceability
+## 7. Governance Traceability
 
 Every canonical change MUST be reflected in:
 - `RESOLUTION.md` (what + why + who)
@@ -101,18 +119,22 @@ An artifact **without a governance trail** is not canonical.
 
 ---
 
-## 7. Ecosystem Alignment
+## 8. Ecosystem Alignment
 
 Commons-compliant implementations SHOULD:
 
 - Support ERC-8004 discovery where relevant
-- Enforce canonical x402 envelope + trace rules
+- Apply only the requirements that are normative for the version they implement
 
-Divergence is allowed — but **compliance claims then MUST NOT be made**.
+For v1.0.0 legacy implementations, that can include older `x402` envelope and `trace` requirements.
+
+For v1.1.0 implementations, those older `x402` and `trace` requirements are **not automatically normative** unless another layer explicitly adopts them outside the Commons schemas.
+
+Divergence from the version-specific Commons contract means **compliance claims then MUST NOT be made**.
 
 ---
 
-## 8. Deviation Handling
+## 9. Deviation Handling
 
 If a deviation is found:
 
@@ -123,15 +145,16 @@ If a deviation is found:
 
 ---
 
-## 9. Compliance Checklist
+## 10. Compliance Checklist
 
-You may claim **Protocol-Commons compliant** if:
+You may claim **Protocol-Commons compliant** for a specific version if:
 
 - Strict Ajv validation enforced  
 - Version directories treated as immutable  
 - `$id` URLs resolve correctly  
-- CIDs and checksums match content  
+- CIDs and checksums match content when the version is claimed as canonical and pinned  
 - Changes logged and signed  
 - ENS TXT duties respected per SPEC.md  
+- Version status is described accurately as pinned canonical or pre-release  
 
 If uncertain → treat the implementation as **experimental**.

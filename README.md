@@ -3,7 +3,7 @@
 **The canonical semantic contract for autonomous agents.**  
 *Verbs, schemas, and validation — or nothing interoperates.*
 
-[![Schemas](https://img.shields.io/badge/Schemas-Stable%20v1.1.0-brightgreen)](https://github.com/commandlayer/protocol-commons)
+[![Schemas](https://img.shields.io/badge/Schemas-v1.1.0%20candidate-yellow)](https://github.com/commandlayer/protocol-commons)
 [![NPM Version](https://img.shields.io/npm/v/@commandlayer/commons)](https://www.npmjs.com/package/@commandlayer/commons)
 [![CI Status](https://img.shields.io/github/actions/workflow/status/commandlayer/protocol-commons/validate.yml?branch=main&label=CI)](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/commandlayer/protocol-commons/blob/main/LICENSE)
@@ -26,10 +26,11 @@ Protocol-Commons is the foundation for portable machine intent: a stable set of 
 
 > **Integrity Notice — Protocol-Commons v1.1.0**
 >
-> Canonical schemas are pinned and immutable:
+> `schemas/v1.1.0/commons` is the current in-repo schema family, but its release CID is still pending:
 > `schemas/v1.1.0/commons` — CID: `TBD (pre-release)`
 >
-> Historical v1.0.0 artifacts remain in-repo for compatibility and verification.
+> `v1.0.0` remains the last fully pinned canonical release:
+> `schemas/v1.0.0/` — CID: `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
 >
 > Verify integrity locally:
 > ```bash
@@ -160,7 +161,9 @@ console.log(validate.errors ?? []);
 
 ## Commons v1.1.0
 
-Commons v1.1.0 introduces a simplified, flat schema surface for general-purpose agent actions.
+Commons v1.1.0 is the active schema family in this repository.
+
+It is ready for schema validation and local integration work, but its release provenance is still **pre-release** until a real CID is published.
 
 - Each request schema is standalone
 - Each receipt schema is standalone
@@ -349,10 +352,11 @@ Commons gives upper layers a stable meaning layer to build around.
 
 ## Status
 
-**Stable — v1.1.0 current**
+**v1.1.0 — active schema family, release CID pending**
 
-- `v1.1.0` is the current flat Commons layout
-- `v1.0.0` remains in-repo as a legacy schema family
+- `v1.1.0` is the current flat Commons layout in this repo
+- `v1.0.0` remains the last fully pinned canonical release
+- Do not describe `v1.1.0` provenance as fully canonical until pinning is complete
 
 ---
 
