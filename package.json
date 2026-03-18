@@ -37,7 +37,6 @@
   ],
   "files": [
     "schemas/",
-    "examples/",
     "checksums.txt",
     "manifest.json",
     "LICENSE",
