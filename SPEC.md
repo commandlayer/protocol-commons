@@ -21,7 +21,25 @@ Execution, payment, identity, and routing are the domain of other layers.
 
 ---
 
-## 2. Architecture Position
+## 2. Release Status and Scope
+
+This repository contains two materially different Commons schema families:
+
+- **v1.1.0** — current in-repo schema family and active documentation target
+- **v1.0.0** — legacy schema family and the last fully pinned canonical release
+
+Because the v1.1.0 release CID is still unpublished, v1.1.0 MUST be treated as a **pre-release candidate for provenance purposes** even though its schema contracts are fully present in this repository.
+
+Implementers MUST distinguish between:
+
+1. **Schema semantics** — what the v1.1.0 files require
+2. **Release provenance status** — whether a version has completed CID publication and canonical pinning
+
+This specification therefore documents the v1.1.0 contract explicitly while preserving v1.0.0 as the last pinned canonical release until v1.1.0 pinning is complete.
+
+---
+
+## 3. Architecture Position
 
 The Commons is the semantic base layer of the CommandLayer stack:
 
@@ -43,7 +61,7 @@ The Commons is the semantic base layer of the CommandLayer stack:
 
 ---
 
-## 3. Canonical Verb Set
+## 4. Canonical Verb Set
 
 The only canonical verbs are:
 
@@ -58,11 +76,11 @@ No aliases or synonyms are canonical.
 
 ---
 
-## 4. Commons v1.1.0
+## 5. Commons v1.1.0 Schema Contract
 
-Commons v1.1.0 is the current schema family for this repository.
+Commons v1.1.0 is the current schema family documented in this repository.
 
-### 4.1 Directory contract
+### 5.1 Directory contract
 
 Every v1.1.0 schema file MUST reside under:
 
@@ -77,7 +95,7 @@ with exactly these file names:
 
 Moving published files is a breaking change.
 
-### 4.2 Request shape (flat)
+### 5.2 Request shape (flat)
 
 Every v1.1.0 request MUST be a flat JSON object with:
 
@@ -103,23 +121,23 @@ A conforming request shape is:
 
 Commons v1.1.0 does not require `x402`, `trace`, `actor`, or nested request wrappers.
 
-### 4.3 Receipt shape
+### 5.3 Receipt shape
 
 Every v1.1.0 receipt MUST be a flat JSON object with these shared fields:
 
-| Field         | Required | Constraints |
-|---------------|----------|-------------|
-| `verb`        | Yes      | String constant equal to the canonical verb |
-| `version`     | Yes      | String constant equal to `1.1.0` |
-| `status`      | Yes      | `"ok"` or `"error"` |
-| `timestamp`   | Yes      | RFC 3339 / JSON Schema `date-time` |
-| `request_hash`| Yes      | `sha256:` followed by 64 lowercase hex chars |
-| `signature`   | Yes      | Base64url-style string, min length 32 |
-| `agent`       | No       | Non-empty string signer identity |
-| `result_hash` | No       | `sha256:` followed by 64 lowercase hex chars |
-| `result_cid`  | No       | Non-empty string content identifier |
-| `summary`     | Cond.    | REQUIRED when `status = "ok"` |
-| `error`       | Cond.    | REQUIRED when `status = "error"` |
+| Field          | Required | Constraints |
+|----------------|----------|-------------|
+| `verb`         | Yes      | String constant equal to the canonical verb |
+| `version`      | Yes      | String constant equal to `1.1.0` |
+| `status`       | Yes      | `"ok"` or `"error"` |
+| `timestamp`    | Yes      | RFC 3339 / JSON Schema `date-time` |
+| `request_hash` | Yes      | `sha256:` followed by 64 lowercase hex chars |
+| `signature`    | Yes      | Base64url-style string, min length 32 |
+| `agent`        | No       | Non-empty string signer identity |
+| `result_hash`  | No       | `sha256:` followed by 64 lowercase hex chars |
+| `result_cid`   | No       | Non-empty string content identifier |
+| `summary`      | Cond.    | REQUIRED when `status = "ok"` |
+| `error`        | Cond.    | REQUIRED when `status = "error"` |
 
 Receipts MUST NOT include undeclared properties.
 
@@ -154,7 +172,7 @@ A conforming error receipt shape is:
 }
 ```
 
-### 4.4 Trust model
+### 5.4 Trust model
 
 Commons v1.1.0 provides attestation-oriented receipts:
 
@@ -167,9 +185,9 @@ Commons v1.1.0 does **not** define settlement proofs, transport-level guarantees
 
 ---
 
-## 5. v1.0.0 Legacy Status
+## 6. v1.0.0 Legacy Status
 
-`v1.0.0` remains in the repository as a legacy schema family for compatibility and historical verification.
+`v1.0.0` remains in the repository as a legacy schema family for compatibility, historical verification, and canonical pin verification.
 
 Its structure differs materially from v1.1.0:
 
@@ -188,7 +206,7 @@ schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
 
 ---
 
-## 6. Schema `$id` Rules
+## 7. Schema `$id` Rules
 
 Every v1.1.0 schema MUST use a resolvable HTTPS `$id` under this pattern.
 
@@ -208,9 +226,9 @@ Legacy v1.0.0 `$id` layouts remain valid only for the legacy directory tree.
 
 ---
 
-## 7. Validation Requirements
+## 8. Validation Requirements
 
-Implementations claiming v1.1.0 compatibility MUST:
+Implementations claiming v1.1.0 schema compatibility MUST:
 
 1. Validate requests and receipts against the exact published schema files
 2. Use JSON Schema draft 2020-12 support
@@ -228,7 +246,7 @@ npm run validate
 
 ---
 
-## 8. Versioning + Immutability
+## 9. Versioning + Immutability
 
 Once published under a version directory such as:
 
@@ -247,9 +265,9 @@ Any semantic or structural change requires a new version directory.
 
 ---
 
-## 9. Provenance & Integrity
+## 10. Provenance & Integrity
 
-The canonical Protocol-Commons v1.1.0 release is identified by:
+The current v1.1.0 schema family is identified by:
 
 - Version directory: `schemas/v1.1.0/`
 - Package version: `1.1.0`
@@ -257,11 +275,17 @@ The canonical Protocol-Commons v1.1.0 release is identified by:
 - File-level hashes: `checksums.txt`
 - IPFS directory CID: `TBD (pre-release)` until a release CID is published
 
+The last fully pinned canonical release is:
+
+- Version directory: `schemas/v1.0.0/`
+- IPFS directory CID: `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
+
 Auditors and resolvers SHOULD:
 
 1. Fetch the versioned schemas
 2. Verify integrity locally
 3. Treat mismatched artifacts as untrusted
+4. Treat v1.1.0 as not yet fully pinned until its CID publication is complete
 
 Integrity check command:
 
@@ -271,7 +295,7 @@ npm run checksums:verify
 
 ---
 
-## 10. Implementations MUST
+## 11. Implementations MUST
 
 An implementation supporting Commons v1.1.0 MUST:
 
@@ -280,12 +304,13 @@ An implementation supporting Commons v1.1.0 MUST:
 3. Validate the flat receipt shape exactly as published
 4. Treat published version directories as immutable
 5. Preserve receipt trust semantics as hashes plus signatures, without inventing unsupported guarantees
+6. Avoid representing v1.1.0 as the last fully pinned canonical release until CID publication is complete
 
-A system supporting any canonical verb MAY claim **Commons-Compatible** for that version.
+A system supporting any canonical verb MAY claim **Commons-Compatible** for that version, but provenance claims MUST accurately reflect whether the relevant version is fully pinned or still pre-release.
 
 ---
 
-## 11. Failure Modes
+## 12. Failure Modes
 
 If any of the following occur:
 
@@ -294,6 +319,7 @@ If any of the following occur:
 - required conditional receipt fields are missing
 - published artifacts differ from expected checksums
 - published artifacts are mutated in place
+- a pre-release version is misrepresented as fully pinned canonical provenance
 
 consumers MUST treat the artifact as untrusted and SHOULD reject it.
 
@@ -301,7 +327,7 @@ Silent degradation MUST NOT occur.
 
 ---
 
-## 12. Security
+## 13. Security
 
 Protocol-Commons is security-relevant infrastructure.
 
@@ -318,5 +344,5 @@ Security escalation MUST follow repository policy.
 
 ## Status
 
-**Stable — v1.1.0 current**  
-**Legacy — v1.0.0 retained for compatibility**
+**v1.1.0:** current schema family, documented here, CID still pending  
+**v1.0.0:** legacy schema family and last pinned canonical release

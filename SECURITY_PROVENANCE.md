@@ -1,10 +1,10 @@
 # Security Provenance — Protocol Commons
 **Scope:** Protocol-Commons  
-**Status:** v1.0.0 — Stable-Lock  
+**Status:** v1.1.0 — Pre-Release Candidate; v1.0.0 remains the last pinned canonical release  
 **This document is NORMATIVE and ENFORCEABLE.**
 
 Defines cryptographic provenance, integrity guarantees, and audit mechanisms 
-for canonical Protocol-Commons schemas.
+for published and release-candidate Protocol-Commons schemas.
 
 ---
 
@@ -21,25 +21,31 @@ Private disclosure is preferred for security-sensitive findings.
 ## Provenance & Version Integrity
 Releases are **reproducible and content-addressed**.
 
-Current canonical version: **v1.0.0**
+Current repository schema family: **v1.1.0**  
+Current canonical pinned release: **v1.0.0**
 
 Integrity sources:
-- **CID:** `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
+- **v1.0.0 CID:** `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
+- **v1.1.0 CID:** `TBD (pre-release; pinning not yet published)`
 - `checksums.txt` — file-level hashes
 - CI strict validation (Ajv)
 - `RESOLUTION.md` — immutable lifecycle history
+- `manifest.json` — current package metadata and pin target state
+
+Until a v1.1.0 CID is published and recorded, resolvers and auditors MUST treat v1.1.0 as a pre-release schema family rather than the last fully pinned canonical release.
 
 Any semantic update requires:
 - New `schemas/vX.Y.Z/` directory
-- New CID and updated checksums
+- New CID and updated checksums for any canonical release
 - Governance approval + provenance record
 
 **No silent edits. No exceptions.**
 
 Auditors MUST verify:
-- HTTP and IPFS mirrors match exactly
+- HTTP and IPFS mirrors match exactly for pinned canonical releases
 - Checksums remain unchanged
 - Version directories are immutable
+- A release is not described as fully canonical unless its CID publication is complete
 
 ---
 
@@ -54,6 +60,8 @@ Resolvers MUST reject any:
 - Unauthorized or missing TXT keys  
 - Out-of-sync version binding
 
+For v1.1.0 specifically, TXT/CID binding MUST NOT be represented as canonical until the release CID is published.
+
 ---
 
 ## Security Posture
@@ -67,5 +75,4 @@ Recovery requires **transparent governance** — never mutation in place.
 
 ---
 
-**Status:** Stable • Verifiable • Production-grade semantics • v1.0.0 locked
-
+**Status:** v1.1.0 is the current in-repo schema family and release candidate; v1.0.0 remains the last fully verifiable pinned canonical release.
