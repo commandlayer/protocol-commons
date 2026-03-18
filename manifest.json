@@ -1,8 +1,8 @@
 {
-  "name": "@commandlayer/protocol-commons",
+  "name": "@commandlayer/commons",
   "version": "1.1.0",
   "package_version": "1.1.0",
-  "description": "Canonical verb + schema layer for CommandLayer Protocol Commons (v1.1.0).",
+  "description": "Canonical Commons verb + schema package metadata for the active v1.1.0 schema family.",
   "owner": "commandlayer.eth",
   "contact": "dev@commandlayer.org",
   "license": "MIT",
@@ -11,7 +11,7 @@
   "schemas_root": "schemas/v1.1.0",
   "examples_root": "examples/v1.1.0",
   "checksum_file": "checksums.txt",
-  "schemas_cid": "PENDING (pre-release candidate; pinning not yet published)",
+  "schemas_cid": "PENDING",
   "tag": "commons-schemas-v1.1.0",
   "verbs": [
     {
@@ -148,5 +148,23 @@
         }
       ]
     }
-  ]
+  ],
+  "active_release": {
+    "version": "1.1.0",
+    "status": "pre-release-candidate",
+    "schemas_root": "schemas/v1.1.0",
+    "commons_root": "schemas/v1.1.0/commons",
+    "examples_root": "examples/v1.1.0",
+    "schemas_cid": "PENDING",
+    "pin_status": "pending"
+  },
+  "pinned_canonical_release": {
+    "version": "1.0.0",
+    "status": "locked",
+    "schemas_root": "schemas/v1.0.0",
+    "commons_root": "schemas/v1.0.0/commons",
+    "examples_root": "examples/v1.0.0",
+    "schemas_cid": "bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m",
+    "pin_status": "published"
+  }
 }

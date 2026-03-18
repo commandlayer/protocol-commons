@@ -7,5 +7,6 @@
 - Removed shared `$ref` dependencies from the v1.1.0 Commons schema family
 - Standardized Commons receipts around a minimal proof-first structure
 - Added conditional receipt requirements for success/error states
-- Established Commons v1.1.0 as the canonical schema surface for new integrations
+- Established Commons v1.1.0 as the active in-repo schema surface for new integrations
+- Retained v1.0.0 as the last pinned canonical release until v1.1.0 pinning is completed
 - Preserved earlier schema versions for compatibility and historical reference

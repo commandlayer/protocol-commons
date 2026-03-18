@@ -1,7 +1,7 @@
 {
   "name": "@commandlayer/commons",
   "version": "1.1.0",
-  "description": "ERC-8004 and x402-aligned canonical verbs and strict JSON Schemas for autonomous agents — immutable semantics, trustable receipts, and cross-runtime interoperability.",
+  "description": "Canonical Commons verbs and strict JSON Schemas for autonomous agents \u2014 active v1.1.0 schema family, historical pinned v1.0.0 release, and cross-runtime interoperability.",
   "private": false,
   "type": "module",
   "license": "MIT",
@@ -17,6 +17,7 @@
     "url": "https://github.com/commandlayer/protocol-commons/issues"
   },
   "keywords": [
+    "protocol-commons",
     "agent",
     "agents",
     "ai-agents",
@@ -32,8 +33,7 @@
     "schema-validation",
     "schemas",
     "semantics",
-    "trustless",
-    "x402"
+    "trustless"
   ],
   "files": [
     "schemas/",
