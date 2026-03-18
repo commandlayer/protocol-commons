@@ -1,0 +1,36 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.1.0/commons/parse/parse.request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "parse.request",
+  "description": "Request to parse unstructured content into structured output.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "verb": {
+      "type": "string",
+      "const": "parse"
+    },
+    "version": {
+      "type": "string",
+      "const": "1.1.0"
+    },
+    "input": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "json",
+        "csv",
+        "key-value",
+        "list"
+      ]
+    }
+  },
+  "required": [
+    "verb",
+    "version",
+    "input"
+  ]
+}

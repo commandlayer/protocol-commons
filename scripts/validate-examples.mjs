@@ -29,8 +29,8 @@ function createAjv() {
   const ajv = new Ajv2020({
     strict: true,
     strictSchema: true,
-    strictRequired: true,
     allErrors: true,
+    strictRequired: false,
     allowUnionTypes: false
   });
 

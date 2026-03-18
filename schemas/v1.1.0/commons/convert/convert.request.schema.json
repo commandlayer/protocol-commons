@@ -1,0 +1,36 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.1.0/commons/convert/convert.request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "convert.request",
+  "description": "Request to convert content from one format to another.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "verb": {
+      "type": "string",
+      "const": "convert"
+    },
+    "version": {
+      "type": "string",
+      "const": "1.1.0"
+    },
+    "input": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "text",
+        "markdown",
+        "html",
+        "json"
+      ]
+    }
+  },
+  "required": [
+    "verb",
+    "version",
+    "input"
+  ]
+}

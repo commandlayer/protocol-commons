@@ -1,6 +1,6 @@
 {
   "name": "@commandlayer/commons",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "ERC-8004 and x402-aligned canonical verbs and strict JSON Schemas for autonomous agents — immutable semantics, trustable receipts, and cross-runtime interoperability.",
   "private": false,
   "type": "module",
@@ -40,7 +40,8 @@
     "checksums.txt",
     "manifest.json",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "index.js"
   ],
   "devDependencies": {
     "ajv": "^8.17.1",
@@ -53,10 +54,15 @@
     "validate:examples": "node scripts/validate-examples.mjs",
     "validate:all": "npm run validate:schemas && npm run validate:examples",
     "validate": "npm run validate:all",
-    "checksums:gen": "bash scripts/generate-checksums.sh schemas/v1.0.0 checksums.txt",
+    "checksums:gen": "bash scripts/generate-checksums.sh schemas checksums.txt",
     "checksums:verify": "bash scripts/verify-checksums.sh",
     "checksums:dirty": "git diff --exit-code -- checksums.txt",
     "prepack": "npm run checksums:gen",
     "prepublishOnly": "npm run checksums:gen && npm run checksums:dirty && npm run validate"
+  },
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./schemas/*": "./schemas/*"
   }
 }

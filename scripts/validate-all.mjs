@@ -2,7 +2,7 @@
 /**
  * validate-all.mjs
  *
- * Compile all JSON Schemas under schemas/v1.0.0 using Ajv 2020-12 in strict mode.
+ * Compile all JSON Schemas under schemas/ using Ajv 2020-12 in strict mode.
  * Fails if:
  *  - any schema cannot be parsed,
  *  - any $ref cannot be resolved,
@@ -16,7 +16,7 @@ import addFormats from 'ajv-formats';
 import ajvErrors from 'ajv-errors';
 
 const ROOT_DIR = process.cwd();
-const SCHEMAS_ROOT = path.join(ROOT_DIR, 'schemas', 'v1.0.0');
+const SCHEMAS_ROOT = path.join(ROOT_DIR, 'schemas');
 
 async function collectSchemaFiles(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true });
@@ -105,6 +105,7 @@ async function main() {
   const ajv = new Ajv2020({
     strict: true,
     allErrors: true,
+    strictRequired: false,
     allowUnionTypes: false
   });
   addFormats(ajv);

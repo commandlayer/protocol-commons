@@ -1,0 +1,36 @@
+{
+  "$id": "https://commandlayer.org/schemas/v1.1.0/commons/explain/explain.request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "explain.request",
+  "description": "Request to provide reasoning, rationale, or clarification for input.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "verb": {
+      "type": "string",
+      "const": "explain"
+    },
+    "version": {
+      "type": "string",
+      "const": "1.1.0"
+    },
+    "input": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "step-by-step",
+        "conceptual",
+        "technical",
+        "simple"
+      ]
+    }
+  },
+  "required": [
+    "verb",
+    "version",
+    "input"
+  ]
+}

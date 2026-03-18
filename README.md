@@ -3,7 +3,7 @@
 **The canonical semantic contract for autonomous agents.**  
 *Verbs, schemas, and validation — or nothing interoperates.*
 
-[![Schemas](https://img.shields.io/badge/Schemas-Stable%20v1.0.0-brightgreen)](https://github.com/commandlayer/protocol-commons)
+[![Schemas](https://img.shields.io/badge/Schemas-Stable%20v1.1.0-brightgreen)](https://github.com/commandlayer/protocol-commons)
 [![NPM Version](https://img.shields.io/npm/v/@commandlayer/commons)](https://www.npmjs.com/package/@commandlayer/commons)
 [![CI Status](https://img.shields.io/github/actions/workflow/status/commandlayer/protocol-commons/validate.yml?branch=main&label=CI)](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/commandlayer/protocol-commons/blob/main/LICENSE)
@@ -26,11 +26,12 @@ This is the foundation of the machine economy —
 
 ----
 
-> **Integrity Notice — Protocol-Commons v1.0.0**
+> **Integrity Notice — Protocol-Commons v1.1.0**
 >
 > Canonical schemas are pinned and immutable:
-> `schemas/v1.0.0/` — CID:
-> `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
+> `schemas/v1.1.0/commons` — CID: `PENDING`
+>
+> Historical v1.0.0 artifacts remain in-repo for compatibility and verification.
 >
 > Verify integrity locally:
 > ```bash
@@ -64,13 +65,21 @@ If agents can’t agree on what actions mean → **nothing works.**
 // summarize.request
 {
   "verb": "summarize",
-  "content": "CommandLayer defines the semantics of agent behavior."
+  "version": "1.1.0",
+  "input": "CommandLayer defines the semantics of agent behavior.",
+  "mode": "brief"
 }
 
 // summarize.receipt
 {
-  "result": "Semantic verb layer for autonomous multi-agent workflows.",
-  "trace": "bafybeieoynknza..."
+  "verb": "summarize",
+  "version": "1.1.0",
+  "status": "ok",
+  "timestamp": "2026-03-18T00:00:00Z",
+  "agent": "commandlayer.eth",
+  "request_hash": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+  "summary": "Semantic verb layer for autonomous multi-agent workflows.",
+  "signature": "Q29tbWFuZExheWVyU2lnbmF0dXJlRXhhbXBsZV8xMjM0NTY"
 }
 ```
 
@@ -95,14 +104,16 @@ npx cl-validate examples/v1.0.0/commons/summarize/request.json
 
 ```
 import Ajv from "ajv";
-import analyzeRequest from "@commandlayer/commons/schemas/v1.0.0/commons/analyze/requests/analyze.request.schema.json";
+import { analyzeRequestV110 } from "@commandlayer/commons";
 
 const ajv = new Ajv({ strict: true, allErrors: true });
-const validate = ajv.compile(analyzeRequest);
+const validate = ajv.compile(analyzeRequestV110);
 
 const input = {
   verb: "analyze",
-  content: "CommandLayer defines semantics."
+  version: "1.1.0",
+  input: "CommandLayer defines semantics.",
+  mode: "extract"
 };
 
 console.log(validate(input));   // true or false
@@ -110,13 +121,40 @@ console.log(validate.errors);   // diagnostics if invalid
 ```
 **Generate TypeScript types directly from schemas** for zero-drift validation:
 ```
-npx ajv compile -s schemas/v1.0.0 -o dist/types.d.ts
+npx ajv compile -s schemas/v1.1.0/commons -o dist/types.d.ts
 ```
 ---
+
+
+## Commons v1.1.0
+
+Commons v1.1.0 introduces a simplified schema surface for general-purpose agent actions. The new `schemas/v1.1.0/commons` family is fully self-contained: each request and receipt schema stands alone, uses no shared `$ref` dependencies, and keeps the Commons layer flat and minimal.
+
+Commons is the general-purpose primitive layer for interoperable agent actions. Commercial and x402-specific packaging remain separate concerns and are not part of the Commons v1.1.0 request/receipt schema family. Earlier versions remain in the repo for compatibility and historical reference.
+
+Example standalone schema paths:
+
+- `schemas/v1.1.0/commons/analyze/analyze.request.schema.json`
+- `schemas/v1.1.0/commons/analyze/analyze.receipt.schema.json`
+
+Every v1.1.0 Commons receipt shares the same trust spine:
+
+- `status`
+- `timestamp`
+- `agent`
+- `request_hash`
+- `result_hash`
+- `result_cid`
+- `summary`
+- `signature`
+- `error`
+
+These schemas are intended to be easy to pin, easy to validate, and easy to consume directly from the package exports.
 
 ## Table of Contents
 - [Real verbs. Real receipts.](#real-verbs-real-receipts)
 - [Quickstart](#quickstart)
+- [Commons v1.1.0](#commons-v110)
 - [What Commons enables](#what-commons-enables)
 - [Why this exists](#why-this-exists)
 - [Canonical Verbs](#canonical-verbs)
