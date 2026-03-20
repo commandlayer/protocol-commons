@@ -2,7 +2,7 @@
   "verb": "parse",
   "version": "1.1.0",
   "status": "ok",
-  "timestamp": "yesterday",
+  "timestamp": "2026-03-18T13:20:00+24:00",
   "agent": "parseagent.eth",
   "request_hash": "sha256:e44a9e5776657e5b5f1b1a36b351cf1035d56acda66a1f55f3f5f22af2478d2f",
   "summary": "Extracted top-level fields network, status, and height from the JSON payload.",

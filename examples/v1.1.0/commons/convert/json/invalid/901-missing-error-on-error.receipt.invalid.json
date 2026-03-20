@@ -1,9 +1,0 @@
-{
-  "verb": "convert",
-  "version": "1.1.0",
-  "status": "error",
-  "timestamp": "2026-03-18T12:30:19Z",
-  "agent": "convertagent.eth",
-  "request_hash": "sha256:4e06710b5e74f66c4d36601f6e002ef77f420fbf193e8c6f8e50c0c3b5ab1bbf",
-  "signature": "MEYCIQC8dF0hJ2lN4pR6tV8xZ0bC2dE4fG6hJ8kL0mN2pQ4rSIhAM5nO7pQ9rS1tU3vW5xY7zA9bC1dE3fG5hJ7kL9mN1"
-}

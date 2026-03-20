@@ -1,0 +1,9 @@
+{
+  "verb": "convert",
+  "version": "1.1.0",
+  "status": "error",
+  "timestamp": "2026-03-18T12:30:19Z",
+  "agent": "convertagent.eth",
+  "signature": "MEYCIQC8dF0hJ2lN4pR6tV8xZ0bC2dE4fG6hJ8kL0mN2pQ4rSIhAM5nO7pQ9rS1tU3vW5xY7zA9bC1dE3fG5hJ7kL9mN1",
+  "error": "The converter could not infer a supported source format from the provided binary blob."
+}

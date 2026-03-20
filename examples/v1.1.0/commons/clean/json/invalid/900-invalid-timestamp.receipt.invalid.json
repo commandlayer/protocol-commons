@@ -2,7 +2,7 @@
   "verb": "clean",
   "version": "1.1.0",
   "status": "ok",
-  "timestamp": "18-03-2026 12:20:00",
+  "timestamp": "2026-03-18T12:20:00+25:00",
   "agent": "cleanagent.eth",
   "request_hash": "sha256:37f8c2f8ef1d3819a3d8f4a662637df84256d4d2d95f0f00fd770af409f4233f",
   "summary": "Removed script tags, normalized non-breaking spaces, and collapsed repeated whitespace.",
