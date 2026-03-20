@@ -72,11 +72,7 @@ If a change is not reflected here → **not canonical.**
 Protocol-Commons governs TXT keys that resolve schema semantics.  
 Canonical definitions → `SPEC.md`.
 
-## 4. Contribution Flow
-1. Open an Issue describing context + verb(s)
-2. Design change per `SCHEMAS.md`
-3. Update schemas + examples
-4. Validate:
+## 4. Working Norms
 
 ```
 npm install
@@ -92,7 +88,7 @@ npm run validate:examples
 5. Update `RESOLUTION.md`, provenance
 6. Submit PR with version class (MAJOR/MINOR/PATCH)
 
-Once approved → tagged + pinned.
+If you are preparing a contribution, follow `CONTRIBUTING.md`.
 
 ## 5. What “Good” Looks Like
 
