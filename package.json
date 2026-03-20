@@ -1,7 +1,7 @@
 {
   "name": "@commandlayer/commons",
   "version": "1.1.0",
-  "description": "Canonical Commons verbs and strict JSON Schemas for autonomous agents \u2014 active v1.1.0 HTTPS-hosted schema line, historical pinned v1.0.0 release, and cross-runtime interoperability.",
+  "description": "Canonical Commons verbs and strict JSON Schemas for autonomous agents \u2014 current v1.1.0 release, active schema line, documented release metadata, and cross-runtime interoperability.",
   "private": false,
   "type": "module",
   "license": "MIT",

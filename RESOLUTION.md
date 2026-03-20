@@ -1,52 +1,34 @@
 # Resolution Log — Protocol Commons
 
-*Lifecycle log for canonical verbs & schemas.*
+This file is the documented release log for Protocol-Commons schema history.
 
-This file tracks **every** lifecycle decision for Protocol-Commons:
-verb additions, corrections, deprecations, and removals.
+It records:
 
-If a change is **not** documented here, it is **not** considered valid.
-
----
-
-## Entry Requirements
-
-- **Date** — final decision date  
-- **Verb(s)** — affected canonical verbs  
-- **Action** — Added · Deprecated · Replaced · Removed · Revised  
-- **Reason** — interoperability, security, redundancy, etc.  
-- **Resolution** — final state (including replacements, if any)  
-- **Approver(s)** — Governance sign-off  
+- version
+- release date
+- release status
+- scope of change
+- approving steward
 
 ---
 
-## Decision Log
+## Release Log
 
-| Date       | Verb(s)                                                                                                                                                                     | Action  | Class   | Reason                                                                                                      | Resolution                                                                                                              | Approver(s)       |
-|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|---------|-------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|-------------------|
-| 2025-12-06 | analyze, classify, clean, convert, describe, explain, fetch, format, parse, summarize                                                                                       | Added   | Commons | Initial canonical verb set                                                                                  | v1.0.0 published — immutable directory `schemas/v1.0.0/` — CID: `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m` | Founding Steward  |
-| 2026-03-18 | analyze, classify, clean, convert, describe, explain, fetch, format, parse, summarize                                                                                       | Revised | Commons | Simplified attestation-oriented receipt contract, flat layout, removal of universal x402/trace assumptions from the new schema family | v1.1.0 canonical HTTPS schema hosting live; IPFS CID publication pending                                                | Founding Steward  |
-
-> Any future semantic change requires a **new version directory** and **new CID** prior to approval and publication in this Resolution Log.
+| Date | Version | Status | Summary | Approver |
+|------|---------|--------|---------|----------|
+| 2025-12-06 | 1.0.0 | Historical legacy release | Initial Protocol-Commons release with versioned schemas, shared primitives, and the original nested Commons layout. Historical CID: `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`. | Founding Steward |
+| 2026-03-18 | 1.1.0 | Current release and active schema line | Published the flat Commons schema family under `schemas/v1.1.0/commons`, simplified request and receipt contracts, and documented v1.1.0 as the active schema line. IPFS publication is tracked separately and remains `PENDING` in `manifest.json` until a CID is recorded. | Founding Steward |
 
 ---
 
-## Policy
+## Release Notes Policy
 
-1. No silent changes — **every** protocol semantic update goes here  
-2. Minimum **90-day** deprecation before removal  
-3. Changes requiring new schema version:  
-   - `$id` changes  
-   - Field contract changes  
-   - Meaning changes  
-4. Governance Council **must** approve every entry  
-5. Stability > speed  
+A release entry SHOULD state:
 
----
+- version
+- release date
+- what changed
+- whether the release is current or historical
+- CID information when published
 
-Maintainers must review before any merge:
-- `SPEC.md`
-- `GOVERNANCE.md`
-- `SECURITY_PROVENANCE.md`
-
-**Status:** v1.1.0 canonical HTTPS schema hosting is live, IPFS CID publication remains pending; v1.0.0 remains the historical pinned release.
+Repository history is documented in plain repository records. This log does not represent signed governance history.

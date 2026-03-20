@@ -1,189 +1,123 @@
 # Governance — Protocol Commons
 
-**Scope:** Protocol-Commons (primary), Agent-Cards (identity bindings)  
-**Status:** v1.0.0 — Historical Pinned Release; v1.1.0 — Current Canonical Working Line  
+**Scope:** Protocol-Commons  
+**Status:** v1.1.0 current release and active schema line; v1.0.0 historical legacy release
 
-> This governance is **NORMATIVE, ENFORCEABLE, AND PERMANENT**.  
-> Control is custodial today and **designed to decentralize** as adoption grows.
-
----
-
-## 1. Mandate of Commons Governance
-
-Protocol-Commons governs **semantic truth**:
-
-- Canonical verbs  
-- Request/receipt schemas  
-- TXT semantics for schema binding  
-- Normative version changes  
-- Immutable historical provenance  
-
-It MUST protect:
-
-- **Machine-readable meaning**
-- **Interoperability continuity**
-- **Permanent public access**
-
-> **Commons is the constitution of agent intent.**  
-> Everything else derives authority from it — not the other way around.
+> This governance document is normative for repository process and change control.
 
 ---
 
-## 2. Strict Scope Limits — NORMATIVE
+## 1. Governance Mandate
 
-### Commons MAY govern:
-- Semantic contracts (schema language, grammar, behavior)
-- Required validation mode (strict, draft 2020-12)
-- TXT keys that bind semantic truth (`cl.schema.*`)
+Protocol-Commons governance maintains:
 
-### Commons MUST NOT govern:
-- Pricing or economics
-- Runtime topology
-- Execution performance or SLAs
-- Vendor-specific commercial logic
+- canonical verb definitions
+- request and receipt schema policy
+- versioning discipline
+- release documentation
+- publication records
 
-Commercial and Runtime layers MUST remain **subordinate**:
-
-> **Execution is business.  
-> Semantics are public goods.**
-
-Commercial schemas may reference Commons semantics — they **may not alter them**.
-
-
-- **SPEC.md is the single source of normative truth.**  
-- Where documents disagree, **SPEC.md SHALL prevail** without exception.
+Its purpose is procedural: preserve stable semantics, transparent changes, and consistent release records.
 
 ---
 
-## 3. Stewardship — Bootstrap to Neutrality
+## 2. Scope Limits
 
-**Founding Steward:** `commandlayer.eth`  
+Governance MAY define:
 
-Responsible for:
+- semantic contracts
+- validation requirements
+- schema publication rules
+- release documentation requirements
 
-- Canonical schema publishing  
-- Signed manifest + checksum updates  
-- Security revocations + provenance logs  
-- Transparency for all normative decisions  
+Governance MUST NOT define:
 
-### Decentralization Phases
+- pricing
+- runtime topology
+- service levels
+- vendor-specific business logic
 
-| Phase | Governance Form | Trigger |
-|-------|----------------|---------|
-| 1 — Bootstrap | Single-operator Safe | Initial production adoption |
-| 2 — Multi-Maintainer | ≥3 independent vendors in Safe | Cross-vendor reliance |
-| 3 — Standards Committee | Public RFC review + voting | Global ecosystem dependence |
-| 4 — Neutral Standards Body | Community-elected | Entrenched industry standard |
-
-Vendor diversity REQUIRED — **no single affiliation may dominate**.
-
-A non-profit legal wrapper SHALL be established before Phase 3.
+`SPEC.md` remains the primary normative source for schema behavior.
 
 ---
 
-## 4. Immutable Semantic Guarantees (Anti-Rug)
+## 3. Stewardship
 
-Once published:
+**Founding Steward:** `commandlayer.eth`
 
-- `$id`, CID, and version MUST NEVER change  
-- Historical schemas MUST remain resolvable  
-- Governance history MUST NOT be rewritten  
+Stewardship responsibilities include:
 
-Commercial schemas inherit similar guarantees:
+- publishing schema releases
+- maintaining manifest metadata and checksums
+- recording governance decisions in repository documents
+- handling security disclosures and release corrections
 
-> **Commercial schemas are permanently free** —  
-> **economics only occur at runtime, never in the semantic layer.**
-
-Attempts to mutate semantics in place MUST be treated as **UNTRUSTED**.
-
-The current lock states are interpreted strictly:
-
-- **v1.0.0 historical pinned release** means the legacy release line with published CID, immutable checksums, and locked provenance
-- **v1.1.0 current canonical HTTPS-hosted line** means the current repository contract, primary documentation target, and live HTTPS schema namespace; IPFS CID publication remains pending in repository provenance metadata
+This is a procedural authority model. Repository documentation records who approved a release decision; it does not imply cryptographic enforcement.
 
 ---
 
-## 5. TXT Key Governance — NORMATIVE
+## 4. Release Controls
 
-TXT semantics are partitioned:
+Once a schema version is published:
 
-| Prefix | Authority | Meaning | Mutation Allowed? |
-|--------|-----------|---------|------------------|
-| `cl.schema.*` | Commons | Semantic bindings |  NEVER |
-| `cl.agentcard` | Agent-Cards | Identity binding |  NEVER (per version) |
-| `cl.runtime.*` | Runtime | Operational endpoints |  Yes, logged |
+- paths MUST NOT change in place
+- schema contents MUST NOT change in place
+- `$id` values MUST NOT change in place
+- release history MUST remain documented
 
-Resolvers MUST:
+Current interpretation:
 
-- Reject TXT ↔ CID mismatches  
-- Treat unauthorized TXT keys as **UNTRUSTED**  
-- Enforce immutability of all versioned schema keys  
-
-> **Schema TXT is sacred.  
-> Runtime TXT is operational.**
+- **v1.1.0** is the current release and active schema line
+- **v1.0.0** is historical legacy material only
+- IPFS publication for v1.1.0 is tracked separately from HTTPS hosting in repository metadata
 
 ---
 
-## 6. ENS Custody — NORMATIVE
+## 5. ENS TXT Governance
 
-Canonical ENS:
+TXT semantics are versioned publication metadata.
 
-- `commandlayer.eth`  
-- `{verb}agent.eth` identities  
+Resolvers SHOULD:
 
-Custody SHALL transition to a **3-of-5 Safe** before Phase 2:
+- reject TXT ↔ CID mismatches
+- reject unauthorized schema TXT keys
+- treat versioned schema bindings as immutable once published
 
-- Hardware-backed keys  
-- Signer identities publicly logged  
-- Rotation MUST be recorded in `SECURITY_PROVENANCE.md`  
-
-No single key may modify canonical semantics.
+TXT governance is operational and procedural. It should not be described as a signed governance mechanism.
 
 ---
 
-## 7. Change Classification
+## 6. Change Classification
 
-**All** normative proposals **MUST** originate from a public GitHub Issue linked to a PR.  
-Silent or undocumented changes are **STRICTLY FORBIDDEN.**
+All normative proposals SHOULD originate from a public GitHub issue linked to a pull request.
 
 | Change Class | Version Rule | Required Log |
 |--------------|--------------|--------------|
-| **Normative** (behavior change) | `1 → 2` | `RESOLUTION.md` |
-| **Compat-affecting** | `1.0 → 1.1` | `RESOLUTION.md` |
-| **Non-behavioral** | `1.0.0 → 1.0.1` | Commit history |
+| Normative behavior change | new version | `RESOLUTION.md` |
+| Compatibility-affecting change | new minor or major version | `RESOLUTION.md` |
+| Non-behavioral documentation update | same version docs | commit history |
 
-Every semantic release MUST publish new CIDs + checksums.
-
-Until IPFS CID publication is complete, contributors MUST describe that version accurately as the current canonical HTTPS-hosted line and MUST NOT misstate it as the historical pinned release.
+Every release update MUST maintain accurate release metadata. When schema artifacts change, the release update MUST also refresh checksums.
 
 ---
 
-## 8. Security Governance
+## 7. Security Governance
 
-- Responsible disclosure contact MUST be active  
-- No silent patches or overwritten history  
-- Emergency revocation allowed to protect downstream users  
+- responsible disclosure contact MUST remain active
+- no silent overwrites of published schema content
+- release corrections MUST be documented
 
-Transparency ALWAYS wins.
+Transparency and repeatable process take priority over informal claims.
 
 ---
 
-## 9. Enforcement of Compatibility Claims
+## 8. Compatibility Claims
 
-Products MAY claim:
+Products MAY claim Commons compatibility only if they:
 
-- **Commons-Compatible**
-- **Agent-Cards-Compatible**
+- validate against the correct versioned schemas
+- enforce the documented contract for that version
+- describe release status accurately
+- do not represent historical v1.0.0 material as the active v1.1.0 line
 
-ONLY if:
-
-- `$id` + CID validation passes  
-- Ajv strict mode enforced  
-- Traceable receipt conformance  
-- Adherence to this Governance  
-
-False claims REQUIRE public enforcement action.
-
-_Last updated: v1.0.0 retained as the historical pinned release; v1.1.0 documented as the current canonical HTTPS-hosted line_  
-Steward declaration (plain-text repository statement, not a cryptographic signature): **`commandlayer.eth`**  
-*Founding Steward — CommandLayer Semantic Standards*
+_Last updated for v1.1.0 documentation normalization._

@@ -2,7 +2,7 @@
   "name": "@commandlayer/commons",
   "version": "1.1.0",
   "package_version": "1.1.0",
-  "description": "Commons verb + schema package metadata for the active v1.1.0 canonical HTTPS-hosted schema line; IPFS CID publication is still pending.",
+  "description": "Commons verb + schema package metadata for the current v1.1.0 release and active schema line; IPFS publication for v1.1.0 is tracked separately until a CID is recorded.",
   "owner": "commandlayer.eth",
   "contact": "dev@commandlayer.org",
   "license": "MIT",
@@ -151,20 +151,20 @@
   ],
   "active_release": {
     "version": "1.1.0",
-    "status": "current release",
+    "status": "current release and active schema line",
     "schemas_root": "schemas/v1.1.0",
     "commons_root": "schemas/v1.1.0/commons",
     "examples_root": "examples/v1.1.0",
     "schemas_cid": "PENDING",
-    "pin_status": "https-published-ipfs-pending"
+    "pin_status": "awaiting-cid-insertion"
   },
   "pinned_canonical_release": {
-    "version": "1.0.0",
-    "status": "pinned canonical release",
-    "schemas_root": "schemas/v1.0.0",
-    "commons_root": "schemas/v1.0.0/commons",
-    "examples_root": "examples/v1.0.0",
-    "schemas_cid": "bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m",
-    "pin_status": "published"
+    "version": "1.1.0",
+    "status": "pinned canonical release after CID insertion",
+    "schemas_root": "schemas/v1.1.0",
+    "commons_root": "schemas/v1.1.0/commons",
+    "examples_root": "examples/v1.1.0",
+    "schemas_cid": "PENDING",
+    "pin_status": "awaiting-cid-insertion"
   }
 }
