@@ -1,0 +1,6 @@
+{
+  "verb": "describe",
+  "version": "1.1.0",
+  "input": "A validator pipeline that loads schemas, compiles them under Ajv strict mode, and checks example fixtures for expected pass/fail behavior.",
+  "mode": "technical"
+}

@@ -1,0 +1,8 @@
+{
+  "verb": "clean",
+  "version": "1.1.0",
+  "input": {
+    "content": "messy"
+  },
+  "mode": "normalize"
+}

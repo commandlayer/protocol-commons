@@ -77,9 +77,9 @@ If agents cannot agree on what actions mean, interoperability breaks.
   "status": "ok",
   "timestamp": "2026-03-18T12:00:00Z",
   "agent": "summarizeagent.eth",
-  "request_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
-  "result_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
-  "result_cid": "bafybeisummarizereceiptokexample0001",
+  "request_hash": "sha256:4b87d90208e62430a5d8f577938fd26d02d646f092d137cee66216c0daac8243",
+  "result_hash": "sha256:8b5d2d4dfb4a8bb7d4d1ed436e78c5f4bcf6ca9714ec93a8db8e5ec6ed8b1b8d",
+  "result_cid": "bafybeif6h8j0l2n4p6r8t0v2x4z6b8d0f2h4j6l8n0p2r4t6v8x0z2bd",
   "summary": "Commons v1.1.0 makes requests smaller and receipts easier to verify while preserving stable verb semantics.",
   "signature": "sigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 }
@@ -107,12 +107,14 @@ Install Commons and AJV:
 npm install @commandlayer/commons ajv ajv-formats ajv-errors
 ```
 
-**Validate all schemas and examples with the repo's working commands**
+**Validate the full repo surface**
 
 ```bash
 npm install
 npm run validate
 ```
+
+`npm run validate` is the primary command: it compiles every schema and then checks that all shipped examples pass or fail exactly as intended.
 
 **Validate a specific example against the published schema using AJV**
 
@@ -384,7 +386,6 @@ Commons gives upper layers a stable meaning layer to build around.
 │           ├── <verb>.request.schema.json
 │           └── <verb>.receipt.schema.json
 └── scripts/
-    ├── ajv-run.mjs
     ├── validate-all.mjs
     └── validate-examples.mjs
 ```
@@ -421,14 +422,29 @@ Published version directories must not be edited in place.
 Available commands:
 
 ```bash
+npm run validate
 npm run validate:schemas
 npm run validate:examples
-npm run validate
 ```
 
-These commands compile schemas in strict Ajv mode and validate the shipped examples for both `v1.0.0` and `v1.1.0`.
+- `npm run validate` — the main contributor command. Compiles every schema, then validates every shipped example.
+- `npm run validate:schemas` — schema compilation only. Useful when changing schema files or Ajv configuration.
+- `npm run validate:examples` — fixture pass/fail verification only. Useful when editing examples or improving failure coverage.
+
+For `v1.1.0`, fixture discipline matters as much as schema compilation: valid examples must look operationally plausible, and invalid examples should usually fail for one clear reason that matches the filename.
 
 ---
+
+## Fixture discipline
+
+For `examples/v1.1.0/commons/`, contributors should treat fixtures as protocol evidence, not filler:
+
+- valid examples should look realistic enough that an implementer could model against them
+- invalid examples should usually exercise one clear failure mode
+- filenames should describe the exact failure being tested
+- request fixtures must stay aligned with the verb directory they live in; deliberate wrong-verb cases must be explicitly named
+- valid receipts should use realistic digest and CID-shaped values instead of toy placeholders
+
 
 ## License
 

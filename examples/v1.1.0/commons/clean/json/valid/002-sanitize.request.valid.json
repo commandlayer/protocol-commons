@@ -1,0 +1,6 @@
+{
+  "verb": "clean",
+  "version": "1.1.0",
+  "input": "<script>alert(1)</script> Release notes\u00a0with\u00a0mixed spacing.",
+  "mode": "sanitize"
+}

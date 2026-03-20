@@ -81,6 +81,12 @@ Canonical definitions → `SPEC.md`.
 ```
 npm install
 npm run validate
+```
+
+Use the subcommands only when you need a narrower loop:
+
+```
+npm run validate:schemas
 npm run validate:examples
 ```
 5. Update `RESOLUTION.md`, provenance
@@ -95,6 +101,16 @@ Once approved → tagged + pinned.
 - No edits to existing version folders
 - Fully traceable governance + checksums
 - Deterministic $id + HTTP resolution
+
+## 5A. Fixture Rules
+
+When you touch `examples/`, keep the validation surface credible:
+
+- valid examples should be realistic, not cartoon placeholders
+- invalid examples should usually test one clear failure, not five at once
+- filenames should explain the scenario (`missing-input`, `invalid-version`, `extra-property`, etc.)
+- request examples must stay verb-aligned; do not copy an invalid fixture from one verb directory into another
+- valid receipts should use realistic `sha256:` digests and CID-shaped values
 
 Default assumption: **new version** for any semantic change.
 

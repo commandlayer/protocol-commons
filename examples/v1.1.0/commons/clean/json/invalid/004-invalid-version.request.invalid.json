@@ -1,0 +1,6 @@
+{
+  "verb": "clean",
+  "version": "latest",
+  "input": "Clean this payload.",
+  "mode": "normalize"
+}

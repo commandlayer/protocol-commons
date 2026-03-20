@@ -1,0 +1,6 @@
+{
+  "verb": "classify",
+  "version": "1.1.0",
+  "input": "Classify this incident report.",
+  "mode": "ordinal"
+}
