@@ -72,21 +72,16 @@ If a change is not reflected here → **not canonical.**
 Protocol-Commons governs TXT keys that resolve schema semantics.  
 Canonical definitions → `SPEC.md`.
 
-## 4. Contribution Flow
-1. Open an Issue describing context + verb(s)
-2. Design change per `SCHEMAS.md`
-3. Update schemas + examples
-4. Validate:
+## 4. Working Norms
 
-```
-npm install
-npm run validate
-npm run validate:examples
-```
-5. Update `RESOLUTION.md`, provenance
-6. Submit PR with version class (MAJOR/MINOR/PATCH)
+Before changing schemas or examples:
 
-Once approved → tagged + pinned.
+- Read `SCHEMAS.md` for layout and versioning rules
+- Read `SPEC.md` for the contract you are changing
+- Treat published version folders as immutable unless governance explicitly opens a new release line
+- Use `npm run validate` as the default repo-wide verification command
+
+If you are preparing a contribution, follow `CONTRIBUTING.md`.
 
 ## 5. What “Good” Looks Like
 

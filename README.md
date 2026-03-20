@@ -59,6 +59,28 @@ If agents cannot agree on what actions mean, interoperability breaks.
 
 ---
 
+## Table of Contents
+- [Real verbs. Real receipts.](#real-verbs-real-receipts)
+- [Quickstart](#quickstart)
+- [Commons v1.1.0](#commons-v110)
+- [What Commons enables](#what-commons-enables)
+- [Why this exists](#why-this-exists)
+- [Canonical Verbs](#canonical-verbs)
+- [Overview](#overview)
+- [Key Principles](#key-principles)
+- [This is not…](#this-is-not)
+- [CommandLayer Protocol Stack](#commandlayer-protocol-stack)
+- [Status](#status)
+- [Repository Structure](#repository-structure)
+- [Manifest](#manifest)
+- [Immutability & Checksums](#immutability--checksums)
+- [Validation](#validation)
+- [License](#license)
+- [Next Layers](#next-layers)
+- [References](#references)
+
+---
+
 ## Real verbs. Real receipts.
 
 ```jsonc
@@ -89,13 +111,12 @@ Every v1.1.0 Commons receipt uses the same evidence-oriented spine:
 
 - `status`
 - `timestamp`
-- `agent`
 - `request_hash`
-- `result_hash` *(optional)*
-- `result_cid` *(optional)*
 - `summary` *(required on success)*
 - `signature`
 - `error` *(required on error)*
+
+`result_hash` and `result_cid` are optional evidence fields. `agent` is optional and may be included when the actor/provider identity needs to be surfaced.
 
 ---
 
@@ -194,7 +215,7 @@ The receipt contract is proof-oriented rather than transport-oriented:
   "version": "1.1.0",
   "status": "ok | error",
   "timestamp": "<RFC 3339 date-time>",
-  "agent": "<stable signer identity>",
+  "agent": "<optional stable signer identity>",
   "request_hash": "sha256:<64 lowercase hex chars>",
   "result_hash": "sha256:<64 lowercase hex chars>",
   "result_cid": "<optional content identifier>",
@@ -205,28 +226,6 @@ The receipt contract is proof-oriented rather than transport-oriented:
 ```
 
 These fields let consumers verify that a signer attested to a specific request hash and, when present, a specific result hash or result CID. Commons does not define transport settlement, execution proofs beyond these fields, or any x402-specific wrapping.
-
-## Table of Contents
-- [Real verbs. Real receipts.](#real-verbs-real-receipts)
-- [Quickstart](#quickstart)
-- [Commons v1.1.0](#commons-v110)
-- [What Commons enables](#what-commons-enables)
-- [Why this exists](#why-this-exists)
-- [Canonical Verbs](#canonical-verbs)
-- [Overview](#overview)
-- [Key Principles](#key-principles)
-- [This is not…](#this-is-not)
-- [CommandLayer Protocol Stack](#commandlayer-protocol-stack)
-- [Status](#status)
-- [Repository Structure](#repository-structure)
-- [Manifest](#manifest)
-- [Immutability & Checksums](#immutability--checksums)
-- [Validation](#validation)
-- [License](#license)
-- [Next Layers](#next-layers)
-- [References](#references)
-
----
 
 ## Why this exists
 
@@ -384,7 +383,6 @@ Commons gives upper layers a stable meaning layer to build around.
 │           ├── <verb>.request.schema.json
 │           └── <verb>.receipt.schema.json
 └── scripts/
-    ├── ajv-run.mjs
     ├── validate-all.mjs
     └── validate-examples.mjs
 ```
@@ -418,12 +416,11 @@ Published version directories must not be edited in place.
 
 ## Validation
 
-Available commands:
+Use `npm run validate` as the canonical repo-wide validation command. For targeted checks, the repo also exposes:
 
 ```bash
 npm run validate:schemas
 npm run validate:examples
-npm run validate
 ```
 
 These commands compile schemas in strict Ajv mode and validate the shipped examples for both `v1.0.0` and `v1.1.0`.

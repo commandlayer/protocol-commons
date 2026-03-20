@@ -10,3 +10,9 @@
 - Established Commons v1.1.0 as the active in-repo schema surface for new integrations
 - Retained v1.0.0 as the last pinned canonical release until v1.1.0 pinning is completed
 - Preserved earlier schema versions for compatibility and historical reference
+
+## 1.0.0
+
+- Initial Protocol-Commons release with versioned Commons schemas, shared primitives, and example vectors under `schemas/v1.0.0` and `examples/v1.0.0`
+- Introduced the canonical Commons verb set and request/receipt validation model for cross-runtime interoperability
+- Established the historical pinned release line that `v1.1.0` now extends as the current in-repo schema family

@@ -49,7 +49,6 @@
     "ajv-formats": "^3.0.1"
   },
   "scripts": {
-    "validate:schema": "node scripts/ajv-run.mjs",
     "validate:schemas": "node scripts/validate-all.mjs",
     "validate:examples": "node scripts/validate-examples.mjs",
     "validate:all": "npm run validate:schemas && npm run validate:examples",
