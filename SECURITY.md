@@ -38,8 +38,8 @@ Breaking issues are prioritized.
 ## Integrity Rules
 
 - Versioned directories are **immutable** once published  
-- Schema artifacts are covered by checksum-based integrity records  
-- Release metadata and publication records are documented in the repository  
+- Schema artifacts are covered by checksum-based integrity records (`checksums.txt`)  
+- Release metadata and publication records are documented in `manifest.json` and repository history  
 - Any semantic change requires **a new version** — never hot patches
 
 These guarantees keep Commons safe to depend on long-term.

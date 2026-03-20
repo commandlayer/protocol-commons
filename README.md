@@ -1,7 +1,7 @@
 # CommandLayer Protocol — Commons
 
 **The canonical semantic contract for autonomous agents.**  
-*Verbs, schemas, and validation for the current v1.1.0 release.*
+*Verbs, schemas, and validation for the v1.1.0 release.*
 
 [![Schemas](https://img.shields.io/badge/Schemas-v1.1.0%20current-blue)](https://github.com/commandlayer/protocol-commons)
 [![NPM Version](https://img.shields.io/npm/v/@commandlayer/commons)](https://www.npmjs.com/package/@commandlayer/commons)
@@ -33,7 +33,7 @@ HTTPS hosting and IPFS pinning are separate distribution layers:
 - HTTPS hosting provides the live canonical schema URLs used by the `$id` fields
 - IPFS pinning records a separate content-addressed publication state for the same version when a CID is published
 
-You do not need IPFS context to understand or validate the schemas. For in-repo integrity checks, use:
+IPFS context is not required to understand or validate the schemas. For in-repo integrity checks, use:
 
 ```bash
 npm run checksums:verify
