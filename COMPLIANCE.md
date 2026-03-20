@@ -1,6 +1,6 @@
 # Compliance — Protocol Commons
 
-This document defines what it means to be Protocol-Commons compliant and how to **assert** and **maintain** that status over time.
+This document defines what it means to be Protocol-Commons compliant and how to assert that status accurately.
 
 ---
 
@@ -8,18 +8,11 @@ This document defines what it means to be Protocol-Commons compliant and how to 
 
 These rules apply to:
 
-- Schemas under `schemas/v*/commons/`
-- Shared primitives under `schemas/v*/_shared/`
-- Examples under `examples/v*/commons/`
+- schemas under `schemas/v*/commons/`
+- shared primitives under `schemas/v*/_shared/`
+- examples under `examples/v*/commons/`
 
-**ENS TXT Summary**  
-This document only summarizes TXT responsibilities.  
-The canonical definitions and enforcement rules are specified in:  
-- `SPEC.md` (Protocol-Commons)
- 
-Compliance cannot override normative definitions in SPEC.md.
-
-Compliance covers semantics and schema integrity only—identity bindings are governed by Agent-Cards.
+Compliance cannot override normative definitions in `SPEC.md`.
 
 ---
 
@@ -29,32 +22,31 @@ Compliance claims MUST identify the version they apply to.
 
 Current repository status:
 
-- **v1.1.0** — current canonical HTTPS-hosted schema family; repository metadata still records IPFS CID publication as pending
-- **v1.0.0** — historical pinned release line
+- **v1.1.0** — current release and active schema line
+- **v1.0.0** — historical legacy release
 
 A system MAY claim **v1.1.0 schema compatibility** if it validates and enforces the published v1.1.0 schemas.
 
-A system MUST describe provenance accurately and MUST NOT claim that v1.1.0 is the historical pinned release while IPFS CID publication remains unpublished in repository metadata.
-
 ---
 
-## 3. Versioning & Immutability
+## 3. Versioning and Immutability
 
-For any directory `schemas/vX.Y.Z/`:
+For any directory `schemas/vX.Y.Z/`, there are no in-place edits to:
 
-No in-place edits to:
-- Request/receipt schemas
+- request or receipt schemas
 - `_shared` primitives
 - `$id` values
-- Normative behavior
+- normative behavior
 
 Any semantic change requires:
-- New version directory
-- Updated CIDs + checksums for canonical releases
-- Logged update in `RESOLUTION.md`
-- Governance approval
 
-Mutating a published version is **not compliant**.
+- a new version directory
+- updated `manifest.json` metadata
+- updated `checksums.txt` when schema artifacts change
+- a logged update in `RESOLUTION.md`
+- governance approval
+
+Mutating a published version is not compliant.
 
 ---
 
@@ -62,48 +54,45 @@ Mutating a published version is **not compliant**.
 
 All Protocol-Commons schemas MUST:
 
-- Use JSON Schema Draft 2020-12
-- Validate under **Ajv strict mode**
-- Use deterministic HTTPS-resolvable `$id` values matching SPEC.md
-- Enforce the version-specific input + receipt contract
-
-Loose validation or altered `$id` resolution is **not compliant**.
+- use JSON Schema Draft 2020-12
+- validate under strict Ajv mode or equivalent
+- use deterministic HTTPS-resolvable `$id` values matching `SPEC.md`
+- enforce the version-specific request and receipt contract
 
 ---
 
-## 5. CIDs & Checksums
+## 5. Release Metadata and Integrity Requirements
 
-Each canonical release MUST:
+Each release MUST include:
 
-- Pin the entire version folder to IPFS
-- Provide SHA-256 checksums
-- Publish `manifest.json`
+- `checksums.txt`
+- `manifest.json`
+- versioned schema paths
+
+Releases claimed as canonically pinned on IPFS MUST also include:
+
+- a recorded CID for the relevant version
+- IPFS publication metadata that matches the release contents
 
 Compliance requires:
 
-- Canonical TXT/CID bindings only for fully published releases
-- IPFS mirrors match HTTP mirrors exactly for pinned releases
+- checksum verification against shipped schema artifacts
+- manifest metadata that matches the version being claimed
+- accurate separation of HTTPS hosting and IPFS publication state
 
-Consumers SHOULD verify `checksums.txt` against the published schema
-artifacts prior to use.
-
-Automated resolvers and runtimes MUST verify checksums as part of
-canonical compliance, and MUST reject mismatches.
-
-Mismatch = **integrity failure**
-
-For v1.1.0 specifically, the schemas and checksums can be validated locally, and compliance statements MUST distinguish the current canonical HTTPS-hosted line from the historical pinned release until IPFS CID publication is complete.
+IPFS pinning is required for canonical publication when that publication mode is being claimed.
 
 ---
 
-## 6. Security & Privacy
+## 6. Security and Privacy
 
-Schemas are **semantic infrastructure**, not application output.
+Schemas are semantic infrastructure, not application output.
 
 Therefore:
-- No PII
-- No secrets or private routing data
-- No execution logic
+
+- no PII
+- no secrets
+- no embedded execution logic
 
 Security incidents MUST follow `SECURITY.md`.
 
@@ -112,10 +101,12 @@ Security incidents MUST follow `SECURITY.md`.
 ## 7. Governance Traceability
 
 Every canonical change MUST be reflected in:
-- `RESOLUTION.md` (what + why + who)
-- `SECURITY_PROVENANCE.md` (CIDs + checksums)
 
-An artifact **without a governance trail** is not canonical.
+- `RESOLUTION.md` for what changed and why
+- `manifest.json` for release metadata
+- `checksums.txt` when schema artifacts change
+
+An artifact without a documented governance trail is not canonical.
 
 ---
 
@@ -123,38 +114,31 @@ An artifact **without a governance trail** is not canonical.
 
 Commons-compliant implementations SHOULD:
 
-- Support ERC-8004 discovery where relevant
-- Apply only the requirements that are normative for the version they implement
+- support only the version-specific requirements they actually implement
+- distinguish v1.1.0 flat contracts from v1.0.0 legacy structures
 
 For v1.0.0 legacy implementations, that can include older `x402` envelope and `trace` requirements.
 
-For v1.1.0 implementations, those older `x402` and `trace` requirements are **not automatically normative** unless another layer explicitly adopts them outside the Commons schemas.
-
-Divergence from the version-specific Commons contract means **compliance claims then MUST NOT be made**.
+For v1.1.0 implementations, those older requirements are not automatically normative unless another layer adopts them separately.
 
 ---
 
-## 9. Deviation Handling
+## 9. Future Hardening
 
-If a deviation is found:
+Future hardening MAY add optional signed publication mechanisms, but those mechanisms are not part of the current compliance baseline.
 
-1. File an Issue (or follow `SECURITY.md` if sensitive)
-2. Describe affected version and impact
-3. Steward determines whether to publish a corrected version
-4. Changes documented in `RESOLUTION.md`
+Until then, the required baseline is checksum verification plus documented release metadata.
 
 ---
 
 ## 10. Compliance Checklist
 
-You may claim **Protocol-Commons compliant** for a specific version if:
+You may claim Protocol-Commons compliance for a specific version if:
 
-- Strict Ajv validation enforced  
-- Version directories treated as immutable  
-- `$id` URLs resolve correctly  
-- CIDs and checksums match content when the version is claimed as canonical and pinned  
-- Changes logged and signed  
-- ENS TXT duties respected per SPEC.md  
-- Version status is described accurately as current canonical HTTPS-hosted or historical pinned release  
-
-If uncertain → treat the implementation as **experimental**.
+- strict Ajv validation is enforced
+- version directories are treated as immutable
+- `$id` URLs resolve correctly
+- releases include checksums
+- releases include manifest metadata
+- IPFS publication state is described accurately when applicable
+- version status is described accurately as current or historical

@@ -1,79 +1,89 @@
 # Security Provenance — Protocol Commons
+
 **Scope:** Protocol-Commons  
-**Status:** v1.1.0 — Current Canonical In-Repo Line; v1.0.0 remains the historical pinned release  
-**This document is NORMATIVE and ENFORCEABLE.**
+**Status:** v1.1.0 current release and active schema line; v1.0.0 historical legacy release  
+**This document is NORMATIVE.**
 
-Defines cryptographic provenance, integrity guarantees, and audit mechanisms 
-for published and current in-repo Protocol-Commons schemas.
-
----
+This document describes repository integrity records, release metadata, and publication tracking.
 
 ## Contact
-If something seems incorrect, report immediately:
 
-Email: dev@commandlayer.org  
-PGP fingerprint: 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A  
+If something appears incorrect, report it promptly.
+
+- Email: `dev@commandlayer.org`
+- PGP fingerprint for contact verification: `5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A`
 
 Private disclosure is preferred for security-sensitive findings.
 
----
+## Integrity Model
 
-## Provenance & Version Integrity
-Releases are **reproducible and content-addressed**.
+Integrity in this repository is provided through:
 
-Current repository schema family: **v1.1.0**  
-Current canonical pinned release: **v1.0.0**
+- `checksums.txt` for checksum verification of shipped schema artifacts
+- `manifest.json` for documented release metadata and publication state
+- versioned schema paths such as `schemas/v1.1.0/` and `schemas/v1.0.0/`
 
-Integrity sources:
-- **v1.0.0 CID:** `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
-- **v1.1.0 HTTPS canonical root:** `https://commandlayer.org/schemas/v1.1.0/` (live)
-- **v1.1.0 CID:** `PENDING` (IPFS pinning not yet published)
-- `checksums.txt` — file-level hashes
-- CI strict validation (Ajv)
-- `RESOLUTION.md` — immutable lifecycle history
-- `manifest.json` — current package metadata and pin target state
+These records provide checksum-based integrity, a versioned publication record, and documented release history.
 
-Until a v1.1.0 CID is published and recorded, resolvers and auditors MUST treat v1.1.0 as the current canonical HTTPS-hosted schema family rather than the historical pinned release.
+**This repository does not currently publish signed release artifacts.**
 
-Any semantic update requires:
-- New `schemas/vX.Y.Z/` directory
-- New CID and updated checksums for any canonical release
-- Governance approval + provenance record
+## Release Tracking
 
-**No silent edits. No exceptions.**
+Release tracking in this repository includes:
 
-Auditors MUST verify:
-- HTTPS and IPFS mirrors match exactly for pinned canonical releases
-- Checksums remain unchanged
-- Version directories are immutable
-- The current canonical HTTPS-hosted line is not misdescribed as the historical pinned release before CID publication is complete
+- version
+- schema roots
+- package metadata
+- CID values when published
+- documented history in `CHANGELOG.md` and `RESOLUTION.md`
 
----
+Current release state:
+
+- **Current release:** `v1.1.0`
+- **Active schema line:** `schemas/v1.1.0/commons`
+- **Manifest-tracked CID for v1.1.0:** `PENDING`
+- **Historical legacy release:** `v1.0.0`
+- **Historical v1.0.0 CID:** `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
+
+IPFS publication is tracked separately from HTTPS hosting. The v1.1.0 HTTPS schema URLs can be live while the manifest still records `schemas_cid: PENDING` for the IPFS publication step.
+
+## Publication Layers
+
+Protocol-Commons uses two separate distribution layers:
+
+1. **HTTPS hosting** for canonical schema URLs and `$id` resolution
+2. **IPFS pinning** for content-addressed publication records when a CID is published
+
+These layers should not be conflated. HTTPS availability does not by itself mean that IPFS publication has been recorded, and IPFS publication metadata is not required to understand the schema contracts.
+
+## Auditor Expectations
+
+Auditors and integrators SHOULD verify:
+
+- checksums in `checksums.txt` against the shipped schema files
+- schema paths and release metadata in `manifest.json`
+- version-specific history in `CHANGELOG.md` and `RESOLUTION.md`
+- immutability of published version directories
+
+For a release with a published CID, auditors SHOULD also verify that the recorded IPFS publication matches the documented version metadata.
 
 ## ENS TXT Summary
-Protocol-Commons governs TXT keys that resolve **schema semantics**.
 
-Canonical rules under:
-- `SPEC.md`
+Protocol-Commons governs TXT keys that resolve schema semantics.
 
-Resolvers MUST reject any:
-- TXT ↔ CID mismatch  
-- Unauthorized or missing TXT keys  
-- Out-of-sync version binding
+Resolvers SHOULD reject:
 
-For v1.1.0 specifically, TXT/CID binding MUST NOT be represented as a published pinned release until CID publication is complete.
+- TXT ↔ CID mismatches
+- unauthorized or missing schema TXT keys
+- out-of-sync version bindings
 
----
+TXT records are part of publication metadata. They are not, by themselves, signed release artifacts.
 
 ## Security Posture
-- No PII  
-- No execution or proprietary logic  
-- Minimal surface area  
-- Predictable and stable  
 
-Breakage here causes **ecosystem-wide** failures.  
-Recovery requires **transparent governance** — never mutation in place.
+- No PII in schema artifacts
+- No embedded execution logic
+- Minimal semantic surface area
+- Immutable versioned publication records
 
----
-
-**Status:** v1.1.0 is the current canonical HTTPS-hosted schema family with pending IPFS CID publication; v1.0.0 remains the historical fully verifiable pinned release.
+If a mistake is discovered, the remedy is a documented follow-up release or metadata update, not a silent rewrite of published schema content.

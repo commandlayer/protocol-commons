@@ -1,122 +1,99 @@
 # Onboarding — Protocol Commons
 
-Welcome to **Protocol-Commons** — the canonical verb + schema layer for autonomous agents.
+Welcome to Protocol-Commons, the semantic layer for CommandLayer agents.
 
-This repo defines the **semantic contract** for the active **v1.1.0** schema family and preserves **v1.0.0** as historical pinned context:
-
-- What actions exist (**canonical verbs**)
-- How requests and receipts are structured (**typed schemas**)
-- How versioned schema families are governed, published, and verified
-
-Stable semantics here protect the entire agent ecosystem. Legacy v1.0.0 materials still document the older x402/trace-oriented layout, but those assumptions do **not** automatically apply to v1.1.0.
+This repository defines the **current v1.1.0 release** and preserves **v1.0.0** only as historical legacy material.
 
 ---
 
-## 1. Who This Repo Is For
+## 1. What This Repo Does
 
-You’re in the right place if you are:
+Protocol-Commons defines:
 
-- Protocol / infra engineer defining canonical verbs
-- Agent runtime / router implementer mapping verbs → handlers
-- Validator enforcing strict JSON Schema behavior
-- Contributor extending neutral A2A semantics
+- canonical verbs
+- JSON Schemas for requests and receipts
+- versioned schema publication rules
+- release metadata and checksum records
 
-> Quick start: implement a Commons verb (e.g., `summarize`) and validate strict request/receipt compatibility.  
-> It gets you typing — not just reading.
-
-For identity metadata + ENS discovery → see **agent-cards**.
+It does **not** define payment, routing, identity ownership, or runtime execution policy.
 
 ---
 
-## 2. Mental Model
+## 2. Version Orientation
 
-Protocol-Commons is the **bottom** layer:
+Keep these distinctions clear:
 
-```
-[ Execution ]   runtimes and transport envelopes
-[ Identity  ]   Agent-Cards (discovery + ownership)
-[ Semantics ]   Protocol-Commons (verbs + schemas)
-```
+- **v1.1.0** is the current release and active schema line
+- **v1.0.0** is historical legacy material only
+- HTTPS hosting and IPFS pinning are separate publication layers
+- repository integrity is based on checksums plus documented release metadata
 
-It answers:
+---
 
-“What is this agent trying to do — and what must this message look like?”
+## 3. Repository Layout
 
-## 3. Repo Layout
+| Path | Meaning |
+|------|---------|
+| `schemas/v1.1.0/commons/` | Current v1.1.0 Commons schemas |
+| `examples/v1.1.0/commons/` | Current repository examples for v1.1.0 |
+| `schemas/v1.0.0/commons/` | Historical legacy schemas |
+| `schemas/v1.0.0/_shared/` | Historical shared primitives for v1.0.0 |
+| `examples/v1.0.0/commons/` | Historical legacy examples |
+| `manifest.json` | Release metadata and publication record |
+| `checksums.txt` | Schema checksum record |
+| `SPEC.md` | Normative schema contract |
+| `SCHEMAS.md` | Layout and versioning policy |
+| `GOVERNANCE.md` | Repository process and authority model |
+| `SECURITY_PROVENANCE.md` | Integrity and publication tracking |
+| `RESOLUTION.md` | Release log |
 
-| Folder/File                       | Meaning                                                              |
-| --------------------------------- | -------------------------------------------------------------------- |
-| `schemas/v1.1.0/commons/`         | Current canonical in-repo Commons schemas                            |
-| `examples/v1.1.0/commons/`        | Active v1.1.0 example payloads and vectors                           |
-| `schemas/v1.0.0/commons/`         | Historical pinned Commons schemas (immutable canonical release)      |
-| `schemas/v1.0.0/_shared/`         | Historical shared primitives used by v1.0.0                          |
-| `examples/v1.0.0/commons/`        | Historical v1.0.0 test vectors                                       |
-| `manifest.json` + `checksums.txt` | Integrity, provenance, and active-versus-historical release metadata |
-| `SPEC.md`                         | Canonical rules                                                      |
-| `SCHEMAS.md`                      | Schema family and layout rules                                       |
-| `GOVERNANCE.md`                   | Change authority + approvals                                         |
-| `SECURITY*.md`                    | Disclosure + provenance                                              |
-| `RESOLUTION.md`                   | Change log (signed provenance)                                       |
+---
 
-Authoritative docs:
+## 4. First Commands
 
-- `SPEC.md` — normative rules
-- `SCHEMAS.md` — versioning, layout, and schema-family guidance
-- `GOVERNANCE.md` — approval of normative changes
-- `SECURITY*.md` — provenance + integrity guarantees
-- `RESOLUTION.md` — canonical lifecycle log
+Run these from the repository root:
 
-If a change is not reflected here → **not canonical.**
-
-**ENS TXT Summary**  
-Protocol-Commons governs TXT keys that resolve schema semantics.  
-Canonical definitions → `SPEC.md`.
-
-## 4. Working Norms
-
-```
+```bash
 npm install
 npm run validate
 ```
 
-Use a subcommand only when you need a narrower loop after the aggregate pass:
+Useful narrower loops:
 
-```
+```bash
 npm run validate:schemas
+npm run validate:examples
+npm run checksums:verify
 ```
 
-`npm run validate` already includes `npm run validate:examples`. Run `validate:examples` separately only when you intentionally want an examples-only loop.
+---
 
-5. Update `RESOLUTION.md`, provenance
-6. Submit PR with version class (MAJOR/MINOR/PATCH)
+## 5. Practical Working Norms
 
-If you are preparing a contribution, follow `CONTRIBUTING.md`.
+1. Treat v1.1.0 as the default target for new documentation and validation work.
+2. Treat v1.0.0 as reference material only.
+3. Do not edit published schema semantics in place.
+4. Update release-facing docs when version status language changes.
+5. Keep `manifest.json`, `checksums.txt`, and `RESOLUTION.md` aligned with release history.
 
-## 5. What “Good” Looks Like
+---
 
-- Clear, single-purpose PR
-- Schema + example alignment
-- No edits to existing version folders
-- Fully traceable governance + checksums
-- Deterministic canonical `$id` values, with live HTTP resolution added when publication is completed
+## 6. Examples Guidance
 
-## 5A. Fixture Rules
+When editing `examples/`:
 
-When you touch `examples/`, keep the validation surface credible:
+- keep valid examples realistic
+- keep invalid examples focused on a clear failure mode
+- keep fixtures aligned to the version they target
+- remember that examples are repository assets, not npm package contents
 
-- valid examples should be realistic, not cartoon placeholders
-- invalid examples should usually test one clear failure, not five at once
-- filenames should explain the scenario (`missing-input`, `invalid-version`, `extra-property`, etc.)
-- request examples must stay verb-aligned; do not copy an invalid fixture from one verb directory into another
-- valid receipts should use realistic `sha256:` digests and CID-shaped values
-- unless the repo ships the exact corresponding payload artifacts, treat example digests/signatures/CIDs as format-realistic illustrative evidence rather than independently verifiable production proofs
+TypeScript examples are illustrative and are not currently validated by CI.
 
-Default assumption: **new version** for any semantic change.
+---
 
-## 6. Support
+## 7. Support
 
-Governance contact: dev@commandlayer.org
-PGP fingerprint: 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
+- Governance contact: `dev@commandlayer.org`
+- Steward record: `commandlayer.eth`
 
-Protocol-Commons is a **neutral shared layer.**
-Precision here preserves interoperability everywhere else.
+Precision in these docs protects downstream interoperability.

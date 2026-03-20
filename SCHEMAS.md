@@ -1,39 +1,39 @@
 # Schemas Policy — Protocol Commons
 
-This document specifies stability rules, versioning constraints, and change governance for all Protocol Commons schemas.
+This document specifies stability rules, versioning constraints, and layout rules for Protocol-Commons schemas.
 
-> This document is **NORMATIVE and ENFORCEABLE**.
+> This document is **NORMATIVE**.
 
 ---
 
 ## 1. Purpose
 
-Protocol-Commons defines the canonical verb and schema layer for autonomous agents:
+Protocol-Commons defines the canonical verb and schema layer for autonomous agents.
 
-- standardized verbs
-- strict JSON Schema 2020-12 validation
-- deterministic `$id` URLs
-- immutable versioning rules
-- flat v1.1.0 request and receipt contracts
+This policy covers:
 
-Once published, a version directory is immutable.
+- versioned schema layout
+- `$id` requirements
+- request and receipt structure
+- immutability rules
+- validation expectations
 
 ---
 
 ## 2. Version Status
 
-This repository currently ships:
+This repository currently uses:
 
-- **v1.1.0** as the active in-repo schema family
-- **v1.0.0** as the historical and last fully pinned canonical release
+- **v1.1.0** as the current release and active schema line
+- **v1.0.0** as the legacy historical schema line
 
-Because `manifest.json` still reports the v1.1.0 schema CID as pending, documentation MUST describe v1.1.0 accurately as the current canonical HTTPS-hosted schema line and MUST distinguish it from the historical pinned release until a real CID is published.
+The manifest tracks IPFS publication for v1.1.0 separately from the HTTPS-hosted schema URLs. That publication record does not alter the schema layout defined here.
 
 ---
 
 ## 3. Directory Layout
 
-### Current in-repo layout: v1.1.0
+### Current layout: v1.1.0
 
 ```text
 schemas/v1.1.0/
@@ -43,7 +43,7 @@ schemas/v1.1.0/
         └── <verb>.receipt.schema.json
 ```
 
-### Historical pinned layout: v1.0.0
+### Legacy layout: v1.0.0
 
 ```text
 schemas/v1.0.0/
@@ -63,7 +63,7 @@ schemas/v1.0.0/
 
 - Paths MUST NOT change once published
 - Folder names MUST match the canonical verb exactly
-- v1.1.0 Commons schemas MUST use the flat per-verb file layout
+- v1.1.0 MUST use the flat per-verb file layout shown above
 - Nested `requests/` and `receipts/` directories are legacy-only and MUST NOT be described as the v1.1.0 layout
 
 ---
@@ -98,27 +98,15 @@ Each verb MUST define exactly:
 https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json
 ```
 
-Example:
-
-```text
-https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.request.schema.json
-```
-
 ### v1.1.0 receipt schemas
 
 ```text
 https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json
 ```
 
-Example:
-
-```text
-https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.receipt.schema.json
-```
-
 ### Legacy v1.0.0 note
 
-Legacy v1.0.0 schemas retain their older nested `$id` patterns and `_shared` references. Those patterns are legacy-only and are not the v1.1.0 contract.
+Legacy v1.0.0 schemas retain their older nested `$id` patterns and `_shared` references. Those patterns are legacy-only.
 
 All `$id` values MUST be fully qualified HTTPS URLs.
 
@@ -166,13 +154,13 @@ Additional shared fields are schema-supported but optional unless conditionally 
 
 Receipts MUST reject additional properties.
 
-The trust model is limited to signer attestation plus request/result hash references. Implementations MUST NOT imply unsupported receipt substructures or execution-trace guarantees.
+The receipt contract is limited to the fields defined in the schemas. It MUST NOT be described as providing live execution verification, transport guarantees, or signed release provenance.
 
 ---
 
 ## 8. Legacy v1.0.0 Scope
 
-v1.0.0 remains in-repo for compatibility, historical verification, and canonical pin auditing.
+v1.0.0 remains in-repo only for compatibility review, historical reference, and legacy auditing.
 
 Its schemas use:
 
@@ -180,7 +168,7 @@ Its schemas use:
 - nested `requests/` and `receipts/` folders
 - older envelope conventions including `x402` and `trace`
 
-Documentation and tooling MUST distinguish that legacy structure from v1.1.0 and MUST NOT present those legacy fields as universally normative.
+Documentation and tooling MUST distinguish that legacy structure from v1.1.0.
 
 ---
 
@@ -193,23 +181,13 @@ Once published under a version directory such as `schemas/v1.1.0/`, the followin
 - updating `$id` values for that version
 - changing the directory layout for that version
 
-Any change requires a new version directory.
+Any semantic change requires a new version directory.
 
 ---
 
 ## 10. Validation Requirements
 
-CI and local validation SHOULD enforce strict schema compilation behavior equivalent to:
-
-```text
-strict: true
-strictSchema: true
-allErrors: true
-strictRequired: false
-allowUnionTypes: false
-```
-
-Repository validation commands:
+Repository validation commands are:
 
 ```bash
 npm run validate:schemas
@@ -221,60 +199,40 @@ All shipped valid and invalid examples MUST match the version-specific schema la
 
 ---
 
-## 11. Examples
-
-Examples are maintained per version.
+## 11. Examples Layout
 
 ### v1.1.0 examples
 
 ```text
 examples/v1.1.0/commons/<verb>/json/
-  valid/*.json
-  invalid/*.json
 ```
 
 ### v1.0.0 examples
 
 ```text
 examples/v1.0.0/commons/<verb>/
-  valid/*.json
-  invalid/*.json
 ```
 
 ---
 
-## 12. Provenance & Integrity
+## 12. Publication Record Summary
 
-Integrity is tracked by:
-
-- `checksums.txt`
-- `manifest.json`
-
-Current v1.1.0 canonical HTTPS schema root:
+Current HTTPS schema root:
 
 ```text
 https://commandlayer.org/schemas/v1.1.0/
 ```
 
-Current v1.1.0 schema CID status:
+Manifest-tracked IPFS publication state for v1.1.0:
 
 ```text
 PENDING
 ```
 
-Last pinned canonical release content identifier:
+Historical legacy CID record:
 
 ```text
 v1.0.0 → bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m
 ```
 
-Resolvers and auditors MUST reject mismatched artifacts and MUST distinguish between the current canonical HTTPS-hosted schema family and the historical pinned release.
-
----
-
-## 13. Contact
-
-- dev@commandlayer.org
-- PGP 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
-
-**Status:** v1.1.0 current canonical HTTPS-hosted schema family with pending CID publication metadata; v1.0.0 retained as the historical pinned release.
+**Status:** v1.1.0 is the current release and active schema line. v1.0.0 is legacy only.
