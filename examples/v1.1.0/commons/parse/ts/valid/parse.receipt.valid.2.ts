@@ -1,4 +1,4 @@
-// VALID parse.receipt #2 — error receipt variant required by the schema
+// VALID parse.receipt #2 — error receipt variant showing that `agent` is optional
 
 import type { ParseReceipt } from "./parse.receipt.valid.1";
 
@@ -6,9 +6,8 @@ export const parseReceiptValid2: ParseReceipt = {
   "verb": "parse",
   "version": "1.1.0",
   "status": "error",
-  "timestamp": "2026-03-18T12:05:00Z",
-  "agent": "parseagent.eth",
-  "request_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
-  "signature": "sigBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-  "error": "parse execution failed because the input could not be processed in the requested mode."
+  "timestamp": "2026-03-18T13:20:28Z",
+  "request_hash": "sha256:f07d77c95438cefe9184437de2272ec36d7fd0b7e57e3d3f630e7ec68b3b2f89",
+  "signature": "MEQCID1mN3pQ5rS7tU9vW1xY3zA5bC7dE9fG1hJ3kL5mN7pQAiAP0rT2vW4xY6zB8dD0fF2hH4jJ6lL8nP0rT2vW4xY6z",
+  "error": "The parser detected mixed delimiters and could not build a stable key-value map."
 };

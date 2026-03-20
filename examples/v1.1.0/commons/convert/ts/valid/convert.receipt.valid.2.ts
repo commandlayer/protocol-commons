@@ -1,4 +1,4 @@
-// VALID convert.receipt #2 — error receipt variant required by the schema
+// VALID convert.receipt #2 — error receipt variant showing that `agent` is optional
 
 import type { ConvertReceipt } from "./convert.receipt.valid.1";
 
@@ -6,9 +6,8 @@ export const convertReceiptValid2: ConvertReceipt = {
   "verb": "convert",
   "version": "1.1.0",
   "status": "error",
-  "timestamp": "2026-03-18T12:05:00Z",
-  "agent": "convertagent.eth",
-  "request_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
-  "signature": "sigBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-  "error": "convert execution failed because the input could not be processed in the requested mode."
+  "timestamp": "2026-03-18T12:30:19Z",
+  "request_hash": "sha256:4e06710b5e74f66c4d36601f6e002ef77f420fbf193e8c6f8e50c0c3b5ab1bbf",
+  "signature": "MEYCIQC8dF0hJ2lN4pR6tV8xZ0bC2dE4fG6hJ8kL0mN2pQ4rSIhAM5nO7pQ9rS1tU3vW5xY7zA9bC1dE3fG5hJ7kL9mN1",
+  "error": "The converter could not infer a supported source format from the provided binary blob."
 };

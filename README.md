@@ -10,6 +10,45 @@
 
 ---
 
+> **Integrity Notice — Protocol-Commons v1.1.0**
+>
+> `schemas/v1.1.0/commons` is the current canonical **working line in this repository**.
+> Its publication metadata still says `schemas_cid: PENDING`, so this line is **not yet the externally pinned canonical release**.
+>
+> `v1.0.0` remains the last **externally pinned canonical release**:
+> `schemas/v1.0.0/` — CID: `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
+>
+> Verify in-repo integrity locally:
+> ```bash
+> npm run checksums:verify
+> ```
+>
+> Any mismatch indicates modified artifacts. New versions MUST use a new version directory and, once published, a new CID.
+
+## Table of Contents
+- [Why Now](#why-now)
+- [Real verbs. Real receipts.](#real-verbs-real-receipts)
+- [Quickstart](#quickstart)
+- [Commons v1.1.0](#commons-v110)
+- [What Commons enables](#what-commons-enables)
+- [Why this exists](#why-this-exists)
+- [Canonical Verbs](#canonical-verbs)
+- [Overview](#overview)
+- [Key Principles](#key-principles)
+- [This is not…](#this-is-not)
+- [CommandLayer Protocol Stack](#commandlayer-protocol-stack)
+- [Status](#status)
+- [Repository Structure](#repository-structure)
+- [Manifest](#manifest)
+- [Immutability & Checksums](#immutability--checksums)
+- [Validation](#validation)
+- [Fixture discipline](#fixture-discipline)
+- [License](#license)
+- [Next Layers](#next-layers)
+- [References](#references)
+
+---
+
 ## Why Now
 
 Autonomous agents are finally leaving the lab — but without shared meaning, they fragment into isolated API silos.
@@ -21,24 +60,6 @@ CommandLayer separates the stack into clear responsibilities:
 - **Execution and payment layers** can transport, meter, or settle work around those semantics
 
 Protocol-Commons is the foundation for portable machine intent: a stable set of verbs plus strict JSON Schemas for requests and receipts.
-
----
-
-> **Integrity Notice — Protocol-Commons v1.1.0**
->
-> `schemas/v1.1.0/commons` is the current canonical in-repo Commons line:
-> `schemas/v1.1.0/commons` — CID publication status: `PENDING`
->
-> `v1.0.0` is retained as the historical pinned release line:
-> `schemas/v1.0.0/` — CID: `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
->
-> Verify integrity locally:
-> ```bash
-> npm run checksums:verify
-> ```
->
-> Any mismatch indicates modified artifacts.
-> New versions MUST use a new version directory and, once published, a new CID.
 
 ---
 
@@ -59,28 +80,6 @@ If agents cannot agree on what actions mean, interoperability breaks.
 
 ---
 
-## Table of Contents
-- [Real verbs. Real receipts.](#real-verbs-real-receipts)
-- [Quickstart](#quickstart)
-- [Commons v1.1.0](#commons-v110)
-- [What Commons enables](#what-commons-enables)
-- [Why this exists](#why-this-exists)
-- [Canonical Verbs](#canonical-verbs)
-- [Overview](#overview)
-- [Key Principles](#key-principles)
-- [This is not…](#this-is-not)
-- [CommandLayer Protocol Stack](#commandlayer-protocol-stack)
-- [Status](#status)
-- [Repository Structure](#repository-structure)
-- [Manifest](#manifest)
-- [Immutability & Checksums](#immutability--checksums)
-- [Validation](#validation)
-- [License](#license)
-- [Next Layers](#next-layers)
-- [References](#references)
-
----
-
 ## Real verbs. Real receipts.
 
 ```jsonc
@@ -98,25 +97,22 @@ If agents cannot agree on what actions mean, interoperability breaks.
   "version": "1.1.0",
   "status": "ok",
   "timestamp": "2026-03-18T12:00:00Z",
-  "agent": "summarizeagent.eth",
   "request_hash": "sha256:4b87d90208e62430a5d8f577938fd26d02d646f092d137cee66216c0daac8243",
   "result_hash": "sha256:8b5d2d4dfb4a8bb7d4d1ed436e78c5f4bcf6ca9714ec93a8db8e5ec6ed8b1b8d",
   "result_cid": "bafybeif6h8j0l2n4p6r8t0v2x4z6b8d0f2h4j6l8n0p2r4t6v8x0z2bd",
   "summary": "Commons v1.1.0 makes requests smaller and receipts easier to verify while preserving stable verb semantics.",
-  "signature": "sigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  "signature": "MEUCID4fG6hJ8kL0mN2pQ4rS6tU8vW0xY2zA4bC6dE8fG0hAiEAzB1dD3fF5hH7jJ9lL1nP3rT5vX7zA9cC1eE3gH5iJ7"
 }
 ```
 
-Every v1.1.0 Commons receipt uses the same evidence-oriented spine:
+Every v1.1.0 Commons receipt shares the same required core evidence fields:
 
 - `status`
 - `timestamp`
 - `request_hash`
-- `summary` *(required on success)*
 - `signature`
-- `error` *(required on error)*
 
-`result_hash` and `result_cid` are optional evidence fields. `agent` is optional and may be included when the actor/provider identity needs to be surfaced.
+`summary` is required on success receipts. `error` is required on error receipts. `result_hash`, `result_cid`, and `agent` are optional evidence fields that may appear when the implementation can surface them honestly.
 
 ---
 
@@ -137,7 +133,7 @@ npm run validate
 
 `npm run validate` is the primary command: it compiles every schema and then checks that all shipped examples pass or fail exactly as intended.
 
-**Validate a specific example against the published schema using AJV**
+**Validate a specific example against the shipped schema using AJV**
 
 ```bash
 node --input-type=module <<'EOF_NODE'
@@ -186,7 +182,7 @@ console.log(validate.errors ?? []);
 
 Commons v1.1.0 is the current canonical schema family in this repository.
 
-It is the primary documentation and validation target for Commons. The repository still records CID publication as pending, while `v1.0.0` is retained as the historical pinned release line.
+It is the primary documentation and validation target for Commons. The repository still records CID publication as pending, so `v1.1.0` should be treated as the active working line rather than the last externally pinned release. `v1.0.0` is retained as the historical pinned release line.
 
 - Each request schema is standalone
 - Each receipt schema is standalone
@@ -217,7 +213,6 @@ The receipt contract is proof-oriented rather than transport-oriented:
   "version": "1.1.0",
   "status": "ok | error",
   "timestamp": "<RFC 3339 date-time>",
-  "agent": "<optional stable signer identity>",
   "request_hash": "sha256:<64 lowercase hex chars>",
   "result_hash": "sha256:<64 lowercase hex chars>",
   "result_cid": "<optional content identifier>",
@@ -353,11 +348,11 @@ Commons gives upper layers a stable meaning layer to build around.
 
 ## Status
 
-**v1.1.0 — current canonical schema family**
+**v1.1.0 — current canonical working line**
 
 - `v1.1.0` is the current flat Commons layout in this repo
 - `v1.0.0` remains the historical pinned release line
-- Do not describe `v1.1.0` provenance as fully canonical until pinning is complete
+- Do not describe `v1.1.0` as externally pinned or historically locked until CID publication is complete
 
 ---
 
@@ -401,6 +396,8 @@ Commons gives upper layers a stable meaning layer to build around.
 - per-verb request and receipt schema paths
 - CID publication status (`PENDING` in `manifest.json` until published)
 
+Treat `schemas_cid: PENDING` as an explicit signal that the v1.1.0 line is still awaiting external publication/provenance, even though it is the repo's current schema target.
+
 ---
 
 ## Immutability & Checksums
@@ -443,6 +440,7 @@ For `examples/v1.1.0/commons/`, contributors should treat fixtures as protocol e
 - filenames should describe the exact failure being tested
 - request fixtures must stay aligned with the verb directory they live in; deliberate wrong-verb cases must be explicitly named
 - valid receipts should use realistic digest and CID-shaped values instead of toy placeholders
+- unless the repo ships the exact corresponding payload artifacts, treat example digests/signatures/CIDs as format-realistic illustrative evidence rather than independently verifiable production proofs
 
 
 ## License

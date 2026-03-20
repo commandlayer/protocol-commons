@@ -33,7 +33,7 @@ Repository metadata still records v1.1.0 CID publication as pending. Implementer
 1. **Schema semantics** — what the v1.1.0 files require
 2. **Release provenance status** — whether a version has completed CID publication and canonical pinning
 
-This specification documents the v1.1.0 contract as the current canonical line while preserving v1.0.0 as the historical pinned release until v1.1.0 pinning is complete.
+This specification documents the v1.1.0 contract as the current canonical working line while preserving v1.0.0 as the historical pinned release until v1.1.0 pinning is complete.
 
 ---
 
@@ -147,7 +147,6 @@ A conforming success receipt shape is:
   "version": "1.1.0",
   "status": "ok",
   "timestamp": "<RFC 3339 date-time>",
-  "agent": "<stable signer identity>",
   "request_hash": "sha256:<64 lowercase hex chars>",
   "result_hash": "sha256:<64 lowercase hex chars>",
   "result_cid": "<optional content identifier>",
@@ -155,6 +154,8 @@ A conforming success receipt shape is:
   "signature": "<base64url detached signature>"
 }
 ```
+
+`agent` MAY be added to either success or error receipts when the signer identity is being surfaced at the application layer.
 
 A conforming error receipt shape is:
 
@@ -206,7 +207,9 @@ schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
 
 ## 7. Schema `$id` Rules
 
-Every v1.1.0 schema MUST use a resolvable HTTPS `$id` under this pattern.
+Every v1.1.0 schema MUST use the canonical HTTPS `$id` namespace under this pattern.
+
+Those `$id` values are stable schema identifiers inside the repository and validation tooling. They SHOULD resolve over live HTTPS once publication/hosting is completed, but live HTTPS resolution is not yet guaranteed by current v1.1.0 repository provenance metadata.
 
 ### Request
 
@@ -228,7 +231,7 @@ Legacy v1.0.0 `$id` layouts remain valid only for the legacy directory tree.
 
 Implementations claiming v1.1.0 schema compatibility MUST:
 
-1. Validate requests and receipts against the exact published schema files
+1. Validate requests and receipts against the exact schema files shipped for the version being claimed
 2. Use JSON Schema draft 2020-12 support
 3. Compile schemas in strict Ajv mode or equivalent
 4. Reject undeclared properties
@@ -283,7 +286,7 @@ Auditors and resolvers SHOULD:
 1. Fetch the versioned schemas
 2. Verify integrity locally
 3. Treat mismatched artifacts as untrusted
-4. Treat v1.1.0 as the current canonical in-repo line, distinct from the historical pinned release, until CID publication is complete
+4. Treat v1.1.0 as the current canonical working line, distinct from the historical pinned release, until CID publication is complete
 
 Integrity check command:
 
@@ -304,7 +307,7 @@ An implementation supporting Commons v1.1.0 MUST:
 5. Preserve receipt trust semantics as hashes plus signatures, without inventing unsupported guarantees
 6. Avoid representing v1.1.0 as the historical pinned release until CID publication is complete
 
-A system supporting any canonical verb MAY claim **Commons-Compatible** for that version, but provenance claims MUST accurately reflect whether the relevant version is the current canonical in-repo line or the historical pinned release.
+A system supporting any canonical verb MAY claim **Commons-Compatible** for that version, but provenance claims MUST accurately reflect whether the relevant version is the current canonical working line or the historical pinned release.
 
 ---
 

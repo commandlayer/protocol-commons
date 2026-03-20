@@ -1,4 +1,4 @@
-// VALID analyze.receipt #2 — error receipt variant required by the schema
+// VALID analyze.receipt #2 — error receipt variant showing that `agent` is optional
 
 import type { AnalyzeReceipt } from "./analyze.receipt.valid.1";
 
@@ -6,9 +6,8 @@ export const analyzeReceiptValid2: AnalyzeReceipt = {
   "verb": "analyze",
   "version": "1.1.0",
   "status": "error",
-  "timestamp": "2026-03-18T12:05:00Z",
-  "agent": "analyzeagent.eth",
-  "request_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
-  "signature": "sigBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-  "error": "analyze execution failed because the input could not be processed in the requested mode."
+  "timestamp": "2026-03-18T12:08:14Z",
+  "request_hash": "sha256:42fa6d1f884a8ef2ff4a6f43cf9d3d44ec9818d636eb54652a7ef7cb2b4f6a7c",
+  "signature": "MEQCIFf0nN8vR2sT4uV6wX8yZ1aB3cD5eF7gH9iJ1kL2mN4pAiAqS6uV8wY0zB2dD4fF6hH8jJ0lL2nP4rT6vX8zA1cC3e",
+  "error": "The input exceeded the analyzer context window before a stable extraction could be produced."
 };

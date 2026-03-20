@@ -1,4 +1,4 @@
-// VALID analyze.receipt #1 — success receipt with signer identity and hashes
+// VALID analyze.receipt #1 — success receipt with realistic digest/CID-shaped evidence
 
 export interface AnalyzeReceipt {
   verb: "analyze";
@@ -20,9 +20,9 @@ export const analyzeReceiptValid1: AnalyzeReceipt = {
   "status": "ok",
   "timestamp": "2026-03-18T12:00:00Z",
   "agent": "analyzeagent.eth",
-  "request_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
-  "result_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
-  "result_cid": "bafybeianalyzereceiptokexample0001",
-  "summary": "Core risks center on signer key rotation gaps, unresolved indexer scaling assumptions, and an unstated rollback plan.",
-  "signature": "sigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  "request_hash": "sha256:8d8b0c9f7cc2c94b5f5d2e8f9bb7d38a74646d8f1f6f0de44d4a1f8be0c5b9d1",
+  "result_hash": "sha256:ab6d7cf38df79241b5f67fbe2718d1d58d7b0f3e131d0f1d8d4f7b7b6c4a2e19",
+  "result_cid": "bafybeigdyrzt5sfp7udm7hu76g2n6z4r6x2zjz6xj5l5w2z4g5i6k7l4mu",
+  "summary": "Core risks center on manual signer rotation, unproven indexer headroom, and the lack of a documented rollback path.",
+  "signature": "MEUCIGdY9f8wq2dL4rN6sT7uV1xY3zA5bC7dE9fG1hJ2kL3mAiEAzQ7wX9yB2cD4eF6gH8iJ0kL2mN4pQ6rS8tU0vW2xY4"
 };
