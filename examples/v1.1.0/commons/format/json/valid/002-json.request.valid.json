@@ -1,0 +1,6 @@
+{
+  "verb": "format",
+  "version": "1.1.0",
+  "input": "network=base status=green height=22790111",
+  "mode": "json"
+}

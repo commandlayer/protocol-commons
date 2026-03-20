@@ -1,0 +1,6 @@
+{
+  "verb": "fetch",
+  "version": "1.2.0",
+  "input": "https://api.commandlayer.org/v1/status",
+  "mode": "json"
+}

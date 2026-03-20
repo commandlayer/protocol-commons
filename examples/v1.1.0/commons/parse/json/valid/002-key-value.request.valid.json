@@ -1,0 +1,6 @@
+{
+  "verb": "parse",
+  "version": "1.1.0",
+  "input": "network=base\nstatus=green\nheight=22790111",
+  "mode": "key-value"
+}

@@ -1,0 +1,8 @@
+{
+  "verb": "classify",
+  "version": "1.1.0",
+  "input": [
+    "billing_issue"
+  ],
+  "mode": "single"
+}

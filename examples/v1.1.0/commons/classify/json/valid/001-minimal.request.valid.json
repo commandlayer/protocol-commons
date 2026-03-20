@@ -1,0 +1,5 @@
+{
+  "verb": "classify",
+  "version": "1.1.0",
+  "input": "Payment failed after signature verification because the buyer wallet had insufficient balance."
+}

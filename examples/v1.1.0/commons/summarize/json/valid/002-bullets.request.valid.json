@@ -1,0 +1,6 @@
+{
+  "verb": "summarize",
+  "version": "1.1.0",
+  "input": "Release goals: remove validation ambiguity, expand fixture coverage, and make receipt evidence easier for third-party verifiers to trust.",
+  "mode": "bullets"
+}

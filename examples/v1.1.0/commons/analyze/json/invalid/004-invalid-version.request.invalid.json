@@ -1,0 +1,6 @@
+{
+  "verb": "analyze",
+  "version": "1.1",
+  "input": "Review the incident summary.",
+  "mode": "extract"
+}
