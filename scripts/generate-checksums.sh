@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${1:-schemas/v1.0.0}"
+ROOT="${1:-schemas}"
 OUT="${2:-checksums.txt}"
 
 if [ ! -d "$ROOT" ]; then
   echo "ERROR: missing schema root: $ROOT" >&2
+  echo "Usage: bash scripts/generate-checksums.sh [schema-root] [output-file]" >&2
   exit 1
 fi
 

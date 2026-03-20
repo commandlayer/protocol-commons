@@ -1,11 +1,12 @@
-// INVALID parse.receipt #1 — bad timestamp, malformed hash, short signature
+// INVALID parse.receipt #1 — timestamp must satisfy date-time format
 
 export const parseReceiptInvalid1: any = {
   "verb": "parse",
   "version": "1.1.0",
   "status": "ok",
-  "timestamp": "not-a-date",
-  "request_hash": "sha256:xyz",
-  "signature": "short",
-  "error": "ok receipts should not rely on error only"
+  "timestamp": "yesterday",
+  "agent": "parseagent.eth",
+  "request_hash": "sha256:e44a9e5776657e5b5f1b1a36b351cf1035d56acda66a1f55f3f5f22af2478d2f",
+  "summary": "Extracted network, status, and height from the JSON payload.",
+  "signature": "MEUCIB8jJ0lL2nP4rT6vX8zA1cC3eE5gH7iJ9kL1mN3pQ5rAiEAqT4vW6xY8zA0bC2dE4fG6hJ8kL0mN2pQ4rS6tU8vW0"
 };

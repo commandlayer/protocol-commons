@@ -24,7 +24,7 @@ b451b0c05cb77f7ad66906f351b560400447de136c1ad2ce27c63fc3bcaf0d9a  schemas/v1.0.0
 ccb7f20562d2e34dff73a17794aabcf98f25f659e83a790e42cf9a31e97460b3  schemas/v1.0.0/commons/summarize/receipts/summarize.receipt.schema.json
 be565b5a72dc03a1517a9c2ea0a0842c86def2e58e8471f81e3cac6262bffb68  schemas/v1.0.0/commons/summarize/requests/summarize.request.schema.json
 4760c15bc2985b35be8a333859e0b2e97617735be0d0222722b162de47caf940  schemas/v1.1.0/commons/analyze/analyze.receipt.schema.json
-7f3c2254410e5a552905810a5a4e564af97b82bd7122d92af7d5ca9c43438caa  schemas/v1.1.0/commons/analyze/analyze.request.schema.json
+e8c4c23353c0df05a3b4b361b7780ef536b5609126880a91943f866184c3b58e  schemas/v1.1.0/commons/analyze/analyze.request.schema.json
 6aeb33050633f712dfcaabc8e57ba058275e44653407bb766f0417cb5bfd8c2b  schemas/v1.1.0/commons/classify/classify.receipt.schema.json
 476253e821ff4e7dfa441e5604c6efc29d12729bcb50e8a02db86fbd121240ab  schemas/v1.1.0/commons/classify/classify.request.schema.json
 13a2f4d9083e1e5ed6bd6b98e05736e7791bfd62b109b4090ab4abff75572ad5  schemas/v1.1.0/commons/clean/clean.receipt.schema.json

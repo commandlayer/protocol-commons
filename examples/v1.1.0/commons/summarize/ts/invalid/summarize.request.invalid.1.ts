@@ -1,10 +1,8 @@
-// INVALID summarize.request #1 — wrong verb + wrong input type + unsupported mode
+// INVALID summarize.request #1 — unsupported mode enum value
 
 export const summarizeRequestInvalid1: any = {
-  "verb": "analyze",
+  "verb": "summarize",
   "version": "1.1.0",
-  "input": {
-    "text": "This should be a string."
-  },
+  "input": "Summarize the launch readiness memo in one paragraph.",
   "mode": "tweet"
 };

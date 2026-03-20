@@ -1,10 +1,8 @@
-// INVALID classify.request #1 — wrong verb + wrong input type + unsupported mode
+// INVALID classify.request #1 — unsupported mode enum value
 
 export const classifyRequestInvalid1: any = {
-  "verb": "summarize",
+  "verb": "classify",
   "version": "1.1.0",
-  "input": {
-    "text": "This should be a string."
-  },
+  "input": "Route this ticket as billing, bug, or account access.",
   "mode": "ordinal"
 };

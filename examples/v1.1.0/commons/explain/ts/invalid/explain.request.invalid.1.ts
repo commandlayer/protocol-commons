@@ -1,10 +1,8 @@
-// INVALID explain.request #1 — wrong verb + wrong input type + unsupported mode
+// INVALID explain.request #1 — unsupported mode enum value
 
 export const explainRequestInvalid1: any = {
-  "verb": "summarize",
+  "verb": "explain",
   "version": "1.1.0",
-  "input": {
-    "text": "This should be a string."
-  },
+  "input": "Explain why replay protection matters in this signing flow.",
   "mode": "legalese"
 };

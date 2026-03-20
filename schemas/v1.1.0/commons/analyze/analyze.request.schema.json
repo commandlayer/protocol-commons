@@ -19,10 +19,10 @@
       "minLength": 1
     },
     "mode": {
-      "description": "Optional analysis-native mode selector. Use `summarize` as its own verb when the primary action is summary generation.",
+      "description": "Optional analysis-native mode selector. Use `classify` when the primary action is assigning labels or categories, and use `summarize` when the primary action is summary generation.",
       "type": "string",
       "enum": [
-        "classify",
+        "categorize",
         "extract",
         "score",
         "synthesize"
