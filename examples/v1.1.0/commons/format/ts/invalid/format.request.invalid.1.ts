@@ -1,10 +1,8 @@
-// INVALID format.request #1 — wrong verb + wrong input type + unsupported mode
+// INVALID format.request #1 — unsupported mode enum value
 
 export const formatRequestInvalid1: any = {
-  "verb": "summarize",
+  "verb": "format",
   "version": "1.1.0",
-  "input": {
-    "text": "This should be a string."
-  },
+  "input": "- launch checklist\n- signer verified\n- receipts archived",
   "mode": "yaml"
 };

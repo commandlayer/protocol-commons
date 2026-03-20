@@ -1,0 +1,9 @@
+{
+  "verb": "classify",
+  "version": "1.1.0",
+  "status": "ok",
+  "timestamp": "2026-03-18T12:14:09Z",
+  "agent": "classifyagent.eth",
+  "request_hash": "sha256:76c06ca1a9ca0d0aa1c7e25f548ffaf2168e95d8f289d9622b391ac5f3d5f8ec",
+  "summary": "routing_issue"
+}

@@ -1,10 +1,8 @@
-// INVALID convert.request #1 — wrong verb + wrong input type + unsupported mode
+// INVALID convert.request #1 — unsupported mode enum value
 
 export const convertRequestInvalid1: any = {
-  "verb": "summarize",
+  "verb": "convert",
   "version": "1.1.0",
-  "input": {
-    "text": "This should be a string."
-  },
+  "input": "<h1>Release</h1><p>Protocol upgraded successfully.</p>",
   "mode": "pdf"
 };

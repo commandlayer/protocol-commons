@@ -1,10 +1,8 @@
-// INVALID clean.request #1 — wrong verb + wrong input type + unsupported mode
+// INVALID clean.request #1 — unsupported mode enum value
 
 export const cleanRequestInvalid1: any = {
-  "verb": "summarize",
+  "verb": "clean",
   "version": "1.1.0",
-  "input": {
-    "text": "This should be a string."
-  },
+  "input": "<p>Hello&nbsp;&nbsp;<script>alert(1)</script>world</p>",
   "mode": "compress"
 };

@@ -1,11 +1,14 @@
-// INVALID classify.receipt #1 — bad timestamp, malformed hash, short signature
+// INVALID classify.receipt #1 — ok status requires a string summary
 
 export const classifyReceiptInvalid1: any = {
   "verb": "classify",
   "version": "1.1.0",
   "status": "ok",
-  "timestamp": "not-a-date",
-  "request_hash": "sha256:xyz",
-  "signature": "short",
-  "error": "ok receipts should not rely on error only"
+  "timestamp": "2026-03-18T12:10:00Z",
+  "agent": "classifyagent.eth",
+  "request_hash": "sha256:3d5224e3ebc7f6ab9e9a6a2114a5f7d01c6847c8df0e3fd53c0e5d117f6ab9dd",
+  "summary": [
+    "billing_issue"
+  ],
+  "signature": "MEYCIQDf3h7kL9mN2pQ4rS6tU8vW0xY2zA4bC6dE8fG0hJ1kLwIhAO5pQ7rS9tU1vW3xY5zB7cD9eF1gH3iJ5kL7mN9pQ1"
 };
