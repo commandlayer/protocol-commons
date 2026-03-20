@@ -2,7 +2,7 @@
   "name": "@commandlayer/commons",
   "version": "1.1.0",
   "package_version": "1.1.0",
-  "description": "Commons verb + schema package metadata for the active v1.1.0 canonical HTTPS-hosted schema line; IPFS CID publication is still pending.",
+  "description": "Current release metadata for the v1.1.0 commons package.",
   "owner": "commandlayer.eth",
   "contact": "dev@commandlayer.org",
   "license": "MIT",
@@ -11,7 +11,7 @@
   "schemas_root": "schemas/v1.1.0",
   "examples_root": "examples/v1.1.0",
   "checksum_file": "checksums.txt",
-  "schemas_cid": "PENDING",
+  "schemas_cid": "__INSERT_V1_1_0_CID__",
   "tag": "commons-schemas-v1.1.0",
   "verbs": [
     {
@@ -155,16 +155,16 @@
     "schemas_root": "schemas/v1.1.0",
     "commons_root": "schemas/v1.1.0/commons",
     "examples_root": "examples/v1.1.0",
-    "schemas_cid": "PENDING",
-    "pin_status": "https-published-ipfs-pending"
+    "schemas_cid": "__INSERT_V1_1_0_CID__",
+    "pin_status": "published"
   },
   "pinned_canonical_release": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "status": "pinned canonical release",
-    "schemas_root": "schemas/v1.0.0",
-    "commons_root": "schemas/v1.0.0/commons",
-    "examples_root": "examples/v1.0.0",
-    "schemas_cid": "bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m",
+    "schemas_root": "schemas/v1.1.0",
+    "commons_root": "schemas/v1.1.0/commons",
+    "examples_root": "examples/v1.1.0",
+    "schemas_cid": "__INSERT_V1_1_0_CID__",
     "pin_status": "published"
   }
 }
