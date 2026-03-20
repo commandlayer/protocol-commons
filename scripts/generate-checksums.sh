@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="${1:-schemas/v1.0.0}"
+ROOT="${1:-schemas/v1.1.0}"
 OUT="${2:-checksums.txt}"
 
 if [ ! -d "$ROOT" ]; then
@@ -9,7 +9,11 @@ if [ ! -d "$ROOT" ]; then
   exit 1
 fi
 
-echo "Generating SHA-256 checksums for $ROOT"
+if [ "$#" -eq 0 ]; then
+  echo "Generating SHA-256 checksums for the current authoritative schema line: $ROOT"
+else
+  echo "Generating SHA-256 checksums for $ROOT"
+fi
 
 find "$ROOT" -type f -name "*.json" -print0 \
   | LC_ALL=C sort -z \

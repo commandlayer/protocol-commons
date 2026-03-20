@@ -1,8 +1,8 @@
 {
-  "verb": "summarize",
+  "verb": "explain",
   "version": "1.1.0",
   "input": {
     "text": "This should be a string."
   },
-  "mode": "legalese"
+  "mode": "step-by-step"
 }

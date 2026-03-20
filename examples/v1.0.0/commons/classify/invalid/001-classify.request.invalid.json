@@ -1,6 +1,6 @@
 {
   "x402": {
-    "verb": "summarize",
+    "verb": "classify",
     "version": "1.0.0"
   },
   "input": "This is intentionally wrong: x402.verb is not 'classify', 'actor' is missing, and 'input' is a string instead of an object."

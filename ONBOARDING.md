@@ -56,7 +56,7 @@ It answers:
 | `SCHEMAS.md`                      | Schema family and layout rules                                       |
 | `GOVERNANCE.md`                   | Change authority + approvals                                         |
 | `SECURITY*.md`                    | Disclosure + provenance                                              |
-| `RESOLUTION.md`                   | Change log (signed provenance)                                       |
+| `RESOLUTION.md`                   | Change log and provenance narrative                                   |
 
 Authoritative docs:
 
@@ -65,6 +65,7 @@ Authoritative docs:
 - `GOVERNANCE.md` — approval of normative changes
 - `SECURITY*.md` — provenance + integrity guarantees
 - `RESOLUTION.md` — canonical lifecycle log
+- `CONTRIBUTING.md` — contributor workflow and fixture discipline
 
 If a change is not reflected here → **not canonical.**
 
@@ -81,12 +82,11 @@ Canonical definitions → `SPEC.md`.
 ```
 npm install
 npm run validate
-npm run validate:examples
 ```
 5. Update `RESOLUTION.md`, provenance
 6. Submit PR with version class (MAJOR/MINOR/PATCH)
 
-Once approved → tagged + pinned.
+Once approved, maintainers may still need to complete external release steps such as creating the v1.1.0 tag and publishing any future CID-backed release metadata.
 
 ## 5. What “Good” Looks Like
 

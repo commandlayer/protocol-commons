@@ -8,54 +8,58 @@
 [![CI Status](https://img.shields.io/github/actions/workflow/status/commandlayer/protocol-commons/validate.yml?branch=main&label=CI)](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/commandlayer/protocol-commons/blob/main/LICENSE)
 
+## Table of Contents
+- [Why Now](#why-now)
+- [Integrity Notice](#integrity-notice)
+- [Real verbs. Real receipts.](#real-verbs-real-receipts)
+- [Quickstart](#quickstart)
+- [Commons v1.1.0](#commons-v110)
+- [Why this exists](#why-this-exists)
+- [What Commons enables](#what-commons-enables)
+- [Canonical Verbs](#canonical-verbs)
+- [Overview](#overview)
+- [Key Principles](#key-principles)
+- [This is not…](#this-is-not)
+- [CommandLayer Protocol Stack](#commandlayer-protocol-stack)
+- [Status](#status)
+- [Repository Structure](#repository-structure)
+- [Manifest](#manifest)
+- [Immutability & Checksums](#immutability--checksums)
+- [Validation](#validation)
+- [TypeScript declarations](#typescript-declarations)
+- [License](#license)
+- [Next Layers](#next-layers)
+- [References](#references)
+
 ---
 
 ## Why Now
 
-Autonomous agents are finally leaving the lab — but without shared meaning, they fragment into isolated API silos.
+Autonomous agents are leaving the lab, but without shared meaning they collapse into vendor-specific dialects.
 
-CommandLayer separates the stack into clear responsibilities:
+CommandLayer separates responsibilities cleanly:
 
-- **Protocol-Commons** defines the shared semantic layer
-- **Identity and discovery layers** can resolve who an agent is and where it can be reached
-- **Execution and payment layers** can transport, meter, or settle work around those semantics
+- **Protocol-Commons** defines shared semantics.
+- **Identity and discovery layers** resolve who an agent is and where it can be reached.
+- **Execution and payment layers** transport, meter, or settle work around those semantics.
 
-Protocol-Commons is the foundation for portable machine intent: a stable set of verbs plus strict JSON Schemas for requests and receipts.
-
----
-
-> **Integrity Notice — Protocol-Commons v1.1.0**
->
-> `schemas/v1.1.0/commons` is the current canonical in-repo Commons line:
-> `schemas/v1.1.0/commons` — CID publication status: `PENDING`
->
-> `v1.0.0` is retained as the historical pinned release line:
-> `schemas/v1.0.0/` — CID: `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
->
-> Verify integrity locally:
-> ```bash
-> npm run checksums:verify
-> ```
->
-> Any mismatch indicates modified artifacts.
-> New versions MUST use a new version directory and, once published, a new CID.
+Protocol-Commons is the stable verb-and-schema layer that lets machine intent travel across runtimes.
 
 ---
 
-Without a shared verb layer, ecosystems degrade into:
+## Integrity Notice
 
-- Ad-hoc verbs and incompatible dialects
-- Ambiguous receipts with inconsistent evidence
-- No cross-runtime interoperability
-- Closed vendor silos with fragile glue logic
+- `schemas/v1.1.0/commons` is the current authoritative machine-artifact line in this repository.
+- Running `bash scripts/generate-checksums.sh` with no arguments now targets `schemas/v1.1.0` by default.
+- v1.1.0 schema `$id` values resolve directly to the repository-backed public artifact surface under `https://raw.githubusercontent.com/commandlayer/protocol-commons/main/schemas/v1.1.0/...`.
+- `v1.0.0` remains the historical pinned release line with CID `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`.
+- `manifest.json` does **not** claim a v1.1.0 CID or release tag that does not yet exist. It records the CID as `null` with status `not-generated-in-repo`, and records the planned release tag as pending creation.
 
-**Protocol-Commons** fixes this with a canonical action language:
+Verify integrity locally:
 
-- Verbs + JSON Schemas + strict validation
-- Stable request envelopes
-- Signed receipts with hash-based verification evidence
-
-If agents cannot agree on what actions mean, interoperability breaks.
+```bash
+npm run checksums:verify
+```
 
 ---
 
@@ -77,11 +81,11 @@ If agents cannot agree on what actions mean, interoperability breaks.
   "status": "ok",
   "timestamp": "2026-03-18T12:00:00Z",
   "agent": "summarizeagent.eth",
-  "request_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
-  "result_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
-  "result_cid": "bafybeisummarizereceiptokexample0001",
+  "request_hash": "sha256:dc746bfc1fa1fcb5f7a4ed421c8a693076855f5f4e8d37e49f6dd35f64e5f5fd",
+  "result_hash": "sha256:c3c72cbbe9dc4612ab9fd5f8c0d49fe9cc7ed6f6f4ff85c5d7a6b7b653b2a36b",
+  "result_cid": "bafybeig2c5v7b9n1m3k5j7h9g2f4d6s8a1p3o5i7u9y2t4r6e8w1q3z5x7",
   "summary": "Commons v1.1.0 makes requests smaller and receipts easier to verify while preserving stable verb semantics.",
-  "signature": "sigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  "signature": "eyJhbGciOiJFZERTQSIsImtpZCI6ImRpZDpleGFtcGxlOmNvbW1vbnMjdjEuMS4wIn1fZXlKaGMzTWlPaUpqYjIxdFlXNWtiR0Y1WlhJdVpYUm9JbjBfcTgzUXhKOGRabDFzUjVuVjdtSzJwVDR5SDZ1VzljQjNhRTVnSjdkTDluUA"
 }
 ```
 
@@ -89,7 +93,7 @@ Every v1.1.0 Commons receipt uses the same evidence-oriented spine:
 
 - `status`
 - `timestamp`
-- `agent`
+- `agent` *(optional signer identity)*
 - `request_hash`
 - `result_hash` *(optional)*
 - `result_cid` *(optional)*
@@ -107,14 +111,14 @@ Install Commons and AJV:
 npm install @commandlayer/commons ajv ajv-formats ajv-errors
 ```
 
-**Validate all schemas and examples with the repo's working commands**
+Validate the repository artifacts:
 
 ```bash
 npm install
 npm run validate
 ```
 
-**Validate a specific example against the published schema using AJV**
+Validate a specific example with AJV:
 
 ```bash
 node --input-type=module <<'EOF_NODE'
@@ -134,7 +138,7 @@ console.log(validate.errors ?? []);
 EOF_NODE
 ```
 
-**Programmatic usage (Node.js/ESM)**
+Programmatic usage (Node.js / ESM):
 
 ```js
 import Ajv2020 from 'ajv/dist/2020.js';
@@ -146,15 +150,12 @@ addFormats(ajv);
 
 const validate = ajv.compile(summarizeRequestSchema);
 
-const input = {
+console.log(validate({
   verb: 'summarize',
   version: '1.1.0',
   input: 'CommandLayer Commons v1.1.0 simplifies every request into a flat shape.',
   mode: 'brief'
-};
-
-console.log(validate(input));
-console.log(validate.errors ?? []);
+}));
 ```
 
 ---
@@ -163,17 +164,12 @@ console.log(validate.errors ?? []);
 
 Commons v1.1.0 is the current canonical schema family in this repository.
 
-It is the primary documentation and validation target for Commons. The repository still records CID publication as pending, while `v1.0.0` is retained as the historical pinned release line.
+It is the primary documentation and validation target for Commons. The repository now treats `schemas/v1.1.0` as the default authoritative artifact root, while `v1.0.0` remains the historical pinned release line. v1.1.0 `$id` values resolve against the repository-backed raw GitHub artifact surface, and `manifest.json` records CID and release-tag state without placeholders.
 
-- Each request schema is standalone
-- Each receipt schema is standalone
-- No shared `$ref` dependency tree is required for v1.1.0 Commons
-- Commercial, transport, and payment envelopes are out of scope for Commons itself
-
-Example schema paths:
-
-- `schemas/v1.1.0/commons/analyze/analyze.request.schema.json`
-- `schemas/v1.1.0/commons/analyze/analyze.receipt.schema.json`
+- Each request schema is standalone.
+- Each receipt schema is standalone.
+- No shared `$ref` dependency tree is required for v1.1.0 Commons.
+- Commercial, transport, and payment envelopes are out of scope for Commons itself.
 
 The request contract is intentionally small:
 
@@ -194,7 +190,7 @@ The receipt contract is proof-oriented rather than transport-oriented:
   "version": "1.1.0",
   "status": "ok | error",
   "timestamp": "<RFC 3339 date-time>",
-  "agent": "<stable signer identity>",
+  "agent": "<optional stable signer identity>",
   "request_hash": "sha256:<64 lowercase hex chars>",
   "result_hash": "sha256:<64 lowercase hex chars>",
   "result_cid": "<optional content identifier>",
@@ -203,28 +199,6 @@ The receipt contract is proof-oriented rather than transport-oriented:
   "error": "<required when status = error>"
 }
 ```
-
-These fields let consumers verify that a signer attested to a specific request hash and, when present, a specific result hash or result CID. Commons does not define transport settlement, execution proofs beyond these fields, or any x402-specific wrapping.
-
-## Table of Contents
-- [Real verbs. Real receipts.](#real-verbs-real-receipts)
-- [Quickstart](#quickstart)
-- [Commons v1.1.0](#commons-v110)
-- [What Commons enables](#what-commons-enables)
-- [Why this exists](#why-this-exists)
-- [Canonical Verbs](#canonical-verbs)
-- [Overview](#overview)
-- [Key Principles](#key-principles)
-- [This is not…](#this-is-not)
-- [CommandLayer Protocol Stack](#commandlayer-protocol-stack)
-- [Status](#status)
-- [Repository Structure](#repository-structure)
-- [Manifest](#manifest)
-- [Immutability & Checksums](#immutability--checksums)
-- [Validation](#validation)
-- [License](#license)
-- [Next Layers](#next-layers)
-- [References](#references)
 
 ---
 
@@ -271,32 +245,7 @@ The Commons defines 10 universal actions used across common multi-agent workflow
 | parse     | Extract structured meaning from raw input             | Typed structure extracted from unstructured content    |
 | summarize | Compress content while preserving key meaning         | Core information retained with reduced verbosity       |
 
-Each verb defines:
-
-- a canonical request format
-- a canonical receipt format
-
-```text
-+-----------------------------+
-|  Execution Runtime          |  (action is performed)
-+-------------▲---------------+
-              |
-              v
-+-----------------------------+
-|  Identity / Routing         |  (discovery + addressing)
-+-------------▲---------------+
-              |
-              v
-+-----------------------------+
-|  Protocol-Commons           |  (verbs + schemas)
-|  "What actions mean"        |
-+-----------------------------+
-```
-
-Each verb provides:
-
-- `<verb>.request.schema.json`
-- `<verb>.receipt.schema.json`
+Each verb provides a canonical request schema and a canonical receipt schema.
 
 ---
 
@@ -354,9 +303,9 @@ Commons gives upper layers a stable meaning layer to build around.
 
 **v1.1.0 — current canonical schema family**
 
-- `v1.1.0` is the current flat Commons layout in this repo
-- `v1.0.0` remains the historical pinned release line
-- Do not describe `v1.1.0` provenance as fully canonical until pinning is complete
+- `v1.1.0` is the current flat Commons layout in this repo.
+- `v1.0.0` remains the historical pinned release line.
+- `v1.1.0` schema URLs are resolvable today, but CID generation and release tagging remain explicit release steps.
 
 ---
 
@@ -364,6 +313,7 @@ Commons gives upper layers a stable meaning layer to build around.
 
 ```text
 .
+├── CONTRIBUTING.md
 ├── README.md
 ├── SCHEMAS.md
 ├── SPEC.md
@@ -384,7 +334,7 @@ Commons gives upper layers a stable meaning layer to build around.
 │           ├── <verb>.request.schema.json
 │           └── <verb>.receipt.schema.json
 └── scripts/
-    ├── ajv-run.mjs
+    ├── generate-checksums.sh
     ├── validate-all.mjs
     └── validate-examples.mjs
 ```
@@ -399,7 +349,8 @@ Commons gives upper layers a stable meaning layer to build around.
 - schema and example roots
 - the current schema pin target
 - per-verb request and receipt schema paths
-- CID publication status (`PENDING` in `manifest.json` until published)
+- the public schema base URL for v1.1.0
+- honest release-state fields for CID generation and release tagging
 
 ---
 
@@ -408,6 +359,7 @@ Commons gives upper layers a stable meaning layer to build around.
 Use the checksum and validation scripts shipped in the repo:
 
 ```bash
+npm run checksums:gen
 npm run checksums:verify
 npm run validate
 ```
@@ -427,6 +379,14 @@ npm run validate
 ```
 
 These commands compile schemas in strict Ajv mode and validate the shipped examples for both `v1.0.0` and `v1.1.0`.
+
+---
+
+## TypeScript declarations
+
+This package intentionally ships canonical JSON Schemas rather than generated `.d.ts` artifacts. The distribution target is cross-runtime schema consumption, and the repository does not yet include a low-maintenance declaration-generation pipeline that would be authoritative across Node, browser, and non-TypeScript consumers.
+
+If a future release adds schema-derived declarations, the process must be reproducible, committed to the release workflow, and documented as a generated artifact surface rather than a second source of truth.
 
 ---
 

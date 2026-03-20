@@ -1,5 +1,5 @@
 {
-  "$id": "https://commandlayer.org/schemas/v1.1.0/commons/clean/clean.request.schema.json",
+  "$id": "https://raw.githubusercontent.com/commandlayer/protocol-commons/main/schemas/v1.1.0/commons/clean/clean.request.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "clean.request",
   "description": "Request to remove noise, normalize, and sanitize content.",

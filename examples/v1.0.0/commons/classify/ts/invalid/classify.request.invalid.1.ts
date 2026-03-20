@@ -2,7 +2,7 @@
 
 export const classifyRequestInvalid1: any = {
   x402: {
-    verb: "summarize",
+    verb: "classify",
     version: "1.0.0"
   },
   // ❌ input should be a string

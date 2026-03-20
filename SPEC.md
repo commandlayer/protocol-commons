@@ -28,12 +28,12 @@ This repository contains two materially different Commons schema families:
 - **v1.1.0** — current canonical in-repo schema family and active documentation target
 - **v1.0.0** — legacy schema family and historical pinned release
 
-Repository metadata still records v1.1.0 CID publication as pending. Implementers MUST therefore distinguish between:
+Repository metadata records v1.1.0 as the current canonical in-repo line, but not yet as a pinned CID-backed release. Implementers MUST therefore distinguish between:
 
 1. **Schema semantics** — what the v1.1.0 files require
 2. **Release provenance status** — whether a version has completed CID publication and canonical pinning
 
-This specification documents the v1.1.0 contract as the current canonical line while preserving v1.0.0 as the historical pinned release until v1.1.0 pinning is complete.
+This specification documents the v1.1.0 contract as the current canonical line while preserving v1.0.0 as the historical pinned release until a reproducible CID generation and release-tagging step is completed for v1.1.0.
 
 ---
 
@@ -211,13 +211,13 @@ Every v1.1.0 schema MUST use a resolvable HTTPS `$id` under this pattern.
 ### Request
 
 ```text
-https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json
+https://raw.githubusercontent.com/commandlayer/protocol-commons/main/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json
 ```
 
 ### Receipt
 
 ```text
-https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json
+https://raw.githubusercontent.com/commandlayer/protocol-commons/main/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json
 ```
 
 Legacy v1.0.0 `$id` layouts remain valid only for the legacy directory tree.
@@ -271,7 +271,7 @@ The current v1.1.0 schema family is identified by:
 - Package version: `1.1.0`
 - Manifest entry: `manifest.json`
 - File-level hashes: `checksums.txt`
-- IPFS directory CID: `PENDING` until CID publication is complete
+- IPFS directory CID: not yet asserted in-repo; `manifest.json` uses `null` plus status `not-generated-in-repo` until a reproducible generator is part of the release flow
 
 The last fully pinned canonical release is:
 
@@ -283,7 +283,7 @@ Auditors and resolvers SHOULD:
 1. Fetch the versioned schemas
 2. Verify integrity locally
 3. Treat mismatched artifacts as untrusted
-4. Treat v1.1.0 as the current canonical in-repo line, distinct from the historical pinned release, until CID publication is complete
+4. Treat v1.1.0 as the current canonical in-repo line, distinct from the historical pinned release, until CID publication and release tagging are completed
 
 Integrity check command:
 
@@ -302,7 +302,7 @@ An implementation supporting Commons v1.1.0 MUST:
 3. Validate the flat receipt shape exactly as published
 4. Treat published version directories as immutable
 5. Preserve receipt trust semantics as hashes plus signatures, without inventing unsupported guarantees
-6. Avoid representing v1.1.0 as the historical pinned release until CID publication is complete
+6. Avoid representing v1.1.0 as the historical pinned release until CID publication and release tagging are complete
 
 A system supporting any canonical verb MAY claim **Commons-Compatible** for that version, but provenance claims MUST accurately reflect whether the relevant version is the current canonical in-repo line or the historical pinned release.
 
@@ -342,5 +342,5 @@ Security escalation MUST follow repository policy.
 
 ## Status
 
-**v1.1.0:** current canonical schema family documented here; CID publication status remains pending in repository metadata  
+**v1.1.0:** current canonical schema family documented here; schema URLs are resolvable, while CID generation and release tagging remain explicit release tasks  
 **v1.0.0:** legacy schema family and historical pinned release

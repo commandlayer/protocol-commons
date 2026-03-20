@@ -1,10 +1,10 @@
-// INVALID convert.request #1 — wrong verb + wrong input type + unsupported mode
+// INVALID convert.request #1 — input must be a string
 
 export const convertRequestInvalid1: any = {
-  "verb": "summarize",
+  "verb": "convert",
   "version": "1.1.0",
   "input": {
     "text": "This should be a string."
   },
-  "mode": "pdf"
+  "mode": "markdown"
 };

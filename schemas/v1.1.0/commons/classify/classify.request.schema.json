@@ -1,5 +1,5 @@
 {
-  "$id": "https://commandlayer.org/schemas/v1.1.0/commons/classify/classify.request.schema.json",
+  "$id": "https://raw.githubusercontent.com/commandlayer/protocol-commons/main/schemas/v1.1.0/commons/classify/classify.request.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "classify.request",
   "description": "Request to classify caller-supplied input into categories.",

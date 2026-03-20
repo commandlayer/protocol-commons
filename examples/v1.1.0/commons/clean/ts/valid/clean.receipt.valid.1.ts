@@ -20,9 +20,9 @@ export const cleanReceiptValid1: CleanReceipt = {
   "status": "ok",
   "timestamp": "2026-03-18T12:00:00Z",
   "agent": "cleanagent.eth",
-  "request_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+  "request_hash": "sha256:d365fd590bc4a12f80c39a30ca1e6ba9296435ab52f03f7e36dc045b18220683",
   "result_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
-  "result_cid": "bafybeicleanreceiptokexample0001",
+  "result_cid": "bafybeif2k6zv5n4r3q2w7x8c9m4p6t2y5u8i3o6p9a2s5d8f1g4h7j2k3l",
   "summary": "Normalized whitespace and casing artifacts to yield a canonical single-line string.",
-  "signature": "sigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  "signature": "eyJhbGciOiJFZERTQSIsImtpZCI6ImRpZDpleGFtcGxlOmNvbW1vbnMjdjEuMS4wIn1fZXlKaGMzTWlPaUpqYjIxdFlXNWtiR0Y1WlhJdVpYUm9JbjBfcTgzUXhKOGRabDFzUjVuVjdtSzJwVDR5SDZ1VzljQjNhRTVnSjdkTDluUA"
 };

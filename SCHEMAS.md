@@ -95,25 +95,25 @@ Each verb MUST define exactly:
 ### v1.1.0 request schemas
 
 ```text
-https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json
+https://raw.githubusercontent.com/commandlayer/protocol-commons/main/schemas/v1.1.0/commons/<verb>/<verb>.request.schema.json
 ```
 
 Example:
 
 ```text
-https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.request.schema.json
+https://raw.githubusercontent.com/commandlayer/protocol-commons/main/schemas/v1.1.0/commons/summarize/summarize.request.schema.json
 ```
 
 ### v1.1.0 receipt schemas
 
 ```text
-https://commandlayer.org/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json
+https://raw.githubusercontent.com/commandlayer/protocol-commons/main/schemas/v1.1.0/commons/<verb>/<verb>.receipt.schema.json
 ```
 
 Example:
 
 ```text
-https://commandlayer.org/schemas/v1.1.0/commons/summarize/summarize.receipt.schema.json
+https://raw.githubusercontent.com/commandlayer/protocol-commons/main/schemas/v1.1.0/commons/summarize/summarize.receipt.schema.json
 ```
 
 ### Legacy v1.0.0 note
@@ -253,7 +253,7 @@ Integrity is tracked by:
 Current v1.1.0 schema CID status:
 
 ```text
-PENDING
+null + not-generated-in-repo (until a reproducible CID generator is part of the release flow)
 ```
 
 Last pinned canonical release content identifier:
@@ -271,4 +271,4 @@ Resolvers and auditors MUST reject mismatched artifacts and MUST distinguish bet
 - dev@commandlayer.org
 - PGP 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
 
-**Status:** v1.1.0 current canonical in-repo schema family with pending CID publication metadata; v1.0.0 retained as the historical pinned release.
+**Status:** v1.1.0 current canonical in-repo schema family with resolvable schema URLs and explicit unreleased CID state; v1.0.0 retained as the historical pinned release.

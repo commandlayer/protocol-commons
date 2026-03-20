@@ -1,10 +1,10 @@
-// INVALID format.request #1 — wrong verb + wrong input type + unsupported mode
+// INVALID format.request #1 — input must be a string
 
 export const formatRequestInvalid1: any = {
-  "verb": "summarize",
+  "verb": "format",
   "version": "1.1.0",
   "input": {
     "text": "This should be a string."
   },
-  "mode": "yaml"
+  "mode": "markdown"
 };

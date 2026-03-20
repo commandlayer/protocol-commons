@@ -41,20 +41,20 @@
     "manifest.json",
     "LICENSE",
     "README.md",
-    "index.js"
+    "index.js",
+    "CONTRIBUTING.md"
   ],
   "devDependencies": {
-    "ajv": "^8.17.1",
-    "ajv-errors": "^3.0.0",
-    "ajv-formats": "^3.0.1"
+    "ajv": "8.18.0",
+    "ajv-errors": "3.0.0",
+    "ajv-formats": "3.0.1"
   },
   "scripts": {
-    "validate:schema": "node scripts/ajv-run.mjs",
     "validate:schemas": "node scripts/validate-all.mjs",
     "validate:examples": "node scripts/validate-examples.mjs",
     "validate:all": "npm run validate:schemas && npm run validate:examples",
     "validate": "npm run validate:all",
-    "checksums:gen": "bash scripts/generate-checksums.sh schemas checksums.txt",
+    "checksums:gen": "bash scripts/generate-checksums.sh",
     "checksums:verify": "bash scripts/verify-checksums.sh",
     "checksums:dirty": "git diff --exit-code -- checksums.txt",
     "prepack": "npm run checksums:gen",

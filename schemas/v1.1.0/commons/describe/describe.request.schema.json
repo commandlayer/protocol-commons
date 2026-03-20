@@ -1,5 +1,5 @@
 {
-  "$id": "https://commandlayer.org/schemas/v1.1.0/commons/describe/describe.request.schema.json",
+  "$id": "https://raw.githubusercontent.com/commandlayer/protocol-commons/main/schemas/v1.1.0/commons/describe/describe.request.schema.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "describe.request",
   "description": "Request to produce a neutral, human-readable description of input.",

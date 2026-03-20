@@ -8,7 +8,7 @@ export const cleanReceiptValid2: CleanReceipt = {
   "status": "error",
   "timestamp": "2026-03-18T12:05:00Z",
   "agent": "cleanagent.eth",
-  "request_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
-  "signature": "sigBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "request_hash": "sha256:d365fd590bc4a12f80c39a30ca1e6ba9296435ab52f03f7e36dc045b18220683",
+  "signature": "eyJhbGciOiJFZERTQSIsImtpZCI6ImRpZDpleGFtcGxlOmNvbW1vbnMjdjEuMS4wIn1fZXlKaGMzTWlPaUpqYjIxdFlXNWtiR0Y1WlhJdVpYUm9JbjBfcTgzUXhKOGRabDFzUjVuVjdtSzJwVDR5SDZ1VzljQjNhRTVnSjdkTDluUA",
   "error": "clean execution failed because the input could not be processed in the requested mode."
 };

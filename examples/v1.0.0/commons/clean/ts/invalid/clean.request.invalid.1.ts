@@ -2,7 +2,7 @@
 
 export const cleanRequestInvalid1: any = {
   x402: {
-    verb: "summarize",
+    verb: "clean",
     version: "1.0.0"
   },
   // ❌ Missing actor, limits, channel

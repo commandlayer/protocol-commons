@@ -36,8 +36,8 @@ const EXAMPLE_CONFIGS = [
     version: "v1.1.0",
     schemasRoot: path.join(ROOT, "schemas", "v1.1.0"),
     examplesRoot: path.join(ROOT, "examples", "v1.1.0"),
-    requestSchemaId: (verb) => `https://commandlayer.org/schemas/v1.1.0/commons/${verb}/${verb}.request.schema.json`,
-    receiptSchemaId: (verb) => `https://commandlayer.org/schemas/v1.1.0/commons/${verb}/${verb}.receipt.schema.json`,
+    requestSchemaId: (verb) => `https://raw.githubusercontent.com/commandlayer/protocol-commons/main/schemas/v1.1.0/commons/${verb}/${verb}.request.schema.json`,
+    receiptSchemaId: (verb) => `https://raw.githubusercontent.com/commandlayer/protocol-commons/main/schemas/v1.1.0/commons/${verb}/${verb}.receipt.schema.json`,
     validDir: (verb) => path.join(ROOT, "examples", "v1.1.0", "commons", verb, "json", "valid"),
     invalidDir: (verb) => path.join(ROOT, "examples", "v1.1.0", "commons", verb, "json", "invalid")
   }

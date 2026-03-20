@@ -2,7 +2,7 @@
 
 export const parseRequestInvalid1: any = {
   x402: {
-    verb: "summarize",
+    verb: "parse",
     version: "1.0.0"
   },
   // ❌ missing actor, limits, channel

@@ -1,10 +1,10 @@
-// INVALID summarize.request #1 — wrong verb + wrong input type + unsupported mode
+// INVALID summarize.request #1 — input must be a string
 
 export const summarizeRequestInvalid1: any = {
-  "verb": "analyze",
+  "verb": "summarize",
   "version": "1.1.0",
   "input": {
     "text": "This should be a string."
   },
-  "mode": "tweet"
+  "mode": "brief"
 };

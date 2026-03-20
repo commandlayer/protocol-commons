@@ -1,10 +1,10 @@
-// INVALID describe.request #1 — wrong verb + wrong input type + unsupported mode
+// INVALID describe.request #1 — input must be a string
 
 export const describeRequestInvalid1: any = {
-  "verb": "summarize",
+  "verb": "describe",
   "version": "1.1.0",
   "input": {
     "text": "This should be a string."
   },
-  "mode": "poetic"
+  "mode": "plain"
 };

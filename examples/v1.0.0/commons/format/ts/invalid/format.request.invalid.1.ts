@@ -2,7 +2,7 @@
 
 export const formatRequestInvalid1: any = {
   x402: {
-    verb: "summarize",
+    verb: "format",
     version: "1.0.0"
   },
   // ❌ Missing actor, limits, channel

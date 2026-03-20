@@ -1,4 +1,4 @@
-// INVALID summarize.request aggregate example
+// INVALID summarize.request aggregate example — input must be a string
 
 export const summarizeRequestInvalid: any = {
   "verb": "summarize",

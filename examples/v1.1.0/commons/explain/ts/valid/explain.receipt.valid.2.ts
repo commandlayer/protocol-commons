@@ -8,7 +8,7 @@ export const explainReceiptValid2: ExplainReceipt = {
   "status": "error",
   "timestamp": "2026-03-18T12:05:00Z",
   "agent": "explainagent.eth",
-  "request_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
-  "signature": "sigBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "request_hash": "sha256:edb99eeb8a8eb64e337ba6a49d7ea7dfa167fdd00b3a7fbdd5d45f587cf138be",
+  "signature": "eyJhbGciOiJFZERTQSIsImtpZCI6ImRpZDpleGFtcGxlOmNvbW1vbnMjdjEuMS4wIn1fZXlKaGMzTWlPaUpqYjIxdFlXNWtiR0Y1WlhJdVpYUm9JbjBfcTgzUXhKOGRabDFzUjVuVjdtSzJwVDR5SDZ1VzljQjNhRTVnSjdkTDluUA",
   "error": "explain execution failed because the input could not be processed in the requested mode."
 };

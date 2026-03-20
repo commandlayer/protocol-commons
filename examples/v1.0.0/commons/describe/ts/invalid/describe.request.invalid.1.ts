@@ -2,7 +2,7 @@
 
 export const describeRequestInvalid1: any = {
   x402: {
-    verb: "summarize",
+    verb: "describe",
     version: "1.0.0"
   },
   // ❌ missing actor, limits, channel

@@ -1,6 +1,6 @@
 // VALID analyze.request #1 — aligned with schemas/v1.1.0/commons/analyze/analyze.request.schema.json
 
-export type AnalyzeMode = "classify" | "extract" | "score" | "summarize";
+export type AnalyzeMode = "classify" | "extract" | "score";
 
 export interface AnalyzeRequest {
   verb: "analyze";

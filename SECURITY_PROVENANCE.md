@@ -19,14 +19,14 @@ Private disclosure is preferred for security-sensitive findings.
 ---
 
 ## Provenance & Version Integrity
-Releases are **reproducible and content-addressed**.
+Pinned releases are content-addressed. The current v1.1.0 line is schema-resolvable and checksum-tracked, but not yet represented as a pinned CID-backed release in repository metadata.
 
 Current repository schema family: **v1.1.0**  
 Current canonical pinned release: **v1.0.0**
 
 Integrity sources:
 - **v1.0.0 CID:** `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
-- **v1.1.0 CID:** `PENDING` (pinning not yet published)
+- **v1.1.0 CID:** not asserted in-repo; `manifest.json` records `null` with status `not-generated-in-repo` until a reproducible release hasher is wired in
 - `checksums.txt` — file-level hashes
 - CI strict validation (Ajv)
 - `RESOLUTION.md` — immutable lifecycle history

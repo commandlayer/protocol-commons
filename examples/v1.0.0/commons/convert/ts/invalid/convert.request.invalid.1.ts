@@ -2,7 +2,7 @@
 
 export const convertRequestInvalid1: any = {
   x402: {
-    verb: "summarize",
+    verb: "convert",
     version: "1.0.0"
   },
   input: {

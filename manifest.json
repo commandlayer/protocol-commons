@@ -11,8 +11,7 @@
   "schemas_root": "schemas/v1.1.0",
   "examples_root": "examples/v1.1.0",
   "checksum_file": "checksums.txt",
-  "schemas_cid": "PENDING",
-  "tag": "commons-schemas-v1.1.0",
+  "schemas_cid": null,
   "verbs": [
     {
       "name": "analyze",
@@ -155,8 +154,11 @@
     "schemas_root": "schemas/v1.1.0",
     "commons_root": "schemas/v1.1.0/commons",
     "examples_root": "examples/v1.1.0",
-    "schemas_cid": "PENDING",
-    "pin_status": "pending"
+    "schemas_cid": null,
+    "pin_status": "unpinned",
+    "schemas_cid_status": "not-generated-in-repo",
+    "release_tag": "commons-schemas-v1.1.0",
+    "release_tag_status": "pending-creation"
   },
   "pinned_canonical_release": {
     "version": "1.0.0",
@@ -166,5 +168,9 @@
     "examples_root": "examples/v1.0.0",
     "schemas_cid": "bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m",
     "pin_status": "published"
-  }
+  },
+  "schema_public_base_url": "https://raw.githubusercontent.com/commandlayer/protocol-commons/main/schemas/v1.1.0",
+  "schemas_cid_status": "not-generated-in-repo",
+  "release_tag": "commons-schemas-v1.1.0",
+  "release_tag_status": "pending-creation"
 }

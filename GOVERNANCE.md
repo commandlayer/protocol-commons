@@ -62,7 +62,7 @@ Commercial schemas may reference Commons semantics — they **may not alter them
 Responsible for:
 
 - Canonical schema publishing  
-- Signed manifest + checksum updates  
+- Reviewed manifest + checksum updates  
 - Security revocations + provenance logs  
 - Transparency for all normative decisions  
 
@@ -71,7 +71,7 @@ Responsible for:
 | Phase | Governance Form | Trigger |
 |-------|----------------|---------|
 | 1 — Bootstrap | Single-operator Safe | Initial production adoption |
-| 2 — Multi-Maintainer | ≥3 independent vendors in Safe | Cross-vendor reliance |
+| 2 — Multi-Maintainer | ≥3 independent vendors in Safe | At least 3 production systems operated by different organizations depend on Commons schemas for live interoperation or verification |
 | 3 — Standards Committee | Public RFC review + voting | Global ecosystem dependence |
 | 4 — Neutral Standards Body | Community-elected | Entrenched industry standard |
 
@@ -185,5 +185,5 @@ ONLY if:
 False claims REQUIRE public enforcement action.
 
 _Last updated: v1.0.0 retained as the historical pinned release; v1.1.0 documented as the current canonical in-repo line_  
-Signed: **`commandlayer.eth`**  
+Maintained by the founding steward `commandlayer.eth` until the phase triggers above require broader control.  
 *Founding Steward — CommandLayer Semantic Standards*

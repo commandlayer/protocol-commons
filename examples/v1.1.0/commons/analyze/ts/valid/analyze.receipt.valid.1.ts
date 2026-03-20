@@ -20,9 +20,9 @@ export const analyzeReceiptValid1: AnalyzeReceipt = {
   "status": "ok",
   "timestamp": "2026-03-18T12:00:00Z",
   "agent": "analyzeagent.eth",
-  "request_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+  "request_hash": "sha256:879eadc48bc5c55fb07d915cfd59e9d714a918d84ef469f0b461cfd98aeb7167",
   "result_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
-  "result_cid": "bafybeianalyzereceiptokexample0001",
+  "result_cid": "bafybeihz2afqk6ir4c4c4m2p6sk7uh4f2z5g3r4m7nq2gczx4m4ai6x6va",
   "summary": "Core risks center on signer key rotation gaps, unresolved indexer scaling assumptions, and an unstated rollback plan.",
-  "signature": "sigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  "signature": "eyJhbGciOiJFZERTQSIsImtpZCI6ImRpZDpleGFtcGxlOmNvbW1vbnMjdjEuMS4wIn1fZXlKaGMzTWlPaUpqYjIxdFlXNWtiR0Y1WlhJdVpYUm9JbjBfcTgzUXhKOGRabDFzUjVuVjdtSzJwVDR5SDZ1VzljQjNhRTVnSjdkTDluUA"
 };

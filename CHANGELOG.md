@@ -2,11 +2,12 @@
 
 ## 1.1.0
 
-- Added simplified self-contained Commons schemas under `schemas/v1.1.0/commons`
-- Added 10 Commons verbs as request/receipt schema pairs
-- Removed shared `$ref` dependencies from the v1.1.0 Commons schema family
-- Standardized Commons receipts around a minimal proof-first structure
-- Added conditional receipt requirements for success/error states
-- Established Commons v1.1.0 as the active in-repo schema surface for new integrations
-- Retained v1.0.0 as the last pinned canonical release until v1.1.0 pinning is completed
-- Preserved earlier schema versions for compatibility and historical reference
+- Added simplified self-contained Commons schemas under `schemas/v1.1.0/commons`.
+- Added the current 10-verb Commons request/receipt schema set as the active documentation and validation target.
+- Flattened v1.1.0 requests and receipts into the current proof-oriented contract.
+- Preserved v1.0.0 in-repo as the historical pinned release while v1.1.0 remains the authoritative current line.
+
+## 1.0.0
+
+- Published the original Commons schema family under `schemas/v1.0.0/commons` with `_shared` references, x402-aware request envelopes, and trace-oriented receipts.
+- Established the first pinned historical release line and retained its published CID in `manifest.json`.
