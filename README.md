@@ -3,7 +3,7 @@
 **The canonical semantic contract for autonomous agents.**  
 *Verbs, schemas, and validation — or nothing interoperates.*
 
-[![Schemas](https://img.shields.io/badge/Schemas-v1.1.0%20candidate-yellow)](https://github.com/commandlayer/protocol-commons)
+[![Schemas](https://img.shields.io/badge/Schemas-v1.1.0%20current-blue)](https://github.com/commandlayer/protocol-commons)
 [![NPM Version](https://img.shields.io/npm/v/@commandlayer/commons)](https://www.npmjs.com/package/@commandlayer/commons)
 [![CI Status](https://img.shields.io/github/actions/workflow/status/commandlayer/protocol-commons/validate.yml?branch=main&label=CI)](https://github.com/commandlayer/protocol-commons/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/commandlayer/protocol-commons/blob/main/LICENSE)
@@ -26,10 +26,10 @@ Protocol-Commons is the foundation for portable machine intent: a stable set of 
 
 > **Integrity Notice — Protocol-Commons v1.1.0**
 >
-> `schemas/v1.1.0/commons` is the current in-repo schema family, but its release CID is still pending:
-> `schemas/v1.1.0/commons` — CID: `TBD (pre-release)`
+> `schemas/v1.1.0/commons` is the current canonical in-repo Commons line:
+> `schemas/v1.1.0/commons` — CID publication status: `PENDING`
 >
-> `v1.0.0` remains the last fully pinned canonical release:
+> `v1.0.0` is retained as the historical pinned release line:
 > `schemas/v1.0.0/` — CID: `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
 >
 > Verify integrity locally:
@@ -161,9 +161,9 @@ console.log(validate.errors ?? []);
 
 ## Commons v1.1.0
 
-Commons v1.1.0 is the active schema family in this repository.
+Commons v1.1.0 is the current canonical schema family in this repository.
 
-It is ready for schema validation and local integration work, but its release provenance is still **pre-release** until a real CID is published.
+It is the primary documentation and validation target for Commons. The repository still records CID publication as pending, while `v1.0.0` is retained as the historical pinned release line.
 
 - Each request schema is standalone
 - Each receipt schema is standalone
@@ -352,10 +352,10 @@ Commons gives upper layers a stable meaning layer to build around.
 
 ## Status
 
-**v1.1.0 — active schema family, release CID pending**
+**v1.1.0 — current canonical schema family**
 
 - `v1.1.0` is the current flat Commons layout in this repo
-- `v1.0.0` remains the last fully pinned canonical release
+- `v1.0.0` remains the historical pinned release line
 - Do not describe `v1.1.0` provenance as fully canonical until pinning is complete
 
 ---
@@ -399,7 +399,7 @@ Commons gives upper layers a stable meaning layer to build around.
 - schema and example roots
 - the current schema pin target
 - per-verb request and receipt schema paths
-- release CID status (`TBD (pre-release)` until a real CID is published)
+- CID publication status (`PENDING` in `manifest.json` until published)
 
 ---
 

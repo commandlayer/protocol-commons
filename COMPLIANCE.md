@@ -29,12 +29,12 @@ Compliance claims MUST identify the version they apply to.
 
 Current repository status:
 
-- **v1.1.0** — current in-repo schema family; CID publication still pending
-- **v1.0.0** — last fully pinned canonical release
+- **v1.1.0** — current canonical in-repo schema family; repository metadata still records CID publication as pending
+- **v1.0.0** — historical pinned release line
 
 A system MAY claim **v1.1.0 schema compatibility** if it validates and enforces the published v1.1.0 schemas.
 
-A system MUST NOT claim **fully pinned canonical v1.1.0 release compliance** until the v1.1.0 CID and provenance record are published.
+A system MUST describe provenance accurately and MUST NOT claim that v1.1.0 is the historical pinned release while CID publication remains unpublished in repository metadata.
 
 ---
 
@@ -92,7 +92,7 @@ canonical compliance, and MUST reject mismatches.
 
 Mismatch = **integrity failure**
 
-For v1.1.0 specifically, the schemas and checksums can still be validated locally, but the release MUST be described as pre-release until its CID publication is complete.
+For v1.1.0 specifically, the schemas and checksums can be validated locally, and compliance statements MUST distinguish the current canonical in-repo line from the historical pinned release until CID publication is complete.
 
 ---
 
@@ -155,6 +155,6 @@ You may claim **Protocol-Commons compliant** for a specific version if:
 - CIDs and checksums match content when the version is claimed as canonical and pinned  
 - Changes logged and signed  
 - ENS TXT duties respected per SPEC.md  
-- Version status is described accurately as pinned canonical or pre-release  
+- Version status is described accurately as current canonical in-repo or historical pinned release  
 
 If uncertain → treat the implementation as **experimental**.

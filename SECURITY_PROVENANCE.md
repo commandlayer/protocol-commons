@@ -1,10 +1,10 @@
 # Security Provenance — Protocol Commons
 **Scope:** Protocol-Commons  
-**Status:** v1.1.0 — Pre-Release Candidate; v1.0.0 remains the last pinned canonical release  
+**Status:** v1.1.0 — Current Canonical In-Repo Line; v1.0.0 remains the historical pinned release  
 **This document is NORMATIVE and ENFORCEABLE.**
 
 Defines cryptographic provenance, integrity guarantees, and audit mechanisms 
-for published and release-candidate Protocol-Commons schemas.
+for published and current in-repo Protocol-Commons schemas.
 
 ---
 
@@ -26,13 +26,13 @@ Current canonical pinned release: **v1.0.0**
 
 Integrity sources:
 - **v1.0.0 CID:** `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
-- **v1.1.0 CID:** `TBD (pre-release; pinning not yet published)`
+- **v1.1.0 CID:** `PENDING` (pinning not yet published)
 - `checksums.txt` — file-level hashes
 - CI strict validation (Ajv)
 - `RESOLUTION.md` — immutable lifecycle history
 - `manifest.json` — current package metadata and pin target state
 
-Until a v1.1.0 CID is published and recorded, resolvers and auditors MUST treat v1.1.0 as a pre-release schema family rather than the last fully pinned canonical release.
+Until a v1.1.0 CID is published and recorded, resolvers and auditors MUST treat v1.1.0 as the current canonical in-repo schema family rather than the historical pinned release.
 
 Any semantic update requires:
 - New `schemas/vX.Y.Z/` directory
@@ -45,7 +45,7 @@ Auditors MUST verify:
 - HTTP and IPFS mirrors match exactly for pinned canonical releases
 - Checksums remain unchanged
 - Version directories are immutable
-- A release is not described as fully canonical unless its CID publication is complete
+- The current canonical in-repo line is not misdescribed as the historical pinned release before CID publication is complete
 
 ---
 
@@ -60,7 +60,7 @@ Resolvers MUST reject any:
 - Unauthorized or missing TXT keys  
 - Out-of-sync version binding
 
-For v1.1.0 specifically, TXT/CID binding MUST NOT be represented as canonical until the release CID is published.
+For v1.1.0 specifically, TXT/CID binding MUST NOT be represented as a published pinned release until CID publication is complete.
 
 ---
 
@@ -75,4 +75,4 @@ Recovery requires **transparent governance** — never mutation in place.
 
 ---
 
-**Status:** v1.1.0 is the current in-repo schema family and release candidate; v1.0.0 remains the last fully verifiable pinned canonical release.
+**Status:** v1.1.0 is the current canonical in-repo schema family; v1.0.0 remains the historical fully verifiable pinned release.

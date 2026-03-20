@@ -46,7 +46,7 @@ It answers:
 
 | Folder/File                       | Meaning                                                              |
 | --------------------------------- | -------------------------------------------------------------------- |
-| `schemas/v1.1.0/commons/`         | Active in-repo Commons schemas (current pre-release candidate)       |
+| `schemas/v1.1.0/commons/`         | Current canonical in-repo Commons schemas                            |
 | `examples/v1.1.0/commons/`        | Active v1.1.0 example payloads and vectors                           |
 | `schemas/v1.0.0/commons/`         | Historical pinned Commons schemas (immutable canonical release)      |
 | `schemas/v1.0.0/_shared/`         | Historical shared primitives used by v1.0.0                          |

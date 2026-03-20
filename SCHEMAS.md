@@ -27,7 +27,7 @@ This repository currently ships:
 - **v1.1.0** as the active in-repo schema family
 - **v1.0.0** as the historical and last fully pinned canonical release
 
-Because `manifest.json` still reports the v1.1.0 schema CID as pending, documentation MUST describe v1.1.0 as **pre-release for provenance/pinning status** until a real CID is published.
+Because `manifest.json` still reports the v1.1.0 schema CID as pending, documentation MUST describe v1.1.0 accurately as the current canonical in-repo line and MUST distinguish it from the historical pinned release until a real CID is published.
 
 ---
 
@@ -253,16 +253,16 @@ Integrity is tracked by:
 Current v1.1.0 schema CID status:
 
 ```text
-TBD (pre-release)
+PENDING
 ```
 
-Last pinned canonical release CID:
+Last pinned canonical release content identifier:
 
 ```text
 v1.0.0 → bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m
 ```
 
-Resolvers and auditors MUST reject mismatched artifacts and MUST distinguish between a shipped schema family and a fully pinned canonical release.
+Resolvers and auditors MUST reject mismatched artifacts and MUST distinguish between the current canonical in-repo schema family and the historical pinned release.
 
 ---
 
@@ -271,4 +271,4 @@ Resolvers and auditors MUST reject mismatched artifacts and MUST distinguish bet
 - dev@commandlayer.org
 - PGP 5016 D496 9F38 22B2 C5A2 FA40 99A2 6950 197D AB0A
 
-**Status:** v1.1.0 active in-repo schema family with pending CID; v1.0.0 retained as the historical pinned canonical release.
+**Status:** v1.1.0 current canonical in-repo schema family with pending CID publication metadata; v1.0.0 retained as the historical pinned release.
