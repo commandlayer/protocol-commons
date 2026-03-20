@@ -223,11 +223,8 @@ Current HTTPS schema root:
 https://commandlayer.org/schemas/v1.1.0/
 ```
 
-Manifest-tracked IPFS publication state for v1.1.0:
+Manifest-tracked IPFS publication for v1.1.0 is recorded in `manifest.json` when a CID is published.
 
-```text
-PENDING
-```
 
 Historical legacy CID record:
 

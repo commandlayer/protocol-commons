@@ -24,9 +24,9 @@ The current release is **v1.1.0**. The active schema line is **`schemas/v1.1.0/c
 
 - **Current release:** `v1.1.0`
 - **Active schema line:** `schemas/v1.1.0/commons`
-- **Pinned canonical release after CID insertion:** `v1.1.0`
-- **Current IPFS publication state for v1.1.0:** `schemas_cid: PENDING` in `manifest.json`, meaning IPFS publication is tracked separately from the HTTPS-hosted schema line
-- **Historical release:** `v1.0.0` with CID `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
+- **Pinned canonical release:** `v1.1.0` once its CID is recorded in `manifest.json`
+- **Historical release:** `v1.0.0` with published CID `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
+- **IPFS publication tracking:** recorded in `manifest.json` separately from HTTPS schema hosting
 
 HTTPS hosting and IPFS pinning are separate distribution layers:
 
@@ -203,7 +203,7 @@ Example paths:
 - active release version
 - schema roots
 - example roots
-- IPFS publication state
+- IPFS publication record
 - historical release metadata
 
 `checksums.txt` records SHA-256 checksums for shipped schema artifacts.

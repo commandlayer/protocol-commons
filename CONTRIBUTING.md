@@ -44,13 +44,13 @@ If you change a schema or semantic contract, you must also:
 - Preserve immutability of published version directories unless the change is explicitly historical documentation only
 - Review `SCHEMAS.md` and `SPEC.md` for versioning implications
 - Update `CHANGELOG.md` when the externally visible contract changes
-- Update `RESOLUTION.md`, provenance, or checksum artifacts if the release process requires it
+- Update `RESOLUTION.md`, `manifest.json`, and checksum artifacts when the release process requires it
 
 ## Versioning Expectations
 
 - Treat published release lines as append-only history
 - Use a new version directory for semantic changes
-- Keep `v1.1.0` documented as the current in-repo line until a newer line is intentionally introduced
+- Keep `v1.1.0` documented as the current release and active schema line until a newer line is intentionally introduced
 
 ## Review Standard
 

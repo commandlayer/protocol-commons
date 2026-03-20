@@ -38,12 +38,12 @@ Breaking issues are prioritized.
 ## Integrity Rules
 
 - Versioned directories are **immutable** once published  
-- All schemas pinned to IPFS + checksummed  
-- Strict, reproducible CI validation  
-- Any change requires **a new version** — never hot patches
+- Schema artifacts are covered by checksum-based integrity records  
+- Release metadata and publication records are documented in the repository  
+- Any semantic change requires **a new version** — never hot patches
 
 These guarantees keep Commons safe to depend on long-term.
 
 ---
 
-Status: v1.0.0 retained as the historical pinned release • v1.1.0 documented as the current canonical in-repo line • verifiable semantics
+Status: v1.1.0 is the current release and active schema line • v1.0.0 is the historical legacy release • IPFS publication is tracked separately in documented release metadata
