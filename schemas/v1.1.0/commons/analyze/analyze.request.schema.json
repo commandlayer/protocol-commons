@@ -19,12 +19,13 @@
       "minLength": 1
     },
     "mode": {
+      "description": "Optional analysis-native mode selector. Use `summarize` as its own verb when the primary action is summary generation.",
       "type": "string",
       "enum": [
         "classify",
         "extract",
         "score",
-        "summarize"
+        "synthesize"
       ]
     }
   },
