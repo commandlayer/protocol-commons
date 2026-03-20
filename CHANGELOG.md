@@ -7,7 +7,7 @@ Released as the current Protocol-Commons version and active schema line.
 - Added the flat Commons schema family under `schemas/v1.1.0/commons`
 - Published self-contained request and receipt schemas for the 10 canonical Commons verbs
 - Removed shared `$ref` dependencies from the v1.1.0 Commons schema family
-- Standardized v1.1.0 receipts around a compact attestation-oriented structure
+- Standardized v1.1.0 receipts around a compact checksum-oriented structure
 - Documented v1.1.0 as the current release and active schema line
 - Retained v1.0.0 only as a historical legacy release for compatibility review and auditing
 - Clarified that HTTPS schema hosting and IPFS pinning are separate publication layers

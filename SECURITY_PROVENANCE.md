@@ -41,11 +41,11 @@ Current release state:
 
 - **Current release:** `v1.1.0`
 - **Active schema line:** `schemas/v1.1.0/commons`
-- **Manifest-tracked CID for v1.1.0:** `PENDING`
+- **CID recording for v1.1.0:** entered in `manifest.json` when the release is published to IPFS
 - **Historical legacy release:** `v1.0.0`
 - **Historical v1.0.0 CID:** `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
 
-IPFS publication is tracked separately from HTTPS hosting. The v1.1.0 HTTPS schema URLs can be live while the manifest still records `schemas_cid: PENDING` for the IPFS publication step.
+IPFS publication is tracked separately from HTTPS hosting. The v1.1.0 HTTPS schema URLs can be live before or after the repository records a CID for that release in `manifest.json`.
 
 ## Publication Layers
 
