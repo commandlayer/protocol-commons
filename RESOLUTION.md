@@ -25,7 +25,7 @@ If a change is **not** documented here, it is **not** considered valid.
 | Date       | Verb(s)                                                                                                                                                                     | Action  | Class   | Reason                                                                                                      | Resolution                                                                                                              | Approver(s)       |
 |------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|---------|-------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|-------------------|
 | 2025-12-06 | analyze, classify, clean, convert, describe, explain, fetch, format, parse, summarize                                                                                       | Added   | Commons | Initial canonical verb set                                                                                  | v1.0.0 published — immutable directory `schemas/v1.0.0/` — CID: `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m` | Founding Steward  |
-| 2026-03-18 | analyze, classify, clean, convert, describe, explain, fetch, format, parse, summarize                                                                                       | Revised | Commons | Simplified attestation-oriented receipt contract, flat layout, removal of universal x402/trace assumptions from the new schema family | v1.1.0 current canonical in-repo line recorded, CID publication pending                                                 | Founding Steward  |
+| 2026-03-18 | analyze, classify, clean, convert, describe, explain, fetch, format, parse, summarize                                                                                       | Revised | Commons | Simplified attestation-oriented receipt contract, flat layout, removal of universal x402/trace assumptions from the new schema family | v1.1.0 canonical HTTPS schema hosting live; IPFS CID publication pending                                                | Founding Steward  |
 
 > Any future semantic change requires a **new version directory** and **new CID** prior to approval and publication in this Resolution Log.
 
@@ -49,4 +49,4 @@ Maintainers must review before any merge:
 - `GOVERNANCE.md`
 - `SECURITY_PROVENANCE.md`
 
-**Status:** v1.1.0 current canonical in-repo line recorded, CID publication pending; v1.0.0 remains the historical pinned release.
+**Status:** v1.1.0 canonical HTTPS schema hosting is live, IPFS CID publication remains pending; v1.0.0 remains the historical pinned release.

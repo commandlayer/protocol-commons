@@ -26,13 +26,14 @@ Current canonical pinned release: **v1.0.0**
 
 Integrity sources:
 - **v1.0.0 CID:** `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
-- **v1.1.0 CID:** `PENDING` (pinning not yet published)
+- **v1.1.0 HTTPS canonical root:** `https://commandlayer.org/schemas/v1.1.0/` (live)
+- **v1.1.0 CID:** `PENDING` (IPFS pinning not yet published)
 - `checksums.txt` — file-level hashes
 - CI strict validation (Ajv)
 - `RESOLUTION.md` — immutable lifecycle history
 - `manifest.json` — current package metadata and pin target state
 
-Until a v1.1.0 CID is published and recorded, resolvers and auditors MUST treat v1.1.0 as the current canonical in-repo schema family rather than the historical pinned release.
+Until a v1.1.0 CID is published and recorded, resolvers and auditors MUST treat v1.1.0 as the current canonical HTTPS-hosted schema family rather than the historical pinned release.
 
 Any semantic update requires:
 - New `schemas/vX.Y.Z/` directory
@@ -42,10 +43,10 @@ Any semantic update requires:
 **No silent edits. No exceptions.**
 
 Auditors MUST verify:
-- HTTP and IPFS mirrors match exactly for pinned canonical releases
+- HTTPS and IPFS mirrors match exactly for pinned canonical releases
 - Checksums remain unchanged
 - Version directories are immutable
-- The current canonical in-repo line is not misdescribed as the historical pinned release before CID publication is complete
+- The current canonical HTTPS-hosted line is not misdescribed as the historical pinned release before CID publication is complete
 
 ---
 
@@ -75,4 +76,4 @@ Recovery requires **transparent governance** — never mutation in place.
 
 ---
 
-**Status:** v1.1.0 is the current canonical in-repo schema family; v1.0.0 remains the historical fully verifiable pinned release.
+**Status:** v1.1.0 is the current canonical HTTPS-hosted schema family with pending IPFS CID publication; v1.0.0 remains the historical fully verifiable pinned release.

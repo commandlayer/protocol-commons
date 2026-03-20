@@ -99,7 +99,7 @@ Attempts to mutate semantics in place MUST be treated as **UNTRUSTED**.
 The current lock states are interpreted strictly:
 
 - **v1.0.0 historical pinned release** means the legacy release line with published CID, immutable checksums, and locked provenance
-- **v1.1.0 current canonical working line** means the current repository contract and primary documentation target; CID publication remains pending in repository provenance metadata
+- **v1.1.0 current canonical HTTPS-hosted line** means the current repository contract, primary documentation target, and live HTTPS schema namespace; IPFS CID publication remains pending in repository provenance metadata
 
 ---
 
@@ -154,7 +154,7 @@ Silent or undocumented changes are **STRICTLY FORBIDDEN.**
 
 Every semantic release MUST publish new CIDs + checksums.
 
-Until CID publication is complete, contributors MUST describe that version accurately as the current canonical working line and MUST NOT misstate it as the historical pinned release.
+Until IPFS CID publication is complete, contributors MUST describe that version accurately as the current canonical HTTPS-hosted line and MUST NOT misstate it as the historical pinned release.
 
 ---
 
@@ -184,6 +184,6 @@ ONLY if:
 
 False claims REQUIRE public enforcement action.
 
-_Last updated: v1.0.0 retained as the historical pinned release; v1.1.0 documented as the current canonical working line_  
+_Last updated: v1.0.0 retained as the historical pinned release; v1.1.0 documented as the current canonical HTTPS-hosted line_  
 Steward declaration (plain-text repository statement, not a cryptographic signature): **`commandlayer.eth`**  
 *Founding Steward — CommandLayer Semantic Standards*

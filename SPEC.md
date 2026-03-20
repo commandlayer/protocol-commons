@@ -25,15 +25,15 @@ Execution, payment, identity, and routing are the domain of other layers.
 
 This repository contains two materially different Commons schema families:
 
-- **v1.1.0** — current canonical in-repo schema family and active documentation target
+- **v1.1.0** — current canonical schema family, active documentation target, and live HTTPS-hosted identifier set
 - **v1.0.0** — legacy schema family and historical pinned release
 
-Repository metadata still records v1.1.0 CID publication as pending. Implementers MUST therefore distinguish between:
+Repository metadata still records v1.1.0 IPFS CID publication as pending. Implementers MUST therefore distinguish between:
 
-1. **Schema semantics** — what the v1.1.0 files require
-2. **Release provenance status** — whether a version has completed CID publication and canonical pinning
+1. **Schema semantics and canonical HTTPS identifiers** — what the v1.1.0 files require and where their `$id` values resolve
+2. **Release provenance status** — whether a version has completed IPFS CID publication and canonical pinning
 
-This specification documents the v1.1.0 contract as the current canonical working line while preserving v1.0.0 as the historical pinned release until v1.1.0 pinning is complete.
+This specification documents the v1.1.0 contract as the current canonical schema family while preserving v1.0.0 as the historical pinned release until v1.1.0 IPFS pinning is complete.
 
 ---
 
@@ -209,7 +209,7 @@ schemas/v1.0.0/commons/<verb>/receipts/<verb>.receipt.schema.json
 
 Every v1.1.0 schema MUST use the canonical HTTPS `$id` namespace under this pattern.
 
-Those `$id` values are stable schema identifiers inside the repository and validation tooling. They SHOULD resolve over live HTTPS once publication/hosting is completed, but live HTTPS resolution is not yet guaranteed by current v1.1.0 repository provenance metadata.
+Those `$id` values are stable canonical schema identifiers. For v1.1.0 they MUST match the live HTTPS-hosted schema namespace and MUST resolve at the published HTTPS locations. This HTTPS hosting state is distinct from any separate IPFS CID publication record.
 
 ### Request
 
@@ -274,7 +274,8 @@ The current v1.1.0 schema family is identified by:
 - Package version: `1.1.0`
 - Manifest entry: `manifest.json`
 - File-level hashes: `checksums.txt`
-- IPFS directory CID: `PENDING` until CID publication is complete
+- Canonical HTTPS schema host: `https://commandlayer.org/schemas/v1.1.0/`
+- IPFS directory CID: `PENDING` until IPFS CID publication is complete
 
 The last fully pinned canonical release is:
 
@@ -286,7 +287,7 @@ Auditors and resolvers SHOULD:
 1. Fetch the versioned schemas
 2. Verify integrity locally
 3. Treat mismatched artifacts as untrusted
-4. Treat v1.1.0 as the current canonical working line, distinct from the historical pinned release, until CID publication is complete
+4. Treat v1.1.0 HTTPS identifiers as live canonical schema references, while treating IPFS provenance for v1.1.0 as pending until a CID is published
 
 Integrity check command:
 
@@ -305,9 +306,9 @@ An implementation supporting Commons v1.1.0 MUST:
 3. Validate the flat receipt shape exactly as published
 4. Treat published version directories as immutable
 5. Preserve receipt trust semantics as hashes plus signatures, without inventing unsupported guarantees
-6. Avoid representing v1.1.0 as the historical pinned release until CID publication is complete
+6. Avoid representing v1.1.0 as the historical pinned release until its IPFS CID publication is complete
 
-A system supporting any canonical verb MAY claim **Commons-Compatible** for that version, but provenance claims MUST accurately reflect whether the relevant version is the current canonical working line or the historical pinned release.
+A system supporting any canonical verb MAY claim **Commons-Compatible** for that version, but provenance claims MUST accurately reflect whether the relevant version is the current canonical HTTPS-hosted schema family or the historical pinned release.
 
 ---
 
@@ -320,7 +321,7 @@ If any of the following occur:
 - required conditional receipt fields are missing
 - published artifacts differ from expected checksums
 - published artifacts are mutated in place
-- a current canonical in-repo version is misrepresented as the historical pinned release
+- a current canonical HTTPS-hosted version is misrepresented as the historical pinned release
 
 consumers MUST treat the artifact as untrusted and SHOULD reject it.
 
@@ -345,5 +346,5 @@ Security escalation MUST follow repository policy.
 
 ## Status
 
-**v1.1.0:** current canonical schema family documented here; CID publication status remains pending in repository metadata  
+**v1.1.0:** current canonical schema family documented here; HTTPS hosting is live and IPFS CID publication remains pending in repository metadata  
 **v1.0.0:** legacy schema family and historical pinned release
