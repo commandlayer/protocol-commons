@@ -74,12 +74,19 @@ Canonical definitions → `SPEC.md`.
 
 ## 4. Working Norms
 
-Before changing schemas or examples:
+```
+npm install
+npm run validate
+```
 
-- Read `SCHEMAS.md` for layout and versioning rules
-- Read `SPEC.md` for the contract you are changing
-- Treat published version folders as immutable unless governance explicitly opens a new release line
-- Use `npm run validate` as the default repo-wide verification command
+Use the subcommands only when you need a narrower loop:
+
+```
+npm run validate:schemas
+npm run validate:examples
+```
+5. Update `RESOLUTION.md`, provenance
+6. Submit PR with version class (MAJOR/MINOR/PATCH)
 
 If you are preparing a contribution, follow `CONTRIBUTING.md`.
 
@@ -90,6 +97,16 @@ If you are preparing a contribution, follow `CONTRIBUTING.md`.
 - No edits to existing version folders
 - Fully traceable governance + checksums
 - Deterministic $id + HTTP resolution
+
+## 5A. Fixture Rules
+
+When you touch `examples/`, keep the validation surface credible:
+
+- valid examples should be realistic, not cartoon placeholders
+- invalid examples should usually test one clear failure, not five at once
+- filenames should explain the scenario (`missing-input`, `invalid-version`, `extra-property`, etc.)
+- request examples must stay verb-aligned; do not copy an invalid fixture from one verb directory into another
+- valid receipts should use realistic `sha256:` digests and CID-shaped values
 
 Default assumption: **new version** for any semantic change.
 

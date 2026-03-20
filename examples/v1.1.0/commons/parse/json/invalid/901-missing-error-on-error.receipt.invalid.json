@@ -1,0 +1,9 @@
+{
+  "verb": "parse",
+  "version": "1.1.0",
+  "status": "error",
+  "timestamp": "2026-03-18T13:20:28Z",
+  "agent": "parseagent.eth",
+  "request_hash": "sha256:f07d77c95438cefe9184437de2272ec36d7fd0b7e57e3d3f630e7ec68b3b2f89",
+  "signature": "MEQCID1mN3pQ5rS7tU9vW1xY3zA5bC7dE9fG1hJ3kL5mN7pQAiAP0rT2vW4xY6zB8dD0fF2hH4jJ6lL8nP0rT2vW4xY6z"
+}

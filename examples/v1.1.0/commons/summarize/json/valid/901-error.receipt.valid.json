@@ -1,0 +1,10 @@
+{
+  "verb": "summarize",
+  "version": "1.1.0",
+  "status": "error",
+  "timestamp": "2026-03-18T13:30:24Z",
+  "agent": "summarizeagent.eth",
+  "request_hash": "sha256:e0e58e7252820c1cbeb4a585d07b854e44f4c4a236503d17b47779c4cbaf5f90",
+  "signature": "MEQCIA6hJ8kL0mN2pQ4rS6tU8vW0xY2zA4bC6dE8fG0hJ2lNAiBdF7hJ9kL1mN3pQ5rS7tU9vW1xY3zA5bC7dE9fG1hJ3",
+  "error": "The input was too fragmentary to produce a faithful summary without inventing missing context."
+}

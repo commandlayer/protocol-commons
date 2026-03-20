@@ -1,0 +1,6 @@
+{
+  "verb": "classify",
+  "version": "1.1.1",
+  "input": "Classify this incident report.",
+  "mode": "single"
+}

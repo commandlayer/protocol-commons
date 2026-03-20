@@ -1,0 +1,7 @@
+{
+  "verb": "analyze",
+  "version": "1.1.0",
+  "input": "Review the incident summary.",
+  "mode": "extract",
+  "trace_id": "req_01"
+}

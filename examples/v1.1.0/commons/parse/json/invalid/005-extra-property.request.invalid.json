@@ -1,0 +1,7 @@
+{
+  "verb": "parse",
+  "version": "1.1.0",
+  "input": "network=base",
+  "mode": "json",
+  "schema": "status"
+}

@@ -1,0 +1,6 @@
+{
+  "verb": "convert",
+  "version": "1.0.0",
+  "input": "Convert this changelog.",
+  "mode": "markdown"
+}

@@ -1,0 +1,6 @@
+{
+  "verb": "explain",
+  "version": "v1.1.0",
+  "input": "Explain this verifier flow.",
+  "mode": "technical"
+}

@@ -1,0 +1,5 @@
+{
+  "verb": "explain",
+  "version": "1.1.0",
+  "input": "Explain how a verifier should confirm that a receipt belongs to a request using request_hash and signature."
+}

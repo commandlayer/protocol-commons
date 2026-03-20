@@ -1,7 +1,7 @@
 {
   "name": "@commandlayer/commons",
   "version": "1.1.0",
-  "description": "Canonical Commons verbs and strict JSON Schemas for autonomous agents \u2014 active v1.1.0 schema family, historical pinned v1.0.0 release, and cross-runtime interoperability.",
+  "description": "Canonical Commons verbs and strict JSON Schemas for autonomous agents — active v1.1.0 schema family, historical pinned v1.0.0 release, and cross-runtime interoperability.",
   "private": false,
   "type": "module",
   "license": "MIT",
@@ -49,10 +49,9 @@
     "ajv-formats": "^3.0.1"
   },
   "scripts": {
+    "validate": "npm run validate:schemas && npm run validate:examples",
     "validate:schemas": "node scripts/validate-all.mjs",
     "validate:examples": "node scripts/validate-examples.mjs",
-    "validate:all": "npm run validate:schemas && npm run validate:examples",
-    "validate": "npm run validate:all",
     "checksums:gen": "bash scripts/generate-checksums.sh schemas checksums.txt",
     "checksums:verify": "bash scripts/verify-checksums.sh",
     "checksums:dirty": "git diff --exit-code -- checksums.txt",
