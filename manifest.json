@@ -77,11 +77,11 @@
   ],
   "latest_commons_root": "schemas/v1.1.0/commons",
   "pin_target": "schemas/v1.1.0/commons",
-  "status": "current-canonical-https-hosted",
+  "status": "published",
   "historical_releases": [
     {
       "version": "1.0.0",
-      "status": "locked",
+      "status": "historical legacy release",
       "schemas_root": "schemas/v1.0.0",
       "examples_root": "examples/v1.0.0",
       "schemas_cid": "bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m",
@@ -151,7 +151,7 @@
   ],
   "active_release": {
     "version": "1.1.0",
-    "status": "current-canonical-https-hosted",
+    "status": "current release",
     "schemas_root": "schemas/v1.1.0",
     "commons_root": "schemas/v1.1.0/commons",
     "examples_root": "examples/v1.1.0",
@@ -160,7 +160,7 @@
   },
   "pinned_canonical_release": {
     "version": "1.0.0",
-    "status": "locked",
+    "status": "pinned canonical release",
     "schemas_root": "schemas/v1.0.0",
     "commons_root": "schemas/v1.0.0/commons",
     "examples_root": "examples/v1.0.0",
