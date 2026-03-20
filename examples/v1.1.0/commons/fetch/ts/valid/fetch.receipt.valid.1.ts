@@ -1,4 +1,4 @@
-// VALID fetch.receipt #1 — success receipt with signer identity and hashes
+// VALID fetch.receipt #1 — success receipt with realistic digest/CID-shaped evidence
 
 export interface FetchReceipt {
   verb: "fetch";
@@ -18,11 +18,11 @@ export const fetchReceiptValid1: FetchReceipt = {
   "verb": "fetch",
   "version": "1.1.0",
   "status": "ok",
-  "timestamp": "2026-03-18T12:00:00Z",
+  "timestamp": "2026-03-18T13:00:00Z",
   "agent": "fetchagent.eth",
-  "request_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
-  "result_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
-  "result_cid": "bafybeifetchreceiptokexample0001",
+  "request_hash": "sha256:549ae105b20f8ba134fe5f4f3f5f849cfb154ea0ff742f32c611f2fab24f9f66",
+  "result_hash": "sha256:8cdb52e345b9a13361a5b8d3f9f95d1db0f7efd974f0aeb6d40f65a1c4d5de6d",
+  "result_cid": "bafybeih7k9m1o3q5s7u9w1y3a5c7e9g1i3k5m7o9q1s3u5w7y9a1c3e5gq",
   "summary": "Fetched a JSON status document describing service health, schema tag, and signer availability.",
-  "signature": "sigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  "signature": "MEUCID9jK1lM3nO5pQ7rS9tU1vW3xY5zB7cD9eF1gH3iJ5kLAiEAoQ2rS4tU6vW8xY0zB2dD4fF6hH8jJ0lL2nP4rT6vX8"
 };

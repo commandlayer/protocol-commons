@@ -79,12 +79,14 @@ npm install
 npm run validate
 ```
 
-Use the subcommands only when you need a narrower loop:
+Use a subcommand only when you need a narrower loop after the aggregate pass:
 
 ```
 npm run validate:schemas
-npm run validate:examples
 ```
+
+`npm run validate` already includes `npm run validate:examples`. Run `validate:examples` separately only when you intentionally want an examples-only loop.
+
 5. Update `RESOLUTION.md`, provenance
 6. Submit PR with version class (MAJOR/MINOR/PATCH)
 
@@ -96,7 +98,7 @@ If you are preparing a contribution, follow `CONTRIBUTING.md`.
 - Schema + example alignment
 - No edits to existing version folders
 - Fully traceable governance + checksums
-- Deterministic $id + HTTP resolution
+- Deterministic canonical `$id` values, with live HTTP resolution added when publication is completed
 
 ## 5A. Fixture Rules
 
@@ -107,6 +109,7 @@ When you touch `examples/`, keep the validation surface credible:
 - filenames should explain the scenario (`missing-input`, `invalid-version`, `extra-property`, etc.)
 - request examples must stay verb-aligned; do not copy an invalid fixture from one verb directory into another
 - valid receipts should use realistic `sha256:` digests and CID-shaped values
+- unless the repo ships the exact corresponding payload artifacts, treat example digests/signatures/CIDs as format-realistic illustrative evidence rather than independently verifiable production proofs
 
 Default assumption: **new version** for any semantic change.
 

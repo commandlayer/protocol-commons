@@ -1,4 +1,4 @@
-// VALID summarize.receipt #2 — error receipt variant required by the schema
+// VALID summarize.receipt #2 — error receipt variant showing that `agent` is optional
 
 import type { SummarizeReceipt } from "./summarize.receipt.valid.1";
 
@@ -6,9 +6,8 @@ export const summarizeReceiptValid2: SummarizeReceipt = {
   "verb": "summarize",
   "version": "1.1.0",
   "status": "error",
-  "timestamp": "2026-03-18T12:05:00Z",
-  "agent": "summarizeagent.eth",
-  "request_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
-  "signature": "sigBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-  "error": "summarize execution failed because the input could not be processed in the requested mode."
+  "timestamp": "2026-03-18T13:30:24Z",
+  "request_hash": "sha256:e0e58e7252820c1cbeb4a585d07b854e44f4c4a236503d17b47779c4cbaf5f90",
+  "signature": "MEQCIA6hJ8kL0mN2pQ4rS6tU8vW0xY2zA4bC6dE8fG0hJ2lNAiBdF7hJ9kL1mN3pQ5rS7tU9vW1xY3zA5bC7dE9fG1hJ3",
+  "error": "The input was too fragmentary to produce a faithful summary without inventing missing context."
 };

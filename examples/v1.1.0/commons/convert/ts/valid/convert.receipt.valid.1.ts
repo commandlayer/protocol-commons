@@ -1,4 +1,4 @@
-// VALID convert.receipt #1 — success receipt with signer identity and hashes
+// VALID convert.receipt #1 — success receipt with realistic digest/CID-shaped evidence
 
 export interface ConvertReceipt {
   verb: "convert";
@@ -18,11 +18,11 @@ export const convertReceiptValid1: ConvertReceipt = {
   "verb": "convert",
   "version": "1.1.0",
   "status": "ok",
-  "timestamp": "2026-03-18T12:00:00Z",
+  "timestamp": "2026-03-18T12:30:00Z",
   "agent": "convertagent.eth",
-  "request_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
-  "result_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
-  "result_cid": "bafybeiconvertreceiptokexample0001",
-  "summary": "Converted plain release notes into markdown sections suitable for documentation.",
-  "signature": "sigAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  "request_hash": "sha256:fbab825a8f87dfdc5ff7e8770baad69c3ab381654677a1f2df45f1ad0dfbd2af",
+  "result_hash": "sha256:0f6a8f2beefad7c74f890ea6bc59dd34a30de5c280f5ec9a57cbfbf1ff5cd4f0",
+  "result_cid": "bafybeih4s6u8w0y2a4c6e8g0i2k4m6o8q0s2u4w6y8a0c2e4g6i8k0m2oq",
+  "summary": "Converted the HTML release note fragment into markdown headings and paragraph text.",
+  "signature": "MEQCIF7gH9iJ1kL3mN5pQ7rS9tU1vW3xY5zB7cD9eF1gH3iJAiB6jK8lM0nP2rT4vX6zB8dF0hJ2lN4pR6tV8xZ0bC2d"
 };
