@@ -12,8 +12,8 @@
 
 > **Integrity Notice — Protocol-Commons v1.1.0**
 >
-> `schemas/v1.1.0/commons` is the current canonical **working line in this repository**.
-> Its publication metadata still says `schemas_cid: PENDING`, so this line is **not yet the externally pinned canonical release**.
+> `schemas/v1.1.0/commons` is the current canonical schema family in this repository, and its HTTPS schema URLs are live under `https://commandlayer.org/schemas/v1.1.0/...`.
+> Its metadata still says `schemas_cid: PENDING`, so v1.1.0 is **not yet the IPFS-pinned canonical release**.
 >
 > `v1.0.0` remains the last **externally pinned canonical release**:
 > `schemas/v1.0.0/` — CID: `bafybeigvf6nkzws7dblos74dqqjkguwkrwn4a2c27ieygoxmgofyzdkz6m`
@@ -182,7 +182,7 @@ console.log(validate.errors ?? []);
 
 Commons v1.1.0 is the current canonical schema family in this repository.
 
-It is the primary documentation and validation target for Commons. The repository still records CID publication as pending, so `v1.1.0` should be treated as the active working line rather than the last externally pinned release. `v1.0.0` is retained as the historical pinned release line.
+It is the primary documentation and validation target for Commons, and its canonical HTTPS `$id` URLs are live. The repository still records IPFS CID publication as pending, so `v1.1.0` should be treated as the current HTTPS-published schema family rather than the last IPFS-pinned release. `v1.0.0` is retained as the historical pinned release line.
 
 - Each request schema is standalone
 - Each receipt schema is standalone
@@ -348,11 +348,11 @@ Commons gives upper layers a stable meaning layer to build around.
 
 ## Status
 
-**v1.1.0 — current canonical working line**
+**v1.1.0 — current canonical HTTPS-hosted schema line**
 
 - `v1.1.0` is the current flat Commons layout in this repo
 - `v1.0.0` remains the historical pinned release line
-- Do not describe `v1.1.0` as externally pinned or historically locked until CID publication is complete
+- Do not describe `v1.1.0` as IPFS-pinned or historically locked until CID publication is complete
 
 ---
 
@@ -394,9 +394,10 @@ Commons gives upper layers a stable meaning layer to build around.
 - schema and example roots
 - the current schema pin target
 - per-verb request and receipt schema paths
+- HTTPS hosting status (live for `https://commandlayer.org/schemas/v1.1.0/...`)
 - CID publication status (`PENDING` in `manifest.json` until published)
 
-Treat `schemas_cid: PENDING` as an explicit signal that the v1.1.0 line is still awaiting external publication/provenance, even though it is the repo's current schema target.
+Treat `schemas_cid: PENDING` as an explicit signal that IPFS provenance for v1.1.0 is still awaiting publication, even though the v1.1.0 HTTPS schema identifiers are already live and this is the repo's current schema target.
 
 ---
 
