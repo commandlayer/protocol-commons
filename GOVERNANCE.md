@@ -1,7 +1,7 @@
 # Governance — Protocol Commons
 
 **Scope:** Protocol-Commons (primary), Agent-Cards (identity bindings)  
-**Status:** v1.0.0 — Stable-Lock; v1.1.0 — Active In-Repo Pre-Release Candidate  
+**Status:** v1.0.0 — Historical Pinned Release; v1.1.0 — Current Canonical In-Repo Line  
 
 > This governance is **NORMATIVE, ENFORCEABLE, AND PERMANENT**.  
 > Control is custodial today and **designed to decentralize** as adoption grows.
@@ -98,8 +98,8 @@ Attempts to mutate semantics in place MUST be treated as **UNTRUSTED**.
 
 The current lock states are interpreted strictly:
 
-- **v1.0.0 Stable-Lock** means the last fully pinned canonical release with published CID, immutable checksums, and locked provenance
-- **v1.1.0 active in-repo schema family** means the current repository contract under review and validation, but still a pre-release candidate until pinning is complete
+- **v1.0.0 historical pinned release** means the legacy release line with published CID, immutable checksums, and locked provenance
+- **v1.1.0 current canonical in-repo line** means the current repository contract and primary documentation target; CID publication remains pending in repository provenance metadata
 
 ---
 
@@ -154,7 +154,7 @@ Silent or undocumented changes are **STRICTLY FORBIDDEN.**
 
 Every semantic release MUST publish new CIDs + checksums.
 
-Until a new release CID is published, contributors MUST describe that version as an active in-repo pre-release candidate rather than a fully pinned canonical release.
+Until CID publication is complete, contributors MUST describe that version accurately as the current canonical in-repo line and MUST NOT misstate it as the historical pinned release.
 
 ---
 
@@ -184,6 +184,6 @@ ONLY if:
 
 False claims REQUIRE public enforcement action.
 
-_Last updated: v1.0.0 locked as the last fully pinned canonical release; v1.1.0 active in repo as a pre-release candidate_  
+_Last updated: v1.0.0 retained as the historical pinned release; v1.1.0 documented as the current canonical in-repo line_  
 Signed: **`commandlayer.eth`**  
 *Founding Steward — CommandLayer Semantic Standards*

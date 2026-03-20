@@ -25,17 +25,15 @@ Execution, payment, identity, and routing are the domain of other layers.
 
 This repository contains two materially different Commons schema families:
 
-- **v1.1.0** — current in-repo schema family and active documentation target
-- **v1.0.0** — legacy schema family and the last fully pinned canonical release
+- **v1.1.0** — current canonical in-repo schema family and active documentation target
+- **v1.0.0** — legacy schema family and historical pinned release
 
-Because the v1.1.0 release CID is still unpublished, v1.1.0 MUST be treated as a **pre-release candidate for provenance purposes** even though its schema contracts are fully present in this repository.
-
-Implementers MUST distinguish between:
+Repository metadata still records v1.1.0 CID publication as pending. Implementers MUST therefore distinguish between:
 
 1. **Schema semantics** — what the v1.1.0 files require
 2. **Release provenance status** — whether a version has completed CID publication and canonical pinning
 
-This specification therefore documents the v1.1.0 contract explicitly while preserving v1.0.0 as the last pinned canonical release until v1.1.0 pinning is complete.
+This specification documents the v1.1.0 contract as the current canonical line while preserving v1.0.0 as the historical pinned release until v1.1.0 pinning is complete.
 
 ---
 
@@ -273,7 +271,7 @@ The current v1.1.0 schema family is identified by:
 - Package version: `1.1.0`
 - Manifest entry: `manifest.json`
 - File-level hashes: `checksums.txt`
-- IPFS directory CID: `TBD (pre-release)` until a release CID is published
+- IPFS directory CID: `PENDING` until CID publication is complete
 
 The last fully pinned canonical release is:
 
@@ -285,7 +283,7 @@ Auditors and resolvers SHOULD:
 1. Fetch the versioned schemas
 2. Verify integrity locally
 3. Treat mismatched artifacts as untrusted
-4. Treat v1.1.0 as not yet fully pinned until its CID publication is complete
+4. Treat v1.1.0 as the current canonical in-repo line, distinct from the historical pinned release, until CID publication is complete
 
 Integrity check command:
 
@@ -304,9 +302,9 @@ An implementation supporting Commons v1.1.0 MUST:
 3. Validate the flat receipt shape exactly as published
 4. Treat published version directories as immutable
 5. Preserve receipt trust semantics as hashes plus signatures, without inventing unsupported guarantees
-6. Avoid representing v1.1.0 as the last fully pinned canonical release until CID publication is complete
+6. Avoid representing v1.1.0 as the historical pinned release until CID publication is complete
 
-A system supporting any canonical verb MAY claim **Commons-Compatible** for that version, but provenance claims MUST accurately reflect whether the relevant version is fully pinned or still pre-release.
+A system supporting any canonical verb MAY claim **Commons-Compatible** for that version, but provenance claims MUST accurately reflect whether the relevant version is the current canonical in-repo line or the historical pinned release.
 
 ---
 
@@ -319,7 +317,7 @@ If any of the following occur:
 - required conditional receipt fields are missing
 - published artifacts differ from expected checksums
 - published artifacts are mutated in place
-- a pre-release version is misrepresented as fully pinned canonical provenance
+- a current canonical in-repo version is misrepresented as the historical pinned release
 
 consumers MUST treat the artifact as untrusted and SHOULD reject it.
 
@@ -344,5 +342,5 @@ Security escalation MUST follow repository policy.
 
 ## Status
 
-**v1.1.0:** current schema family, documented here, CID still pending  
-**v1.0.0:** legacy schema family and last pinned canonical release
+**v1.1.0:** current canonical schema family documented here; CID publication status remains pending in repository metadata  
+**v1.0.0:** legacy schema family and historical pinned release

@@ -46,4 +46,4 @@ These guarantees keep Commons safe to depend on long-term.
 
 ---
 
-Status: v1.0.0 locked as the last fully pinned canonical release • v1.1.0 active as the current pre-release candidate • verifiable semantics
+Status: v1.0.0 retained as the historical pinned release • v1.1.0 documented as the current canonical in-repo line • verifiable semantics
