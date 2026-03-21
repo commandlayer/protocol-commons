@@ -2,11 +2,7 @@
   "name": "@commandlayer/commons",
   "version": "1.1.0",
   "package_version": "1.1.0",
-<<<<<<< codex/normalize-documentation-for-v1.1.0-release
-  "description": "Commons verb + schema package metadata for the current v1.1.0 release and active schema line; IPFS publication for v1.1.0 is tracked separately until a CID is recorded.",
-=======
   "description": "Current release metadata for the v1.1.0 commons package.",
->>>>>>> main
   "owner": "commandlayer.eth",
   "contact": "dev@commandlayer.org",
   "license": "MIT",
@@ -155,23 +151,10 @@
   ],
   "active_release": {
     "version": "1.1.0",
-    "status": "current release and active schema line",
+    "status": "current release",
     "schemas_root": "schemas/v1.1.0",
     "commons_root": "schemas/v1.1.0/commons",
     "examples_root": "examples/v1.1.0",
-<<<<<<< codex/normalize-documentation-for-v1.1.0-release
-    "schemas_cid": "PENDING",
-    "pin_status": "awaiting-cid-insertion"
-  },
-  "pinned_canonical_release": {
-    "version": "1.1.0",
-    "status": "pinned canonical release after CID insertion",
-    "schemas_root": "schemas/v1.1.0",
-    "commons_root": "schemas/v1.1.0/commons",
-    "examples_root": "examples/v1.1.0",
-    "schemas_cid": "PENDING",
-    "pin_status": "awaiting-cid-insertion"
-=======
     "schemas_cid": "__INSERT_V1_1_0_CID__",
     "pin_status": "published"
   },
@@ -183,6 +166,5 @@
     "examples_root": "examples/v1.1.0",
     "schemas_cid": "__INSERT_V1_1_0_CID__",
     "pin_status": "published"
->>>>>>> main
   }
 }
