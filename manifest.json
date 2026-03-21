@@ -11,7 +11,7 @@
   "schemas_root": "schemas/v1.1.0",
   "examples_root": "examples/v1.1.0",
   "checksum_file": "checksums.txt",
-  "schemas_cid": "__INSERT_V1_1_0_CID__",
+  "schemas_cid": "bafybeifp4oxgofktbqh5tua2xrpsb5gfrktrtesqxq67i2tefavqxjpxb4",
   "tag": "commons-schemas-v1.1.0",
   "verbs": [
     {
@@ -155,7 +155,7 @@
     "schemas_root": "schemas/v1.1.0",
     "commons_root": "schemas/v1.1.0/commons",
     "examples_root": "examples/v1.1.0",
-    "schemas_cid": "__INSERT_V1_1_0_CID__",
+    "schemas_cid": "bafybeifp4oxgofktbqh5tua2xrpsb5gfrktrtesqxq67i2tefavqxjpxb4",
     "pin_status": "published"
   },
   "pinned_canonical_release": {
@@ -164,7 +164,7 @@
     "schemas_root": "schemas/v1.1.0",
     "commons_root": "schemas/v1.1.0/commons",
     "examples_root": "examples/v1.1.0",
-    "schemas_cid": "__INSERT_V1_1_0_CID__",
+    "schemas_cid": "bafybeifp4oxgofktbqh5tua2xrpsb5gfrktrtesqxq67i2tefavqxjpxb4",
     "pin_status": "published"
   }
 }
